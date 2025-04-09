@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Session 1: What is HPC? &#8212; HPC1: An Introduction to High Performance Computing</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3258f9b9" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'part1';</script>
+    <link rel="canonical" href="https://arcdocs.leeds.ac.uk/aire/part1.html" />
+    <link rel="icon" href="_static/favicon-32x32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Session 2: Logging-on and Linux recap" href="part2.html" />
+    <link rel="prev" title="Welcome" href="welcome.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="welcome.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="HPC1: An Introduction to High Performance Computing - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="HPC1: An Introduction to High Performance Computing - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="welcome.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 1: What is HPC?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part2.html">Session 2: Logging-on and Linux recap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part3.html">Session 3: Storage on Aire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part4.html">Session 4: Scheduler and modules</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/arcdocs/hpc1" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/arcdocs/hpc1/edit/gh-pages/book/part1.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/arcdocs/hpc1/issues/new?title=Issue%20on%20page%20%2Fpart1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/part1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Session 1: What is HPC?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-commonly-used-terms">Some commonly used terms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-and-parallel-programs">Serial and parallel programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-an-hpc-cluster">Overview of an HPC cluster</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="session-1-what-is-hpc">
+<h1>Session 1: What is HPC?<a class="headerlink" href="#session-1-what-is-hpc" title="Link to this heading">#</a></h1>
+<p>This session introduces some concepts, theories and terminology in High Performance Computing, to set you up for going more in-depth into the theory of research computing. It then lays out the general architecture of HPC systems, with some specifics relating to Aire, the latest HPC system available at the University of Leeds.</p>
+<section id="some-commonly-used-terms">
+<h2>Some commonly used terms<a class="headerlink" href="#some-commonly-used-terms" title="Link to this heading">#</a></h2>
+<p>Let’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+HPC</label><div class="sd-tab-content docutils">
+<h3 class="rubric" id="hpc">HPC</h3>
+<ul class="simple">
+<li><p><strong>HPC</strong> stands for <strong>High Performance Computing</strong></p></li>
+<li><p>HPC systems or platforms can also be called <strong>clusters</strong> or <strong>supercomputers</strong></p></li>
+</ul>
+<p>HPC systems allow multiple processors to work on the same problem at the same time, allowing complex problems to be solved faster than they could be on a single computer.</p>
+<ul class="simple">
+<li><p>Problems which might take years to run on a single processor might run 10 or 100 times faster using 10 or 100 processors in parallel, thus reducing the time to results for the researcher.</p></li>
+<li><p><strong>It’s not magic</strong>, there is no fairy dust that can just make code run on hundreds of processors. So a lot of work and effort has to be put into using these system effectively and to get the most out of them.</p></li>
+<li><p><strong>It could transform your workflow</strong> if you put the effort in to shape your code to work on a HPC system.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Cluster</label><div class="sd-tab-content docutils">
+<h3 class="rubric" id="cluster">Cluster</h3>
+<ul class="simple">
+<li><p>Computer clusters are a system of computers that work together to allow large-scale computing</p></li>
+<li><p>Imagine a network of laptops hooked up together on a high speed network - each laptop is a “node” in the cluster and acts as a server
+</br></br></br></br></br></br></p></li>
+</ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Node</label><div class="sd-tab-content docutils">
+<h3 class="rubric" id="node">Node</h3>
+<ul class="simple">
+<li><p>A node is an individual physical machine/server, that when linked to other nodes makes up the cluster</p></li>
+<li><p>In current systems, a node would typically include one or more processors, as well as memory and other hardware.</p></li>
+</ul>
+<p></br></br></br></br></br></br></p>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Processor</label><div class="sd-tab-content docutils">
+<h2 class="rubric" id="processor">Processor</h2>
+<p>The processor or <strong>central processing unit</strong> (CPU) inside the node, which contains one or more cores.</p>
+<ul class="simple">
+<li><p>Your laptop or desktop will have a CPU, for example “Intel Core i7”</p></li>
+</ul>
+<p>Machines can also have a <strong>graphical processing unit</strong> or GPU (often used in machine learning)</p>
+<p></br></br></br></br></br></br></p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Core</label><div class="sd-tab-content docutils">
+<h2 class="rubric" id="core">Core</h2>
+<p>This refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.</p>
+<ul class="simple">
+<li><p>You will have to define how many cores you want to run your code across.</p></li>
+<li><p>You can use cores across multiple nodes</p></li>
+</ul>
+<p></br></br></br></br></br></br></p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+Aire</label><div class="sd-tab-content docutils">
+<h2 class="rubric" id="aire">Aire</h2>
+<ul class="simple">
+<li><p>Aire is the University of Leeds’ latest HPC system</p></li>
+<li><p>It uses a Linux operating system</p></li>
+<li><p>The system has 52 CPU <strong>nodes</strong> (and 28 GPU nodes)</p></li>
+<li><p>Each CPU <strong>node</strong> has:</p>
+<ul>
+<li><p><strong>168 cores</strong> (ARC4 had 40 cores)</p></li>
+<li><p><strong>768GB</strong> memory</p></li>
+</ul>
+</li>
+</ul>
+<p>You can <a class="reference external" href="https://arc.leeds.ac.uk/platforms/aire/">read more about the Aire system on our website</a></p>
+<p></br></br></br></br></br></br></p>
+</div>
+</div>
+<div class="admonition-key-takeaway admonition">
+<p class="admonition-title">Key takeaway</p>
+<p>HPC cluster systems are formed of a large number of separate computers called nodes.</p>
+<p>Each node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.</p>
+<p><strong>Read More</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/getting_started/start.html">Getting started on HPC</a></p></li>
+</ul>
+</div>
+</br>
+</br>
+</section>
+<hr class="docutils" />
+<section id="serial-and-parallel-programs">
+<h2>Serial and parallel programs<a class="headerlink" href="#serial-and-parallel-programs" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Serial programs run on a single CPU core, solving one problem at a time.</p></li>
+<li><p>Parallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.</p></li>
+<li><p>In order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.</p></li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+Serial program</label><div class="sd-tab-content docutils">
+</br>
+<p><img alt="Serial program schematic" src="_images/serial.png" /></p>
+<ul class="simple">
+<li><p>Serial problems use a single CPU core, and solve a series of problems one after the other.</p></li>
+<li><p>Each stage of the calculation (A, B, C…) may depend on the output of the previous stage, or they may be independent (and so could run in any order).</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Parallel program</label><div class="sd-tab-content docutils">
+<p><img alt="Parallel program schematic" src="_images/parallel.png" /></p>
+<ul class="simple">
+<li><p>In contrast, in a parallel program, the problems can be solved simultaneously on multiple cores.</p></li>
+<li><p>In this example, all the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins.</p></li>
+<li><p>This sort of problem is known as <a class="reference external" href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">“perfectly parallel” or “embarrassingly parallel”</a> because it is a task that is “embarassingly easy” to split up into parallel tasks.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+Imperfectly parallel</label><div class="sd-tab-content docutils">
+<p>Most tasks you run or models you run will fall somewhere in-between serial and parallel:</p>
+<ul class="simple">
+<li><p>Certain sections of the code will be able to be <em>parallelised</em> while other sections will rely on the output of the previous stage and so need to be serialised.</p></li>
+<li><p>You can express how much of your work is parallelised with a rough percentage.</p></li>
+<li><p>The higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-9" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+Amdahl’s Law</label><div class="sd-tab-content docutils">
+<p><img alt="Amdahl's Law graph" src="_images/amdahl.png" /></p>
+<p>Amdahl’s law, where <em>Speedup = (execution time for the task with no enhancements or added cores)/(execution time for the same task with enhancements or added cores)</em>. <a class="reference external" href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Image source</a>: Daniels220 at English Wikipedia, CC BY-SA 3.0, via Wikimedia Commons</p>
+<ul class="simple">
+<li><p>The greater the parallelised portion, the greater the speed-up by adding more cores</p></li>
+<li><p>There comes a point of diminishing returns where adding more cores has a negligble effect:</p>
+<ul>
+<li><p>If 50% of the job is parallelised, the greatest speedup is 2 times</p></li>
+<li><p>If 95% of the work is parallelised, the greatest speedup is 20 times.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<input id="sd-tab-item-10" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
+Parallelisation</label><div class="sd-tab-content docutils">
+<h2 class="rubric" id="this-bit-is-up-to-you">This bit is up to you!</h2>
+<ul class="simple">
+<li><p>You are the expert in your field, your numerical models, your code</p></li>
+<li><p>In this course we will show you how to request multple cores from the system for your code, but <em>you</em> need to make sure your code can make use of these!</p></li>
+<li><p>You can always submit a request for advice and guidance on how to parallelise your work.</p></li>
+</ul>
+<p>(If you are using Python, you can also attend our <a class="reference external" href="https://arc.leeds.ac.uk/courses/swd6-high-performance-python/">high performance python course</a> for more information and guidance on this topic)</p>
+</br>
+</div>
+</div>
+</br>
+</br>
+</section>
+<hr class="docutils" />
+<section id="overview-of-an-hpc-cluster">
+<h2>Overview of an HPC cluster<a class="headerlink" href="#overview-of-an-hpc-cluster" title="Link to this heading">#</a></h2>
+<p>This content is adapted from <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/system/hpc_architecture.html#hpc-architecture">this section of our Aire documentation</a>.</p>
+<p>In the previous section, we noted that HPC systems are formed of <strong>nodes</strong>, and we mentioned CPU and GPU nodes.</p>
+<p>These can be called the <strong>compute nodes</strong>: where your research code runs. But there are other nodes in the system!</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-11">
+Diagram</label><div class="sd-tab-content docutils">
+<p><img alt="A schematic diagram of the Aire HPC Cluster" src="https://arcdocs.leeds.ac.uk/aire/_images/cluster_architecture.jpg" /></p>
+<p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/system/hpc_architecture.html#overview-of-an-hpc-cluster">Image source</a></p>
+</div>
+<input id="sd-tab-item-12" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-12">
+Compute nodes</label><div class="sd-tab-content docutils">
+<p>Some more detail on the compute nodes in Aire:</p>
+<ul class="simple">
+<li><p>Compute nodes are physical systems containing CPU and memory.</p></li>
+<li><p>Each compute node on Aire has 168 cores, which are the physical processing units within a CPU that execute instructions and perform calculations.</p></li>
+<li><p>Having many cores allows many instructions to be executed in parallel.</p></li>
+<li><p>There are also high-memory nodes separate from standard compute nodes for jobs that require a significant amount of memory.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-13">
+GPU nodes</label><div class="sd-tab-content docutils">
+<p>Some more detail on the compute nodes in Aire:</p>
+<ul class="simple">
+<li><p>A GPU node is simply a compute node that has one or more Graphical Processing Units (or GPUs) installed on it.</p></li>
+<li><p>GPUs can be very powerful and allow certain programs to run faster than they do on CPUs (such as some Machine Learning and Deep Learning tools for AI applications).</p></li>
+<li><p>Programs have to be specially written to run on GPUs.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-14" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-14">
+Login nodes</label><div class="sd-tab-content docutils">
+<p>These are similar to compute nodes, but they do not run jobs and they are connected directly to the University network.</p>
+<ul class="simple">
+<li><p>You can connect to a login node via ssh and login to it.</p></li>
+<li><p>You can then create and edit files and programs and run scripts and manage your data.</p></li>
+<li><p>You can also upload and download data from login nodes.</p></li>
+<li><p>You don’t use the login node to run your work, just to prepare it and to view the results.</p></li>
+</ul>
+<p>We will run through step-by-step how to login to the system with these nodes.</p>
+</div>
+<input id="sd-tab-item-15" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-15">
+Storage nodes</label><div class="sd-tab-content docutils">
+<p>These nodes have large disk arrays attached to them, to deal with vast amount of data HPC systems can generate.</p>
+<ul class="simple">
+<li><p>Often there are multiple nodes and disk arrays which are linked together in to a large parallel filesystem.</p></li>
+<li><p>These parallel filesystems are geared for the very large amounts of I/O which some runs can generate. Storage nodes are not directly accessible by users.</p></li>
+<li><p>The data directories from the storage nodes are mounted on the login and compute nodes.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-16" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-16">
+Admin nodes</label><div class="sd-tab-content docutils">
+<p>These aren’t accessible or visible to users, but they provide the resources and services needed to manage the cluster.</p>
+<ul class="simple">
+<li><p>For example, they allow system administrators to automatically install and configure the OS on all the nodes and access monitoring features.</p></li>
+<li><p>The job scheduler, which we will discuss later, is hosted on one of the admin nodes.</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="welcome.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="part2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Session 2: Logging-on and Linux recap</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-commonly-used-terms">Some commonly used terms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serial-and-parallel-programs">Serial and parallel programs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-an-hpc-cluster">Overview of an HPC cluster</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By University of Leeds Research Computing Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
