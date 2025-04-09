@@ -1,0 +1,21 @@
+# updating for latest jupyter book version
+format: jb-book
+# ===== Main Landing Page ===========================
+root: welcome
+# ===== Getting Started =============================
+
+chapters:
+- file: part1.md
+- file: part2.md
+- file: part3.md
+- file: part4.md
+- file: part5.md
+
+
+# ===== Training and Support ========================
+- url: https://arc.leeds.ac.uk/courses/
+  title: Training Courses
+- file: support/start
+  title: Contact Us
+- url: https://arc.leeds.ac.uk
+  title: Research Computing Website
