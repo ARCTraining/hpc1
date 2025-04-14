@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Session 4: Scheduler and modules &#8212; HPC1: An Introduction to High Performance Computing</title>
+    <title>Session 4: Modules and Software &#8212; HPC1: An Introduction to High Performance Computing</title>
   
   
   
@@ -63,6 +63,7 @@
     <link rel="icon" href="_static/favicon-32x32.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Session 5: Scheduler" href="part5.html" />
     <link rel="prev" title="Session 3: Storage on Aire" href="part3.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -185,7 +186,9 @@
 <li class="toctree-l1"><a class="reference internal" href="part1.html">Session 1: What is HPC?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part2.html">Session 2: Logging-on and Linux recap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="part3.html">Session 3: Storage on Aire</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 4: Scheduler and modules</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 4: Modules and Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part5.html">Session 5: Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="part6.html">Session 6: Managing and Troubleshooting Jobs</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Training Courses</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
 </ul>
@@ -390,7 +393,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Session 4: Scheduler and modules</h1>
+    <h1>Session 4: Modules and Software</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -401,8 +404,13 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-modules-and-how-to-use-them">What are modules and how to use them?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-submit-an-example-serial-job">Practical - submit an example serial job</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-submitting-a-parallelised-job">Practical - submitting a parallelised job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-ways-to-get-run-software">other ways to get/run software</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spack-easybuild">spack/easybuild</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download">download</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-build">self build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#container">container</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -414,33 +422,25 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="session-4-scheduler-and-modules">
-<h1>Session 4: Scheduler and modules<a class="headerlink" href="#session-4-scheduler-and-modules" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>What is a scheudler</p></li>
-<li><p>Fair use</p></li>
-<li><p>Again, divided up into mini tabset “presentations”</p></li>
-<li><p>https://cautious-happiness-oz2284n.pages.github.io/#/basic-slurm-configuration</p></li>
-<li><p>https://cautious-happiness-oz2284n.pages.github.io/#/basic-slurm-job-scripts</p></li>
-<li><p>https://arcdocs.leeds.ac.uk/aire/usage/job_type.html</p></li>
-<li><p>https://arcdocs.leeds.ac.uk/aire/usage/job_example.html</p></li>
-</ul>
+  <section id="session-4-modules-and-software">
+<h1>Session 4: Modules and Software<a class="headerlink" href="#session-4-modules-and-software" title="Link to this heading">#</a></h1>
 <section id="what-are-modules-and-how-to-use-them">
 <h2>What are modules and how to use them?<a class="headerlink" href="#what-are-modules-and-how-to-use-them" title="Link to this heading">#</a></h2>
 </section>
-<section id="practical-submit-an-example-serial-job">
-<h2>Practical - submit an example serial job<a class="headerlink" href="#practical-submit-an-example-serial-job" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Create/share example job and job scrpt</p></li>
-</ul>
-<p>https://arctraining.github.io/rc-slides/hpc1.html#/submit-a-serial-python-job</p>
+<section id="other-ways-to-get-run-software">
+<h2>other ways to get/run software<a class="headerlink" href="#other-ways-to-get-run-software" title="Link to this heading">#</a></h2>
+<section id="spack-easybuild">
+<h3>spack/easybuild<a class="headerlink" href="#spack-easybuild" title="Link to this heading">#</a></h3>
 </section>
-<section id="practical-submitting-a-parallelised-job">
-<h2>Practical - submitting a parallelised job<a class="headerlink" href="#practical-submitting-a-parallelised-job" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Create/port over previous examples</p></li>
-</ul>
-<p>https://arctraining.github.io/rc-slides/hpc1.html#/submit-some-parallel-jobs</p>
+<section id="download">
+<h3>download<a class="headerlink" href="#download" title="Link to this heading">#</a></h3>
+</section>
+<section id="self-build">
+<h3>self build<a class="headerlink" href="#self-build" title="Link to this heading">#</a></h3>
+</section>
+<section id="container">
+<h3>container<a class="headerlink" href="#container" title="Link to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -483,6 +483,15 @@ document.write(`
         <p class="prev-next-title">Session 3: Storage on Aire</p>
       </div>
     </a>
+    <a class="right-next"
+       href="part5.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Session 5: Scheduler</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -500,8 +509,13 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-modules-and-how-to-use-them">What are modules and how to use them?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-submit-an-example-serial-job">Practical - submit an example serial job</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-submitting-a-parallelised-job">Practical - submitting a parallelised job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-ways-to-get-run-software">other ways to get/run software</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spack-easybuild">spack/easybuild</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download">download</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-build">self build</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#container">container</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
