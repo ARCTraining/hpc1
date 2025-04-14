@@ -13,8 +13,7 @@
 
 ## Practical - submit an example serial job
 
-- Create/share example job and job scrpt
-
+- Create/share example job and job script
 https://arctraining.github.io/rc-slides/hpc1.html#/submit-a-serial-python-job
 
 ## Practical - submitting a parallelised job - NR - Remove too advanced
