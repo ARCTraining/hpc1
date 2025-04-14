@@ -1,6 +1,6 @@
 # Session 5: Scheduler
 
-- What is a scheudler
+- What is a scheduler
 - Fair use
 
 - Again, divided up into mini tabset "presentations"
