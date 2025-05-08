@@ -5,18 +5,17 @@ root: welcome
 # ===== Getting Started =============================
 
 chapters:
-- file: part1.md
-- file: part2.md
-- file: part3.md
-- file: part4.md
-- file: part5.md
-- file: part6.md
-
+- file: what-is-hpc.md
+- file: logging-on-and-linux-recap.md
+- file: storage.md
+- file: modules-software.md
+- file: scheduling-submission.md
+- file: best-practices-troubleshooting.md
+- file: wrap-up.md
 
 # ===== Training and Support ========================
 - url: https://arc.leeds.ac.uk/courses/
   title: Training Courses
-- file: support/start
   title: Contact Us
 - url: https://arc.leeds.ac.uk
   title: Research Computing Website

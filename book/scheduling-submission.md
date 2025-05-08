@@ -1,4 +1,15 @@
-# Session 5: Scheduler
+# Session 5: Job Scheduling & Submission
+
+## Overview of HPC job scheduling systems
+### General background
+### Slurm
+## Job Scripts
+### Structure of job scripts
+### resource requests
+### submission command
+
+
+## exercise
 
 - What is a scheduler
 - Fair use
@@ -11,13 +22,8 @@
 - https://arcdocs.leeds.ac.uk/aire/usage/job_example.html
 
 
-## Practical - submit an example serial job
+## Practical - write and submit a simple job script, monitor its progress, and learn to interpret feedback
 
 - Create/share example job and job script
 https://arctraining.github.io/rc-slides/hpc1.html#/submit-a-serial-python-job
 
-## Practical - submitting a parallelised job - NR - Remove too advanced
-
-- Create/port over previous examples
-
-https://arctraining.github.io/rc-slides/hpc1.html#/submit-some-parallel-jobs
