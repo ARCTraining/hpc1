@@ -30,13 +30,14 @@ module avail
   - To use a software package, load its module.
   - Example:
     ```bash
-    module load python/3.8
+    module load python/3.13.0
     ```
+    - What happens if you do not specify a version?
 
 - **Unloading a Module:**
   - To remove a software package from your environment.
     ```bash
-    module unload python/3.8
+    module unload python/3.13.0
     ```
 
 - **Listing Loaded Modules:**
@@ -48,6 +49,9 @@ module avail
 :::: exercise
 **Exercise 2:** Load the `gcc` module and verify it's loaded.
 ::::
+
+- Note: there are more than one version of gcc available. What is the behaviour if you do not specify a version?
+  - How should you load a module when running jobs to ensure reproducibility?
 
 :::: solution
 ```bash
@@ -67,7 +71,7 @@ module list
   - Submit a Research Computing Query with details about the software.
 
 :::: exercise
-**Exercise 3:** Identify a software you need that's not available and draft a request.
+**Exercise 3:** Identify a software you need that's not available and draft a request. Can you find the Research Computing Query form via the IT website?
 ::::
 
 :::: solution
@@ -76,6 +80,9 @@ Provide the software name, version, and a brief justification for its use in you
 ````
 
 ````{tab-item} Alternative Software Management
+
+You also can manage your own software on Aire via a number of different routes. Many users will not need to do this; but it may be neccessary if you want fine-grained control and need to use older versions of software than are available via the module system.
+
 - [**Spack:**](https://spack.io/)
   - A flexible package manager for HPC systems.
   - Allows users to install software without admin privileges.
@@ -108,8 +115,10 @@ Provide the software name, version, and a brief justification for its use in you
 - **Environment Management:**
   - Use modules to manage software environments effectively.
   - Unload modules when they are no longer needed to avoid conflicts.
+  - When using software like R or Python, use the Miniforge module to create a conda environment; [read our documentation on how to set this up](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)
 
 - **Reproducibility:**
+  - Specify the version of the module you want to load; the default modules may change as new versions of software are released.
   - Document the modules and versions used in your research.
   - Use containers for complex environments to ensure consistency.
 
@@ -124,8 +133,8 @@ Provide the software name, version, and a brief justification for its use in you
 :::: solution
 ```bash
 #!/bin/bash
-module load gcc
-module load python/3.8
+module load gcc/14.2.0
+module load python/3.13.0
 # Add other module load commands as needed
 ```
 ::::

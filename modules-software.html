@@ -446,16 +446,19 @@ Using Modules</label><div class="sd-tab-content docutils">
 <ul>
 <li><p>To use a software package, load its module.</p></li>
 <li><p>Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>python/3.8
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>python/3.13.0
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>What happens if you do not specify a version?</p></li>
+</ul>
 </li>
 </ul>
 </li>
 <li><p><strong>Unloading a Module:</strong></p>
 <ul>
 <li><p>To remove a software package from your environment.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>unload<span class="w"> </span>python/3.8
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>unload<span class="w"> </span>python/3.13.0
 </pre></div>
 </div>
 </li>
@@ -474,6 +477,13 @@ Using Modules</label><div class="sd-tab-content docutils">
 <div class="exercise docutils">
 <p><strong>Exercise 2:</strong> Load the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> module and verify it’s loaded.</p>
 </div>
+<ul class="simple">
+<li><p>Note: there are more than one version of gcc available. What is the behaviour if you do not specify a version?</p>
+<ul>
+<li><p>How should you load a module when running jobs to ensure reproducibility?</p></li>
+</ul>
+</li>
+</ul>
 <div class="solution docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
 module<span class="w"> </span>list
@@ -499,7 +509,7 @@ Requesting New Modules</label><div class="sd-tab-content docutils">
 </li>
 </ul>
 <div class="exercise docutils">
-<p><strong>Exercise 3:</strong> Identify a software you need that’s not available and draft a request.</p>
+<p><strong>Exercise 3:</strong> Identify a software you need that’s not available and draft a request. Can you find the Research Computing Query form via the IT website?</p>
 </div>
 <div class="solution docutils">
 <p>Provide the software name, version, and a brief justification for its use in your research.</p>
@@ -508,6 +518,7 @@ Requesting New Modules</label><div class="sd-tab-content docutils">
 <input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-3">
 Alternative Software Management</label><div class="sd-tab-content docutils">
+<p>You also can manage your own software on Aire via a number of different routes. Many users will not need to do this; but it may be neccessary if you want fine-grained control and need to use older versions of software than are available via the module system.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spack.io/"><strong>Spack:</strong></a></p>
 <ul>
@@ -554,10 +565,12 @@ Best Practices</label><div class="sd-tab-content docutils">
 <ul>
 <li><p>Use modules to manage software environments effectively.</p></li>
 <li><p>Unload modules when they are no longer needed to avoid conflicts.</p></li>
+<li><p>When using software like R or Python, use the Miniforge module to create a conda environment; <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html">read our documentation on how to set this up</a></p></li>
 </ul>
 </li>
 <li><p><strong>Reproducibility:</strong></p>
 <ul>
+<li><p>Specify the version of the module you want to load; the default modules may change as new versions of software are released.</p></li>
 <li><p>Document the modules and versions used in your research.</p></li>
 <li><p>Use containers for complex environments to ensure consistency.</p></li>
 </ul>
@@ -574,8 +587,8 @@ Best Practices</label><div class="sd-tab-content docutils">
 </div>
 <div class="solution docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-module<span class="w"> </span>load<span class="w"> </span>gcc
-module<span class="w"> </span>load<span class="w"> </span>python/3.8
+module<span class="w"> </span>load<span class="w"> </span>gcc/14.2.0
+module<span class="w"> </span>load<span class="w"> </span>python/3.13.0
 <span class="c1"># Add other module load commands as needed</span>
 </pre></div>
 </div>

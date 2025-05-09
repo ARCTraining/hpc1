@@ -453,6 +453,24 @@ $ echo $SCRATCH
 <input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-2">
 3. Quotas</label><div class="sd-tab-content docutils">
+<p>It’s important for you to be able to check how much of your allocated quota you are using in a particular storage area, as exceeding this quota will cause your jobs to fail.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">quota</span></code></p>
+<ul>
+<li><p>This command tells you your disk usage and limits. By default, the unit is kbytes or “blocks”. You can add the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag to make the output “human readable”, showing units after the values (<code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code>).</p></li>
+<li><p>If the output is difficult to read, try resizing your terminal windows to accomodate the table.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">du</span></code></p>
+<ul>
+<li><p>This command reports the amount of disk space used by different files and directories, by default reporting in 512-byte blocks.</p></li>
+<li><p>You can provide the path to a specific directory to focus the results.</p></li>
+<li><p>Add the flag <code class="docutils literal notranslate"><span class="pre">-h</span></code> to make the output human readable.</p></li>
+<li><p>Add the flag <code class="docutils literal notranslate"><span class="pre">-s</span></code> to summarise the results (and not recursively provide results for subdirectories).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">du</span> <span class="pre">-hs</span> <span class="pre">*</span></code> will provide you with the space taken up by the data in each directory. This can be a little slow!</p></li>
+</ul>
+</li>
+</ul>
 <div class="important docutils">
 <p><strong>Exercise:</strong> Check your current disk usage and quotas. <em>(Hint: use the <code class="docutils literal notranslate"><span class="pre">quota</span></code> command.)</em></p>
 </div>
@@ -510,7 +528,7 @@ Disk quotas for user yourusername (uid 12345):
 </div>
 <div class="tip docutils">
 <p><strong>Solution:</strong> Use the syntax:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>username@aire-login.leeds.ac.uk:/users/yourname/results.txt<span class="w"> </span>.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>&lt;username&gt;@target-system:/users/yourname/results.txt<span class="w"> </span>.
 </pre></div>
 </div>
 </div>
@@ -525,11 +543,13 @@ Disk quotas for user yourusername (uid 12345):
 <li><p><strong>Data transfer:</strong> Use <code class="docutils literal notranslate"><span class="pre">scp</span></code> or <code class="docutils literal notranslate"><span class="pre">rsync</span></code> via the login nodes to move data.</p></li>
 <li><p><strong>Avoid data loss:</strong> Remember that scratch and flash are <em>temporary</em>. Always <strong>backup important data</strong> to home or external storage when done.</p></li>
 </ul>
+<p>Read up on <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html">best practises here</a>.</p>
 <div class="note docutils">
 <p><strong>Tip:</strong> Keep your home directory organized. Place large data in scratch only while needed. Archive or delete old files in scratch after use.</p>
 </div>
 </div>
 </div>
+<p>You can read more about the <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html#summary-of-storage-types">different storage options on Aire in our documentation</a>, and find <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html">detailed guidance on organising your files and research data in our data management section</a>.</p>
 </section>
 
     <script type="text/x-thebe-config">
