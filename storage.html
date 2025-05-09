@@ -381,9 +381,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -399,15 +397,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-different-storage-systems-directories">Structure of different storage systems/directories</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-transferring-data-to-from-aire">Copying/transferring data to/from Aire</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -419,17 +408,130 @@ document.write(`
                   
   <section id="session-3-storage-on-aire">
 <h1>Session 3: Storage on Aire<a class="headerlink" href="#session-3-storage-on-aire" title="Link to this heading">#</a></h1>
-<section id="structure-of-different-storage-systems-directories">
-<h2>Structure of different storage systems/directories<a class="headerlink" href="#structure-of-different-storage-systems-directories" title="Link to this heading">#</a></h2>
-<p>Content here on file system, bring content from here: https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/storage_overview.html</p>
-<p>Exercise: navigating from home dir to scratch etc.</p>
-<p>Difference between the different storage sections.</p>
-<p>Checking quotas: https://arctraining.github.io/rc-slides/hpc1.html#/exercise-1.2</p>
-</section>
-<section id="copying-transferring-data-to-from-aire">
-<h2>Copying/transferring data to/from Aire<a class="headerlink" href="#copying-transferring-data-to-from-aire" title="Link to this heading">#</a></h2>
-<p>https://arctraining.github.io/rc-slides/hpc1.html#/transferring-files-and-data</p>
-</section>
+<div class="note docutils">
+<p><strong>Objectives:</strong> Understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.</p>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+1. Structure</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p>The Aire HPC file system includes several special directories:</p>
+<ul>
+<li><p><strong>Home directory</strong> (<code class="docutils literal notranslate"><span class="pre">/users/&lt;username&gt;</span></code>, env var <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>) for personal files.</p></li>
+<li><p><strong>Scratch directory</strong> (<code class="docutils literal notranslate"><span class="pre">/mnt/scratch/&lt;username&gt;</span></code>, env var <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>) for large, temporary data.</p></li>
+<li><p><strong>Flash (NVMe) scratch</strong> (<code class="docutils literal notranslate"><span class="pre">$TMP_SHARED</span></code>, usually <code class="docutils literal notranslate"><span class="pre">/mnt/flash/tmp/job.&lt;JOB-ID&gt;</span></code>) for very fast I/O during jobs.</p></li>
+<li><p><strong>Node-local scratch</strong> (<code class="docutils literal notranslate"><span class="pre">$TMP_LOCAL</span></code> or <code class="docutils literal notranslate"><span class="pre">$TMPDIR</span></code>, typically <code class="docutils literal notranslate"><span class="pre">/tmp/job.&lt;JOB-ID&gt;</span></code>) for fast local storage on each compute node.</p></li>
+</ul>
+</li>
+<li><p>Symlinks exist: <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> → <code class="docutils literal notranslate"><span class="pre">/mnt/scratch</span></code>, and <code class="docutils literal notranslate"><span class="pre">/flash</span></code> → <code class="docutils literal notranslate"><span class="pre">/mnt/flash</span></code>.</p></li>
+<li><p>Home is backed up and not automatically purged; scratch and flash are not backed up and flash is deleted after each job.</p></li>
+<li><p><strong>Always</strong> copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area <strong>before</strong> the job ends.</p></li>
+</ul>
+<div class="important docutils">
+<p><strong>Exercise:</strong> On the Aire login node, display the values of <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> and <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> using <code class="docutils literal notranslate"><span class="pre">echo</span></code>.</p>
+</div>
+<div class="tip docutils">
+<p><strong>Solution:</strong> For example, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo $HOME
+/users/yourusername
+$ echo $SCRATCH
+/mnt/scratch/yourusername
+</pre></div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+2. Storage Types</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>Home (<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>)</strong>: Quota ≈30 GB and 1,000,000 files. Backup enabled and not deleted automatically. Best for small, persistent files (scripts, documents, configs).</p></li>
+<li><p><strong>Scratch (<code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>)</strong>: Quota ≈1 TB and 500,000 files. <strong>No backups</strong>. Not deleted automatically, but you must clean up manually. Use for large datasets and intermediate job data.</p></li>
+<li><p><strong>Flash (<code class="docutils literal notranslate"><span class="pre">$TMP_SHARED</span></code>)</strong>: Quota ≈1 TB per job, no backup, <strong>auto-deleted</strong> when the job completes. Very fast NVMe storage ideal for I/O-intensive tasks during the job.</p></li>
+<li><p><strong>Local scratch (<code class="docutils literal notranslate"><span class="pre">$TMP_LOCAL</span></code>, <code class="docutils literal notranslate"><span class="pre">$TMPDIR</span></code>)</strong>: Node-specific quota. No backup, <strong>auto-deleted</strong> after job completion. Best for very fast, node-local storage during single-node jobs.</p></li>
+<li><p><strong>Important:</strong> Data in scratch/flash areas is temporary. These are <em>not backed up</em> and may be purged. Always move important data to your home or external storage when done.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+3. Quotas</label><div class="sd-tab-content docutils">
+<div class="important docutils">
+<p><strong>Exercise:</strong> Check your current disk usage and quotas. <em>(Hint: use the <code class="docutils literal notranslate"><span class="pre">quota</span></code> command.)</em></p>
+</div>
+<div class="tip docutils">
+<p><strong>Solution:</strong> Run <code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ quota -s
+Disk quotas for user yourusername (uid 12345):
+     Filesystem   blocks   quota   limit   grace   files   quota   limit
+      /users     15000*   30000    33000            200000 1000000 1100000
+   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000
+</pre></div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+4. Navigating</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p>Use standard Linux shell commands: <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>, etc.</p></li>
+<li><p>To go to your home directory: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$HOME</span></code> or simply <code class="docutils literal notranslate"><span class="pre">cd</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>. To go to scratch: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$SCRATCH</span></code>.</p></li>
+<li><p>List contents with <code class="docutils literal notranslate"><span class="pre">ls</span></code>: e.g. <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">$HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">$SCRATCH</span></code>. Use <code class="docutils literal notranslate"><span class="pre">pwd</span></code> to show the current directory path.</p></li>
+<li><p>Use environment variables (<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>, etc.) in commands. For example, <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">$HOME/projects</span></code> lists your project folder in home.</p></li>
+<li><p>Copy files between areas on Aire with <code class="docutils literal notranslate"><span class="pre">cp</span></code>. For example: <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">data.txt</span> <span class="pre">$SCRATCH/</span></code> to copy <strong>to</strong> scratch, or <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">$SCRATCH/output.dat</span> <span class="pre">$HOME/results/</span></code> to copy <strong>back</strong> to home.</p></li>
+<li><p>Remove unneeded files with <code class="docutils literal notranslate"><span class="pre">rm</span></code> to free space. After cleanup, re-check your usage with <code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code> or <code class="docutils literal notranslate"><span class="pre">du</span></code> as needed.</p></li>
+</ul>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+5. Transferring Files</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>scp</strong> (secure copy) to/from the login node. For example, from <strong>your local machine</strong> to Aire:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>myfile.txt<span class="w"> </span>&lt;username&gt;@target-system:<span class="nv">$SCRATCH</span>/
+</pre></div>
+</div>
+<p>And to copy a file <strong>from</strong> Aire to local:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>&lt;username&gt;@target-system:/users/yourname/results.txt<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p><strong>rsync</strong> for efficient transfers (especially many files). Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rsync<span class="w"> </span>-avh<span class="w"> </span>data/<span class="w"> </span>&lt;username&gt;@target-system:<span class="nv">$HOME</span>/data/
+</pre></div>
+</div>
+</li>
+<li><p><strong>wget/curl</strong> on the login node to download from a URL. For instance:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://example.com/data.zip
+</pre></div>
+</div>
+</li>
+<li><p><strong>GUI/SFTP clients:</strong> Use FileZilla, WinSCP or Cyberduck to connect to Aire via SFTP.</p></li>
+<li><p><strong>Best practice:</strong> Transfer all needed input data to <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> <em>before</em> running jobs, and copy results out of <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> after jobs finish.</p></li>
+</ul>
+<div class="important docutils">
+<p><strong>Exercise:</strong> On your <strong>local machine</strong>, write the <code class="docutils literal notranslate"><span class="pre">scp</span></code> command to download <code class="docutils literal notranslate"><span class="pre">results.txt</span></code> from your home directory on Aire into your current local directory.</p>
+</div>
+<div class="tip docutils">
+<p><strong>Solution:</strong> Use the syntax:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>username@aire-login.leeds.ac.uk:/users/yourname/results.txt<span class="w"> </span>.
+</pre></div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+6. Summary</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>Multiple storage areas:</strong> Aire provides different file systems: home (<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>), scratch (<code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>), NVMe flash, and node-local. Use each appropriately.</p></li>
+<li><p><strong>Navigation:</strong> Use <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code>, etc., along with environment variables.</p></li>
+<li><p><strong>Check usage:</strong> Regularly run <code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code> to see your space and file usage. Clean up old files from <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>.</p></li>
+<li><p><strong>Data transfer:</strong> Use <code class="docutils literal notranslate"><span class="pre">scp</span></code> or <code class="docutils literal notranslate"><span class="pre">rsync</span></code> via the login nodes to move data.</p></li>
+<li><p><strong>Avoid data loss:</strong> Remember that scratch and flash are <em>temporary</em>. Always <strong>backup important data</strong> to home or external storage when done.</p></li>
+</ul>
+<div class="note docutils">
+<p><strong>Tip:</strong> Keep your home directory organized. Place large data in scratch only while needed. Archive or delete old files in scratch after use.</p>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -486,22 +588,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-different-storage-systems-directories">Structure of different storage systems/directories</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copying-transferring-data-to-from-aire">Copying/transferring data to/from Aire</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
