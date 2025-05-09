@@ -1,6 +1,6 @@
 # Session 3: Storage on Aire
 
-In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.  
+In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire. 
 
 
 `````{tab-set}
@@ -40,6 +40,20 @@ $ echo $SCRATCH
 ````
 
 ````{tab-item} 3. Quotas
+
+It's important for you to be able to check how much of your allocated quota you are using in a particular storage area, as exceeding this quota will cause your jobs to fail.
+
+- `quota`
+  - This command tells you your disk usage and limits. By default, the unit is kbytes or "blocks". You can add the `-s` flag to make the output "human readable", showing units after the values (`quota -s`).
+  - If the output is difficult to read, try resizing your terminal windows to accomodate the table.
+- `du`
+  - This command reports the amount of disk space used by different files and directories, by default reporting in 512-byte blocks.
+  - You can provide the path to a specific directory to focus the results.
+  - Add the flag `-h` to make the output human readable.
+  - Add the flag `-s` to summarise the results (and not recursively provide results for subdirectories).
+  - `du -hs *` will provide you with the space taken up by the data in each directory. This can be a little slow!
+
+
 
 ::: important  
 **Exercise:** Check your current disk usage and quotas. *(Hint: use the `quota` command.)*  
@@ -94,7 +108,7 @@ Disk quotas for user yourusername (uid 12345):
 ::: tip  
 **Solution:** Use the syntax:  
 ```bash
-scp username@aire-login.leeds.ac.uk:/users/yourname/results.txt .
+scp <username>@target-system:/users/yourname/results.txt .
 ```  
 :::
 ````
@@ -104,10 +118,15 @@ scp username@aire-login.leeds.ac.uk:/users/yourname/results.txt .
 - **Navigation:** Use `cd`, `ls`, etc., along with environment variables.  
 - **Check usage:** Regularly run `quota -s` to see your space and file usage. Clean up old files from `$SCRATCH`.  
 - **Data transfer:** Use `scp` or `rsync` via the login nodes to move data.  
-- **Avoid data loss:** Remember that scratch and flash are *temporary*. Always **backup important data** to home or external storage when done.  
+- **Avoid data loss:** Remember that scratch and flash are *temporary*. Always **backup important data** to home or external storage when done. 
+
+Read up on [best practises here](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html).
 
 ::: note  
 **Tip:** Keep your home directory organized. Place large data in scratch only while needed. Archive or delete old files in scratch after use.  
 :::
 ````
 `````
+
+
+You can read more about the [different storage options on Aire in our documentation](https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html#summary-of-storage-types), and find [detailed guidance on organising your files and research data in our data management section](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html).

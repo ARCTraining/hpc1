@@ -30,13 +30,13 @@ module avail
   - To use a software package, load its module.
   - Example:
     ```bash
-    module load python/3.8
+    module load python/3.13.0
     ```
 
 - **Unloading a Module:**
   - To remove a software package from your environment.
     ```bash
-    module unload python/3.8
+    module unload python/3.13.0
     ```
 
 - **Listing Loaded Modules:**
