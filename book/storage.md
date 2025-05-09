@@ -1,8 +1,7 @@
 # Session 3: Storage on Aire
 
-::: note  
-**Objectives:** Understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.  
-:::
+In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.  
+
 
 `````{tab-set}
 ````{tab-item} 1. Structure
