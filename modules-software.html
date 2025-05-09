@@ -381,9 +381,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -399,21 +397,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-modules-and-how-to-use-them">What are modules and how to use them?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-ways-to-get-run-software">other ways to get/run software</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spack-easybuild">spack/easybuild</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download">download</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-build">self build</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#container">container</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -425,24 +408,180 @@ document.write(`
                   
   <section id="session-4-modules-and-software">
 <h1>Session 4: Modules and Software<a class="headerlink" href="#session-4-modules-and-software" title="Link to this heading">#</a></h1>
-<section id="what-are-modules-and-how-to-use-them">
-<h2>What are modules and how to use them?<a class="headerlink" href="#what-are-modules-and-how-to-use-them" title="Link to this heading">#</a></h2>
-</section>
-<section id="other-ways-to-get-run-software">
-<h2>other ways to get/run software<a class="headerlink" href="#other-ways-to-get-run-software" title="Link to this heading">#</a></h2>
-<section id="spack-easybuild">
-<h3>spack/easybuild<a class="headerlink" href="#spack-easybuild" title="Link to this heading">#</a></h3>
-</section>
-<section id="download">
-<h3>download<a class="headerlink" href="#download" title="Link to this heading">#</a></h3>
-</section>
-<section id="self-build">
-<h3>self build<a class="headerlink" href="#self-build" title="Link to this heading">#</a></h3>
-</section>
-<section id="container">
-<h3>container<a class="headerlink" href="#container" title="Link to this heading">#</a></h3>
-</section>
-</section>
+<p>In this session we will learn about software on Aire, and how to access software via the module system. We will also discuss some alternatives to install software yourself on the system.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Introduction to Modules</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>What are Modules?</strong></p>
+<ul>
+<li><p>Modules are a way to manage different software environments on HPC systems.</p></li>
+<li><p>They allow users to load and unload software packages dynamically.</p></li>
+<li><p>This helps in managing different versions of software and their dependencies.</p></li>
+</ul>
+</li>
+<li><p><strong>Why Use Modules?</strong></p>
+<ul>
+<li><p>Simplifies the user environment.</p></li>
+<li><p>Avoids conflicts between software versions.</p></li>
+<li><p>Provides a consistent and reproducible environment.</p></li>
+</ul>
+</li>
+</ul>
+<div class="exercise docutils">
+<p><strong>Exercise 1:</strong> List all available modules on Aire.</p>
+</div>
+<div class="solution docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>avail
+</pre></div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Using Modules</label><div class="sd-tab-content docutils">
+<ul>
+<li><p><strong>Loading a Module:</strong></p>
+<ul>
+<li><p>To use a software package, load its module.</p></li>
+<li><p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>python/3.8
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Unloading a Module:</strong></p>
+<ul>
+<li><p>To remove a software package from your environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>unload<span class="w"> </span>python/3.8
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Listing Loaded Modules:</strong></p>
+<ul>
+<li><p>To see which modules are currently loaded.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>list
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="exercise docutils">
+<p><strong>Exercise 2:</strong> Load the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> module and verify it’s loaded.</p>
+</div>
+<div class="solution docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
+module<span class="w"> </span>list
+</pre></div>
+</div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Requesting New Modules</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>Centralized Management:</strong></p>
+<ul>
+<li><p>Popular software is centrally installed by the Research Computing team.</p></li>
+<li><p>Ensures optimized performance and avoids conflicts.</p></li>
+</ul>
+</li>
+<li><p><strong>Requesting New Software:</strong></p>
+<ul>
+<li><p>If a required software is not available, users can request its installation.</p></li>
+<li><p>Submit a Research Computing Query with details about the software.</p></li>
+</ul>
+</li>
+</ul>
+<div class="exercise docutils">
+<p><strong>Exercise 3:</strong> Identify a software you need that’s not available and draft a request.</p>
+</div>
+<div class="solution docutils">
+<p>Provide the software name, version, and a brief justification for its use in your research.</p>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Alternative Software Management</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><a class="reference external" href="https://spack.io/"><strong>Spack:</strong></a></p>
+<ul>
+<li><p>A flexible package manager for HPC systems.</p></li>
+<li><p>Allows users to install software without admin privileges.</p></li>
+<li><p>Supports complex dependency management.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://easybuild.io/"><strong>EasyBuild:</strong></a></p>
+<ul>
+<li><p>Framework for building and installing software on HPC systems.</p></li>
+<li><p>Automates the build process using configuration files.</p></li>
+</ul>
+</li>
+<li><p><strong>Downloading and Self-Building:</strong></p>
+<ul>
+<li><p>Users can manually download and compile software.</p></li>
+<li><p>Requires knowledge of build systems and dependencies.</p></li>
+</ul>
+</li>
+<li><p><strong>Containers:</strong></p>
+<ul>
+<li><p>Encapsulate software environments using tools like <a class="reference external" href="https://apptainer.org/">Apptainer</a>.</p></li>
+<li><p>Ensures portability and consistency across systems.</p></li>
+</ul>
+</li>
+</ul>
+<div class="exercise docutils">
+<p><strong>Exercise 4:</strong> Choose a simple software package and outline steps to install it using Spack.</p>
+</div>
+<div class="solution docutils">
+<ol class="arabic simple">
+<li><p>Load Spack module: <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">spack</span></code></p></li>
+<li><p>Install software: <code class="docutils literal notranslate"><span class="pre">spack</span> <span class="pre">install</span> <span class="pre">htop</span></code></p></li>
+<li><p>Load the installed package: <code class="docutils literal notranslate"><span class="pre">spack</span> <span class="pre">load</span> <span class="pre">htop</span></code></p></li>
+</ol>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Best Practices</label><div class="sd-tab-content docutils">
+<ul class="simple">
+<li><p><strong>Environment Management:</strong></p>
+<ul>
+<li><p>Use modules to manage software environments effectively.</p></li>
+<li><p>Unload modules when they are no longer needed to avoid conflicts.</p></li>
+</ul>
+</li>
+<li><p><strong>Reproducibility:</strong></p>
+<ul>
+<li><p>Document the modules and versions used in your research.</p></li>
+<li><p>Use containers for complex environments to ensure consistency.</p></li>
+</ul>
+</li>
+<li><p><strong>Collaboration:</strong></p>
+<ul>
+<li><p>Share module load commands with collaborators to replicate environments.</p></li>
+<li><p>Use version-controlled scripts to manage workflows.</p></li>
+</ul>
+</li>
+</ul>
+<div class="exercise docutils">
+<p><strong>Exercise 5:</strong> Create a script that loads necessary modules for your project.</p>
+</div>
+<div class="solution docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+module<span class="w"> </span>load<span class="w"> </span>gcc
+module<span class="w"> </span>load<span class="w"> </span>python/3.8
+<span class="c1"># Add other module load commands as needed</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -499,28 +638,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-modules-and-how-to-use-them">What are modules and how to use them?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-ways-to-get-run-software">other ways to get/run software</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spack-easybuild">spack/easybuild</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download">download</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-build">self build</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#container">container</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
