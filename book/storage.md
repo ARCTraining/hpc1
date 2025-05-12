@@ -13,7 +13,9 @@ In this session, we will work to understand the main file areas on Aire (home, s
 - Symlinks exist: `/scratch` → `/mnt/scratch`, and `/flash` → `/mnt/flash`.  
 - Home is backed up and not automatically purged; scratch and flash are not backed up and flash is deleted after each job.  
 - **Always** copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area **before** the job ends.
+````
 
+````{tab-item} 1.1 Ex.
 
 ::: important  
 **Exercise:** On the Aire login node, display the values of `$HOME` and `$SCRATCH` using `echo`.  
@@ -53,7 +55,9 @@ It's important for you to be able to check how much of your allocated quota you 
   - Add the flag `-s` to summarise the results (and not recursively provide results for subdirectories).
   - `du -hs *` will provide you with the space taken up by the data in each directory. This can be a little slow!
 
+````
 
+````{tab-item} 3.3 Ex.
 
 ::: important  
 **Exercise:** Check your current disk usage and quotas. *(Hint: use the `quota` command.)*  
@@ -80,26 +84,61 @@ Disk quotas for user yourusername (uid 12345):
 - Remove unneeded files with `rm` to free space. After cleanup, re-check your usage with `quota -s` or `du` as needed.  
 ````
 
+````{tab-item} 4.4 Ex.
+
+::: important  
+**Exercise:** Navigate around the file system using `cd directory_path`, and `cd` to return home.
+
+- Try to use the environment variables (like `$SCRATCH`)
+- Use `pwd` to check where you are in the directory structure, and `ls` to see what other files are present
+
+:::
+
+````
+
 ````{tab-item} 5. Transferring Files
 
 - **scp** (secure copy) to/from the login node. For example, from **your local machine** to Aire:  
   ```bash
   scp myfile.txt <username>@target-system:$SCRATCH/
   ```  
-  And to copy a file **from** Aire to local:  
+  And to copy a file **from** Aire to local (current directory):  
   ```bash
-  scp <username>@target-system:/users/yourname/results.txt .
+  scp <username>@target-system:/path/results.txt .
   ```  
 - **rsync** for efficient transfers (especially many files). Example:  
   ```bash
-  rsync -avh data/ <username>@target-system:$HOME/data/
-  ```  
+  rsync -avh data/ <username>@target-system:path/data/
+  ``` 
+
 - **wget/curl** on the login node to download from a URL. For instance:  
   ```bash
   wget https://example.com/data.zip
   ```  
 - **GUI/SFTP clients:** Use FileZilla, WinSCP or Cyberduck to connect to Aire via SFTP.  
 - **Best practice:** Transfer all needed input data to `$SCRATCH` *before* running jobs, and copy results out of `$SCRATCH` after jobs finish.
+
+````
+
+````{tab-item} 5.1 Transferring Files
+
+- From off campus, you will have to use the usual tunnelling/jumphost commands.
+  - rsync:
+    ```bash
+    rsync -r --info=progress2 -e 'ssh -J e<username>@jump-host' file_to_copy.txt <username>@target-system:path/
+    ```
+    - `--info=progress2` gives you a progress bar for the upload/download
+    - `-e ssh` allows you to set up a remote ssh shell (to use the jumphost)
+  - scp:
+    ```bash
+    scp -rq -J <username>@jump-host <username>@target-system:path/file-to-copy.txt local-folder-path/
+    ```
+    ```bash
+    scp -rq -J <username>@jump-host local-folder-path/file-to-copy.txt <username>@target-system:path/
+    ```
+````
+
+````{tab-item} 5.2 Ex.
 
 ::: important  
 **Exercise:** On your **local machine**, write the `scp` command to download `results.txt` from your home directory on Aire into your current local directory.  
