@@ -3,7 +3,8 @@
 In this session we will learn about software on Aire, and how to access software via the module system. We will also discuss some alternatives to install software yourself on the system.
 
 `````{tab-set}
-````{tab-item} Introduction to Modules
+````{tab-item} 1. Intro
+
 - **What are Modules?**
   - Modules are a way to manage different software environments on HPC systems.
   - They allow users to load and unload software packages dynamically.
@@ -25,7 +26,7 @@ module avail
 ::::
 ````
 
-````{tab-item} Using Modules
+````{tab-item} 2. Loading modules
 - **Loading a Module:**
   - To use a software package, load its module.
   - Example:
@@ -46,6 +47,10 @@ module avail
     module list
     ```
 
+````
+
+````{tab-item} 2.1 Ex.
+
 :::: exercise
 **Exercise 2:** Load the `gcc` module and verify it's loaded.
 ::::
@@ -55,13 +60,60 @@ module avail
 
 :::: solution
 ```bash
+#!/bin/bash
+
 module load gcc
 module list
+
 ```
 ::::
 ````
 
-````{tab-item} Requesting New Modules
+````{tab-item} 3. Using modules
+
+In the previous exercise, we saw how to write a bash script that loads a particular module.
+
+Say we have a Python file called `hello_world.py`:
+
+```python
+print("hello world!")
+```
+
+How would we write a bash script that loads the Python module and runs the Python script?
+
+````
+
+````{tab-item} 3.1 Soln.
+
+We want to write a bash script that runs the following Python script (`hello_world.py`):
+
+```python
+print("hello world!")
+```
+
+A simple script could look like this:
+
+```bash
+#!/bin/bash
+
+module load python/3.13.0
+python hello_world.py
+
+```
+
+After creating this file, called `python_test.sh` you will need to add executable permissions to it: `chmod +x python_test.sh`. Use `ls -F` to check that it is executable.
+
+To run the script:
+
+```bash
+./python_test.sh
+```
+
+Note: when running Python jobs, we would recommend that instead of using the basic Python install, to instead use the Miniforge module to create a conda environment. [Read our documentation on how to set this up](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)
+
+````
+
+````{tab-item} 4. Requesting New Modules
 - **Centralized Management:**
   - Popular software is centrally installed by the Research Computing team.
   - Ensures optimized performance and avoids conflicts.
@@ -71,7 +123,7 @@ module list
   - Submit a Research Computing Query with details about the software.
 
 :::: exercise
-**Exercise 3:** Identify a software you need that's not available and draft a request. Can you find the Research Computing Query form via the IT website?
+**After the course:** Identify a software you need that's not available and draft a request. Can you find the Research Computing Query form via the IT website? Try to locate it through the IT website (*Home > Research IT > Research IT Query*), but if you're stuck, [here's a link to the request form](https://bit.ly/arc-help)
 ::::
 
 :::: solution
@@ -79,7 +131,7 @@ Provide the software name, version, and a brief justification for its use in you
 ::::
 ````
 
-````{tab-item} Alternative Software Management
+````{tab-item} 5. Alternative Software Management
 
 You also can manage your own software on Aire via a number of different routes. Many users will not need to do this; but it may be neccessary if you want fine-grained control and need to use older versions of software than are available via the module system.
 
@@ -101,7 +153,7 @@ You also can manage your own software on Aire via a number of different routes. 
   - Ensures portability and consistency across systems.
 
 :::: exercise
-**Exercise 4:** Choose a simple software package and outline steps to install it using Spack.
+**After this course:** Choose a simple software package and outline steps to install it using Spack.
 ::::
 
 :::: solution
