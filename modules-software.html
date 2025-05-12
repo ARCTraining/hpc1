@@ -412,7 +412,7 @@ document.write(`
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
-Introduction to Modules</label><div class="sd-tab-content docutils">
+1. Intro</label><div class="sd-tab-content docutils">
 <ul class="simple">
 <li><p><strong>What are Modules?</strong></p>
 <ul>
@@ -440,7 +440,7 @@ Introduction to Modules</label><div class="sd-tab-content docutils">
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
-Using Modules</label><div class="sd-tab-content docutils">
+2. Loading modules</label><div class="sd-tab-content docutils">
 <ul>
 <li><p><strong>Loading a Module:</strong></p>
 <ul>
@@ -474,6 +474,10 @@ Using Modules</label><div class="sd-tab-content docutils">
 </ul>
 </li>
 </ul>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+2.1 Ex.</label><div class="sd-tab-content docutils">
 <div class="exercise docutils">
 <p><strong>Exercise 2:</strong> Load the <code class="docutils literal notranslate"><span class="pre">gcc</span></code> module and verify it’s loaded.</p>
 </div>
@@ -485,15 +489,48 @@ Using Modules</label><div class="sd-tab-content docutils">
 </li>
 </ul>
 <div class="solution docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>load<span class="w"> </span>gcc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+module<span class="w"> </span>load<span class="w"> </span>gcc
 module<span class="w"> </span>list
 </pre></div>
 </div>
 </div>
 </div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-2">
-Requesting New Modules</label><div class="sd-tab-content docutils">
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+3. Using modules</label><div class="sd-tab-content docutils">
+<p>In the previous exercise, we saw how to write a bash script that loads a particular module.</p>
+<p>Say we have a Python file called <code class="docutils literal notranslate"><span class="pre">hello_world.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>How would we write a bash script that loads the Python module and runs the Python script?</p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+3.1 Soln.</label><div class="sd-tab-content docutils">
+<p>We want to write a bash script that runs the following Python script (<code class="docutils literal notranslate"><span class="pre">hello_world.py</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A simple script could look like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+module<span class="w"> </span>load<span class="w"> </span>python/3.13.0
+python<span class="w"> </span>hello_world.py
+</pre></div>
+</div>
+<p>After creating this file, called <code class="docutils literal notranslate"><span class="pre">python_test.sh</span></code> you will need to add executable permissions to it: <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">python_test.sh</span></code>. Use <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-F</span></code> to check that it is executable.</p>
+<p>To run the script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./python_test.sh
+</pre></div>
+</div>
+<p>Note: when running Python jobs, we would recommend that instead of using the basic Python install, to instead use the Miniforge module to create a conda environment. <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html">Read our documentation on how to set this up</a></p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+4. Requesting New Modules</label><div class="sd-tab-content docutils">
 <ul class="simple">
 <li><p><strong>Centralized Management:</strong></p>
 <ul>
@@ -509,15 +546,15 @@ Requesting New Modules</label><div class="sd-tab-content docutils">
 </li>
 </ul>
 <div class="exercise docutils">
-<p><strong>Exercise 3:</strong> Identify a software you need that’s not available and draft a request. Can you find the Research Computing Query form via the IT website?</p>
+<p><strong>After the course:</strong> Identify a software you need that’s not available and draft a request. Can you find the Research Computing Query form via the IT website? Try to locate it through the IT website (<em>Home &gt; Research IT &gt; Research IT Query</em>), but if you’re stuck, <a class="reference external" href="https://bit.ly/arc-help">here’s a link to the request form</a></p>
 </div>
 <div class="solution docutils">
 <p>Provide the software name, version, and a brief justification for its use in your research.</p>
 </div>
 </div>
-<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-3">
-Alternative Software Management</label><div class="sd-tab-content docutils">
+<input id="sd-tab-item-6" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+5. Alternative Software Management</label><div class="sd-tab-content docutils">
 <p>You also can manage your own software on Aire via a number of different routes. Many users will not need to do this; but it may be neccessary if you want fine-grained control and need to use older versions of software than are available via the module system.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spack.io/"><strong>Spack:</strong></a></p>
@@ -547,7 +584,7 @@ Alternative Software Management</label><div class="sd-tab-content docutils">
 </li>
 </ul>
 <div class="exercise docutils">
-<p><strong>Exercise 4:</strong> Choose a simple software package and outline steps to install it using Spack.</p>
+<p><strong>After this course:</strong> Choose a simple software package and outline steps to install it using Spack.</p>
 </div>
 <div class="solution docutils">
 <ol class="arabic simple">
@@ -557,8 +594,8 @@ Alternative Software Management</label><div class="sd-tab-content docutils">
 </ol>
 </div>
 </div>
-<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
+<input id="sd-tab-item-7" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
 Best Practices</label><div class="sd-tab-content docutils">
 <ul class="simple">
 <li><p><strong>Environment Management:</strong></p>
