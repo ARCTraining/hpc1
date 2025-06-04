@@ -186,8 +186,9 @@
 <li class="toctree-l1"><a class="reference internal" href="logging-on-and-linux-recap.html">Session 2: Logging-on and Linux recap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Session 3: Storage on Aire</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-software.html">Session 4: Modules and Software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scheduling-submission.html">Session 5: Job Scheduling &amp; Submission</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best-practices-troubleshooting.html">Session 6: HPC Best Practices &amp; Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling-submission.html">Session 5: Introduction to Job Scheduling and Batch Jobs</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="best-practices-troubleshooting.html"><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 7: Wrap Up</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Contact Us</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
@@ -403,9 +404,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-guidance">Further Guidance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q-a-discussion">Q&amp;A/Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-of-key-concepts">Recap of Key Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-guidance-and-next-steps">Further Guidance and Next Steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-advanced-topics">Explore Advanced Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links">Useful links</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-q-a-discussion">Final Q&amp;A / Discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-a-prompts">Q&amp;A Prompts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-quiz"><strong>Recap Quiz</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next-mini-roadmap">Where to Go Next: Mini-Roadmap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-tip">Final Tip</a></li>
 </ul>
             </nav>
         </div>
@@ -419,14 +431,208 @@ document.write(`
                   
   <section id="session-7-wrap-up">
 <h1>Session 7: Wrap Up<a class="headerlink" href="#session-7-wrap-up" title="Link to this heading">#</a></h1>
-<section id="recap">
-<h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
+<p>In this final session, we’ll consolidate what you’ve learned throughout the course and point you towards further resources to continue developing your skills with Aire and HPC more generally.</p>
+<hr class="docutils" />
+<section id="recap-of-key-concepts">
+<h2>Recap of Key Concepts<a class="headerlink" href="#recap-of-key-concepts" title="Link to this heading">#</a></h2>
+<p>Let’s quickly revisit the main topics covered in this course:</p>
+<ul class="simple">
+<li><p><strong>What is HPC?</strong></p>
+<ul>
+<li><p>High Performance Computing allows multiple processors (cores) to work together to solve large problems faster.</p></li>
+<li><p>HPC clusters like <strong>Aire</strong> are built from many nodes, each with powerful CPUs (and sometimes GPUs).</p></li>
+<li><p>Parallelism is key to exploiting HPC systems effectively.</p></li>
+</ul>
+</li>
+<li><p><strong>Logging on and Linux Basics</strong></p>
+<ul>
+<li><p>Access Aire through SSH, either directly from the campus network or via VPN/jumphost if off-campus.</p></li>
+<li><p>Linux command-line skills are critical for interacting with the system.</p></li>
+<li><p>Key commands: <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>, <code class="docutils literal notranslate"><span class="pre">cp</span></code>, <code class="docutils literal notranslate"><span class="pre">wget</span></code>, <code class="docutils literal notranslate"><span class="pre">rm</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Storage on Aire</strong></p>
+<ul>
+<li><p>Understand storage types: <strong>home</strong>, <strong>scratch</strong>, and <strong>shared storage</strong>.</p></li>
+<li><p>Efficiently move data and check quotas.</p></li>
+</ul>
+</li>
+<li><p><strong>Modules and Software</strong></p>
+<ul>
+<li><p>Software is accessed through <strong>modules</strong>.</p></li>
+<li><p>Learned to load, list, swap modules.</p></li>
+<li><p>Other strategies: Spack, EasyBuild, self-build, containers.</p></li>
+</ul>
+</li>
+<li><p><strong>Job Scheduling and Batch Jobs</strong></p>
+<ul>
+<li><p><strong>SLURM</strong> scheduler manages all jobs on Aire.</p></li>
+<li><p>Wrote batch scripts, submitted jobs, monitored queues.</p></li>
+<li><p>Job states: <code class="docutils literal notranslate"><span class="pre">PENDING</span></code>, <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>, <code class="docutils literal notranslate"><span class="pre">COMPLETED</span></code>.</p></li>
+<li><p>Hands-on practice with interactive sessions and task arrays.</p></li>
+</ul>
+</li>
+<li><p><strong>Best Practices and Troubleshooting</strong></p>
+<ul>
+<li><p>Diagnosing job errors, optimizing resource requests.</p></li>
+<li><p>Start small (test jobs), scale up once validated.</p></li>
+<li><p>Using arcdocs, Google, and support tickets for help.</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="further-guidance">
-<h2>Further Guidance<a class="headerlink" href="#further-guidance" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="further-guidance-and-next-steps">
+<h2>Further Guidance and Next Steps<a class="headerlink" href="#further-guidance-and-next-steps" title="Link to this heading">#</a></h2>
+<section id="explore-advanced-topics">
+<h3>Explore Advanced Topics<a class="headerlink" href="#explore-advanced-topics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Parallel Programming:</strong> MPI, OpenMP, GPU computing.</p></li>
+<li><p><strong>Workflow Management:</strong> Snakemake, Nextflow, job dependencies.</p></li>
+<li><p><strong>Performance Optimization:</strong> Profiling, benchmarking.</p></li>
+</ul>
 </section>
-<section id="q-a-discussion">
-<h2>Q&amp;A/Discussion<a class="headerlink" href="#q-a-discussion" title="Link to this heading">#</a></h2>
+<section id="useful-links">
+<h3>Useful links<a class="headerlink" href="#useful-links" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/welcome.html">ARC Documentation Portal</a></p></li>
+<li><p><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Research Computing Training Calendar</a></p></li>
+<li><p><a class="reference external" href="https://it.leeds.ac.uk/it?id=sc_cat_item&amp;amp;sys_id=7587b2530f675f00a82247ece1050eda">Submit a Support Ticket</a> if you need assistance.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="final-q-a-discussion">
+<h2>Final Q&amp;A / Discussion<a class="headerlink" href="#final-q-a-discussion" title="Link to this heading">#</a></h2>
+<p>Use this time to:</p>
+<ul class="simple">
+<li><p>Ask any outstanding questions.</p></li>
+<li><p>Share challenges you encountered and solutions you found.</p></li>
+<li><p>Request demos or deeper dives into specific topics.</p></li>
+<li><p>Discuss how to apply HPC in your research area.</p></li>
+</ul>
+<section id="q-a-prompts">
+<h3>Q&amp;A Prompts<a class="headerlink" href="#q-a-prompts" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><em>What was the most challenging part ?</em></p></li>
+<li><p><em>What would you like to use Aire for in your workflows?</em></p></li>
+<li><p><em>Is there a particular software package you’d like to or using?</em></p></li>
+<li><p><em>Any lingering questions?</em></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tips">
+<h2>Tips<a class="headerlink" href="#tips" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Start small</strong>: Always begin with a minimal test case to confirm your setup before scaling up.</p></li>
+<li><p><strong>Version control your scripts</strong>: Use Git or another version control system to track your job scripts and code.</p></li>
+<li><p><strong>Resource efficiency</strong>: Request only what you need — excessive resource requests can delay your job.</p></li>
+<li><p><strong>Learn by doing</strong>: Schedule time to practice; the more batch scripts you write, the more confident you’ll become.</p></li>
+<li><p><strong>Stay informed</strong>: Subscribe to mailing lists or notifications from the HPC service for updates and downtime notices.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="recap-quiz">
+<h2><strong>Recap Quiz</strong><a class="headerlink" href="#recap-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1.</strong>
+What is the main advantage of using a HPC system like Aire?</p>
+<ul class="simple">
+<li><p>A) Larger storage capacity</p></li>
+<li><p>B) Faster problem solving through parallel processing</p></li>
+<li><p>C) Access to free software licenses</p></li>
+<li><p>D) Automatic data backups</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>B) Faster problem solving through parallel processing</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q2.</strong>
+Which command would you use to submit a batch job on Aire?</p>
+<ul class="simple">
+<li><p>A) <code class="docutils literal notranslate"><span class="pre">srun</span></code></p></li>
+<li><p>B) <code class="docutils literal notranslate"><span class="pre">ssh</span></code></p></li>
+<li><p>C) <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></p></li>
+<li><p>D) <code class="docutils literal notranslate"><span class="pre">scp</span></code></p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>C) sbatch</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q3.</strong>
+Where should large, temporary files for active computations be stored?</p>
+<ul class="simple">
+<li><p>A) Home directory</p></li>
+<li><p>B) Scratch storage</p></li>
+<li><p>C) Admin node</p></li>
+<li><p>D) Login node</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>B) Scratch storage</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q4.</strong>
+If your job is stuck in <code class="docutils literal notranslate"><span class="pre">PENDING</span></code> state, what might be the cause?</p>
+<ul class="simple">
+<li><p>A) Syntax error in your script</p></li>
+<li><p>B) Not enough available resources</p></li>
+<li><p>C) The login node is overloaded</p></li>
+<li><p>D) You forgot to save the output</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>B) Not enough available resources</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q5.</strong>
+What’s a good first step if your job fails with an unknown error?</p>
+<ul class="simple">
+<li><p>A) Immediately resubmit it</p></li>
+<li><p>B) Open a support ticket</p></li>
+<li><p>C) Check the error log and output files</p></li>
+<li><p>D) Assume the cluster is broken</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>C) Check the error log and output files</strong></p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="where-to-go-next-mini-roadmap">
+<h2>Where to Go Next: Mini-Roadmap<a class="headerlink" href="#where-to-go-next-mini-roadmap" title="Link to this heading">#</a></h2>
+<p>Here’s how you can continue your HPC journey:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Step</strong></p></th>
+<th class="head"><p><strong>What to Do</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1. Practice</strong></p></td>
+<td><p>Regularly submit small jobs, explore module loading, refine scripts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2. More Courses</strong></p></td>
+<td><p>Take courses on Git, R, Python, HPC2.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>4. Real Projects</strong></p></td>
+<td><p>Apply your skills to real research problems, scale up carefully.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>5. Community</strong></p></td>
+<td><p>Join research computing on MS Teams, attend events.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>6. Mentorship/Support</strong></p></td>
+<td><p>Reach out to HPC support teams EARLY if stuck — avoid wasting cycles.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="final-tip">
+<h2>Final Tip<a class="headerlink" href="#final-tip" title="Link to this heading">#</a></h2>
+<p>The best way to learn HPC is by <em>doing</em>. Start small, break things, fix them, and gradually scale up your work. Every issue you encounter is a learning opportunity.</p>
 </section>
 </section>
 
@@ -466,7 +672,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Session 6: HPC Best Practices &amp; Troubleshooting</p>
+        <p class="prev-next-title"><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong></p>
       </div>
     </a>
 </div>
@@ -485,9 +691,20 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-guidance">Further Guidance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q-a-discussion">Q&amp;A/Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-of-key-concepts">Recap of Key Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-guidance-and-next-steps">Further Guidance and Next Steps</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-advanced-topics">Explore Advanced Topics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-links">Useful links</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-q-a-discussion">Final Q&amp;A / Discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#q-a-prompts">Q&amp;A Prompts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-quiz"><strong>Recap Quiz</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-go-next-mini-roadmap">Where to Go Next: Mini-Roadmap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-tip">Final Tip</a></li>
 </ul>
   </nav></div>
 

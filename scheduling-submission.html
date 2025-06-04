@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Session 5: Job Scheduling &amp; Submission &#8212; HPC1: An Introduction to High Performance Computing</title>
+    <title>Session 5: Introduction to Job Scheduling and Batch Jobs &#8212; HPC1: An Introduction to High Performance Computing</title>
   
   
   
@@ -187,8 +187,9 @@
 <li class="toctree-l1"><a class="reference internal" href="logging-on-and-linux-recap.html">Session 2: Logging-on and Linux recap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Session 3: Storage on Aire</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-software.html">Session 4: Modules and Software</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 5: Job Scheduling &amp; Submission</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best-practices-troubleshooting.html">Session 6: HPC Best Practices &amp; Troubleshooting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 5: Introduction to Job Scheduling and Batch Jobs</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="best-practices-troubleshooting.html"><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="wrap-up.html">Session 7: Wrap Up</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Contact Us</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
@@ -394,7 +395,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Session 5: Job Scheduling & Submission</h1>
+    <h1>Session 5: Introduction to Job Scheduling and Batch Jobs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -404,20 +405,32 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-hpc-job-scheduling-systems">Overview of HPC job scheduling systems</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-background">General background</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm">Slurm</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Session 5: Introduction to Job Scheduling and Batch Jobs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-is-a-job-scheduler">Background: What is a Job Scheduler?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-the-scheduler-on-aire">SLURM: The Scheduler on Aire</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-jobs-flow-through-the-system">How Jobs Flow Through the System</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-job-states">Common Job States</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-jobs-wait">Why Do Jobs Wait?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-you-interact-with-the-scheduler">How You Interact with the Scheduler</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#job-scripts">Job Scripts</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-job-scripts">Structure of job scripts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-requests">resource requests</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-command">submission command</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-batch-jobs">Why Use Batch Jobs?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-write-and-submit-a-simple-job-script-monitor-its-progress-and-learn-to-interpret-feedback">Practical - write and submit a simple job script, monitor its progress, and learn to interpret feedback</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-practical">Hands-On Practical</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-write-and-submit-a-simple-job">Hands-On: Write and Submit a Simple Job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-jobs">Monitoring Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">Interactive Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-and-error-files">Output and Error Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-memory-and-gpu-requests">High Memory and GPU Requests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-arrays">(Optional) Task Arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-quiz"><strong>Recap Quiz</strong></a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -428,47 +441,498 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="session-5-job-scheduling-submission">
-<h1>Session 5: Job Scheduling &amp; Submission<a class="headerlink" href="#session-5-job-scheduling-submission" title="Link to this heading">#</a></h1>
-<section id="overview-of-hpc-job-scheduling-systems">
-<h2>Overview of HPC job scheduling systems<a class="headerlink" href="#overview-of-hpc-job-scheduling-systems" title="Link to this heading">#</a></h2>
-<section id="general-background">
-<h3>General background<a class="headerlink" href="#general-background" title="Link to this heading">#</a></h3>
-</section>
-<section id="slurm">
-<h3>Slurm<a class="headerlink" href="#slurm" title="Link to this heading">#</a></h3>
-</section>
-</section>
-<section id="job-scripts">
-<h2>Job Scripts<a class="headerlink" href="#job-scripts" title="Link to this heading">#</a></h2>
-<section id="structure-of-job-scripts">
-<h3>Structure of job scripts<a class="headerlink" href="#structure-of-job-scripts" title="Link to this heading">#</a></h3>
-</section>
-<section id="resource-requests">
-<h3>resource requests<a class="headerlink" href="#resource-requests" title="Link to this heading">#</a></h3>
-</section>
-<section id="submission-command">
-<h3>submission command<a class="headerlink" href="#submission-command" title="Link to this heading">#</a></h3>
-</section>
-</section>
-<section id="exercise">
-<h2>exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h2>
+  <section id="session-5-introduction-to-job-scheduling-and-batch-jobs">
+<h1>Session 5: Introduction to Job Scheduling and Batch Jobs<a class="headerlink" href="#session-5-introduction-to-job-scheduling-and-batch-jobs" title="Link to this heading">#</a></h1>
+<p>In this session, you will learn:</p>
 <ul class="simple">
-<li><p>What is a scheduler</p></li>
-<li><p>Fair use</p></li>
-<li><p>Again, divided up into mini tabset “presentations”</p></li>
-<li><p>https://cautious-happiness-oz2284n.pages.github.io/#/basic-slurm-configuration</p></li>
-<li><p>https://cautious-happiness-oz2284n.pages.github.io/#/basic-slurm-job-scripts</p></li>
-<li><p>https://arcdocs.leeds.ac.uk/aire/usage/job_type.html</p></li>
-<li><p>https://arcdocs.leeds.ac.uk/aire/usage/job_example.html</p></li>
+<li><p>What a job scheduler is and why it is used</p></li>
+<li><p>How to write and submit batch job scripts</p></li>
+<li><p>How to monitor, manage, and cancel jobs</p></li>
+<li><p>How to use modules to set up software environments</p></li>
+<li><p>How to request high memory and GPU resources</p></li>
+<li><p>(Optional) How to submit task arrays</p></li>
+</ul>
+<hr class="docutils" />
+<section id="background-what-is-a-job-scheduler">
+<h2>Background: What is a Job Scheduler?<a class="headerlink" href="#background-what-is-a-job-scheduler" title="Link to this heading">#</a></h2>
+<p>High Performance Computing (HPC) systems are shared by many users, each submitting their own jobs — code they want to run using the cluster’s compute power.</p>
+<p>A <strong>job scheduler</strong> is the system that:</p>
+<ul class="simple">
+<li><p>Organizes when and where jobs run</p></li>
+<li><p>Allocates the requested resources (CPU cores, memory, GPUs)</p></li>
+<li><p>Ensures fair access to shared resources for all users</p></li>
+</ul>
+<p>Schedulers make decisions based on:</p>
+<ul class="simple">
+<li><p>What resources your job requests (e.g., how many cores, how much memory)</p></li>
+<li><p>How long your job will run (your time limit)</p></li>
+<li><p>Current system load</p></li>
+<li><p>Fair-share policies (giving all users fair access over time)</p></li>
+</ul>
+<p><strong>Without a scheduler</strong>, users would have to manually coordinate access to thousands of CPUs — impractical and chaotic.</p>
+</section>
+<hr class="docutils" />
+<section id="slurm-the-scheduler-on-aire">
+<h2>SLURM: The Scheduler on Aire<a class="headerlink" href="#slurm-the-scheduler-on-aire" title="Link to this heading">#</a></h2>
+<p>At Leeds, the <strong>SLURM</strong> scheduler (Simple Linux Utility for Resource Management) manages all jobs on the Aire cluster.</p>
+<p>When you submit a job:</p>
+<ol class="arabic simple">
+<li><p>You describe what you need (e.g., CPUs, memory, time) in a <strong>job script</strong>.</p></li>
+<li><p>You submit the job to SLURM with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>.</p></li>
+<li><p>SLURM places your job in a <strong>queue</strong>.</p></li>
+<li><p>When enough resources are available and your job’s priority is high enough, SLURM starts the job on suitable <strong>compute nodes</strong>.</p></li>
+</ol>
+<hr class="docutils" />
+<section id="how-jobs-flow-through-the-system">
+<h3>How Jobs Flow Through the System<a class="headerlink" href="#how-jobs-flow-through-the-system" title="Link to this heading">#</a></h3>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>Your Job Script
+       │
+       ▼
+    SLURM Scheduler
+       │
+       ├── Queues Jobs
+       ├── Prioritizes Jobs
+       ├── Allocates Resources
+       ▼
+ Compute Nodes (Run the job)
+       │
+       ▼
+    Output Files
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="common-job-states">
+<h3>Common Job States<a class="headerlink" href="#common-job-states" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>State</strong></p></th>
+<th class="head"><p><strong>Meaning</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PENDING</span></code></p></td>
+<td><p>Job is waiting for resources</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RUNNING</span></code></p></td>
+<td><p>Job is actively running on compute nodes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">COMPLETED</span></code></p></td>
+<td><p>Job finished successfully</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FAILED</span></code></p></td>
+<td><p>Job failed (e.g., errors, exceeded limits)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CANCELLED</span></code></p></td>
+<td><p>Job was manually stopped (e.g., by user)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>You can monitor job states with the <code class="docutils literal notranslate"><span class="pre">squeue</span></code> command.</p>
+</section>
+<hr class="docutils" />
+<section id="why-do-jobs-wait">
+<h3>Why Do Jobs Wait?<a class="headerlink" href="#why-do-jobs-wait" title="Link to this heading">#</a></h3>
+<p>Not every job runs immediately. Reasons include:</p>
+<ul class="simple">
+<li><p>Not enough CPUs/memory free</p></li>
+<li><p>Higher priority jobs ahead of yours</p></li>
+<li><p>Fair-share adjustment (users who have used less recently get higher priority)</p></li>
+<li><p>Your job is requesting rare resources (e.g., GPU nodes)</p></li>
 </ul>
 </section>
-<section id="practical-write-and-submit-a-simple-job-script-monitor-its-progress-and-learn-to-interpret-feedback">
-<h2>Practical - write and submit a simple job script, monitor its progress, and learn to interpret feedback<a class="headerlink" href="#practical-write-and-submit-a-simple-job-script-monitor-its-progress-and-learn-to-interpret-feedback" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+<section id="how-you-interact-with-the-scheduler">
+<h3>How You Interact with the Scheduler<a class="headerlink" href="#how-you-interact-with-the-scheduler" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Action</strong></p></th>
+<th class="head"><p><strong>Command</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Submit a job</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">my_job.sh</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>View your jobs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">squeue</span> <span class="pre">-u</span> <span class="pre">&lt;username&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Cancel a job</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">&lt;jobID&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>You will learn these commands and write your first job script in the next sections.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="why-use-batch-jobs">
+<h2>Why Use Batch Jobs?<a class="headerlink" href="#why-use-batch-jobs" title="Link to this heading">#</a></h2>
+<p>Batch jobs allow you to:</p>
 <ul class="simple">
-<li><p>Create/share example job and job script
-https://arctraining.github.io/rc-slides/hpc1.html#/submit-a-serial-python-job</p></li>
+<li><p>Set up your work once</p></li>
+<li><p>Submit it to the scheduler</p></li>
+<li><p>Log out and let it run unattended</p></li>
+<li><p>Automatically capture outputs and errors into files</p></li>
 </ul>
+<p>This is essential for longer jobs that run for hours or days — you don’t need to stay logged in.</p>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A job scheduler manages who runs jobs and when on an HPC cluster.</p></li>
+<li><p>SLURM is the scheduler used on Aire.</p></li>
+<li><p>You write a job script to describe what you need.</p></li>
+<li><p>SLURM queues, prioritizes, and runs your job on available compute nodes.</p></li>
+<li><p>You interact with SLURM via simple commands like <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, <code class="docutils literal notranslate"><span class="pre">squeue</span></code>, and <code class="docutils literal notranslate"><span class="pre">scancel</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hands-on-practical">
+<h1>Hands-On Practical<a class="headerlink" href="#hands-on-practical" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="hands-on-write-and-submit-a-simple-job">
+<h2>Hands-On: Write and Submit a Simple Job<a class="headerlink" href="#hands-on-write-and-submit-a-simple-job" title="Link to this heading">#</a></h2>
+<p><strong>Exercise:</strong>
+Write a batch script requesting:</p>
+<ul class="simple">
+<li><p>2 CPUs</p></li>
+<li><p>4 GB memory</p></li>
+<li><p>30 minutes runtime</p></li>
+<li><p>Load the Python module</p></li>
+<li><p>Run a simple command like <code class="docutils literal notranslate"><span class="pre">hostname</span></code></p></li>
+</ul>
+<p>Submit the script.</p>
+<p><strong>Answer:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=simple_job</span>
+<span class="c1">#SBATCH --time=00:30:00</span>
+<span class="c1">#SBATCH --mem=4G</span>
+<span class="c1">#SBATCH --cpus-per-task=2</span>
+<span class="c1">#SBATCH --output=simple_output_%j.out</span>
+<span class="c1">#SBATCH --error=simple_error_%j.err</span>
+
+module<span class="w"> </span>load<span class="w"> </span>python
+
+hostname
+</pre></div>
+</div>
+<p>Submit using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>simple_job.sh
+</pre></div>
+</div>
+<p><strong>Expected Output:</strong></p>
+<ul>
+<li><p>You will receive a job submission message in the terminal like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Submitted</span> <span class="n">batch</span> <span class="n">job</span> <span class="mi">123456</span>
+</pre></div>
+</div>
+</li>
+<li><p>After the job completes, check the output file <code class="docutils literal notranslate"><span class="pre">simple_output_123456.out</span></code> in your current working directory.</p></li>
+<li><p><strong>Contents of Output File:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nodeXYZ</span><span class="o">.</span><span class="n">arc</span><span class="o">.</span><span class="n">leeds</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span>
+</pre></div>
+</div>
+<p>(Your job ran <code class="docutils literal notranslate"><span class="pre">hostname</span></code>, so you get the compute node name.)</p>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="monitoring-jobs">
+<h2>Monitoring Jobs<a class="headerlink" href="#monitoring-jobs" title="Link to this heading">#</a></h2>
+<p>Check job status:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>squeue<span class="w"> </span>-u<span class="w"> </span>&lt;your-username&gt;
+</pre></div>
+</div>
+<p>Cancel a job:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scancel<span class="w"> </span>&lt;JOBID&gt;
+</pre></div>
+</div>
+<p><strong>Exercise:</strong>
+Submit a job and use <code class="docutils literal notranslate"><span class="pre">squeue</span></code> to monitor it. Cancel the job once it starts running.</p>
+<p><strong>Answer:</strong></p>
+<ol class="arabic simple">
+<li><p>Submit job: <code class="docutils literal notranslate"><span class="pre">sbatch</span> <span class="pre">simple_job.sh</span></code></p></li>
+<li><p>Monitor job: <code class="docutils literal notranslate"><span class="pre">squeue</span> <span class="pre">-u</span> <span class="pre">&lt;your-username&gt;</span></code></p></li>
+<li><p>Cancel job: <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">&lt;JOBID&gt;</span></code></p></li>
+</ol>
+<p><strong>Expected Output:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">squeue</span></code> shows your job in the queue:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">JOBID</span>    <span class="n">PARTITION</span>  <span class="n">NAME</span>        <span class="n">USER</span>    <span class="n">ST</span>  <span class="n">TIME</span>   <span class="n">NODES</span>  <span class="n">NODELIST</span><span class="p">(</span><span class="n">REASON</span><span class="p">)</span>
+<span class="mi">123456</span>   <span class="n">general</span>    <span class="n">simple_job</span>  <span class="n">user1</span>   <span class="n">PD</span>  <span class="mi">0</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">1</span>      <span class="p">(</span><span class="n">Priority</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(Status <code class="docutils literal notranslate"><span class="pre">PD</span></code> means Pending; <code class="docutils literal notranslate"><span class="pre">R</span></code> means Running.)</p>
+</li>
+<li><p>After <code class="docutils literal notranslate"><span class="pre">scancel</span></code>, job disappears from <code class="docutils literal notranslate"><span class="pre">squeue</span></code> list.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="interactive-jobs">
+<h2>Interactive Jobs<a class="headerlink" href="#interactive-jobs" title="Link to this heading">#</a></h2>
+<p>Interactive jobs are useful for quick testing or debugging:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>--pty<span class="w"> </span>--time<span class="o">=</span><span class="m">01</span>:00:00<span class="w"> </span>bash
+</pre></div>
+</div>
+<p><strong>Exercise:</strong></p>
+<ol class="arabic simple">
+<li><p>Start an interactive session.</p></li>
+<li><p>Load the Python module.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
+<li><p>Exit the session.</p></li>
+</ol>
+<p><strong>Answer:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>--pty<span class="w"> </span>--time<span class="o">=</span><span class="m">01</span>:00:00<span class="w"> </span>bash
+module<span class="w"> </span>load<span class="w"> </span>python
+hostname
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<p><strong>Expected Output:</strong></p>
+<ul>
+<li><p>Terminal will change — you’ll have a shell prompt on a compute node.</p></li>
+<li><p>After running <code class="docutils literal notranslate"><span class="pre">hostname</span></code>, you’ll see the node name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nodeXYZ</span><span class="o">.</span><span class="n">arc</span><span class="o">.</span><span class="n">leeds</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exit</span></code> returns you to the login node.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="output-and-error-files">
+<h2>Output and Error Files<a class="headerlink" href="#output-and-error-files" title="Link to this heading">#</a></h2>
+<p>SLURM creates:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slurm-&lt;jobID&gt;.out</span></code> — standard output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slurm-&lt;jobID&gt;.err</span></code> — standard error (if specified separately)</p></li>
+</ul>
+<p>Control output filenames:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH --output=/path/to/output_file.out</span>
+<span class="c1">#SBATCH --error=/path/to/error_file.err</span>
+</pre></div>
+</div>
+<p><strong>Exercise:</strong>
+Modify your script to redirect output and error to specific files.</p>
+<p><strong>Answer:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=simple_job</span>
+<span class="c1">#SBATCH --time=00:30:00</span>
+<span class="c1">#SBATCH --mem=4G</span>
+<span class="c1">#SBATCH --cpus-per-task=2</span>
+<span class="c1">#SBATCH --output=/home/&lt;username&gt;/my_output.out</span>
+<span class="c1">#SBATCH --error=/home/&lt;username&gt;/my_error.err</span>
+
+module<span class="w"> </span>load<span class="w"> </span>python
+
+hostname
+</pre></div>
+</div>
+<p><strong>Expected Output:</strong></p>
+<ul class="simple">
+<li><p>After job completion, you will find:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/&lt;username&gt;/my_output.out</span></code> — contains node name from <code class="docutils literal notranslate"><span class="pre">hostname</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/home/&lt;username&gt;/my_error.err</span></code> — should be empty if no errors.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="high-memory-and-gpu-requests">
+<h2>High Memory and GPU Requests<a class="headerlink" href="#high-memory-and-gpu-requests" title="Link to this heading">#</a></h2>
+<p>For high-memory jobs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH --mem=256G</span>
+</pre></div>
+</div>
+<p>For GPU jobs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH --gres=gpu:1</span>
+</pre></div>
+</div>
+<p><strong>Exercise:</strong>
+Update your batch script to request:</p>
+<ul class="simple">
+<li><p>256 GB memory</p></li>
+<li><p>1 GPU</p></li>
+</ul>
+<p><strong>Answer:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=highmem_gpu_job</span>
+<span class="c1">#SBATCH --time=00:30:00</span>
+<span class="c1">#SBATCH --mem=256G</span>
+<span class="c1">#SBATCH --cpus-per-task=2</span>
+<span class="c1">#SBATCH --gres=gpu:1</span>
+<span class="c1">#SBATCH --output=highmem_output_%j.out</span>
+<span class="c1">#SBATCH --error=highmem_error_%j.err</span>
+
+module<span class="w"> </span>load<span class="w"> </span>python
+
+hostname
+</pre></div>
+</div>
+<p>Submit using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>highmem_gpu_job.sh
+</pre></div>
+</div>
+<p><strong>Expected Output:</strong></p>
+<ul>
+<li><p>Terminal submission message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Submitted</span> <span class="n">batch</span> <span class="n">job</span> <span class="mi">123457</span>
+</pre></div>
+</div>
+</li>
+<li><p>Output file <code class="docutils literal notranslate"><span class="pre">highmem_output_123457.out</span></code> will contain:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nodeXYZ</span><span class="o">.</span><span class="n">arc</span><span class="o">.</span><span class="n">leeds</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span>
+</pre></div>
+</div>
+<p>(Node assigned may be a GPU node.)</p>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="optional-task-arrays">
+<h2>(Optional) Task Arrays<a class="headerlink" href="#optional-task-arrays" title="Link to this heading">#</a></h2>
+<p>Arrays allow submitting multiple similar jobs efficiently.</p>
+<p>Example script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=array_job</span>
+<span class="c1">#SBATCH --array=1-3</span>
+<span class="c1">#SBATCH --output=array_output_%A_%a.out</span>
+
+module<span class="w"> </span>load<span class="w"> </span>python
+
+python<span class="w"> </span>my_script.py<span class="w"> </span><span class="nv">$SLURM_ARRAY_TASK_ID</span>
+</pre></div>
+</div>
+<p>Submit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>array_script.sh
+</pre></div>
+</div>
+<p><strong>Exercise (Optional):</strong>
+Write a batch script to submit a task array with 3 tasks, each printing its task ID.</p>
+<p><strong>Answer:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --job-name=array_example</span>
+<span class="c1">#SBATCH --array=1-3</span>
+<span class="c1">#SBATCH --output=array_%A_%a.out</span>
+
+module<span class="w"> </span>load<span class="w"> </span>python
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Task ID: </span><span class="nv">$SLURM_ARRAY_TASK_ID</span><span class="s2">&quot;</span>
+hostname
+</pre></div>
+</div>
+<p>Submit using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>array_example.sh
+</pre></div>
+</div>
+<p><strong>Expected Output:</strong></p>
+<ul>
+<li><p>Three output files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array_</span><span class="o">&lt;</span><span class="n">jobID</span><span class="o">&gt;</span><span class="n">_1</span><span class="o">.</span><span class="n">out</span>
+<span class="n">array_</span><span class="o">&lt;</span><span class="n">jobID</span><span class="o">&gt;</span><span class="n">_2</span><span class="o">.</span><span class="n">out</span>
+<span class="n">array_</span><span class="o">&lt;</span><span class="n">jobID</span><span class="o">&gt;</span><span class="n">_3</span><span class="o">.</span><span class="n">out</span>
+</pre></div>
+</div>
+</li>
+<li><p>Each file contains:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Task</span> <span class="n">ID</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">nodeXYZ</span><span class="o">.</span><span class="n">arc</span><span class="o">.</span><span class="n">leeds</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span>
+</pre></div>
+</div>
+<p>(or <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code> — depending on the task.)</p>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/system/job_scheduler.html">Aire Job Scheduling Guide</a></p></li>
+<li><p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/job_type.html">Writing Job Scripts</a></p></li>
+<li><p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/job_example.html">Job Examples</a></p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Next Steps:</strong></p>
+<ul class="simple">
+<li><p>Practice writing and submitting simple job scripts.</p></li>
+<li><p>Experiment with resource requests.</p></li>
+<li><p>Explore more advanced SLURM features as needed.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="recap-quiz">
+<h2><strong>Recap Quiz</strong><a class="headerlink" href="#recap-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1.</strong>
+What is the purpose of a job scheduler on an HPC system?</p>
+<ul class="simple">
+<li><p>A) To speed up internet connections</p></li>
+<li><p>B) To manually assign jobs to users</p></li>
+<li><p>C) To allocate compute resources and manage job queues</p></li>
+<li><p>D) To monitor user emails</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>C) To allocate compute resources and manage job queues</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q2.</strong>
+Which scheduler is used on the Aire HPC system?</p>
+<ul class="simple">
+<li><p>A) PBS</p></li>
+<li><p>B) SLURM</p></li>
+<li><p>C) LSF</p></li>
+<li><p>D) Grid Engine</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>B) SLURM</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q3.</strong>
+What does the job state <code class="docutils literal notranslate"><span class="pre">PENDING</span></code> mean?</p>
+<ul class="simple">
+<li><p>A) The job is actively running on a node</p></li>
+<li><p>B) The job is waiting for available resources</p></li>
+<li><p>C) The job has completed successfully</p></li>
+<li><p>D) The job was cancelled by the user</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>B) The job is waiting for available resources</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q4.</strong>
+Which command would you use to submit a job script to SLURM?</p>
+<ul class="simple">
+<li><p>A) <code class="docutils literal notranslate"><span class="pre">srun</span></code></p></li>
+<li><p>B) <code class="docutils literal notranslate"><span class="pre">squeue</span></code></p></li>
+<li><p>C) <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></p></li>
+<li><p>D) <code class="docutils literal notranslate"><span class="pre">scancel</span></code></p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>C) sbatch</strong></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><strong>Q5.</strong>
+Why is it important to set a time limit (<code class="docutils literal notranslate"><span class="pre">--time</span></code>) in your job script?</p>
+<ul class="simple">
+<li><p>A) It makes the job run faster</p></li>
+<li><p>B) It helps SLURM schedule jobs more efficiently</p></li>
+<li><p>C) It avoids the job being cancelled for overrun</p></li>
+<li><p>D) Both B and C</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Answer:</strong>
+<strong>D) Both B and C</strong></p>
+</div></blockquote>
+<hr class="docutils" />
 </section>
 </section>
 
@@ -516,7 +980,7 @@ https://arctraining.github.io/rc-slides/hpc1.html#/submit-a-serial-python-job</p
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Session 6: HPC Best Practices &amp; Troubleshooting</p>
+        <p class="prev-next-title"><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -536,20 +1000,32 @@ https://arctraining.github.io/rc-slides/hpc1.html#/submit-a-serial-python-job</p
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-hpc-job-scheduling-systems">Overview of HPC job scheduling systems</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-background">General background</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm">Slurm</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Session 5: Introduction to Job Scheduling and Batch Jobs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-is-a-job-scheduler">Background: What is a Job Scheduler?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-the-scheduler-on-aire">SLURM: The Scheduler on Aire</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-jobs-flow-through-the-system">How Jobs Flow Through the System</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-job-states">Common Job States</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-jobs-wait">Why Do Jobs Wait?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-you-interact-with-the-scheduler">How You Interact with the Scheduler</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#job-scripts">Job Scripts</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-job-scripts">Structure of job scripts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-requests">resource requests</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submission-command">submission command</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-batch-jobs">Why Use Batch Jobs?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-write-and-submit-a-simple-job-script-monitor-its-progress-and-learn-to-interpret-feedback">Practical - write and submit a simple job script, monitor its progress, and learn to interpret feedback</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-practical">Hands-On Practical</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-write-and-submit-a-simple-job">Hands-On: Write and Submit a Simple Job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monitoring-jobs">Monitoring Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-jobs">Interactive Jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-and-error-files">Output and Error Files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-memory-and-gpu-requests">High Memory and GPU Requests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-arrays">(Optional) Task Arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-quiz"><strong>Recap Quiz</strong></a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Session 7: Wrap Up" href="wrap-up.html" />
-    <link rel="prev" title="Session 5: Job Scheduling &amp; Submission" href="scheduling-submission.html" />
+    <link rel="prev" title="Session 5: Introduction to Job Scheduling and Batch Jobs" href="scheduling-submission.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,8 +187,9 @@
 <li class="toctree-l1"><a class="reference internal" href="logging-on-and-linux-recap.html">Session 2: Logging-on and Linux recap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Session 3: Storage on Aire</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules-software.html">Session 4: Modules and Software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scheduling-submission.html">Session 5: Job Scheduling &amp; Submission</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 6: HPC Best Practices &amp; Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduling-submission.html">Session 5: Introduction to Job Scheduling and Batch Jobs</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="wrap-up.html">Session 7: Wrap Up</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Contact Us</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
@@ -404,13 +405,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues-with-job-submission-and-system-usage">Common issues with job submission and system usage</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategies-for-error-diagnosis-and-resource-optimization">Strategies for error diagnosis and resource optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidance-and-support">Guidance and Support</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arcdocs-and-google">arcdocs (and google)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-a-ticket">submit a ticket</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes"><strong>Learning Outcomes</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-introduction"><strong>Background / Introduction</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues-with-job-submission-and-system-usage"><strong>Common Issues with Job Submission and System Usage</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategies-for-error-diagnosis-and-resource-optimization"><strong>Strategies for Error Diagnosis and Resource Optimization</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-tips"><strong>Bonus Tips</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-tips">🔍 Troubleshooting Tips</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-error-log-snippet"><strong>Sample Error Log Snippet</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidance-and-support"><strong>Guidance and Support</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-arcdocs-and-google-effectively"><strong>Using arcdocs and Google Effectively</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-support-ticket"><strong>Submitting a Support Ticket</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-quiz"><strong>Recap Quiz</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps"><strong>Next Steps</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -423,21 +433,240 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="session-6-hpc-best-practices-troubleshooting">
-<h1>Session 6: HPC Best Practices &amp; Troubleshooting<a class="headerlink" href="#session-6-hpc-best-practices-troubleshooting" title="Link to this heading">#</a></h1>
+<h1><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong><a class="headerlink" href="#session-6-hpc-best-practices-troubleshooting" title="Link to this heading">#</a></h1>
+<section id="learning-outcomes">
+<h2><strong>Learning Outcomes</strong><a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h2>
+<p>By the end of this session, you will be able to:</p>
+<ul class="simple">
+<li><p>Recognize common job submission and system usage issues.</p></li>
+<li><p>Apply systematic troubleshooting techniques.</p></li>
+<li><p>Optimize resource usage and avoid common pitfalls.</p></li>
+<li><p>Navigate documentation effectively (arcdocs, Google).</p></li>
+<li><p>Submit an effective support ticket when needed.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="background-introduction">
+<h2><strong>Background / Introduction</strong><a class="headerlink" href="#background-introduction" title="Link to this heading">#</a></h2>
+<p>High Performance Computing (HPC) systems are powerful but complex environments. Errors and failures are common, especially for new users. Learning how to systematically troubleshoot saves time, reduces frustration, and improves your productivity.</p>
+<p>You are encouraged to resolve problems independently before seeking help. This session will provide practical tools and workflows to diagnose issues and know when and how to escalate.</p>
+</section>
+<hr class="docutils" />
 <section id="common-issues-with-job-submission-and-system-usage">
-<h2>Common issues with job submission and system usage<a class="headerlink" href="#common-issues-with-job-submission-and-system-usage" title="Link to this heading">#</a></h2>
+<h2><strong>Common Issues with Job Submission and System Usage</strong><a class="headerlink" href="#common-issues-with-job-submission-and-system-usage" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Job stuck in PENDING</strong>:</p>
+<ul>
+<li><p>Insufficient resources available.</p></li>
+<li><p>Requested rare resources (e.g., GPUs, high-memory).</p></li>
+<li><p>User priority is low (fair-share scheduling).</p></li>
+</ul>
+</li>
+<li><p><strong>Job fails immediately</strong>:</p>
+<ul>
+<li><p>Syntax error in script.</p></li>
+<li><p>Incorrect module loaded or missing environment setup.</p></li>
+<li><p>File paths incorrect or inaccessible.</p></li>
+</ul>
+</li>
+<li><p><strong>Job exceeds time/memory limits</strong>:</p>
+<ul>
+<li><p>Underestimated resource requirements.</p></li>
+<li><p>Infinite loops or runaway jobs.</p></li>
+</ul>
+</li>
+<li><p><strong>Storage problems</strong>:</p>
+<ul>
+<li><p>Disk quota exceeded.</p></li>
+<li><p>Writing to non-scratch areas with insufficient space.</p></li>
+</ul>
+</li>
+<li><p><strong>Permission errors</strong>:</p>
+<ul>
+<li><p>Incorrect file/directory permissions.</p></li>
+<li><p>Attempt to write to read-only directories.</p></li>
+</ul>
+</li>
+</ul>
 </section>
+<hr class="docutils" />
 <section id="strategies-for-error-diagnosis-and-resource-optimization">
-<h2>Strategies for error diagnosis and resource optimization<a class="headerlink" href="#strategies-for-error-diagnosis-and-resource-optimization" title="Link to this heading">#</a></h2>
+<h2><strong>Strategies for Error Diagnosis and Resource Optimization</strong><a class="headerlink" href="#strategies-for-error-diagnosis-and-resource-optimization" title="Link to this heading">#</a></h2>
+<p>A methodical approach helps:</p>
+<ol class="arabic simple">
+<li><p><strong>Read the Error Message</strong>:</p>
+<ul class="simple">
+<li><p>First line of defense.</p></li>
+<li><p>Look for keywords like <code class="docutils literal notranslate"><span class="pre">Segmentation</span> <span class="pre">fault</span></code>, <code class="docutils literal notranslate"><span class="pre">Permission</span> <span class="pre">denied</span></code>, <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">memory</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Check Output and Error Logs</strong>:</p>
+<ul class="simple">
+<li><p>Look at <code class="docutils literal notranslate"><span class="pre">.out</span></code> and <code class="docutils literal notranslate"><span class="pre">.err</span></code> files created by SLURM.</p></li>
+<li><p>Search for unusual termination messages.</p></li>
+</ul>
+</li>
+<li><p><strong>Validate the Job Script</strong>:</p>
+<ul class="simple">
+<li><p>Are directives correct (<code class="docutils literal notranslate"><span class="pre">#SBATCH</span></code>)?</p></li>
+<li><p>Paths to modules, data files correct?</p></li>
+</ul>
+</li>
+<li><p><strong>Use Monitoring Tools</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">squeue</span></code> — check job status.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">show</span> <span class="pre">job</span> <span class="pre">&lt;jobID&gt;</span></code> — detailed job info.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sacct</span></code> — view accounting data after job completes.</p></li>
+</ul>
+</li>
+<li><p><strong>Resource Requests</strong>:</p>
+<ul class="simple">
+<li><p>Adjust memory (<code class="docutils literal notranslate"><span class="pre">--mem</span></code>), CPUs (<code class="docutils literal notranslate"><span class="pre">--cpus-per-task</span></code>), or time (<code class="docutils literal notranslate"><span class="pre">--time</span></code>).</p></li>
+<li><p>Test with smaller jobs first.</p></li>
+</ul>
+</li>
+<li><p><strong>Minimal Reproducible Example</strong>:</p>
+<ul class="simple">
+<li><p>Simplify the problem.</p></li>
+<li><p>Remove unnecessary steps to isolate the cause.</p></li>
+</ul>
+</li>
+<li><p><strong>Restart Strategy</strong>:</p>
+<ul class="simple">
+<li><p>If a job crashes, ensure it can restart from checkpoints.</p></li>
+</ul>
+</li>
+</ol>
 </section>
+<hr class="docutils" />
+<section id="bonus-tips">
+<h2><strong>Bonus Tips</strong><a class="headerlink" href="#bonus-tips" title="Link to this heading">#</a></h2>
+<section id="troubleshooting-tips">
+<h3>🔍 Troubleshooting Tips<a class="headerlink" href="#troubleshooting-tips" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Always check the <code class="docutils literal notranslate"><span class="pre">.err</span></code> file</strong> first — many runtime errors are logged there.</p></li>
+<li><p><strong>Google Smartly</strong>: Put error messages in <strong>quotes</strong> to search exact phrases.</p></li>
+<li><p><strong>Save working job scripts</strong> — version control isn’t just for code.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sample-error-log-snippet">
+<h2><strong>Sample Error Log Snippet</strong><a class="headerlink" href="#sample-error-log-snippet" title="Link to this heading">#</a></h2>
+<p>Typical <code class="docutils literal notranslate"><span class="pre">.err</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;big_simulation.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">42</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;numpy&#39;</span>
+
+<span class="n">srun</span><span class="p">:</span> <span class="n">error</span><span class="p">:</span> <span class="n">node1234</span><span class="p">:</span> <span class="n">task</span> <span class="mi">0</span><span class="p">:</span> <span class="n">Exited</span> <span class="k">with</span> <span class="n">exit</span> <span class="n">code</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><strong>Interpretation</strong>:</p>
+<ul class="simple">
+<li><p>Top error: Python cannot find the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> module — indicates missing environment/module.</p></li>
+<li><p>Bottom error: SLURM shows that task 0 exited abnormally.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
 <section id="guidance-and-support">
-<h2>Guidance and Support<a class="headerlink" href="#guidance-and-support" title="Link to this heading">#</a></h2>
-<section id="arcdocs-and-google">
-<h3>arcdocs (and google)<a class="headerlink" href="#arcdocs-and-google" title="Link to this heading">#</a></h3>
+<h2><strong>Guidance and Support</strong><a class="headerlink" href="#guidance-and-support" title="Link to this heading">#</a></h2>
+<section id="using-arcdocs-and-google-effectively">
+<h3><strong>Using arcdocs and Google Effectively</strong><a class="headerlink" href="#using-arcdocs-and-google-effectively" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>arcdocs</strong>:</p>
+<ul>
+<li><p><a class="reference external" href="https://arcdocs.leeds.ac.uk/aire">Aire HPC Documentation</a></p></li>
+<li><p>Search with clear keywords (e.g., “job submission error”, “SLURM memory limit”).</p></li>
+</ul>
+</li>
+<li><p><strong>Google</strong>:</p>
+<ul>
+<li><p>Copy error messages <em>verbatim</em> into search.</p></li>
+<li><p>Use quotes for exact matches.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<blockquote>
+<div><p>Error: <code class="docutils literal notranslate"><span class="pre">srun:</span> <span class="pre">error:</span> <span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">allocate</span> <span class="pre">resources:</span> <span class="pre">Requested</span> <span class="pre">node</span> <span class="pre">configuration</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">available</span></code>
+Google: <code class="docutils literal notranslate"><span class="pre">&quot;srun:</span> <span class="pre">error:</span> <span class="pre">Unable</span> <span class="pre">to</span> <span class="pre">allocate</span> <span class="pre">resources:</span> <span class="pre">Requested</span> <span class="pre">node</span> <span class="pre">configuration</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">available&quot;</span> <span class="pre">HPC</span> <span class="pre">SLURM</span></code></p>
+</div></blockquote>
 </section>
-<section id="submit-a-ticket">
-<h3>submit a ticket<a class="headerlink" href="#submit-a-ticket" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="submitting-a-support-ticket">
+<h3><strong>Submitting a Support Ticket</strong><a class="headerlink" href="#submitting-a-support-ticket" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Only escalate if you have attempted basic troubleshooting.</p></li>
+</ul>
+<p><strong>How to Write a Good Ticket</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Clear Description</strong>.</p></li>
+<li><p><strong>Job Details</strong> — job script, output/error logs.</p></li>
+<li><p><strong>Environment Info</strong> — loaded modules, software versions.</p></li>
+<li><p><strong>What You’ve Tried</strong>.</p></li>
+</ol>
+<p><strong>Example</strong>:</p>
+<blockquote>
+<div><p><strong>Subject</strong>: Job Failing with Out of Memory — Aire HPC</p>
+<p><strong>Description</strong>:
+I’m submitting a job with 32 cores and 128GB memory. It fails with “oom-killer” message after ~1 hour.</p>
+<p><strong>Script</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH --cpus-per-task=32</span>
+<span class="c1">#SBATCH --mem=128G</span>
+<span class="c1">#SBATCH --time=2:00:00</span>
+</pre></div>
+</div>
+<p><strong>Modules Loaded</strong>:</p>
+<ul class="simple">
+<li><p>python/3.8</p></li>
+<li><p>mpi/openmpi-4.1</p></li>
+</ul>
+<p><strong>Error Logs</strong>:
+<code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">memory:</span> <span class="pre">Kill</span> <span class="pre">process</span> <span class="pre">12345</span> <span class="pre">(python)</span> <span class="pre">score</span> <span class="pre">1234</span> <span class="pre">or</span> <span class="pre">sacrifice</span> <span class="pre">child</span></code></p>
+<p><strong>Steps Tried</strong>:</p>
+<ul class="simple">
+<li><p>Reduced number of cores.</p></li>
+<li><p>Increased memory request to 160GB (still fails).</p></li>
+</ul>
+</div></blockquote>
 </section>
+</section>
+<section id="recap-quiz">
+<h2><strong>Recap Quiz</strong><a class="headerlink" href="#recap-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1.</strong>
+What is the first step you should take when your HPC job fails?</p>
+<blockquote>
+<div><p><strong>Answer:</strong> C) Read the error message and check logs.</p>
+</div></blockquote>
+<p><strong>Q2.</strong>
+Where can you find official documentation for the Aire HPC system?</p>
+<blockquote>
+<div><p><strong>Answer:</strong> B) arcdocs</p>
+</div></blockquote>
+<p><strong>Q3.</strong>
+When is it appropriate to submit a support ticket?</p>
+<blockquote>
+<div><p><strong>Answer:</strong> B) After attempting troubleshooting and collecting relevant information.</p>
+</div></blockquote>
+<p><strong>Q4.</strong>
+What should a good support ticket <em>always</em> include?</p>
+<blockquote>
+<div><p><strong>Answer:</strong> B) Full job script, error logs, and description of troubleshooting steps.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2><strong>Next Steps</strong><a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Practice troubleshooting job failures.</p></li>
+<li><p>Explore arcdocs for documentation.</p></li>
+<li><p>Practice drafting clear support tickets.</p></li>
+<li><p>Experiment with optimizing resource requests.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Pro Tip</strong>: Systematic troubleshooting and good communication can drastically reduce time to resolve HPC issues.</p>
+</div></blockquote>
 </section>
 </section>
 
@@ -477,7 +706,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Session 5: Job Scheduling &amp; Submission</p>
+        <p class="prev-next-title">Session 5: Introduction to Job Scheduling and Batch Jobs</p>
       </div>
     </a>
     <a class="right-next"
@@ -505,13 +734,22 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues-with-job-submission-and-system-usage">Common issues with job submission and system usage</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategies-for-error-diagnosis-and-resource-optimization">Strategies for error diagnosis and resource optimization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidance-and-support">Guidance and Support</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arcdocs-and-google">arcdocs (and google)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-a-ticket">submit a ticket</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes"><strong>Learning Outcomes</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-introduction"><strong>Background / Introduction</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues-with-job-submission-and-system-usage"><strong>Common Issues with Job Submission and System Usage</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategies-for-error-diagnosis-and-resource-optimization"><strong>Strategies for Error Diagnosis and Resource Optimization</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-tips"><strong>Bonus Tips</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-tips">🔍 Troubleshooting Tips</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-error-log-snippet"><strong>Sample Error Log Snippet</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guidance-and-support"><strong>Guidance and Support</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-arcdocs-and-google-effectively"><strong>Using arcdocs and Google Effectively</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-support-ticket"><strong>Submitting a Support Ticket</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-quiz"><strong>Recap Quiz</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps"><strong>Next Steps</strong></a></li>
 </ul>
   </nav></div>
 
