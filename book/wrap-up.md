@@ -55,16 +55,11 @@ Let’s quickly revisit the main topics covered in this course:
 * **Workflow Management:** Snakemake, Nextflow, job dependencies.
 * **Performance Optimization:** Profiling, benchmarking.
 
-### Recommended Resources
+### Useful links
 
 * [ARC Documentation Portal](https://arcdocs.leeds.ac.uk/aire/welcome.html)
-* [HPC Carpentry Lessons](https://carpentries-incubator.github.io/hpc-intro/)
-* [High Performance Python Course](https://arc.leeds.ac.uk/courses/swd6-high-performance-python/)
-
-### Stay Connected
-
 * [Research Computing Training Calendar](https://arc.leeds.ac.uk/courses/)
-* [Submit a Support Ticket](https://it.leeds.ac.uk) if you need assistance.
+* [Submit a Support Ticket](https://it.leeds.ac.uk/it?id=sc_cat_item&sys_id=7587b2530f675f00a82247ece1050eda) if you need assistance.
 
 ---
 
@@ -86,15 +81,13 @@ Use this time to:
 
 ---
 
-## Bonus Tips for Continuing Success
+##  Tips
 
 * **Start small**: Always begin with a minimal test case to confirm your setup before scaling up.
 * **Version control your scripts**: Use Git or another version control system to track your job scripts and code.
 * **Resource efficiency**: Request only what you need — excessive resource requests can delay your job.
 * **Learn by doing**: Schedule time to practice; the more batch scripts you write, the more confident you'll become.
 * **Stay informed**: Subscribe to mailing lists or notifications from the HPC service for updates and downtime notices.
-
-\:::
 
 ---
 
@@ -172,12 +165,10 @@ Here’s how you can continue your HPC journey:
 | **Step**                  | **What to Do**                                                        |
 | ------------------------- | --------------------------------------------------------------------- |
 | **1. Practice**           | Regularly submit small jobs, explore module loading, refine scripts.  |
-| **2. Advanced Courses**   | Take courses on parallel programming (MPI/OpenMP) or HPC Python.      |
-| **3. Optimize**           | Learn profiling and benchmarking tools to make your code faster.      |
+| **2. More Courses**       | Take courses on Git, R, Python, HPC2.                                 |
 | **4. Real Projects**      | Apply your skills to real research problems, scale up carefully.      |
-| **5. Community**          | Join research computing forums, HPC mailing lists, and attend events. |
-| **6. Mentorship/Support** | Reach out to HPC support teams early if stuck — avoid wasting cycles. |
+| **5. Community**          | Join research computing on MS Teams, attend events.                   |
+| **6. Mentorship/Support** | Reach out to HPC support teams EARLY if stuck — avoid wasting cycles. |
 
-\:::{admonition} Final Tip
+## Final Tip
 The best way to learn HPC is by *doing*. Start small, break things, fix them, and gradually scale up your work. Every issue you encounter is a learning opportunity.
-\:::
