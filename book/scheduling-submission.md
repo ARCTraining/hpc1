@@ -427,9 +427,9 @@ sbatch array_example.sh
 
 ## Further Reading
 
-* [Aire Job Scheduling Guide](https://arcdocs.leeds.ac.uk/aire/usage/job_scheduler.html)
+* [Aire Job Scheduling Guide](https://arcdocs.leeds.ac.uk/aire/system/job_scheduler.html)
 * [Writing Job Scripts](https://arcdocs.leeds.ac.uk/aire/usage/job_type.html)
-* [Interactive Jobs](https://arcdocs.leeds.ac.uk/aire/usage/job_type.html#interactive)
+* [Job Examples](https://arcdocs.leeds.ac.uk/aire/usage/job_example.html)
 
 ---
 
