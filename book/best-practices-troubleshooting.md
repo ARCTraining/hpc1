@@ -75,7 +75,6 @@ A methodical approach helps:
    * `squeue` — check job status.
    * `scontrol show job <jobID>` — detailed job info.
    * `sacct` — view accounting data after job completes.
-   * `seff <jobID>` — summarize efficiency (CPU and memory).
 
 5. **Resource Requests**:
 
@@ -95,13 +94,11 @@ A methodical approach helps:
 
 ## **Bonus Tips**
 
-\::::{admonition} 🔍 Troubleshooting Tips
+### 🔍 Troubleshooting Tips
 
 * **Always check the `.err` file** first — many runtime errors are logged there.
-* **Use `seff <jobID>`** after job completion to quickly check if memory and CPUs were used efficiently.
 * **Google Smartly**: Put error messages in **quotes** to search exact phrases.
 * **Save working job scripts** — version control isn't just for code.
-  \::::
 
 ---
 
@@ -131,7 +128,7 @@ srun: error: node1234: task 0: Exited with exit code 1
 
 * **arcdocs**:
 
-  * [Aire HPC Documentation](https://arcdocs.leeds.ac.uk/)
+  * [Aire HPC Documentation](https://arcdocs.leeds.ac.uk/aire)
   * Search with clear keywords (e.g., "job submission error", "SLURM memory limit").
 
 * **Google**:
@@ -148,10 +145,7 @@ srun: error: node1234: task 0: Exited with exit code 1
 
 ### **Submitting a Support Ticket**
 
-Only escalate if:
-
-* You have attempted basic troubleshooting.
-* The issue persists and blocks your work.
+* Only escalate if you have attempted basic troubleshooting.
 
 **How to Write a Good Ticket**:
 
@@ -188,120 +182,6 @@ Only escalate if:
 > * Reduced number of cores.
 > * Increased memory request to 160GB (still fails).
 
----
-
-## **Exercises**
-
-### Exercise 1: Diagnose a Failed Job
-
-You submitted:
-
-```bash
-#!/bin/bash
-#SBATCH --job-name=test_fail
-#SBATCH --time=00:30:00
-#SBATCH --mem=2G
-#SBATCH --cpus-per-task=4
-#SBATCH --output=test_output.out
-#SBATCH --error=test_error.err
-
-module load python
-python big_simulation.py
-```
-
-Error file contains:
-
-```
-ModuleNotFoundError: No module named 'numpy'
-```
-
-**Task**: Identify the issue and suggest a fix.
-
----
-
-### Exercise 2: Find the Right Documentation
-
-Error:
-
-```
-srun: error: Unable to create job step
-```
-
-**Task**: Use arcdocs or Google to find possible causes and solutions.
-
----
-
-### Exercise 3: Draft a Support Ticket
-
-Error:
-`slurmstepd: error: Exceeded job memory limit`
-Job requested 8GB memory. Simulation needs \~20GB.
-
-**Task**: Draft a support ticket reporting the issue.
-
----
-
-## **Answers / Expected Outputs**
-
-### Exercise 1 Answer
-
-**Issue**:
-
-* The Python environment lacks the `numpy` module.
-
-**Fix**:
-
-* Load a Python module with `numpy` or install it.
-
-Example:
-
-```bash
-module load python/3.10
-pip install --user numpy
-```
-
----
-
-### Exercise 2 Answer
-
-**Search Terms**:
-
-> `SLURM srun Unable to create job step`
-
-**Solution**:
-
-* Insufficient resources or a mismatch between `srun` and job allocation.
-
----
-
-### Exercise 3 Answer
-
-**Support Ticket Draft**:
-
-> **Subject**: Exceeded Job Memory Limit — Job ID 987654
->
-> **Description**:
-> Simulation failed with memory limit error.
->
-> **Job Script**:
->
-> ```bash
-> #SBATCH --mem=8G
-> #SBATCH --time=2:00:00
-> ```
->
-> **Error Log**:
-> `slurmstepd: error: Exceeded job memory limit`
->
-> **Modules Loaded**:
->
-> * python/3.8
->
-> **Steps Tried**:
->
-> * Reviewed simulation memory needs (\~20GB).
-
----
 
 ## **Recap Quiz**
 
@@ -311,21 +191,16 @@ What is the first step you should take when your HPC job fails?
 > **Answer:** C) Read the error message and check logs.
 
 **Q2.**
-Which of the following is *NOT* a good practice for troubleshooting HPC jobs?
-
-> **Answer:** B) Ignore error logs and focus on the job script.
-
-**Q3.**
 Where can you find official documentation for the Aire HPC system?
 
 > **Answer:** B) arcdocs
 
-**Q4.**
+**Q3.**
 When is it appropriate to submit a support ticket?
 
 > **Answer:** B) After attempting troubleshooting and collecting relevant information.
 
-**Q5.**
+**Q4.**
 What should a good support ticket *always* include?
 
 > **Answer:** B) Full job script, error logs, and description of troubleshooting steps.
