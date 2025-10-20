@@ -3,6 +3,7 @@ title: "Session 1: What is HPC?"
 subtitle: "Introduction to High Performance Computing Concepts"
 format: html
 ---
+# Session Content
 
 ## Session aims
 
@@ -62,7 +63,7 @@ However, remember:
 
 ---
 
-## Exercise
+# Exercises
 
 Test your understanding of the key concepts from this session:
 

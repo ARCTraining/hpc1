@@ -4,6 +4,8 @@ subtitle: "Connecting to Aire and Command Line Essentials"
 format: html
 ---
 
+# Session content
+
 ## Session aims
 
 By the end of this session, you will be able to:
@@ -99,7 +101,7 @@ free -h      # Memory usage
 
 ---
 
-## Exercises
+# Exercises
 
 1. Log on to Aire! Follow the [guidance here in our documentation](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html) to select the right KB article for your operating system.
 2. Create a new folder/directory in your home directory called `hpc1-examples`

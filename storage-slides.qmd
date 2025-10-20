@@ -1,32 +1,22 @@
 ---
 title: "Storage Systems on Aire"
+subtitle: "Understanding file systems and data management"
 format: 
   revealjs:
     theme: [default, slides-custom.scss]
-    transition: slide
     background-transition: fade
 ---
 
-## Storage Systems on Aire {.center}
-
-Understanding file systems and data management
-
----
-
-## Storage Overview
+## Storage Overview {.smaller}
 
 The Aire HPC file system includes several special directories:
 
-::: {.fragment}
 - **Home directory** (`/users/<username>`, `$HOME`) for personal files
 - **Scratch directory** (`/mnt/scratch/<username>`, `$SCRATCH`) for large, temporary data  
 - **Flash (NVMe) scratch** (`$TMP_SHARED`) for very fast I/O during jobs
 - **Node-local scratch** (`$TMP_LOCAL`, `$TMPDIR`) for fast local storage
-:::
 
-::: {.fragment}
 **Symlinks exist:** `/scratch` → `/mnt/scratch`, `/flash` → `/mnt/flash`
-:::
 
 ---
 
@@ -63,54 +53,63 @@ The Aire HPC file system includes several special directories:
 
 ## Home Directory (`$HOME`)
 
-::: {.fragment}
+::: {.incremental}
 **Characteristics:**
+
 - Quota: ~30 GB and 1,000,000 files
 - Backup enabled and not deleted automatically
 - Best for small, persistent files
 :::
 
-::: {.fragment}
+::: {.incremental}
+
 **Use for:**
+
 - Scripts and code
 - Configuration files
 - Documentation
-- Small datasets
-- Final results
 :::
 
 ---
 
 ## Scratch Directory (`$SCRATCH`)
 
-::: {.fragment}
+::: {.incremental}
 **Characteristics:**
+
 - Quota: ~1 TB and 500,000 files
-- **No backups** - you must clean up manually
-- Not deleted automatically
+- **No backups** - you must move your results to persistent storage
+- Not deleted automatically - you must clean up manually
 :::
 
-::: {.fragment}
+
+## Scratch Directory (`$SCRATCH`)
+
+::: {.incremental}
 **Use for:**
+
 - Large datasets during processing
 - Intermediate job results
 - Temporary files
 - Input data for jobs
+- Back up your results elsewhere!!
 :::
 
 ---
 
 ## Flash Storage (`$TMP_SHARED`)
 
-::: {.fragment}
+::: {.incremental}
 **Characteristics:**
+
 - Quota: ~1 TB per job
 - **Auto-deleted** when job completes
 - Very fast NVMe storage
 :::
 
-::: {.fragment}
+::: {.incremental}
 **Use for:**
+
 - I/O-intensive tasks during jobs
 - Temporary files that need fast access
 - Checkpoint files during long jobs
@@ -120,15 +119,17 @@ The Aire HPC file system includes several special directories:
 
 ## Local Scratch (`$TMP_LOCAL`)
 
-::: {.fragment}
+::: {.incremental}
 **Characteristics:**
+
 - Node-specific quota
 - **Auto-deleted** after job completion
 - Fastest storage (on the compute node)
 :::
 
-::: {.fragment}
+::: {.incremental}
 **Use for:**
+
 - Single-node jobs requiring fast I/O
 - Temporary files that don't need to be shared
 - Very fast local processing
@@ -235,6 +236,7 @@ rsync -avh data/ <username>@target-system:path/data/
 
 ::: {.fragment}
 **Benefits:**
+
 - Only transfers changed files
 - Resumes interrupted transfers  
 - Progress indicators with `--info=progress2`
@@ -300,7 +302,7 @@ All connect via SFTP to Aire login nodes
 :::
 
 ::: {.fragment}  
-3. **Preserve**: Copy important results back to `$HOME`
+3. **Preserve**: Copy important results to dedicated research storage
 :::
 
 ::: {.fragment}
@@ -317,7 +319,7 @@ All connect via SFTP to Aire login nodes
 - Scratch and flash are **temporary** storage
 - No backups on scratch/flash
 - Flash is **automatically deleted** after jobs
-- Always copy important results to `$HOME`
+- Always copy important results to dedicated research storage
 - Regular cleanup prevents quota issues
 :::
 

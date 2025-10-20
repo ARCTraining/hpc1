@@ -192,19 +192,15 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Storage Systems on Aire</h1>
+  <p class="subtitle">Understanding file systems and data management</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="storage-systems-on-aire" class="slide level2 center">
-<h2>Storage Systems on Aire</h2>
-<p>Understanding file systems and data management</p>
-</section>
-<section id="storage-overview" class="slide level2">
+<section id="storage-overview" class="slide level2 smaller">
 <h2>Storage Overview</h2>
 <p>The Aire HPC file system includes several special directories:</p>
-<div class="fragment">
 <ul>
 <li><strong>Home directory</strong> (<code>/users/&lt;username&gt;</code>, <code>$HOME</code>) for personal files</li>
 <li><strong>Scratch directory</strong> (<code>/mnt/scratch/&lt;username&gt;</code>, <code>$SCRATCH</code>) for large, temporary data<br>
@@ -212,10 +208,7 @@
 <li><strong>Flash (NVMe) scratch</strong> (<code>$TMP_SHARED</code>) for very fast I/O during jobs</li>
 <li><strong>Node-local scratch</strong> (<code>$TMP_LOCAL</code>, <code>$TMPDIR</code>) for fast local storage</li>
 </ul>
-</div>
-<div class="fragment">
 <p><strong>Symlinks exist:</strong> <code>/scratch</code> → <code>/mnt/scratch</code>, <code>/flash</code> → <code>/mnt/flash</code></p>
-</div>
 </section>
 <section id="critical-storage-rules" class="slide level2 center">
 <h2>Critical Storage Rules</h2>
@@ -278,38 +271,83 @@
 </section>
 <section id="home-directory-home" class="slide level2">
 <h2>Home Directory (<code>$HOME</code>)</h2>
-<div class="fragment">
-<p><strong>Characteristics:</strong> - Quota: ~30 GB and 1,000,000 files - Backup enabled and not deleted automatically - Best for small, persistent files</p>
+<div>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li class="fragment">Quota: ~30 GB and 1,000,000 files</li>
+<li class="fragment">Backup enabled and not deleted automatically</li>
+<li class="fragment">Best for small, persistent files</li>
+</ul>
 </div>
-<div class="fragment">
-<p><strong>Use for:</strong> - Scripts and code - Configuration files - Documentation - Small datasets - Final results</p>
+<div>
+<p><strong>Use for:</strong></p>
+<ul>
+<li class="fragment">Scripts and code</li>
+<li class="fragment">Configuration files</li>
+<li class="fragment">Documentation</li>
+</ul>
 </div>
 </section>
 <section id="scratch-directory-scratch" class="slide level2">
 <h2>Scratch Directory (<code>$SCRATCH</code>)</h2>
-<div class="fragment">
-<p><strong>Characteristics:</strong> - Quota: ~1 TB and 500,000 files - <strong>No backups</strong> - you must clean up manually - Not deleted automatically</p>
+<div>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li class="fragment">Quota: ~1 TB and 500,000 files</li>
+<li class="fragment"><strong>No backups</strong> - you must move your results to persistent storage</li>
+<li class="fragment">Not deleted automatically - you must clean up manually</li>
+</ul>
 </div>
-<div class="fragment">
-<p><strong>Use for:</strong> - Large datasets during processing - Intermediate job results - Temporary files - Input data for jobs</p>
+</section>
+<section id="scratch-directory-scratch-1" class="slide level2">
+<h2>Scratch Directory (<code>$SCRATCH</code>)</h2>
+<div>
+<p><strong>Use for:</strong></p>
+<ul>
+<li class="fragment">Large datasets during processing</li>
+<li class="fragment">Intermediate job results</li>
+<li class="fragment">Temporary files</li>
+<li class="fragment">Input data for jobs</li>
+<li class="fragment">Back up your results elsewhere!!</li>
+</ul>
 </div>
 </section>
 <section id="flash-storage-tmp_shared" class="slide level2">
 <h2>Flash Storage (<code>$TMP_SHARED</code>)</h2>
-<div class="fragment">
-<p><strong>Characteristics:</strong> - Quota: ~1 TB per job - <strong>Auto-deleted</strong> when job completes - Very fast NVMe storage</p>
+<div>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li class="fragment">Quota: ~1 TB per job</li>
+<li class="fragment"><strong>Auto-deleted</strong> when job completes</li>
+<li class="fragment">Very fast NVMe storage</li>
+</ul>
 </div>
-<div class="fragment">
-<p><strong>Use for:</strong> - I/O-intensive tasks during jobs - Temporary files that need fast access - Checkpoint files during long jobs</p>
+<div>
+<p><strong>Use for:</strong></p>
+<ul>
+<li class="fragment">I/O-intensive tasks during jobs</li>
+<li class="fragment">Temporary files that need fast access</li>
+<li class="fragment">Checkpoint files during long jobs</li>
+</ul>
 </div>
 </section>
 <section id="local-scratch-tmp_local" class="slide level2">
 <h2>Local Scratch (<code>$TMP_LOCAL</code>)</h2>
-<div class="fragment">
-<p><strong>Characteristics:</strong> - Node-specific quota - <strong>Auto-deleted</strong> after job completion - Fastest storage (on the compute node)</p>
+<div>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li class="fragment">Node-specific quota</li>
+<li class="fragment"><strong>Auto-deleted</strong> after job completion</li>
+<li class="fragment">Fastest storage (on the compute node)</li>
+</ul>
 </div>
-<div class="fragment">
-<p><strong>Use for:</strong> - Single-node jobs requiring fast I/O - Temporary files that don’t need to be shared - Very fast local processing</p>
+<div>
+<p><strong>Use for:</strong></p>
+<ul>
+<li class="fragment">Single-node jobs requiring fast I/O</li>
+<li class="fragment">Temporary files that don’t need to be shared</li>
+<li class="fragment">Very fast local processing</li>
+</ul>
 </div>
 </section>
 <section id="checking-disk-usage" class="slide level2">
@@ -375,8 +413,14 @@
 <p>Better for large files and directories:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a></a><span class="fu">rsync</span> <span class="at">-avh</span> data/ <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:path/data/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p><strong>Benefits:</strong> - Only transfers changed files - Resumes interrupted transfers<br>
-- Progress indicators with <code>--info=progress2</code> - More efficient than scp for large transfers</p>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Only transfers changed files</li>
+<li>Resumes interrupted transfers<br>
+</li>
+<li>Progress indicators with <code>--info=progress2</code></li>
+<li>More efficient than scp for large transfers</li>
+</ul>
 </div>
 </section>
 <section id="off-campus-transfers" class="slide level2">
@@ -428,7 +472,7 @@
 </div>
 <div class="fragment">
 <ol start="3" type="1">
-<li><strong>Preserve</strong>: Copy important results back to <code>$HOME</code></li>
+<li><strong>Preserve</strong>: Copy important results to dedicated research storage</li>
 </ol>
 </div>
 <div class="fragment">
@@ -452,7 +496,7 @@
 <li>Scratch and flash are <strong>temporary</strong> storage</li>
 <li>No backups on scratch/flash</li>
 <li>Flash is <strong>automatically deleted</strong> after jobs</li>
-<li>Always copy important results to <code>$HOME</code></li>
+<li>Always copy important results to dedicated research storage</li>
 <li>Regular cleanup prevents quota issues</li>
 </ul>
 </div>
@@ -673,7 +717,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

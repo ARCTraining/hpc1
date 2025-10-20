@@ -211,7 +211,7 @@
     "href": "storage-slides.html#storage-overview",
     "title": "Storage Systems on Aire",
     "section": "Storage Overview",
-    "text": "Storage Overview\nThe Aire HPC file system includes several special directories:\n\n\nHome directory (/users/&lt;username&gt;, $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL, $TMPDIR) for fast local storage\n\n\n\nSymlinks exist: /scratch → /mnt/scratch, /flash → /mnt/flash"
+    "text": "Storage Overview\nThe Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL, $TMPDIR) for fast local storage\n\nSymlinks exist: /scratch → /mnt/scratch, /flash → /mnt/flash"
   },
   {
     "objectID": "storage-slides.html#critical-storage-rules",
@@ -232,28 +232,28 @@
     "href": "storage-slides.html#home-directory-home",
     "title": "Storage Systems on Aire",
     "section": "Home Directory ($HOME)",
-    "text": "Home Directory ($HOME)\n\nCharacteristics: - Quota: ~30 GB and 1,000,000 files - Backup enabled and not deleted automatically - Best for small, persistent files\n\n\nUse for: - Scripts and code - Configuration files - Documentation - Small datasets - Final results"
+    "text": "Home Directory ($HOME)\n\nCharacteristics:\n\nQuota: ~30 GB and 1,000,000 files\nBackup enabled and not deleted automatically\nBest for small, persistent files\n\n\n\nUse for:\n\nScripts and code\nConfiguration files\nDocumentation"
   },
   {
     "objectID": "storage-slides.html#scratch-directory-scratch",
     "href": "storage-slides.html#scratch-directory-scratch",
     "title": "Storage Systems on Aire",
     "section": "Scratch Directory ($SCRATCH)",
-    "text": "Scratch Directory ($SCRATCH)\n\nCharacteristics: - Quota: ~1 TB and 500,000 files - No backups - you must clean up manually - Not deleted automatically\n\n\nUse for: - Large datasets during processing - Intermediate job results - Temporary files - Input data for jobs"
+    "text": "Scratch Directory ($SCRATCH)\n\nCharacteristics:\n\nQuota: ~1 TB and 500,000 files\nNo backups - you must move your results to persistent storage\nNot deleted automatically - you must clean up manually"
   },
   {
     "objectID": "storage-slides.html#flash-storage-tmp_shared",
     "href": "storage-slides.html#flash-storage-tmp_shared",
     "title": "Storage Systems on Aire",
     "section": "Flash Storage ($TMP_SHARED)",
-    "text": "Flash Storage ($TMP_SHARED)\n\nCharacteristics: - Quota: ~1 TB per job - Auto-deleted when job completes - Very fast NVMe storage\n\n\nUse for: - I/O-intensive tasks during jobs - Temporary files that need fast access - Checkpoint files during long jobs"
+    "text": "Flash Storage ($TMP_SHARED)\n\nCharacteristics:\n\nQuota: ~1 TB per job\nAuto-deleted when job completes\nVery fast NVMe storage\n\n\n\nUse for:\n\nI/O-intensive tasks during jobs\nTemporary files that need fast access\nCheckpoint files during long jobs"
   },
   {
     "objectID": "storage-slides.html#local-scratch-tmp_local",
     "href": "storage-slides.html#local-scratch-tmp_local",
     "title": "Storage Systems on Aire",
     "section": "Local Scratch ($TMP_LOCAL)",
-    "text": "Local Scratch ($TMP_LOCAL)\n\nCharacteristics: - Node-specific quota - Auto-deleted after job completion - Fastest storage (on the compute node)\n\n\nUse for: - Single-node jobs requiring fast I/O - Temporary files that don’t need to be shared - Very fast local processing"
+    "text": "Local Scratch ($TMP_LOCAL)\n\nCharacteristics:\n\nNode-specific quota\nAuto-deleted after job completion\nFastest storage (on the compute node)\n\n\n\nUse for:\n\nSingle-node jobs requiring fast I/O\nTemporary files that don’t need to be shared\nVery fast local processing"
   },
   {
     "objectID": "storage-slides.html#checking-disk-usage",
@@ -295,7 +295,7 @@
     "href": "storage-slides.html#file-transfer-rsync",
     "title": "Storage Systems on Aire",
     "section": "File Transfer: rsync",
-    "text": "File Transfer: rsync\nBetter for large files and directories:\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\n\nBenefits: - Only transfers changed files - Resumes interrupted transfers\n- Progress indicators with --info=progress2 - More efficient than scp for large transfers"
+    "text": "File Transfer: rsync\nBetter for large files and directories:\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\n\nBenefits:\n\nOnly transfers changed files\nResumes interrupted transfers\n\nProgress indicators with --info=progress2\nMore efficient than scp for large transfers"
   },
   {
     "objectID": "storage-slides.html#off-campus-transfers",
@@ -323,14 +323,14 @@
     "href": "storage-slides.html#best-practices-workflow",
     "title": "Storage Systems on Aire",
     "section": "Best Practices Workflow",
-    "text": "Best Practices Workflow\n\n\nPrepare: Upload input data to $SCRATCH\n\n\n\n\nProcess: Run jobs using scratch storage\n\n\n\n\nPreserve: Copy important results back to $HOME\n\n\n\n\nCleanup: Remove temporary files from $SCRATCH"
+    "text": "Best Practices Workflow\n\n\nPrepare: Upload input data to $SCRATCH\n\n\n\n\nProcess: Run jobs using scratch storage\n\n\n\n\nPreserve: Copy important results to dedicated research storage\n\n\n\n\nCleanup: Remove temporary files from $SCRATCH"
   },
   {
     "objectID": "storage-slides.html#data-loss-prevention",
     "href": "storage-slides.html#data-loss-prevention",
     "title": "Storage Systems on Aire",
     "section": "Data Loss Prevention",
-    "text": "Data Loss Prevention\n\n\n\n\n\n\nCritical Reminders\n\n\n\nScratch and flash are temporary storage\nNo backups on scratch/flash\nFlash is automatically deleted after jobs\nAlways copy important results to $HOME\nRegular cleanup prevents quota issues"
+    "text": "Data Loss Prevention\n\n\n\n\n\n\nCritical Reminders\n\n\n\nScratch and flash are temporary storage\nNo backups on scratch/flash\nFlash is automatically deleted after jobs\nAlways copy important results to dedicated research storage\nRegular cleanup prevents quota issues"
   },
   {
     "objectID": "storage-slides.html#exercise-time",
@@ -775,7 +775,7 @@
     "href": "logging-on-and-linux-recap.html",
     "title": "Session 2: Logging On and Linux Recap",
     "section": "",
-    "text": "By the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\n\n\n\n\nTip\n\n\n\nPlease note that a University of Leeds account is required to view the knowledge base articles linked below.\n\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
+    "text": "By the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\n\n\n\n\nTip\n\n\n\nPlease note that a University of Leeds account is required to view the knowledge base articles linked below.\n\n\nPlease scroll to the bottom of the page to see the exercises for this session.\n\n\n\nThe training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nNote\n\n\n\nThere are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.\n\n\nAttendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\n\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\nFor further guidance on logging on to Aire, see our documentation: Aire docs - Logging On\n\n\n\n\n\nView Interactive Slides: Linux Command Line Essentials\n\n\nMany large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets\n\n\n\n\n\nHere are some essential Linux commands you’ll use frequently:\n# Navigation\npwd          # Print working directory\nls           # List files and directories\ncd           # Change directory\n\n# File operations\ncp           # Copy files\nmv           # Move/rename files\nrm           # Remove files\nmkdir        # Create directory\n\n# Viewing files\ncat          # Display file contents\nless         # View file contents page by page\nhead         # Show first few lines\ntail         # Show last few lines\n\n# System information\nwhoami       # Current username\ndf -h        # Disk usage\nfree -h      # Memory usage",
     "crumbs": [
       "Course Content",
       "Session 2: Logging On and Linux Recap"
@@ -785,8 +785,8 @@
     "objectID": "logging-on-and-linux-recap.html#logging-on",
     "href": "logging-on-and-linux-recap.html#logging-on",
     "title": "Session 2: Logging On and Linux Recap",
-    "section": "Logging on",
-    "text": "Logging on\nThe training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nNote\n\n\n\nThere are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.\n\n\nAttendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\nGeneral instructions\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\nFor further guidance on logging on to Aire, see our documentation: Aire docs - Logging On",
+    "section": "",
+    "text": "The training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nNote\n\n\n\nThere are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.\n\n\nAttendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\n\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\nFor further guidance on logging on to Aire, see our documentation: Aire docs - Logging On",
     "crumbs": [
       "Course Content",
       "Session 2: Logging On and Linux Recap"
@@ -796,8 +796,8 @@
     "objectID": "logging-on-and-linux-recap.html#linux-recap",
     "href": "logging-on-and-linux-recap.html#linux-recap",
     "title": "Session 2: Logging On and Linux Recap",
-    "section": "Linux recap",
-    "text": "Linux recap\nView Interactive Slides: Linux Command Line Essentials\n\nWhy Command Line Interface (CLI)?\nMany large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets\n\n\n\n\nEssential Commands\nHere are some essential Linux commands you’ll use frequently:\n# Navigation\npwd          # Print working directory\nls           # List files and directories\ncd           # Change directory\n\n# File operations\ncp           # Copy files\nmv           # Move/rename files\nrm           # Remove files\nmkdir        # Create directory\n\n# Viewing files\ncat          # Display file contents\nless         # View file contents page by page\nhead         # Show first few lines\ntail         # Show last few lines\n\n# System information\nwhoami       # Current username\ndf -h        # Disk usage\nfree -h      # Memory usage",
+    "section": "",
+    "text": "View Interactive Slides: Linux Command Line Essentials\n\n\nMany large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets\n\n\n\n\n\nHere are some essential Linux commands you’ll use frequently:\n# Navigation\npwd          # Print working directory\nls           # List files and directories\ncd           # Change directory\n\n# File operations\ncp           # Copy files\nmv           # Move/rename files\nrm           # Remove files\nmkdir        # Create directory\n\n# Viewing files\ncat          # Display file contents\nless         # View file contents page by page\nhead         # Show first few lines\ntail         # Show last few lines\n\n# System information\nwhoami       # Current username\ndf -h        # Disk usage\nfree -h      # Memory usage",
     "crumbs": [
       "Course Content",
       "Session 2: Logging On and Linux Recap"
@@ -1163,7 +1163,7 @@
     "href": "storage.html",
     "title": "Session 3: Storage on Aire",
     "section": "",
-    "text": "In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.\nView Interactive Slides: Storage Systems on Aire",
+    "text": "By the end of this session, you will be able to:\n\nDistinguish between different storage areas and their purposes\nNavigate between storage locations using environment variables\nMonitor your disk usage and quotas\nTransfer files between storage areas and your local machine\n\nView Interactive Slides: Storage Systems on Aire\nScroll to the bottom of this section for practical exercises.\n\n\n\nThe Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, env var $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, env var $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED, usually /mnt/flash/tmp/job.&lt;JOB-ID&gt;) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL or $TMPDIR, typically /tmp/job.&lt;JOB-ID&gt;) for fast local storage on each compute node\n\n\n\n\n\n\n\nCritical Storage Rules\n\n\n\n\nHome is backed up and not automatically purged\nScratch and flash are not backed up and flash is deleted after each job\nAlways copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area before the job ends\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStorage Type\nQuota\nBackup\nAuto-Delete\nBest For\n\n\n\n\nHome ($HOME)\n~30 GB, 1M files\n✅ Yes\n❌ No\nScripts, configs, small files\n\n\nScratch ($SCRATCH)\n~1 TB, 500K files\n❌ No\n❌ No\nLarge datasets, job data\n\n\nFlash ($TMP_SHARED)\n~1 TB per job\n❌ No\n✅ Yes\nI/O-intensive tasks\n\n\nLocal ($TMP_LOCAL)\nNode-specific\n❌ No\n✅ Yes\nSingle-node fast storage\n\n\n\n\n\n\n\n\n\nData Loss Risk\n\n\n\nData in scratch/flash areas is temporary. These are not backed up and may be purged. Always move important data to your home or external storage when done.\n\n\n\n\n\n\n\nCheck your current usage and limits:\nquota -s    # Human readable format\nExample output:\nDisk quotas for user yourusername (uid 12345):\n     Filesystem   blocks   quota   limit   grace   files   quota   limit\n      /users     15000*   30000    33000            200000 1000000 1100000\n   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000\n\n\n\nCheck disk usage of directories:\ndu -hs *                    # Size of each directory\ndu -hs $HOME               # Size of home directory\ndu -hs $SCRATCH            # Size of scratch directory\n\n\n\n\n\n\nPro Tip\n\n\n\nRun du -hs * in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!\n\n\n\n\n\n\nUse standard Linux commands with environment variables:\ncd $HOME        # Go to home directory\ncd $SCRATCH     # Go to scratch directory  \ncd              # Also goes to home\ncd ~            # Also goes to home\n\nls $HOME        # List home contents\nls $SCRATCH     # List scratch contents\npwd             # Show current directory\n\n\n\n\n\n# Copy TO scratch\ncp data.txt $SCRATCH/\n\n# Copy FROM scratch back to home\ncp $SCRATCH/output.dat $HOME/results/\n\n# Copy entire directory\ncp -r $HOME/myproject $SCRATCH/\n\n\n\n\n\nFrom local machine to Aire:\nscp myfile.txt &lt;username&gt;@target-system:$SCRATCH/\nFrom Aire to local machine:\nscp &lt;username&gt;@target-system:/path/results.txt .\n\n\n\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\nBenefits of rsync: - Only transfers changed files - Resumes interrupted transfers - Progress indicators with --info=progress2\n\n\n\n# Using rsync\nrsync -r --info=progress2 -e 'ssh -J username@jump-host' file.txt username@target-system:path/\n\n# Using scp  \nscp -rq -J username@jump-host username@target-system:path/file.txt local-folder/\n\n\n\n\nwget https://example.com/data.zip\ncurl -O https://example.com/data.zip\n\n\n\nFor those who prefer graphical interfaces: - FileZilla (cross-platform SFTP client) - WinSCP (Windows) - Cyberduck (Mac/Windows)\n\n\n\n\n\n\n\n\n\n\nKey Storage Principles\n\n\n\n\nMultiple storage areas: Use each storage type appropriately\nRegular cleanup: Run quota -s regularly and clean up old files\n\nData transfer workflow: Transfer input to $SCRATCH before jobs, copy results back after\nAvoid data loss: Always backup important data from temporary storage\nOrganization: Keep your home directory organized and place large data in scratch only when needed\n\n\n\n\n\n\nPrepare: Upload input data to $SCRATCH\nProcess: Run jobs using scratch storage\nPreserve: Copy important results to backed up research storage\nCleanup: Remove temporary files from $SCRATCH",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1173,8 +1173,8 @@
     "objectID": "storage.html#storage-areas-overview",
     "href": "storage.html#storage-areas-overview",
     "title": "Session 3: Storage on Aire",
-    "section": "Storage Areas Overview",
-    "text": "Storage Areas Overview\nThe Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, env var $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, env var $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED, usually /mnt/flash/tmp/job.&lt;JOB-ID&gt;) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL or $TMPDIR, typically /tmp/job.&lt;JOB-ID&gt;) for fast local storage on each compute node\n\n\n\n\n\n\n\nCritical Storage Rules\n\n\n\n\nHome is backed up and not automatically purged\nScratch and flash are not backed up and flash is deleted after each job\nAlways copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area before the job ends\n\n\n\n\nExercise: Check Environment Variables\nDisplay the values of $HOME and $SCRATCH using echo:\necho $HOME\necho $SCRATCH\nExpected output:\n/users/yourusername\n/mnt/scratch/yourusername",
+    "section": "",
+    "text": "The Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, env var $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, env var $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED, usually /mnt/flash/tmp/job.&lt;JOB-ID&gt;) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL or $TMPDIR, typically /tmp/job.&lt;JOB-ID&gt;) for fast local storage on each compute node\n\n\n\n\n\n\n\nCritical Storage Rules\n\n\n\n\nHome is backed up and not automatically purged\nScratch and flash are not backed up and flash is deleted after each job\nAlways copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area before the job ends",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1184,8 +1184,8 @@
     "objectID": "storage.html#storage-types-and-quotas",
     "href": "storage.html#storage-types-and-quotas",
     "title": "Session 3: Storage on Aire",
-    "section": "Storage Types and Quotas",
-    "text": "Storage Types and Quotas\n\n\n\n\n\n\n\n\n\n\nStorage Type\nQuota\nBackup\nAuto-Delete\nBest For\n\n\n\n\nHome ($HOME)\n~30 GB, 1M files\n✅ Yes\n❌ No\nScripts, configs, small files\n\n\nScratch ($SCRATCH)\n~1 TB, 500K files\n❌ No\n❌ No\nLarge datasets, job data\n\n\nFlash ($TMP_SHARED)\n~1 TB per job\n❌ No\n✅ Yes\nI/O-intensive tasks\n\n\nLocal ($TMP_LOCAL)\nNode-specific\n❌ No\n✅ Yes\nSingle-node fast storage\n\n\n\n\n\n\n\n\n\nData Loss Risk\n\n\n\nData in scratch/flash areas is temporary. These are not backed up and may be purged. Always move important data to your home or external storage when done.",
+    "section": "",
+    "text": "Storage Type\nQuota\nBackup\nAuto-Delete\nBest For\n\n\n\n\nHome ($HOME)\n~30 GB, 1M files\n✅ Yes\n❌ No\nScripts, configs, small files\n\n\nScratch ($SCRATCH)\n~1 TB, 500K files\n❌ No\n❌ No\nLarge datasets, job data\n\n\nFlash ($TMP_SHARED)\n~1 TB per job\n❌ No\n✅ Yes\nI/O-intensive tasks\n\n\nLocal ($TMP_LOCAL)\nNode-specific\n❌ No\n✅ Yes\nSingle-node fast storage\n\n\n\n\n\n\n\n\n\nData Loss Risk\n\n\n\nData in scratch/flash areas is temporary. These are not backed up and may be purged. Always move important data to your home or external storage when done.",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1195,8 +1195,8 @@
     "objectID": "storage.html#checking-disk-usage",
     "href": "storage.html#checking-disk-usage",
     "title": "Session 3: Storage on Aire",
-    "section": "Checking Disk Usage",
-    "text": "Checking Disk Usage\n\nUsing the quota command\nCheck your current usage and limits:\nquota -s    # Human readable format\nExample output:\nDisk quotas for user yourusername (uid 12345):\n     Filesystem   blocks   quota   limit   grace   files   quota   limit\n      /users     15000*   30000    33000            200000 1000000 1100000\n   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000\n\n\nUsing the du command\nCheck disk usage of directories:\ndu -hs *                    # Size of each directory\ndu -hs $HOME               # Size of home directory\ndu -hs $SCRATCH            # Size of scratch directory\n\n\n\n\n\n\nPro Tip\n\n\n\nRun du -hs * in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!\n\n\n\n\nExercise: Check Your Usage\nRun the quota command to check your current disk usage and quotas.",
+    "section": "",
+    "text": "Check your current usage and limits:\nquota -s    # Human readable format\nExample output:\nDisk quotas for user yourusername (uid 12345):\n     Filesystem   blocks   quota   limit   grace   files   quota   limit\n      /users     15000*   30000    33000            200000 1000000 1100000\n   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000\n\n\n\nCheck disk usage of directories:\ndu -hs *                    # Size of each directory\ndu -hs $HOME               # Size of home directory\ndu -hs $SCRATCH            # Size of scratch directory\n\n\n\n\n\n\nPro Tip\n\n\n\nRun du -hs * in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1206,8 +1206,8 @@
     "objectID": "storage.html#navigation-commands",
     "href": "storage.html#navigation-commands",
     "title": "Session 3: Storage on Aire",
-    "section": "Navigation Commands",
-    "text": "Navigation Commands\nUse standard Linux commands with environment variables:\ncd $HOME        # Go to home directory\ncd $SCRATCH     # Go to scratch directory  \ncd              # Also goes to home\ncd ~            # Also goes to home\n\nls $HOME        # List home contents\nls $SCRATCH     # List scratch contents\npwd             # Show current directory\n\nExercise: Navigate the File System\nPractice navigating between storage areas:\n\nUse cd with environment variables like $SCRATCH\nUse pwd to check where you are\nUse ls to see what files are present",
+    "section": "",
+    "text": "Use standard Linux commands with environment variables:\ncd $HOME        # Go to home directory\ncd $SCRATCH     # Go to scratch directory  \ncd              # Also goes to home\ncd ~            # Also goes to home\n\nls $HOME        # List home contents\nls $SCRATCH     # List scratch contents\npwd             # Show current directory",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1217,8 +1217,8 @@
     "objectID": "storage.html#file-transfer-methods",
     "href": "storage.html#file-transfer-methods",
     "title": "Session 3: Storage on Aire",
-    "section": "File Transfer Methods",
-    "text": "File Transfer Methods\n\nBetween Storage Areas on Aire\n# Copy TO scratch\ncp data.txt $SCRATCH/\n\n# Copy FROM scratch back to home\ncp $SCRATCH/output.dat $HOME/results/\n\n# Copy entire directory\ncp -r $HOME/myproject $SCRATCH/\n\n\nTo/From Your Local Machine\n\nUsing scp (Secure Copy)\nFrom local machine to Aire:\nscp myfile.txt &lt;username&gt;@target-system:$SCRATCH/\nFrom Aire to local machine:\nscp &lt;username&gt;@target-system:/path/results.txt .\n\n\nUsing rsync (Recommended for large transfers)\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\nBenefits of rsync: - Only transfers changed files - Resumes interrupted transfers - Progress indicators with --info=progress2\n\n\nOff-campus transfers (with jumphost)\n# Using rsync\nrsync -r --info=progress2 -e 'ssh -J username@jump-host' file.txt username@target-system:path/\n\n# Using scp  \nscp -rq -J username@jump-host username@target-system:path/file.txt local-folder/\n\n\n\nDownload from Internet\nwget https://example.com/data.zip\ncurl -O https://example.com/data.zip\n\n\nGUI Tools\nFor those who prefer graphical interfaces: - FileZilla (cross-platform SFTP client) - WinSCP (Windows) - Cyberduck (Mac/Windows)\n\n\nExercise: File Transfer\nOn your local machine, write the scp command to download results.txt from your home directory on Aire into your current local directory.\n\n\n\n\n\n\nSolution\n\n\n\n\n\nscp &lt;username&gt;@target-system:/users/yourname/results.txt .",
+    "section": "",
+    "text": "# Copy TO scratch\ncp data.txt $SCRATCH/\n\n# Copy FROM scratch back to home\ncp $SCRATCH/output.dat $HOME/results/\n\n# Copy entire directory\ncp -r $HOME/myproject $SCRATCH/\n\n\n\n\n\nFrom local machine to Aire:\nscp myfile.txt &lt;username&gt;@target-system:$SCRATCH/\nFrom Aire to local machine:\nscp &lt;username&gt;@target-system:/path/results.txt .\n\n\n\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\nBenefits of rsync: - Only transfers changed files - Resumes interrupted transfers - Progress indicators with --info=progress2\n\n\n\n# Using rsync\nrsync -r --info=progress2 -e 'ssh -J username@jump-host' file.txt username@target-system:path/\n\n# Using scp  \nscp -rq -J username@jump-host username@target-system:path/file.txt local-folder/\n\n\n\n\nwget https://example.com/data.zip\ncurl -O https://example.com/data.zip\n\n\n\nFor those who prefer graphical interfaces: - FileZilla (cross-platform SFTP client) - WinSCP (Windows) - Cyberduck (Mac/Windows)",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1228,8 +1228,8 @@
     "objectID": "storage.html#best-practices-summary",
     "href": "storage.html#best-practices-summary",
     "title": "Session 3: Storage on Aire",
-    "section": "Best Practices Summary",
-    "text": "Best Practices Summary\n\n\n\n\n\n\nKey Storage Principles\n\n\n\n\nMultiple storage areas: Use each storage type appropriately\nRegular cleanup: Run quota -s regularly and clean up old files\n\nData transfer workflow: Transfer input to $SCRATCH before jobs, copy results back after\nAvoid data loss: Always backup important data from temporary storage\nOrganization: Keep your home directory organized and place large data in scratch only when needed\n\n\n\n\nTypical Workflow\n\nPrepare: Upload input data to $SCRATCH\nProcess: Run jobs using scratch storage\nPreserve: Copy important results back to $HOME\nCleanup: Remove temporary files from $SCRATCH",
+    "section": "",
+    "text": "Key Storage Principles\n\n\n\n\nMultiple storage areas: Use each storage type appropriately\nRegular cleanup: Run quota -s regularly and clean up old files\n\nData transfer workflow: Transfer input to $SCRATCH before jobs, copy results back after\nAvoid data loss: Always backup important data from temporary storage\nOrganization: Keep your home directory organized and place large data in scratch only when needed\n\n\n\n\n\n\nPrepare: Upload input data to $SCRATCH\nProcess: Run jobs using scratch storage\nPreserve: Copy important results to backed up research storage\nCleanup: Remove temporary files from $SCRATCH",
     "crumbs": [
       "Course Content",
       "Session 3: Storage on Aire"
@@ -1304,7 +1304,7 @@
     "href": "what-is-hpc.html",
     "title": "Session 1: What is HPC?",
     "section": "",
-    "text": "By the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\nPlease scroll to the bottom of the page to see the exercises for this session.\n\n\n\nLet’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.\nView Interactive Slides: HPC Terminology\n\n\n\n\n\n\nKey takeaway\n\n\n\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.\nRead More: Getting started on HPC\n\n\n\n\n\n\n\nSerial programs run on a single CPU core, solving one problem at a time.\nParallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.\nIn order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.\n\nView Interactive Slides: Serial vs Parallel Programs\n\n\n\n\nHPC systems enable researchers to:\n\nScale up computations: Run calculations that would be impossible on a single computer\nSpeed up results: Reduce time from months/years to days/weeks\nHandle big data: Process datasets too large for regular computers\nEnable new discoveries: Solve previously intractable problems\n\nHowever, remember:\n\nIt’s not magic - there’s no fairy dust that can just make code run on hundreds of processors\nEffort required - A lot of work has to be put into using these systems effectively\nPotential transformation - It could transform your workflow if you put the effort in\n\nView Interactive Slides: Parallelisation and Amdahl’s Law",
     "crumbs": [
       "Course Content",
       "Session 1: What is HPC?"
@@ -1314,8 +1314,8 @@
     "objectID": "what-is-hpc.html#some-commonly-used-terms",
     "href": "what-is-hpc.html#some-commonly-used-terms",
     "title": "Session 1: What is HPC?",
-    "section": "Some commonly used terms",
-    "text": "Some commonly used terms\nLet’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.\nView Interactive Slides: HPC Terminology\n\n\n\n\n\n\nKey takeaway\n\n\n\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.\nRead More: Getting started on HPC",
+    "section": "",
+    "text": "Let’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.\nView Interactive Slides: HPC Terminology\n\n\n\n\n\n\nKey takeaway\n\n\n\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.\nRead More: Getting started on HPC",
     "crumbs": [
       "Course Content",
       "Session 1: What is HPC?"
@@ -1325,8 +1325,8 @@
     "objectID": "what-is-hpc.html#serial-and-parallel-programs",
     "href": "what-is-hpc.html#serial-and-parallel-programs",
     "title": "Session 1: What is HPC?",
-    "section": "Serial and parallel programs",
-    "text": "Serial and parallel programs\n\nSerial programs run on a single CPU core, solving one problem at a time.\nParallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.\nIn order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.\n\nView Interactive Slides: Serial vs Parallel Programs",
+    "section": "",
+    "text": "Serial programs run on a single CPU core, solving one problem at a time.\nParallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.\nIn order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.\n\nView Interactive Slides: Serial vs Parallel Programs",
     "crumbs": [
       "Course Content",
       "Session 1: What is HPC?"
@@ -1336,8 +1336,8 @@
     "objectID": "what-is-hpc.html#why-use-hpc",
     "href": "what-is-hpc.html#why-use-hpc",
     "title": "Session 1: What is HPC?",
-    "section": "Why use HPC?",
-    "text": "Why use HPC?\nHPC systems enable researchers to:\n\nScale up computations: Run calculations that would be impossible on a single computer\nSpeed up results: Reduce time from months/years to days/weeks\nHandle big data: Process datasets too large for regular computers\nEnable new discoveries: Solve previously intractable problems\n\nHowever, remember:\n\nIt’s not magic - there’s no fairy dust that can just make code run on hundreds of processors\nEffort required - A lot of work has to be put into using these systems effectively\nPotential transformation - It could transform your workflow if you put the effort in\n\nView Interactive Slides: Parallelisation and Amdahl’s Law",
+    "section": "",
+    "text": "HPC systems enable researchers to:\n\nScale up computations: Run calculations that would be impossible on a single computer\nSpeed up results: Reduce time from months/years to days/weeks\nHandle big data: Process datasets too large for regular computers\nEnable new discoveries: Solve previously intractable problems\n\nHowever, remember:\n\nIt’s not magic - there’s no fairy dust that can just make code run on hundreds of processors\nEffort required - A lot of work has to be put into using these systems effectively\nPotential transformation - It could transform your workflow if you put the effort in\n\nView Interactive Slides: Parallelisation and Amdahl’s Law",
     "crumbs": [
       "Course Content",
       "Session 1: What is HPC?"
@@ -1391,7 +1391,7 @@
     "href": "index.html#delivery",
     "title": "HPC1: Introduction to High Performance Computing",
     "section": "Delivery",
-    "text": "Delivery\n\nThese materials are designed to work both for independent study and as a delivered course\nWhen delivered, the course is split over two half-day sessions\nIn general, the key information is presented in the slides, with additional/supporting information provided in the notes\n\n\nDay 1\n\nSession 1: What is HPC?\nBy the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\n\n\nSession 2: Logging On and Linux Recap\nBy the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections"
+    "text": "Delivery\n\nThese materials are designed to work both for independent study and as a delivered course\nWhen delivered, the course is split over two half-day sessions\nIn general, the key information is presented in the slides, with additional/supporting information provided in the notes\n\n\nDay 1\n\nSession 1: What is HPC?\nBy the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\n\n\nSession 2: Logging On and Linux Recap\nBy the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\nSession 3: Storage on Aire\nBy the end of this session, you will be able to:\n\nDistinguish between different storage areas and their purposes\nNavigate between storage locations using environment variables\nMonitor your disk usage and quotas\nTransfer files between storage areas and your local machine"
   },
   {
     "objectID": "what-is-hpc.html#session-aims",
@@ -1419,8 +1419,8 @@
     "objectID": "logging-on-and-linux-recap.html#exercises",
     "href": "logging-on-and-linux-recap.html#exercises",
     "title": "Session 2: Logging On and Linux Recap",
-    "section": "Exercises",
-    "text": "Exercises\n\nLog on to Aire! Follow the guidance here in our documentation to select the right KB article for your operating system.\nCreate a new folder/directory in your home directory called hpc1-examples\n\nUse cd and pwd to make sure you’re in your home directory\nUse mkdir NEW-DIR-NAME to create your new folder/directory",
+    "section": "",
+    "text": "Log on to Aire! Follow the guidance here in our documentation to select the right KB article for your operating system.\nCreate a new folder/directory in your home directory called hpc1-examples\n\nUse cd and pwd to make sure you’re in your home directory\nUse mkdir NEW-DIR-NAME to create your new folder/directory",
     "crumbs": [
       "Course Content",
       "Session 2: Logging On and Linux Recap"
@@ -1444,8 +1444,8 @@
     "objectID": "what-is-hpc.html#exercise",
     "href": "what-is-hpc.html#exercise",
     "title": "Session 1: What is HPC?",
-    "section": "Exercise",
-    "text": "Exercise\nTest your understanding of the key concepts from this session:\n\n\n\n\n\n\nQ1: What is the main difference between a cluster and a single computer?\n\n\n\n\n\nAnswer: A cluster is made up of many separate computers (nodes) connected by a high-speed network, allowing them to work together on problems.\nA single computer has limited processing power and memory, while a cluster can scale up to handle much larger computational tasks.\n\n\n\n\n\n\n\n\n\nQ2: Why can’t you just add more cores to make any program run faster?\n\n\n\n\n\nAnswer: Not all programs can be parallelised effectively!\nSome parts of a program must run serially or sequentially (one after another), and there’s overhead in coordinating between cores.\nAccording to Amdahl’s Law, the maximum speedup is limited by the portion of the program that cannot be parallelised.\n\n\n\n\n\n\n\n\n\nQ3: What’s the difference between task parallelism and data parallelism?\n\n\n\n\n\nAnswer:\n\nTask parallelism: Different processors work on different types of tasks or calculations\nData parallelism: Multiple processors perform the same operation on different subsets of data\n\n\n\n\n\n\n\n\n\n\nQ4: A program is 80% parallelizable. What’s the maximum theoretical speedup you could achieve?\n\n\n\n\n\nAnswer: According to Amdahl’s Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.\n\n\n\n\n\n\n\n\n\nQ5: When might HPC not be the right solution for your research problem?\n\n\n\n\n\nAnswer: HPC might not be suitable when:\n\nYour program cannot be parallelized effectively\nThe problem is small enough to run quickly on a regular computer\nYour workflow requires frequent interaction or visualization",
+    "section": "",
+    "text": "Test your understanding of the key concepts from this session:\n\n\n\n\n\n\nQ1: What is the main difference between a cluster and a single computer?\n\n\n\n\n\nAnswer: A cluster is made up of many separate computers (nodes) connected by a high-speed network, allowing them to work together on problems.\nA single computer has limited processing power and memory, while a cluster can scale up to handle much larger computational tasks.\n\n\n\n\n\n\n\n\n\nQ2: Why can’t you just add more cores to make any program run faster?\n\n\n\n\n\nAnswer: Not all programs can be parallelised effectively!\nSome parts of a program must run serially or sequentially (one after another), and there’s overhead in coordinating between cores.\nAccording to Amdahl’s Law, the maximum speedup is limited by the portion of the program that cannot be parallelised.\n\n\n\n\n\n\n\n\n\nQ3: What’s the difference between task parallelism and data parallelism?\n\n\n\n\n\nAnswer:\n\nTask parallelism: Different processors work on different types of tasks or calculations\nData parallelism: Multiple processors perform the same operation on different subsets of data\n\n\n\n\n\n\n\n\n\n\nQ4: A program is 80% parallelizable. What’s the maximum theoretical speedup you could achieve?\n\n\n\n\n\nAnswer: According to Amdahl’s Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.\n\n\n\n\n\n\n\n\n\nQ5: When might HPC not be the right solution for your research problem?\n\n\n\n\n\nAnswer: HPC might not be suitable when:\n\nYour program cannot be parallelized effectively\nThe problem is small enough to run quickly on a regular computer\nYour workflow requires frequent interaction or visualization",
     "crumbs": [
       "Course Content",
       "Session 1: What is HPC?"
@@ -1510,5 +1510,41 @@
     "title": "Linux Command Line Essentials",
     "section": "Essential Commands",
     "text": "Essential Commands\n\nWe don’t expect you to memorise these!\nWe have included them here for quick and easy reference."
+  },
+  {
+    "objectID": "storage.html#session-aims",
+    "href": "storage.html#session-aims",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nDistinguish between different storage areas and their purposes\nNavigate between storage locations using environment variables\nMonitor your disk usage and quotas\nTransfer files between storage areas and your local machine\n\nView Interactive Slides: Storage Systems on Aire\nScroll to the bottom of this section for practical exercises.",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#practical-exercises",
+    "href": "storage.html#practical-exercises",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "Let’s practice what you’ve learned with some hands-on exercises. Work through these step by step to get comfortable with navigating and managing files on Aire.\n\n\nFirst, let’s check your storage locations and quotas:\n# Check your environment variables\necho \"Home directory: $HOME\"\necho \"Scratch directory: $SCRATCH\"\n\n# Check your current location\npwd\n\n# Check your disk usage\nquota -s\n\n\n\nPractice moving between your home and scratch directories:\n# Go to your home directory\ncd $HOME\npwd\n\n# List what's there\nls -la\n\n# Go to your scratch directory\ncd $SCRATCH\npwd\n\n# List what's in scratch\nls -la\n\n# Go back to home using the shortcut\ncd\npwd\n\n\n\nCreate an organized directory structure in both storage areas:\n# In your home directory, create a project folder\ncd $HOME\nmkdir hpc1-practice\ncd hpc1-practice\nmkdir scripts configs results\n\n# Check what you created\nls -la\n\n# Now create a working directory in scratch\ncd $SCRATCH\nmkdir hpc1-data\ncd hpc1-data\nmkdir input output temp\n\n# Check your scratch structure\nls -la\n\n\n\nPractice creating and editing files using the nano text editor:\n# Create a simple script in your home directory\ncd $HOME/hpc1-practice/scripts\nnano hello.sh\nIn nano, type the following content:\n#!/bin/bash\necho \"Hello from HPC!\"\necho \"Current directory: $(pwd)\"\necho \"Current user: $(whoami)\"\nTo save and exit nano:\n\nPress Ctrl + O to save (write out)\nPress Enter to confirm the filename\nPress Ctrl + X to exit\n\n# Make the script executable\nchmod +x hello.sh\n\n# Test your script\n./hello.sh\n\n\n\nCreate a sample data file in your scratch directory:\n# Go to your scratch input directory\ncd $SCRATCH/hpc1-data/input\nnano sample_data.txt\nIn nano, create some sample data:\n# Sample dataset for HPC practice\nSample 1: 10.5, 20.3, 15.7\nSample 2: 8.9, 22.1, 18.4\nSample 3: 12.3, 19.8, 16.2\nSample 4: 9.7, 21.5, 17.9\nSave and exit using Ctrl + O, Enter, Ctrl + X.\n\n\n\nPractice copying files between your storage areas:\n# Copy your script from home to scratch\ncp $HOME/hpc1-practice/scripts/hello.sh $SCRATCH/hpc1-data/\n\n# Copy your data file to a backup location in home\ncp $SCRATCH/hpc1-data/input/sample_data.txt $HOME/hpc1-practice/\n\n# Verify the copies exist\nls $SCRATCH/hpc1-data/\nls $HOME/hpc1-practice/\n\n\n\nMonitor your disk usage and practice cleanup:\n# Check the size of your directories\ndu -hs $HOME/hpc1-practice\ndu -hs $SCRATCH/hpc1-data\n\n# Check your quota again\nquota -s\n\n# Practice cleaning up - remove temporary files\nrm $SCRATCH/hpc1-data/hello.sh\n\n# Verify it's gone\nls $SCRATCH/hpc1-data/\n\n\n\nCreate documentation for your practice session:\n# Create a README in your home project directory\ncd $HOME/hpc1-practice\nnano README.md\nIn nano, create a simple README:\n# HPC1 Practice Session\n\nThis directory contains practice files from the HPC1 storage session.\n\n## Directory Structure\n\n- `scripts/` - Shell scripts and executable files\n- `configs/` - Configuration files\n- `results/` - Output files from computations\n\n## Files Created\n\n- `hello.sh` - Simple greeting script\n- `sample_data.txt` - Practice dataset\n\n## Notes\n\n- Remember to copy important results from scratch to home\n- Use `quota -s` to monitor disk usage\n- Clean up temporary files regularly\nSave with Ctrl + O, Enter, Ctrl + X.\n\n\n\nCheck that you’ve completed all the exercises:\n# Check your home directory structure\ntree $HOME/hpc1-practice\n# If tree isn't available, use:\nfind $HOME/hpc1-practice -type f\n\n# Check your scratch directory structure\nfind $SCRATCH/hpc1-data -type f\n\n# Read your README\ncat $HOME/hpc1-practice/README.md\n\n\n\n\n\n\nExercise Completion Checklist\n\n\n\nYou should now have\n\nCreated organized directory structures in both home and scratch\nUsed nano to create and edit text files\nCreated an executable shell script\nPracticed copying files between storage areas\nMonitored your disk usage with quota and du\nCreated documentation for your work",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage-slides.html#home-directory-home-1",
+    "href": "storage-slides.html#home-directory-home-1",
+    "title": "Storage Systems on Aire",
+    "section": "Home Directory ($HOME)",
+    "text": "Home Directory ($HOME)\n\nUse for:\n\nScripts and code\nConfiguration files\nDocumentation"
+  },
+  {
+    "objectID": "storage-slides.html#scratch-directory-scratch-1",
+    "href": "storage-slides.html#scratch-directory-scratch-1",
+    "title": "Storage Systems on Aire",
+    "section": "Scratch Directory ($SCRATCH)",
+    "text": "Scratch Directory ($SCRATCH)\n\nUse for:\n\nLarge datasets during processing\nIntermediate job results\nTemporary files\nInput data for jobs\nBack up your results elsewhere!!"
   }
 ]

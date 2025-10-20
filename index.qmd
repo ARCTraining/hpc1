@@ -88,3 +88,12 @@ By the end of this session, you will be able to:
 - Navigate the Linux command line interface
 - Use essential Linux commands for file management
 - Understand the difference between on-campus and off-campus connections
+
+#### Session 3: Storage on Aire
+
+By the end of this session, you will be able to:
+
+- Distinguish between different storage areas and their purposes
+- Navigate between storage locations using environment variables
+- Monitor your disk usage and quotas
+- Transfer files between storage areas and your local machine

@@ -3,10 +3,20 @@ title: "Session 3: Storage on Aire"
 subtitle: "Understanding File Systems and Data Management"
 format: html
 ---
+# Session content
 
-In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Distinguish between different storage areas and their purposes
+- Navigate between storage locations using environment variables
+- Monitor your disk usage and quotas
+- Transfer files between storage areas and your local machine
 
 [**View Interactive Slides: Storage Systems on Aire**](storage-slides.qmd){.btn .btn-primary target="_blank"}
+
+Scroll to the bottom of this section for practical exercises.
 
 ## Storage Areas Overview
 
@@ -24,21 +34,6 @@ The Aire HPC file system includes several special directories:
 - **Scratch and flash** are not backed up and flash is deleted after each job
 - **Always** copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area **before** the job ends
 :::
-
-### Exercise: Check Environment Variables
-
-Display the values of `$HOME` and `$SCRATCH` using `echo`:
-
-```bash
-echo $HOME
-echo $SCRATCH
-```
-
-Expected output:
-```
-/users/yourusername
-/mnt/scratch/yourusername
-```
 
 ## Storage Types and Quotas
 
@@ -87,10 +82,6 @@ du -hs $SCRATCH            # Size of scratch directory
 Run `du -hs *` in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!
 :::
 
-### Exercise: Check Your Usage
-
-Run the `quota` command to check your current disk usage and quotas.
-
 ## Navigation Commands
 
 Use standard Linux commands with environment variables:
@@ -105,14 +96,6 @@ ls $HOME        # List home contents
 ls $SCRATCH     # List scratch contents
 pwd             # Show current directory
 ```
-
-### Exercise: Navigate the File System
-
-Practice navigating between storage areas:
-
-1. Use `cd` with environment variables like `$SCRATCH`
-2. Use `pwd` to check where you are
-3. Use `ls` to see what files are present
 
 ## File Transfer Methods
 
@@ -178,18 +161,6 @@ For those who prefer graphical interfaces:
 - **WinSCP** (Windows)
 - **Cyberduck** (Mac/Windows)
 
-### Exercise: File Transfer
-
-On your **local machine**, write the `scp` command to download `results.txt` from your home directory on Aire into your current local directory.
-
-::: {.callout-note collapse="true"}
-## Solution
-
-```bash
-scp <username>@target-system:/users/yourname/results.txt .
-```
-:::
-
 ## Best Practices Summary
 
 ::: {.callout-important}
@@ -206,8 +177,109 @@ scp <username>@target-system:/users/yourname/results.txt .
 
 1. **Prepare**: Upload input data to `$SCRATCH`
 2. **Process**: Run jobs using scratch storage
-3. **Preserve**: Copy important results back to `$HOME`
+3. **Preserve**: Copy important results to backed up research storage
 4. **Cleanup**: Remove temporary files from `$SCRATCH`
+
+# Exercises
+
+Work through these hands-on exercises to practice storage management on Aire.
+
+### Exercise 1: Explore Your Storage Environment
+
+Check your storage locations and current usage:
+
+```bash
+# Check your environment variables and location
+echo "Home: $HOME"
+echo "Scratch: $SCRATCH"
+pwd
+
+# Check your disk quotas
+quota -s
+```
+
+### Exercise 2: Create Organized Directory Structure
+
+Set up a proper directory structure in both storage areas:
+
+```bash
+# Create project structure in home (for permanent files)
+cd $HOME
+mkdir hpc1-practice
+cd hpc1-practice
+mkdir scripts results
+
+# Create working structure in scratch (for large/temporary data)
+cd $SCRATCH  
+mkdir hpc1-data
+cd hpc1-data
+mkdir input output
+ls -la
+```
+
+### Exercise 3: Practice File Operations
+
+Create sample files and practice moving data between storage areas:
+
+```bash
+# Create a sample script in home
+cd $HOME/hpc1-practice/scripts
+nano process_data.sh
+```
+
+Add this content to the script:
+```bash
+#!/bin/bash
+echo "Processing data in: $(pwd)"
+echo "Available space in scratch:"
+df -h $SCRATCH
+```
+
+Save with `Ctrl + O`, `Enter`, `Ctrl + X`, then continue:
+
+```bash
+# Make executable and test
+chmod +x process_data.sh
+./process_data.sh
+
+# Create sample data in scratch
+echo "sample,value1,value2" > $SCRATCH/hpc1-data/input/data.csv
+echo "exp1,10.5,20.3" >> $SCRATCH/hpc1-data/input/data.csv
+echo "exp2,8.9,22.1" >> $SCRATCH/hpc1-data/input/data.csv
+
+# Copy important results back to home (simulate job completion)
+cp $SCRATCH/hpc1-data/input/data.csv $HOME/hpc1-practice/results/
+```
+
+### Exercise 4: Monitor Usage and Clean Up
+
+Practice disk usage monitoring and cleanup:
+
+```bash
+# Check sizes of your directories
+du -hs $HOME/hpc1-practice
+du -hs $SCRATCH/hpc1-data
+
+# Check quota again to see any changes
+quota -s
+
+# Practice cleanup - remove temporary files from scratch
+rm $SCRATCH/hpc1-data/input/data.csv
+ls $SCRATCH/hpc1-data/input/
+
+# Verify important data is safe in home
+ls $HOME/hpc1-practice/results/
+```
+
+::: {.callout-tip}
+## What You've Accomplished
+
+- ✅ Explored storage locations and quotas
+- ✅ Created organized directory structures
+- ✅ Practiced file creation and copying between storage areas  
+- ✅ Monitored disk usage and performed cleanup
+- ✅ Followed the recommended workflow: work in scratch, save to home
+:::
 
 ---
 
