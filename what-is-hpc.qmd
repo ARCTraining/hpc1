@@ -1,0 +1,64 @@
+---
+title: "Session 1: What is HPC?"
+subtitle: "Introduction to High Performance Computing Concepts"
+format: html
+---
+
+This session introduces some concepts, theories and terminology in High Performance Computing, to set you up for going more in-depth into the theory of research computing. It then lays out the general architecture of HPC systems, with some specifics relating to Aire, the latest HPC system available at the University of Leeds.
+
+## Some commonly used terms
+
+Let's define some frequently used jargon. Don't worry, we will delve into each of these in more depth later.
+
+[**View Interactive Slides: HPC Terminology**](what-is-hpc-terminology-slides.qmd){.btn .btn-primary target="_blank"}
+
+::: {.callout-note}
+## Key takeaway
+
+HPC cluster systems are formed of a large number of separate computers called nodes.
+
+Each node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.
+
+**Read More**: [Getting started on HPC](https://arcdocs.leeds.ac.uk/aire/getting_started/start.html)
+:::
+
+---
+
+## Serial and parallel programs
+
+- Serial programs run on a single CPU core, solving one problem at a time.
+- Parallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.
+- In order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.
+
+[**View Interactive Slides: Serial vs Parallel Programs**](what-is-hpc-parallel-slides.qmd){.btn .btn-primary target="_blank"}
+
+---
+
+## Why use HPC?
+
+HPC systems enable researchers to:
+
+- **Scale up computations**: Run calculations that would be impossible on a single computer
+- **Speed up results**: Reduce time from months/years to days/weeks
+- **Handle big data**: Process datasets too large for regular computers
+- **Enable new discoveries**: Solve previously intractable problems
+
+However, remember:
+
+- **It's not magic** - there's no fairy dust that can just make code run on hundreds of processors
+- **Effort required** - A lot of work has to be put into using these systems effectively
+- **Potential transformation** - It could transform your workflow if you put the effort in
+
+[**View Interactive Slides: Parallelisation and Amdahl's Law**](what-is-hpc-amdahl-slides.qmd){.btn .btn-primary target="_blank"}
+
+---
+
+## Getting Started
+
+Now that you understand the basics of HPC, let's move on to [Session 2: Logging On and Linux Recap](logging-on-and-linux-recap.qmd) to start using the Aire system.
+
+## Additional Resources
+
+- [Aire Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
+- [Research Computing Training](https://arc.leeds.ac.uk/courses/)
+- [Contact Research Computing](mailto:ask-rc@leeds.ac.uk)

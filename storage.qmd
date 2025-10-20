@@ -1,0 +1,222 @@
+---
+title: "Session 3: Storage on Aire"
+subtitle: "Understanding File Systems and Data Management"
+format: html
+---
+
+In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.
+
+[**View Interactive Slides: Storage Systems on Aire**](storage-slides.qmd){.btn .btn-primary target="_blank"}
+
+## Storage Areas Overview
+
+The Aire HPC file system includes several special directories:
+
+- **Home directory** (`/users/<username>`, env var `$HOME`) for personal files
+- **Scratch directory** (`/mnt/scratch/<username>`, env var `$SCRATCH`) for large, temporary data  
+- **Flash (NVMe) scratch** (`$TMP_SHARED`, usually `/mnt/flash/tmp/job.<JOB-ID>`) for very fast I/O during jobs
+- **Node-local scratch** (`$TMP_LOCAL` or `$TMPDIR`, typically `/tmp/job.<JOB-ID>`) for fast local storage on each compute node
+
+::: {.callout-important}
+## Critical Storage Rules
+
+- **Home** is backed up and not automatically purged
+- **Scratch and flash** are not backed up and flash is deleted after each job
+- **Always** copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area **before** the job ends
+:::
+
+### Exercise: Check Environment Variables
+
+Display the values of `$HOME` and `$SCRATCH` using `echo`:
+
+```bash
+echo $HOME
+echo $SCRATCH
+```
+
+Expected output:
+```
+/users/yourusername
+/mnt/scratch/yourusername
+```
+
+## Storage Types and Quotas
+
+| Storage Type | Quota | Backup | Auto-Delete | Best For |
+|--------------|-------|--------|-------------|----------|
+| **Home** (`$HOME`) | ~30 GB, 1M files | ✅ Yes | ❌ No | Scripts, configs, small files |
+| **Scratch** (`$SCRATCH`) | ~1 TB, 500K files | ❌ No | ❌ No | Large datasets, job data |
+| **Flash** (`$TMP_SHARED`) | ~1 TB per job | ❌ No | ✅ Yes | I/O-intensive tasks |
+| **Local** (`$TMP_LOCAL`) | Node-specific | ❌ No | ✅ Yes | Single-node fast storage |
+
+::: {.callout-warning}
+## Data Loss Risk
+Data in scratch/flash areas is temporary. These are **not backed up** and may be purged. Always move important data to your home or external storage when done.
+:::
+
+## Checking Disk Usage
+
+### Using the `quota` command
+
+Check your current usage and limits:
+
+```bash
+quota -s    # Human readable format
+```
+
+Example output:
+```
+Disk quotas for user yourusername (uid 12345):
+     Filesystem   blocks   quota   limit   grace   files   quota   limit
+      /users     15000*   30000    33000            200000 1000000 1100000
+   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000
+```
+
+### Using the `du` command
+
+Check disk usage of directories:
+
+```bash
+du -hs *                    # Size of each directory
+du -hs $HOME               # Size of home directory
+du -hs $SCRATCH            # Size of scratch directory
+```
+
+::: {.callout-tip}
+## Pro Tip
+Run `du -hs *` in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!
+:::
+
+### Exercise: Check Your Usage
+
+Run the `quota` command to check your current disk usage and quotas.
+
+## Navigation Commands
+
+Use standard Linux commands with environment variables:
+
+```bash
+cd $HOME        # Go to home directory
+cd $SCRATCH     # Go to scratch directory  
+cd              # Also goes to home
+cd ~            # Also goes to home
+
+ls $HOME        # List home contents
+ls $SCRATCH     # List scratch contents
+pwd             # Show current directory
+```
+
+### Exercise: Navigate the File System
+
+Practice navigating between storage areas:
+
+1. Use `cd` with environment variables like `$SCRATCH`
+2. Use `pwd` to check where you are
+3. Use `ls` to see what files are present
+
+## File Transfer Methods
+
+### Between Storage Areas on Aire
+
+```bash
+# Copy TO scratch
+cp data.txt $SCRATCH/
+
+# Copy FROM scratch back to home
+cp $SCRATCH/output.dat $HOME/results/
+
+# Copy entire directory
+cp -r $HOME/myproject $SCRATCH/
+```
+
+### To/From Your Local Machine
+
+#### Using scp (Secure Copy)
+
+From local machine **to** Aire:
+```bash
+scp myfile.txt <username>@target-system:$SCRATCH/
+```
+
+From Aire **to** local machine:
+```bash
+scp <username>@target-system:/path/results.txt .
+```
+
+#### Using rsync (Recommended for large transfers)
+
+```bash
+rsync -avh data/ <username>@target-system:path/data/
+```
+
+Benefits of rsync:
+- Only transfers changed files
+- Resumes interrupted transfers
+- Progress indicators with `--info=progress2`
+
+#### Off-campus transfers (with jumphost)
+
+```bash
+# Using rsync
+rsync -r --info=progress2 -e 'ssh -J username@jump-host' file.txt username@target-system:path/
+
+# Using scp  
+scp -rq -J username@jump-host username@target-system:path/file.txt local-folder/
+```
+
+### Download from Internet
+
+```bash
+wget https://example.com/data.zip
+curl -O https://example.com/data.zip
+```
+
+### GUI Tools
+
+For those who prefer graphical interfaces:
+- **FileZilla** (cross-platform SFTP client)
+- **WinSCP** (Windows)
+- **Cyberduck** (Mac/Windows)
+
+### Exercise: File Transfer
+
+On your **local machine**, write the `scp` command to download `results.txt` from your home directory on Aire into your current local directory.
+
+::: {.callout-note collapse="true"}
+## Solution
+
+```bash
+scp <username>@target-system:/users/yourname/results.txt .
+```
+:::
+
+## Best Practices Summary
+
+::: {.callout-important}
+## Key Storage Principles
+
+1. **Multiple storage areas**: Use each storage type appropriately
+2. **Regular cleanup**: Run `quota -s` regularly and clean up old files  
+3. **Data transfer workflow**: Transfer input to `$SCRATCH` before jobs, copy results back after
+4. **Avoid data loss**: Always backup important data from temporary storage
+5. **Organization**: Keep your home directory organized and place large data in scratch only when needed
+:::
+
+### Typical Workflow
+
+1. **Prepare**: Upload input data to `$SCRATCH`
+2. **Process**: Run jobs using scratch storage
+3. **Preserve**: Copy important results back to `$HOME`
+4. **Cleanup**: Remove temporary files from `$SCRATCH`
+
+---
+
+## Next Steps
+
+Now you understand how to manage data on Aire! Let's move on to [Session 4: Modules and Software](modules-software.qmd) to learn how to access and use different software packages.
+
+## Additional Resources
+
+- [Aire Storage Documentation](https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html)
+- [Data Management Best Practices](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html)
+- [File Transfer Guide](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html)

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-28c21cce639ebbb78e112ea75a22863f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0626ff4d7a71b55c8707dcae1d04a9b6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
+
+  <title>HPC1: Introduction to High Performance Computing – what-is-hpc</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-887a68624d6ba593652b9a7ae0ab0ab7.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light nav-sidebar">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="session-1-what-is-hpc" class="title-slide slide level1 center">
+<h1>Session 1: What is HPC?</h1>
+<p>This session introduces some concepts, theories and terminology in High Performance Computing, to set you up for going more in-depth into the theory of research computing. It then lays out the general architecture of HPC systems, with some specifics relating to Aire, the latest HPC system available at the University of Leeds.</p>
+</section>
+<section id="some-commonly-used-terms" class="slide level2">
+<h2>Some commonly used terms</h2>
+<p>Let’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.</p>
+<div class="{tab-set}">
+<p>:::{tab-item} HPC ### HPC</p>
+<ul>
+<li><strong>HPC</strong> stands for <strong>High Performance Computing</strong></li>
+<li>HPC systems or platforms can also be called <strong>clusters</strong> or <strong>supercomputers</strong></li>
+</ul>
+<p>HPC systems allow multiple processors to work on the same problem at the same time, allowing complex problems to be solved faster than they could be on a single computer.</p>
+<ul>
+<li>Problems which might take years to run on a single processor might run 10 or 100 times faster using 10 or 100 processors in parallel, thus reducing the time to results for the researcher.</li>
+<li><strong>It’s not magic</strong>, there is no fairy dust that can just make code run on hundreds of processors. So a lot of work and effort has to be put into using these system effectively and to get the most out of them.</li>
+<li><strong>It could transform your workflow</strong> if you put the effort in to shape your code to work on a HPC system.</li>
+</ul>
+</div>
+<p>:::{tab-item} Cluster ### Cluster</p>
+<ul>
+<li>Computer clusters are a system of computers that work together to allow large-scale computing</li>
+<li>Imagine a network of laptops hooked up together on a high speed network - each laptop is a “node” in the cluster and acts as a server <br><br><br><br><br><br> :::</li>
+</ul>
+<p>:::{tab-item} Node ### Node</p>
+<ul>
+<li>A node is an individual physical machine/server, that when linked to other nodes makes up the cluster</li>
+<li>In current systems, a node would typically include one or more processors, as well as memory and other hardware.</li>
+</ul>
+<p><br><br><br><br><br><br> :::</p>
+<p>:::{tab-item} Processor ## Processor</p>
+<p>The processor or <strong>central processing unit</strong> (CPU) inside the node, which contains one or more cores.</p>
+<ul>
+<li>Your laptop or desktop will have a CPU, for example “Intel Core i7”</li>
+</ul>
+<p>Machines can also have a <strong>graphical processing unit</strong> or GPU (often used in machine learning)</p>
+<p><br><br><br><br><br><br> :::</p>
+<p>:::{tab-item} Core ## Core</p>
+<p>This refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.</p>
+<ul>
+<li>You will have to define how many cores you want to run your code across.</li>
+<li>You can use cores across multiple nodes</li>
+</ul>
+<p><br><br><br><br><br><br> :::</p>
+<p>:::{tab-item} Aire ## Aire</p>
+<ul>
+<li>Aire is the University of Leeds’ latest HPC system</li>
+<li>It uses a Linux operating system</li>
+<li>The system has 52 CPU <strong>nodes</strong> (and 28 GPU nodes)</li>
+<li>Each CPU <strong>node</strong> has:
+<ul>
+<li><strong>168 cores</strong> (ARC4 had 40 cores)</li>
+<li><strong>768GB</strong> memory</li>
+</ul></li>
+</ul>
+<p>You can <a href="https://arc.leeds.ac.uk/platforms/aire/">read more about the Aire system on our website</a></p>
+<p><br><br><br><br><br><br> :::</p>
+<p>::::</p>
+<p>:::{admonition} Key takeaway</p>
+<p>HPC cluster systems are formed of a large number of separate computers called nodes.</p>
+<p>Each node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.</p>
+<p><strong>Read More</strong>:</p>
+<ul>
+<li><a href="https://arcdocs.leeds.ac.uk/aire/getting_started/start.html">Getting started on HPC</a></li>
+</ul>
+<p>:::</p>
+<p><br> <br></p>
+</section>
+<section id="serial-and-parallel-programs" class="slide level2">
+<h2>Serial and parallel programs</h2>
+<ul>
+<li>Serial programs run on a single CPU core, solving one problem at a time.</li>
+<li>Parallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.</li>
+<li>In order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.</li>
+</ul>
+<div class="{tab-set}">
+<p>:::{tab-item} Serial program</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img data-src="assets/img/serial.png" class="figure-img"></p>
+<figcaption>Serial program schematic</figcaption>
+</figure>
+</div>
+<ul>
+<li>Serial problems use a single CPU core, and solve a series of problems one after the other.</li>
+<li>Each stage of the calculation (A, B, C…) may depend on the output of the previous stage, or they may be independent (and so could run in any order).</li>
+</ul>
+</div>
+<p>:::{tab-item} Parallel program</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img data-src="assets/img/parallel.png" class="figure-img"></p>
+<figcaption>Parallel program schematic</figcaption>
+</figure>
+</div>
+<ul>
+<li>In contrast, in a parallel program, the problems can be solved simultaneously on multiple cores.</li>
+<li>In this example, all the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins.</li>
+<li>This sort of problem is known as <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">“perfectly parallel” or “embarrassingly parallel”</a> because it is a task that is “embarassingly easy” to split up into parallel tasks.</li>
+</ul>
+<p>:::</p>
+<p>:::{tab-item} Imperfectly parallel</p>
+<p>Most tasks you run or models you run will fall somewhere in-between serial and parallel:</p>
+<ul>
+<li>Certain sections of the code will be able to be <em>parallelised</em> while other sections will rely on the output of the previous stage and so need to be serialised.</li>
+<li>You can express how much of your work is parallelised with a rough percentage.</li>
+<li>The higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores.</li>
+</ul>
+<p>:::</p>
+<p>:::{tab-item} Amdahl’s Law</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img data-src="assets/img/amdahl.png" class="figure-img"></p>
+<figcaption>Amdahl’s Law graph</figcaption>
+</figure>
+</div>
+<p>Amdahl’s law, where <em>Speedup = (execution time for the task with no enhancements or added cores)/(execution time for the same task with enhancements or added cores)</em>. <a href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Image source</a>: Daniels220 at English Wikipedia, CC BY-SA 3.0, via Wikimedia Commons</p>
+<ul>
+<li>The greater the parallelised portion, the greater the speed-up by adding more cores</li>
+<li>There comes a point of diminishing returns where adding more cores has a negligble effect:
+<ul>
+<li>If 50% of the job is parallelised, the greatest speedup is 2 times</li>
+<li>If 95% of the work is parallelised, the greatest speedup is 20 times.</li>
+</ul></li>
+</ul>
+<p>:::</p>
+<p>:::{tab-item} Parallelisation</p>
+</section>
+<section id="this-bit-is-up-to-you" class="slide level2">
+<h2>This bit is up to you!</h2>
+<ul>
+<li>You are the expert in your field, your numerical models, your code</li>
+<li>In this course we will show you how to request multple cores from the system for your code, but <em>you</em> need to make sure your code can make use of these!</li>
+<li>You can always submit a request for advice and guidance on how to parallelise your work.</li>
+</ul>
+<p>(If you are using Python, you can also attend our <a href="https://arc.leeds.ac.uk/courses/swd6-high-performance-python/">high performance python course</a> for more information and guidance on this topic)</p>
+<p><br></p>
+<p>:::</p>
+<p>::::</p>
+<p><br> <br></p>
+</section>
+<section id="overview-of-an-hpc-cluster" class="slide level2">
+<h2>Overview of an HPC cluster</h2>
+<p>This content is adapted from <a href="https://arcdocs.leeds.ac.uk/aire/system/hpc_architecture.html#hpc-architecture">this section of our Aire documentation</a>.</p>
+<p>In the previous section, we noted that HPC systems are formed of <strong>nodes</strong>, and we mentioned CPU and GPU nodes.</p>
+<p>These can be called the <strong>compute nodes</strong>: where your research code runs. But there are other nodes in the system!</p>
+<div class="{tab-set}">
+<p>:::{tab-item} Diagram</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img data-src="https://arcdocs.leeds.ac.uk/aire/_images/cluster_architecture.jpg" class="figure-img"></p>
+<figcaption>A schematic diagram of the Aire HPC Cluster</figcaption>
+</figure>
+</div>
+<p><a href="https://arcdocs.leeds.ac.uk/aire/system/hpc_architecture.html#overview-of-an-hpc-cluster">Image source</a></p>
+</div>
+<p>:::{tab-item} Compute nodes</p>
+<p>Some more detail on the compute nodes in Aire:</p>
+<ul>
+<li>Compute nodes are physical systems containing CPU and memory.</li>
+<li>Each compute node on Aire has 168 cores, which are the physical processing units within a CPU that execute instructions and perform calculations.</li>
+<li>Having many cores allows many instructions to be executed in parallel.</li>
+<li>There are also high-memory nodes separate from standard compute nodes for jobs that require a significant amount of memory.</li>
+</ul>
+<p>:::</p>
+<p>:::{tab-item} GPU nodes</p>
+<p>Some more detail on the compute nodes in Aire:</p>
+<ul>
+<li>A GPU node is simply a compute node that has one or more Graphical Processing Units (or GPUs) installed on it.</li>
+<li>GPUs can be very powerful and allow certain programs to run faster than they do on CPUs (such as some Machine Learning and Deep Learning tools for AI applications).</li>
+<li>Programs have to be specially written to run on GPUs.</li>
+</ul>
+<p>:::</p>
+<p>:::{tab-item} Login nodes</p>
+<p>These are similar to compute nodes, but they do not run jobs and they are connected directly to the University network.</p>
+<ul>
+<li>You can connect to a login node via ssh and login to it.</li>
+<li>You can then create and edit files and programs and run scripts and manage your data.</li>
+<li>You can also upload and download data from login nodes.</li>
+<li>You don’t use the login node to run your work, just to prepare it and to view the results.</li>
+</ul>
+<p>We will run through step-by-step how to login to the system with these nodes.</p>
+<p>:::</p>
+<p>:::{tab-item} Storage nodes</p>
+<p>These nodes have large disk arrays attached to them, to deal with vast amount of data HPC systems can generate.</p>
+<ul>
+<li>Often there are multiple nodes and disk arrays which are linked together in to a large parallel filesystem.</li>
+<li>These parallel filesystems are geared for the very large amounts of I/O which some runs can generate. Storage nodes are not directly accessible by users.</li>
+<li>The data directories from the storage nodes are mounted on the login and compute nodes.</li>
+</ul>
+<p>:::</p>
+<p>:::{tab-item} Admin nodes</p>
+<p>These aren’t accessible or visible to users, but they provide the resources and services needed to manage the cluster.</p>
+<ul>
+<li>For example, they allow system administrators to automatically install and configure the OS on all the nodes and access monitoring features.</li>
+<li>The job scheduler, which we will discuss later, is hosted on one of the admin nodes.</li>
+</ul>
+<p>:::</p>
+<p>::::</p>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

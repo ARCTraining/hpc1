@@ -1,0 +1,305 @@
+---
+title: "Session 4: Modules and Software"
+subtitle: "Managing Software Environments on HPC Systems"
+---
+
+In this session we will learn about software on Aire, and how to access software via the module system. We will also discuss some alternatives to install software yourself on the system.
+
+[**View Interactive Slides: Module System on Aire**](modules-software-slides.qmd){.btn .btn-primary target="_blank"}
+
+## What are Modules?
+
+Modules are a way to manage different software environments on HPC systems:
+
+- They allow users to load and unload software packages dynamically
+- This helps in managing different versions of software and their dependencies
+- Simplifies the user environment and avoids conflicts between software versions
+- Provides a consistent and reproducible environment
+
+### Why Use Modules?
+
+::: {.columns}
+::: {.column width="50%"}
+**Benefits:**
+- Clean separation of software environments
+- Easy to switch between environments
+- Optimized builds for HPC hardware
+:::
+
+::: {.column width="50%"}
+**Without Modules:**
+- Software conflicts
+- Path management nightmares
+- Inconsistent environments
+- Difficult reproducibility
+:::
+:::
+
+## Basic Module Commands
+
+### Listing Available Modules
+
+```bash
+module avail              # List all available modules
+module avail python       # List all Python modules
+module avail gcc          # List all GCC modules
+```
+
+### Loading and Unloading Modules
+
+```bash
+# Load a module
+module load python/3.13.0
+
+# Load without specifying version (uses default)
+module load python
+
+# Unload a module
+module unload python/3.13.0
+
+# List currently loaded modules
+module list
+
+# Unload all modules
+module purge
+```
+
+::: {.callout-tip}
+## Exercise 1: List Available Modules
+Try running `module avail` to see all available software on Aire. Look for software you might need for your research.
+:::
+
+### Exercise 2: Loading Modules
+
+Load the `gcc` module and verify it's loaded:
+
+```bash
+module load gcc
+module list
+```
+
+**Questions to consider:**
+- Note there are multiple versions of gcc available. What happens if you don't specify a version?
+- How should you load a module when running jobs to ensure reproducibility?
+
+::: {.callout-note collapse="true"}
+## Solution
+
+```bash
+module load gcc          # Loads default version
+module list              # Shows loaded modules
+
+# For reproducibility, always specify versions:
+module load gcc/14.2.0
+```
+
+If you don't specify a version, the system loads the default version, which may change over time as new versions are installed.
+:::
+
+## Using Modules in Scripts
+
+Let's say we have a Python file called `hello_world.py`:
+
+```python
+print("hello world!")
+```
+
+How would we write a bash script that loads the Python module and runs the Python script?
+
+### Creating a Module Script
+
+Create a file called `python_test.sh`:
+
+```bash
+#!/bin/bash
+
+module load python/3.13.0
+python hello_world.py
+```
+
+Make it executable and run it:
+
+```bash
+chmod +x python_test.sh    # Add executable permissions
+ls -F                      # Check it's executable (shows *)
+./python_test.sh          # Run the script
+```
+
+::: {.callout-important}
+## Best Practice for Python
+When running Python jobs, we recommend using the Miniforge module to create a conda environment instead of using the basic Python install. [Read our documentation on dependency management](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html).
+:::
+
+### Exercise 3: Create Your Own Script
+
+Create a simple script that:
+1. Loads a module of your choice
+2. Runs a simple command with that software
+3. Make it executable and test it
+
+## Requesting New Software
+
+### Centralized Management
+
+- Popular software is centrally installed by the Research Computing team
+- Ensures optimized performance and avoids conflicts
+- Regularly updated with new versions
+
+### How to Request New Software
+
+If software you need isn't available:
+
+1. **Submit a Research Computing Query** with details about the software
+2. Include: software name, version, and brief justification for use in your research
+3. The team will evaluate and install if appropriate
+
+::: {.callout-tip}
+## Exercise 4: Find the Request Form
+After the course, identify software you need that's not available and draft a request. Can you find the Research Computing Query form via the IT website? 
+
+Navigate: *Home > Research IT > Research IT Query*, or use [this direct link](https://bit.ly/arc-help).
+:::
+
+## Alternative Software Management
+
+You can also manage your own software on Aire through several routes. Many users won't need this, but it may be necessary if you want fine-grained control or need older versions of software.
+
+### Package Managers
+
+#### Spack
+- **[Spack](https://spack.io/)**: Flexible package manager for HPC systems
+- Allows users to install software without admin privileges  
+- Supports complex dependency management
+
+```bash
+module load spack
+spack install htop
+spack load htop
+```
+
+#### EasyBuild
+- **[EasyBuild](https://easybuild.io/)**: Framework for building and installing software on HPC
+- Automates the build process using configuration files
+- Good for complex scientific software
+
+### Other Options
+
+#### Manual Building
+- Download and compile software yourself
+- Requires knowledge of build systems and dependencies
+- Most control but most work
+
+#### Containers
+- Encapsulate software environments using **[Apptainer](https://apptainer.org/)**
+- Ensures portability and consistency across systems
+- Great for complex software stacks
+
+::: {.callout-tip}
+## Exercise 5: Alternative Installation
+After this course, choose a simple software package and outline steps to install it using Spack.
+:::
+
+## Best Practices
+
+### Environment Management
+- Use modules to manage software environments effectively
+- **Unload modules** when no longer needed to avoid conflicts
+- For R or Python, use **Miniforge module** to create conda environments
+
+### Reproducibility
+::: {.callout-important}
+## Key Principles
+
+1. **Always specify versions**: `module load gcc/14.2.0` not `module load gcc`
+2. **Document everything**: Keep track of modules and versions used
+3. **Use scripts**: Automate your module loading in job scripts
+4. **Version control**: Keep your workflow scripts in version control
+:::
+
+### Collaboration
+- Share module load commands with collaborators
+- Use version-controlled scripts to manage workflows
+- Consider containers for complex environments
+
+### Exercise 6: Project Setup Script
+
+Create a script that loads all necessary modules for a typical project:
+
+::: {.callout-note collapse="true"}
+## Example Solution
+
+```bash
+#!/bin/bash
+# Project setup script
+
+module purge              # Start clean
+module load gcc/14.2.0    # Compiler
+module load python/3.13.0 # Python
+module load cmake/3.24.2  # Build system
+
+echo "Loaded modules:"
+module list
+
+# Optional: activate conda environment
+# conda activate myproject
+```
+:::
+
+## Common Module Workflows
+
+### Data Analysis Workflow
+```bash
+#!/bin/bash
+module load python/3.13.0
+module load scipy/1.11.3
+module load matplotlib/3.7.2
+
+python analysis.py
+```
+
+### Compilation Workflow  
+```bash
+#!/bin/bash
+module load gcc/14.2.0
+module load cmake/3.24.2
+module load openmpi/4.1.4
+
+cmake .
+make -j8
+```
+
+### Machine Learning Workflow
+```bash
+#!/bin/bash
+module load miniforge/24.3.0
+conda activate ml-env
+python train_model.py
+```
+
+---
+
+## Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **Modules provide clean software environments** without conflicts
+- **Always specify versions** for reproducible research
+- **Use scripts** to automate and document your module usage
+- **Request new software** through Research Computing queries
+- **Consider alternatives** like Spack or containers for special needs
+- **Follow best practices** for collaboration and reproducibility
+:::
+
+---
+
+## Next Steps
+
+Now you know how to manage software on Aire! Let's move on to [Session 5: Job Scheduling and Submission](scheduling-submission.qmd) to learn how to run your code on the compute nodes.
+
+## Additional Resources
+
+- [Aire Software Documentation](https://arcdocs.leeds.ac.uk/aire/software/start.html)
+- [Dependency Management Guide](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)
+- [Software Request Form](https://bit.ly/arc-help)
+- [Miniforge and Conda Guide](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)

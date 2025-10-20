@@ -1,0 +1,453 @@
+---
+title: "Session 6: Best Practices and Troubleshooting"
+subtitle: "Optimizing Your HPC Workflows"
+format: html
+---
+
+In this final session, we'll cover best practices for using HPC systems effectively and how to troubleshoot common problems you might encounter.
+
+## HPC Best Practices
+
+### Job Planning and Resource Management
+
+#### Right-Size Your Resource Requests
+
+::: {.callout-tip}
+## Resource Planning Strategy
+
+1. **Start small**: Test with minimal resources
+2. **Profile first**: Run small tests to understand resource needs
+3. **Scale gradually**: Increase resources based on actual usage
+4. **Monitor usage**: Use `sacct` to check what you actually used
+:::
+
+```bash
+# Check actual resource usage after job completes
+sacct -j JOBID --format=JobID,Elapsed,MaxRSS,AveCPU,State
+```
+
+#### Efficient File Management
+
+- **Use appropriate storage**: Home for code, scratch for data processing
+- **Clean up regularly**: Remove temporary files from scratch
+- **Organize your work**: Use clear directory structures
+- **Backup important results**: Don't rely on scratch storage
+
+### Writing Robust Job Scripts
+
+#### Error Handling
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=robust_job
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+# Exit immediately if any command fails
+set -e
+
+# Print commands as they execute (for debugging)
+set -x
+
+# Check if required files exist
+if [ ! -f "input.txt" ]; then
+    echo "ERROR: input.txt not found"
+    exit 1
+fi
+
+# Load modules with error checking
+module load python/3.13.0 || {
+    echo "ERROR: Failed to load Python module"
+    exit 1
+}
+
+# Run your program
+python analysis.py
+
+# Check if output was created
+if [ ! -f "results.txt" ]; then
+    echo "ERROR: results.txt was not created"
+    exit 1
+fi
+
+echo "Job completed successfully"
+```
+
+#### Environment Variables
+
+Use SLURM environment variables in your scripts:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=env_demo
+
+echo "Job Information:"
+echo "Job ID: $SLURM_JOB_ID"
+echo "Job Name: $SLURM_JOB_NAME"
+echo "Node: $SLURMD_NODENAME"
+echo "CPUs per task: $SLURM_CPUS_PER_TASK"
+echo "Memory per node: $SLURM_MEM_PER_NODE"
+echo "Submit directory: $SLURM_SUBMIT_DIR"
+
+# Use variables for parallel processing
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+```
+
+## Troubleshooting Common Issues
+
+### Job Submission Problems
+
+#### Job Won't Submit
+
+**Error**: `sbatch: error: Invalid partition name specified`
+
+**Solution**: Check available partitions
+```bash
+sinfo
+sinfo --summarize
+```
+
+**Error**: `sbatch: error: Memory specification can not be satisfied`
+
+**Solution**: Reduce memory request or check node limits
+```bash
+sinfo -o "%P %l %D %c %m %N"  # Show partition limits
+```
+
+### Job Execution Problems
+
+#### Job Stays in Pending State
+
+Check why your job isn't starting:
+```bash
+squeue -u $USER --long
+squeue -j JOBID --start  # Estimate start time
+```
+
+Common reasons and solutions:
+
+| Reason | Meaning | Solution |
+|--------|---------|----------|
+| `Resources` | Not enough free resources | Wait, or reduce requests |
+| `Priority` | Other jobs have higher priority | Wait for fair-share to adjust |
+| `QOSMaxJobsPerUserLimit` | Too many jobs running | Wait for some jobs to finish |
+| `PartitionNodeLimit` | Requesting too many nodes | Reduce node count |
+
+#### Job Killed or Failed
+
+Check job exit status and resource usage:
+```bash
+sacct -j JOBID --format=JobID,State,ExitCode,MaxRSS,Elapsed
+```
+
+**Exit Codes:**
+- `0` = Success
+- `1` = General error
+- `125` = Out of memory
+- `130` = Job cancelled by user
+
+### Memory Issues
+
+#### Out of Memory (OOM) Errors
+
+**Symptoms**: Job killed with `OutOfMemory` or exit code 125
+
+**Diagnosis**:
+```bash
+# Check memory usage
+sacct -j JOBID --format=JobID,MaxRSS,ReqMem,State
+
+# Check job log files for OOM messages
+grep -i "memory\|oom\|killed" job_output.err
+```
+
+**Solutions**:
+1. Increase memory request: `#SBATCH --mem=32G`
+2. Optimize your code to use less memory
+3. Process data in smaller chunks
+4. Use memory profiling tools
+
+#### Memory Profiling
+
+Monitor memory usage during development:
+```bash
+#!/bin/bash
+# Add to your job script
+/usr/bin/time -v python my_script.py
+
+# Or use a memory profiler
+module load valgrind
+valgrind --tool=massif python my_script.py
+```
+
+### Performance Issues
+
+#### Job Running Slowly
+
+**Check CPU utilization**:
+```bash
+sacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State
+```
+
+**Common causes**:
+- Not using all requested CPUs
+- I/O bottlenecks
+- Inefficient algorithms
+- Wrong parallelization strategy
+
+#### I/O Performance
+
+**Use appropriate storage**:
+- Small files: Home directory
+- Large temporary files: `$SCRATCH`
+- High I/O during job: `$TMP_SHARED` (flash storage)
+
+**Optimize I/O patterns**:
+```bash
+# Bad: Many small writes
+for i in {1..1000}; do
+    echo "data $i" >> output.txt
+done
+
+# Good: Batch writes
+{
+    for i in {1..1000}; do
+        echo "data $i"
+    done
+} > output.txt
+```
+
+### Module and Software Issues
+
+#### Module Not Found
+
+```bash
+# Check module availability
+module avail python
+module spider python  # More detailed search
+
+# Load required modules
+module load python/3.13.0
+```
+
+#### Python Package Issues
+
+Use conda environments for better package management:
+```bash
+# In your job script
+module load miniforge/24.3.0
+source activate myenv
+python analysis.py
+```
+
+#### Version Conflicts
+
+Always specify exact versions:
+```bash
+# Bad - version may change
+module load gcc
+module load python
+
+# Good - reproducible
+module load gcc/14.2.0
+module load python/3.13.0
+```
+
+## Performance Optimization
+
+### Parallel Programming
+
+#### OpenMP (Shared Memory)
+
+```bash
+#!/bin/bash
+#SBATCH --cpus-per-task=8
+
+module load gcc/14.2.0
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+./my_openmp_program
+```
+
+#### MPI (Distributed Memory)
+
+```bash
+#!/bin/bash
+#SBATCH --ntasks=16
+#SBATCH --nodes=2
+
+module load openmpi/4.1.4
+mpirun ./my_mpi_program
+```
+
+### Benchmarking and Scaling
+
+Test how your job scales with resources:
+
+```bash
+# Test different core counts
+for cores in 1 2 4 8 16; do
+    sbatch --cpus-per-task=$cores benchmark.sh
+done
+```
+
+Create scaling plots to find optimal resource usage.
+
+## Monitoring and Debugging
+
+### Real-time Job Monitoring
+
+While job is running:
+```bash
+# Check job status
+squeue -j JOBID
+
+# SSH to compute node (if allowed)
+ssh $(squeue -h -j JOBID -o %N)
+top -u $USER
+```
+
+### Post-job Analysis
+
+After job completion:
+```bash
+# Detailed accounting
+sacct -j JOBID --format=ALL
+
+# Custom format for specific metrics
+sacct -j JOBID --format=JobID,JobName,Elapsed,State,MaxRSS,AveCPU,ReqCPUS,ReqMem
+```
+
+### Log File Analysis
+
+Organize your log files:
+```bash
+#!/bin/bash
+#SBATCH --output=logs/job_%j_%x.out
+#SBATCH --error=logs/job_%j_%x.err
+
+# Create logs directory if it doesn't exist
+mkdir -p logs
+```
+
+## Collaboration and Reproducibility
+
+### Sharing Code and Environments
+
+#### Version Control
+```bash
+# Use git to track your job scripts
+git add job_script.sh
+git commit -m "Add job script for analysis"
+```
+
+#### Document Your Workflow
+```bash
+#!/bin/bash
+# Job script for protein folding analysis
+# Author: Your Name
+# Date: 2025-01-01
+# Input: protein sequences in data/
+# Output: folding predictions in results/
+# Requirements: 32GB RAM, 8 cores, ~4 hours
+
+#SBATCH --job-name=protein_folding
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32G
+#SBATCH --time=04:00:00
+```
+
+#### Reproducible Environments
+```bash
+# Create environment file
+conda env export > environment.yml
+
+# In job script
+module load miniforge/24.3.0
+conda env create -f environment.yml
+conda activate myproject
+```
+
+## Getting Help
+
+### Before Asking for Help
+
+1. **Check the logs**: Look at `.out` and `.err` files
+2. **Check resource usage**: Use `sacct` to see what happened
+3. **Test interactively**: Try running parts of your script interactively
+4. **Search documentation**: Check Aire documentation and forums
+5. **Google the error**: Many HPC issues are common
+
+### Where to Get Help
+
+- **Research Computing Team**: [Submit a query](https://bit.ly/arc-help)
+- **Aire Documentation**: [https://arcdocs.leeds.ac.uk/aire/](https://arcdocs.leeds.ac.uk/aire/)
+- **Training Courses**: [https://arc.leeds.ac.uk/courses/](https://arc.leeds.ac.uk/courses/)
+- **Community Forums**: SLURM user groups, Stack Overflow
+
+### When Reporting Issues
+
+Include this information:
+- **Job ID** and submission command
+- **Error messages** (exact text)
+- **Expected behavior** vs actual behavior
+- **Steps to reproduce** the problem
+- **System information** (which cluster, when it happened)
+
+## Security Best Practices
+
+### Protect Your Credentials
+
+- Never share your login credentials
+- Use SSH keys instead of passwords when possible
+- Log out when finished
+- Don't leave interactive sessions running
+
+### Data Security
+
+- Don't store sensitive data on shared systems unnecessarily
+- Use appropriate file permissions: `chmod 700 private_dir/`
+- Be aware of who can access your data
+- Follow institutional data management policies
+
+## Summary Checklist
+
+::: {.callout-note}
+## HPC Best Practices Checklist
+
+**Before submitting jobs:**
+- [ ] Test scripts interactively first
+- [ ] Estimate resource requirements
+- [ ] Check input files exist
+- [ ] Specify exact module versions
+
+**Job script quality:**
+- [ ] Include error handling (`set -e`)
+- [ ] Use meaningful job names
+- [ ] Organize output files
+- [ ] Document your workflow
+
+**Resource management:**
+- [ ] Right-size resource requests
+- [ ] Use appropriate storage locations
+- [ ] Clean up temporary files
+- [ ] Monitor actual usage with `sacct`
+
+**Troubleshooting:**
+- [ ] Check log files first
+- [ ] Use `squeue` and `sacct` for diagnostics
+- [ ] Test with smaller datasets first
+- [ ] Document solutions for future reference
+:::
+
+---
+
+## Course Wrap-up
+
+Congratulations! You've learned the fundamentals of using HPC systems. Let's move on to [Session 7: Wrap Up](wrap-up.qmd) for final thoughts and next steps.
+
+## Additional Resources
+
+- [Aire Best Practices Guide](https://arcdocs.leeds.ac.uk/aire/usage/best_practices.html)
+- [Troubleshooting Documentation](https://arcdocs.leeds.ac.uk/aire/usage/troubleshooting.html)
+- [Performance Optimization Guide](https://arcdocs.leeds.ac.uk/aire/usage/performance.html)

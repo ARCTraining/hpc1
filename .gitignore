@@ -5,3 +5,5 @@
 
 # vagrant stuff
 **/.vagrant/*
+
+/.quarto/
