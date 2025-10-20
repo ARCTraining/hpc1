@@ -134,37 +134,45 @@
 </section>
 <section id="serial-vs-parallel-programs" class="slide level2 center">
 <h2>Serial vs Parallel Programs</h2>
-<p>Understanding how programs can utilize multiple cores</p>
+<p>Understanding how programs can utilize multiple cores…</p>
+<div class="fragment">
+<p>helps us to understand how to use the HPC effectively.</p>
+</div>
 </section>
 <section id="serial-program" class="slide level2">
 <h2>Serial Program</h2>
 
 <img data-src="assets/img/serial.png" class="r-stretch quarto-figure-center"><p class="caption">Serial program schematic</p><div class="fragment">
 <ul>
-<li>Serial problems use a single CPU core, and solve a series of problems one after the other</li>
-<li>Each stage of the calculation (A, B, C…) may depend on the output of the previous stage, or they may be independent (and so could run in any order)</li>
+<li>Serial problems use a single CPU core
+<ul>
+<li>Solve a series of problems one after the other</li>
+</ul></li>
+<li>Each stage of the calculation (A, B, C…) may depend on the output of the previous stage, <strong>or</strong> they may be independent (and so could run in any order)</li>
 </ul>
 </div>
 </section>
 <section id="parallel-program" class="slide level2">
 <h2>Parallel Program</h2>
 
-<img data-src="assets/img/parallel.png" class="r-stretch quarto-figure-center"><p class="caption">Parallel program schematic</p><div class="fragment">
-<ul>
-<li>In contrast, in a parallel program, the problems can be solved simultaneously on multiple cores</li>
-<li>In this example, all the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins</li>
-<li>This sort of problem is known as <a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">“perfectly parallel” or “embarrassingly parallel”</a> because it is a task that is “embarrassingly easy” to split up into parallel tasks</li>
+<img data-src="assets/img/parallel.png" class="r-stretch quarto-figure-center"><p class="caption">Parallel program schematic</p><p>In contrast: problems can be solved <strong>simultaneously</strong> on multiple cores</p>
+</section>
+<section id="parallel-program-1" class="slide level2">
+<h2>Parallel Program</h2>
+
+<img data-src="assets/img/parallel.png" class="r-stretch quarto-figure-center"><p class="caption">Parallel program schematic</p><ul>
+<li>All the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins</li>
+<li><a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">“Perfectly parallel” or “embarrassingly parallel”</a> because it is a task that is “embarrassingly easy” to split up into parallel tasks</li>
 </ul>
-</div>
 </section>
 <section id="imperfectly-parallel" class="slide level2">
 <h2>Imperfectly Parallel</h2>
-<p>Most tasks you run or models you run will fall somewhere in-between serial and parallel:</p>
-<div class="fragment">
+<p>Most tasks you run or models you run on the HPC will fall somewhere in-between serial and parallel:</p>
+<div>
 <ul>
-<li>Certain sections of the code will be able to be <em>parallelised</em> while other sections will rely on the output of the previous stage and so need to be serialised</li>
-<li>You can express how much of your work is parallelised with a rough percentage</li>
-<li>The higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores</li>
+<li class="fragment">Certain sections of the code will be able to be <em>parallelised</em> while other sections will rely on the output of the previous stage and so need to be serialised</li>
+<li class="fragment">You can express how much of your work is parallelised with a rough percentage</li>
+<li class="fragment">The higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores</li>
 </ul>
 </div>
 </section>
@@ -358,7 +366,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

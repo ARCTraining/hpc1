@@ -3,13 +3,15 @@ title: "HPC Terminology"
 format: 
   revealjs:
     theme: [default, slides-custom.scss]
-    transition: slide
     background-transition: fade
 ---
 
 ## HPC Terminology {.center}
 
 Understanding the key concepts and jargon
+
+- It's ok to not remember all of these!
+- We just want these terms to be familiar to you.
 
 ---
 
@@ -18,34 +20,44 @@ Understanding the key concepts and jargon
 - **HPC** stands for **High Performance Computing**
 - HPC systems or platforms can also be called **clusters** or **supercomputers**
 
-HPC systems allow multiple processors to work on the same problem at the same time, allowing complex problems to be solved faster than they could be on a single computer.
+HPC systems allow multiple processors to work on the same problem at the same time...
 
 ::: {.fragment}
-- Problems which might take years to run on a single processor might run 10 or 100 times faster using 10 or 100 processors in parallel
-- **It's not magic** - there is no fairy dust that can just make code run on hundreds of processors
-- **It could transform your workflow** if you put the effort in to shape your code to work on a HPC system
+allowing complex problems to be solved faster than they could be on a single computer.
 :::
+
+## HPC
+
+HPC systems allow multiple processors to work on the same problem at the same time...
+
+- Years to run on a single processor ⇨ might run 10 or 100 times faster using 10 or 100 processors in parallel
+- **It's not magic** - there is no fairy dust that can just make code run on hundreds of processors
+- **But it could transform your workflow** if you put the effort in to shape your code to work on a HPC system
+
 
 ---
 
 ## Cluster
 
-- Computer clusters are a system of computers that work together to allow large-scale computing
-- Imagine a network of laptops hooked up together on a high speed network - each laptop is a "node" in the cluster and acts as a server
+- A system of computers that work together to allow large-scale computing
+- Imagine a network of laptops hooked up together on a high speed network
+    - Each laptop is a "node" in the cluster and acts as a server
 
-::: {.fragment}
-![Network of connected computers forming a cluster](assets/img/serial.png){fig-align="center" width="400"}
-:::
+
+![Network of connected computers and storage forming a cluster](assets/img/networked_comps.png){fig-align="center" width="400"}
+
 
 ---
 
 ## Node
 
 - A node is an individual physical machine/server, that when linked to other nodes makes up the cluster
+    - Linked together by a high-speed network which allows very rapid communications between the nodes
 - In current systems, a node would typically include one or more processors, as well as memory and other hardware
 
 ::: {.fragment}
 **Think of it like this:**
+
 - Your laptop = 1 node
 - HPC cluster = many nodes connected together
 :::
@@ -57,10 +69,8 @@ HPC systems allow multiple processors to work on the same problem at the same ti
 The processor or **central processing unit** (CPU) inside the node, which contains one or more cores.
 
 - Your laptop or desktop will have a CPU, for example "Intel Core i7"
+- Machines can also have a **graphical processing unit** or GPU (often used in gaming and machine learning)
 
-::: {.fragment}
-Machines can also have a **graphical processing unit** or GPU (often used in machine learning)
-:::
 
 ---
 
@@ -68,16 +78,9 @@ Machines can also have a **graphical processing unit** or GPU (often used in mac
 
 This refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.
 
-::: {.fragment}
 - You will have to define how many cores you want to run your code across
 - You can use cores across multiple nodes
-:::
 
----
-
-## Aire {.center}
-
-### University of Leeds' HPC System
 
 ---
 
@@ -92,16 +95,8 @@ Each CPU **node** has:
 
 - **168 cores** (ARC4 had 40 cores)
 - **768GB** memory
-:::
 
-::: {.fragment}
 You can [read more about the Aire system on our website](https://arc.leeds.ac.uk/platforms/aire/)
 :::
 
----
 
-## Key Takeaway {.center}
-
-HPC cluster systems are formed of a large number of separate computers called **nodes**.
-
-Each **node** is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.

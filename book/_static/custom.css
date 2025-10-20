@@ -1,9 +1,0 @@
-/* Define page break styling */
-.page-break {
-    page-break-before: always;
-    margin-top: 2em;
-  }
-
-.fixed-height .tab-content .tab-item{
-  height: 5em;
-}

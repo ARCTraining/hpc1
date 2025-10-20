@@ -1,76 +1,81 @@
 ---
 title: "Parallelisation and Amdahl's Law"
+subtitle: "Understanding the limits of parallel speedup"
 format: 
   revealjs:
     theme: [default, slides-custom.scss]
-    transition: slide
     background-transition: fade
 ---
 
-## Amdahl's Law {.center}
-
-Understanding the limits of parallel speedup
-
----
 
 ## Amdahl's Law
 
-![Amdahl's Law graph](assets/img/amdahl.png){fig-align="center"}
-
-**Speedup = (execution time for the task with no enhancements or added cores) / (execution time for the same task with enhancements or added cores)**
-
-*Image source: Daniels220 at English Wikipedia, CC BY-SA 3.0, via Wikimedia Commons*
+![Amdahl's Law graph *Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons* ](assets/img/amdahl.png){fig-align="center"}
 
 ---
 
-## Key Insights
+## Key Insights {.smaller}
 
-::: {.fragment}
-- The greater the parallelised portion, the greater the speed-up by adding more cores
+:::: {.columns}
+
+:::{.column width=50%}
+![Amdahl's Law graph *Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons* ](assets/img/amdahl.png){fig-align="center"}
 :::
 
-::: {.fragment}
+:::{.column width=50%}
+
+:::::{.incremental}
+- The greater the parallelised portion, the greater the speed-up by adding more cores
 - There comes a point of diminishing returns where adding more cores has a negligible effect:
   - If 50% of the job is parallelised, the greatest speedup is 2 times
   - If 95% of the work is parallelised, the greatest speedup is 20 times
+:::::
+
 :::
+
+::::
 
 ---
 
 ## Parallelisation Strategies
 
-Different approaches to making your code run in parallel:
+The way in which you parallelise your work depends on the problem you are solving!
 
-::: {.fragment}
+:::: {.columns}
+
+:::{.column width=55%}
+
 ### Task Parallelism
+
 - Divide work into independent tasks
 - Each processor works on different tasks
 - Good for different types of calculations
+
 :::
 
-::: {.fragment}
+:::{.column width=45%}
+
 ### Data Parallelism  
+
 - Same operation applied to different data
 - Each processor works on subset of data
 - Good for large datasets
-:::
 
+:::
+:::: 
 ---
 
 ## Practical Implications
 
-::: {.fragment}
-**Before scaling up:**
-- Profile your code to understand bottlenecks
-- Identify which parts can be parallelized
-- Consider the communication overhead
-:::
-
-::: {.fragment}
-**When choosing resources:**
-- More cores ≠ always faster
-- Consider memory requirements per core
-- Balance cores vs. memory vs. time
+::: {.incremental}
+- **Before scaling up:**
+    - Profile your code to understand bottlenecks
+    - Identify which parts can be parallelized
+    - Consider the communication overhead
+- **When choosing resources:**
+    - More cores ≠ always faster
+    - Consider memory requirements per core
+    - Balance cores vs. memory vs. time
 :::
 
 ---
@@ -86,6 +91,11 @@ Different approaches to making your code run in parallel:
 - **1000 cores:** Likely slower due to overhead!
 :::
 
+---
+
+## Exercise
+
+Return to the main notes and try to answer the questions!
 ---
 
 ## Next Steps {.center}

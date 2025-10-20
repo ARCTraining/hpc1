@@ -26,6 +26,8 @@ By the end of this workshop, you will be able to:
 
 This course is perfect for you if you're completely new to High Performance Computing, or if you have some HPC experience elsewhere but are new to the platforms and resources at Leeds.
 
+**This session has no coding/practical exercises.**
+
 
 ## Topics
 
@@ -65,7 +67,24 @@ If you are attending online or plan on using your own laptop, please follow the 
 
 - These materials are designed to work both for independent study and as a delivered course
 - When delivered, the course is split over two half-day sessions
+- In general, the key information is presented in the slides, with additional/supporting information provided in the notes
 
 ### Day 1
 
-### Day 2
+#### Session 1: What is HPC?
+
+By the end of this session, you will be able to:
+
+- Understand key HPC terminology and concepts
+- Explain the difference between serial and parallel programs
+- Recognize when HPC might benefit your research
+- Describe the basic architecture of HPC cluster systems
+
+#### Session 2: Logging On and Linux Recap
+
+By the end of this session, you will be able to:
+
+- Connect to the Aire HPC system using SSH
+- Navigate the Linux command line interface
+- Use essential Linux commands for file management
+- Understand the difference between on-campus and off-campus connections

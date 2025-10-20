@@ -92,42 +92,42 @@
     "href": "what-is-hpc-terminology-slides.html#hpc-terminology",
     "title": "HPC Terminology",
     "section": "HPC Terminology",
-    "text": "HPC Terminology\nUnderstanding the key concepts and jargon"
+    "text": "HPC Terminology\nUnderstanding the key concepts and jargon\n\nIt’s ok to not remember all of these!\nWe just want these terms to be familiar to you."
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#hpc",
     "href": "what-is-hpc-terminology-slides.html#hpc",
     "title": "HPC Terminology",
     "section": "HPC",
-    "text": "HPC\n\nHPC stands for High Performance Computing\nHPC systems or platforms can also be called clusters or supercomputers\n\nHPC systems allow multiple processors to work on the same problem at the same time, allowing complex problems to be solved faster than they could be on a single computer.\n\n\nProblems which might take years to run on a single processor might run 10 or 100 times faster using 10 or 100 processors in parallel\nIt’s not magic - there is no fairy dust that can just make code run on hundreds of processors\nIt could transform your workflow if you put the effort in to shape your code to work on a HPC system"
+    "text": "HPC\n\nHPC stands for High Performance Computing\nHPC systems or platforms can also be called clusters or supercomputers\n\nHPC systems allow multiple processors to work on the same problem at the same time…\n\nallowing complex problems to be solved faster than they could be on a single computer."
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#cluster",
     "href": "what-is-hpc-terminology-slides.html#cluster",
     "title": "HPC Terminology",
     "section": "Cluster",
-    "text": "Cluster\n\nComputer clusters are a system of computers that work together to allow large-scale computing\nImagine a network of laptops hooked up together on a high speed network - each laptop is a “node” in the cluster and acts as a server\n\n\n\n\n\nNetwork of connected computers forming a cluster"
+    "text": "Cluster\n\nA system of computers that work together to allow large-scale computing\nImagine a network of laptops hooked up together on a high speed network\n\nEach laptop is a “node” in the cluster and acts as a server\n\n\n\nNetwork of connected computers and storage forming a cluster"
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#node",
     "href": "what-is-hpc-terminology-slides.html#node",
     "title": "HPC Terminology",
     "section": "Node",
-    "text": "Node\n\nA node is an individual physical machine/server, that when linked to other nodes makes up the cluster\nIn current systems, a node would typically include one or more processors, as well as memory and other hardware\n\n\nThink of it like this: - Your laptop = 1 node - HPC cluster = many nodes connected together"
+    "text": "Node\n\nA node is an individual physical machine/server, that when linked to other nodes makes up the cluster\n\nLinked together by a high-speed network which allows very rapid communications between the nodes\n\nIn current systems, a node would typically include one or more processors, as well as memory and other hardware\n\n\nThink of it like this:\n\nYour laptop = 1 node\nHPC cluster = many nodes connected together"
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#processor",
     "href": "what-is-hpc-terminology-slides.html#processor",
     "title": "HPC Terminology",
     "section": "Processor",
-    "text": "Processor\nThe processor or central processing unit (CPU) inside the node, which contains one or more cores.\n\nYour laptop or desktop will have a CPU, for example “Intel Core i7”\n\n\nMachines can also have a graphical processing unit or GPU (often used in machine learning)"
+    "text": "Processor\nThe processor or central processing unit (CPU) inside the node, which contains one or more cores.\n\nYour laptop or desktop will have a CPU, for example “Intel Core i7”\nMachines can also have a graphical processing unit or GPU (often used in gaming and machine learning)"
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#core",
     "href": "what-is-hpc-terminology-slides.html#core",
     "title": "HPC Terminology",
     "section": "Core",
-    "text": "Core\nThis refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.\n\n\nYou will have to define how many cores you want to run your code across\nYou can use cores across multiple nodes"
+    "text": "Core\nThis refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.\n\nYou will have to define how many cores you want to run your code across\nYou can use cores across multiple nodes"
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#aire",
@@ -141,21 +141,21 @@
     "href": "what-is-hpc-terminology-slides.html#aire-specifications",
     "title": "HPC Terminology",
     "section": "Aire Specifications",
-    "text": "Aire Specifications\n\nAire is the University of Leeds’ latest HPC system\nIt uses a Linux operating system\nThe system has 52 CPU nodes (and 28 GPU nodes)\n\n\nEach CPU node has:\n\n168 cores (ARC4 had 40 cores)\n768GB memory\n\n\n\nYou can read more about the Aire system on our website"
+    "text": "Aire Specifications\n\nAire is the University of Leeds’ latest HPC system\nIt uses a Linux operating system\nThe system has 52 CPU nodes (and 28 GPU nodes)\n\n\nEach CPU node has:\n\n168 cores (ARC4 had 40 cores)\n768GB memory\n\nYou can read more about the Aire system on our website"
   },
   {
     "objectID": "what-is-hpc-terminology-slides.html#key-takeaway",
     "href": "what-is-hpc-terminology-slides.html#key-takeaway",
     "title": "HPC Terminology",
     "section": "Key Takeaway",
-    "text": "Key Takeaway\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes."
+    "text": "Key Takeaway\n\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server.\nNodes are linked together by a high-speed network which allows very rapid communications between the nodes."
   },
   {
     "objectID": "what-is-hpc-amdahl-slides.html#amdahls-law",
     "href": "what-is-hpc-amdahl-slides.html#amdahls-law",
     "title": "Parallelisation and Amdahl’s Law",
     "section": "Amdahl’s Law",
-    "text": "Amdahl’s Law\nUnderstanding the limits of parallel speedup"
+    "text": "Amdahl’s Law\n\nAmdahl’s Law graph Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons"
   },
   {
     "objectID": "what-is-hpc-amdahl-slides.html#amdahls-law-1",
@@ -169,21 +169,21 @@
     "href": "what-is-hpc-amdahl-slides.html#key-insights",
     "title": "Parallelisation and Amdahl’s Law",
     "section": "Key Insights",
-    "text": "Key Insights\n\n\nThe greater the parallelised portion, the greater the speed-up by adding more cores\n\n\n\n\nThere comes a point of diminishing returns where adding more cores has a negligible effect:\n\nIf 50% of the job is parallelised, the greatest speedup is 2 times\nIf 95% of the work is parallelised, the greatest speedup is 20 times"
+    "text": "Key Insights\n\n\n\n\n\nAmdahl’s Law graph Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons\n\n\n\n\n\nThe greater the parallelised portion, the greater the speed-up by adding more cores\nThere comes a point of diminishing returns where adding more cores has a negligible effect:\n\nIf 50% of the job is parallelised, the greatest speedup is 2 times\nIf 95% of the work is parallelised, the greatest speedup is 20 times"
   },
   {
     "objectID": "what-is-hpc-amdahl-slides.html#parallelisation-strategies",
     "href": "what-is-hpc-amdahl-slides.html#parallelisation-strategies",
     "title": "Parallelisation and Amdahl’s Law",
     "section": "Parallelisation Strategies",
-    "text": "Parallelisation Strategies\nDifferent approaches to making your code run in parallel:\n\nTask Parallelism\n\nDivide work into independent tasks\nEach processor works on different tasks\nGood for different types of calculations\n\n\n\nData Parallelism\n\nSame operation applied to different data\nEach processor works on subset of data\nGood for large datasets"
+    "text": "Parallelisation Strategies\nThe way in which you parallelise your work depends on the problem you are solving!\n\n\nTask Parallelism\n\nDivide work into independent tasks\nEach processor works on different tasks\nGood for different types of calculations\n\n\nData Parallelism\n\nSame operation applied to different data\nEach processor works on subset of data\nGood for large datasets"
   },
   {
     "objectID": "what-is-hpc-amdahl-slides.html#practical-implications",
     "href": "what-is-hpc-amdahl-slides.html#practical-implications",
     "title": "Parallelisation and Amdahl’s Law",
     "section": "Practical Implications",
-    "text": "Practical Implications\n\nBefore scaling up: - Profile your code to understand bottlenecks - Identify which parts can be parallelized - Consider the communication overhead\n\n\nWhen choosing resources: - More cores ≠ always faster - Consider memory requirements per core - Balance cores vs. memory vs. time"
+    "text": "Practical Implications\n\n\nBefore scaling up:\n\nProfile your code to understand bottlenecks\nIdentify which parts can be parallelized\nConsider the communication overhead\n\nWhen choosing resources:\n\nMore cores ≠ always faster\nConsider memory requirements per core\nBalance cores vs. memory vs. time"
   },
   {
     "objectID": "what-is-hpc-amdahl-slides.html#real-performance-example",
@@ -514,35 +514,35 @@
     "href": "logging-on-linux-slides.html#command-line-interface-cli",
     "title": "Linux Command Line Essentials",
     "section": "Command Line Interface (CLI)",
-    "text": "Command Line Interface (CLI)\nMany large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.\n\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows"
+    "text": "Command Line Interface (CLI)\nAire does not have a GUI (Graphical User Interface) and so you need to interact with it through a CLI.\n\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows"
   },
   {
     "objectID": "logging-on-linux-slides.html#why-cli-for-hpc",
     "href": "logging-on-linux-slides.html#why-cli-for-hpc",
     "title": "Linux Command Line Essentials",
     "section": "Why CLI for HPC?",
-    "text": "Why CLI for HPC?\n\nReproducibility Issues with GUIs: - Sometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used - Updates to GUIs can make it difficult to find the same menu options - A workflow with multiple steps can be tedious to repeat for multiple datasets (having to click through multiple layers of menu options for each dataset)\n\n\nCLI Benefits: - Scriptable and repeatable - Faster for experienced users - Works over remote connections - Can be automated"
+    "text": "Why CLI for HPC?\nReproducibility Issues with GUIs:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets (having to click through multiple layers of menu options for each dataset)"
   },
   {
     "objectID": "logging-on-linux-slides.html#bash-shell",
     "href": "logging-on-linux-slides.html#bash-shell",
     "title": "Linux Command Line Essentials",
     "section": "Bash Shell",
-    "text": "Bash Shell\nBash is the default shell on Unix systems like Linux or Mac\n\nKey Concepts: - Shell interprets and executes commands - Commands follow pattern: command [options] [arguments] - Case sensitive - Use man command to get help"
+    "text": "Bash Shell\nBash is the default shell on Unix systems like Linux or Mac\n\nKey Concepts:\n\nShell interprets and executes commands\nCommands follow pattern: command [options] [arguments]\nCase sensitive\nUse man command to get help"
   },
   {
     "objectID": "logging-on-linux-slides.html#file-systems-on-linux",
     "href": "logging-on-linux-slides.html#file-systems-on-linux",
     "title": "Linux Command Line Essentials",
     "section": "File Systems on Linux",
-    "text": "File Systems on Linux\n\nNavigation Basics: - Navigate to your home directory with cd - List the files and directories present with ls - Change to a different directory with cd path/to/directory\n\n\nPath Types: - Absolute path: /home/username/data - Relative path: ../data or ./scripts - Home directory: ~"
+    "text": "File Systems on Linux\n\nNavigation Basics:\n\nNavigate to your home directory with cd\nList the files and directories present with ls\nChange to a different directory with cd path/to/directory\n\n\n\nPath Types:\n\nAbsolute path: /home/username/data\nRelative path: ../data or ./scripts\nHome directory: ~"
   },
   {
     "objectID": "logging-on-linux-slides.html#essential-commands---navigation",
     "href": "logging-on-linux-slides.html#essential-commands---navigation",
     "title": "Linux Command Line Essentials",
     "section": "Essential Commands - Navigation",
-    "text": "Essential Commands - Navigation\npwd          # Print working directory - where am I?\nls           # List files and directories\nls -la       # List with details and hidden files\ncd           # Change to home directory\ncd /path     # Change to specific directory\ncd ..        # Go up one directory level\ncd -         # Go back to previous directory\n\nTry it: Navigate around the file system and see where you are"
+    "text": "Essential Commands - Navigation\npwd          # Print working directory - where am I?\nls           # List files and directories\nls -la       # List with details and hidden files\ncd           # Change to home directory\ncd /path     # Change to specific directory\ncd ..        # Go up one directory level\ncd -         # Go back to previous directory\n\nTry it: Navigate around the file system and see where you are. You might not have any files or folders if you’ve just created your account!"
   },
   {
     "objectID": "logging-on-linux-slides.html#essential-commands---files",
@@ -584,7 +584,7 @@
     "href": "logging-on-linux-slides.html#exercise-answers",
     "title": "Linux Command Line Essentials",
     "section": "Exercise Answers",
-    "text": "Exercise Answers\n\nls - List files and directories (see what’s available)\npwd - Print working directory (know where you are)\nmkdir - Make directory (organize your work)\ncp - Copy files (backup important data)\nwget - Download files from web (get datasets, software)\nrm - Remove files (clean up temporary files)"
+    "text": "Exercise Answers\n\nls - List files and directories (see what’s available)\npwd - Print working directory (know where you are)\nmkdir - Make directory (organize your work)\ncp - Copy files (backup important data)\nwget - Download files from web (get datasets, software)\nrm - Remove files (clean up files)"
   },
   {
     "objectID": "logging-on-linux-slides.html#hpc-specific-usage",
@@ -775,7 +775,7 @@
     "href": "logging-on-and-linux-recap.html",
     "title": "Session 2: Logging On and Linux Recap",
     "section": "",
-    "text": "In this session, we will get connected to Aire. This section is modified from the documentation pages for Aire. Please note that a University of Leeds account is required to view the links below.",
+    "text": "By the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\n\n\n\n\nTip\n\n\n\nPlease note that a University of Leeds account is required to view the knowledge base articles linked below.\n\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
     "crumbs": [
       "Course Content",
       "Session 2: Logging On and Linux Recap"
@@ -786,7 +786,7 @@
     "href": "logging-on-and-linux-recap.html#logging-on",
     "title": "Session 2: Logging On and Linux Recap",
     "section": "Logging on",
-    "text": "Logging on\nThe training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nThe delivery of this session will depend whether it is hosted in-person or remotely.\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\nGeneral instructions\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\n\n\nKB articles for connecting from campus\nFor in-person sessions or for people attending remotely from an on-campus machine.\nYou can connect to Aire and log in using SSH (Secure Shell) from within the University network. Please see the following Knowledge Base articles for more information:\n\nKB0018276 - How do I connect to Aire from a Windows machine on campus?\nKB0018275 - How do I log in to Aire on Linux or Mac OS from on Campus?\n\nNote that the above articles require you to log in with your University account to view.\n\n\nKB articles for connecting when off-site\nFor online/remote sessions and connecting from a laptop not connected to the University ethernet.\nTo access Aire from outside the University, you will need to connect through the University’s general SSH gateway or use the University VPN, whereas access from the campus network does not require this additional step. Please see the following Knowledge Base articles for more information:\n\nKB0018286 - How do I connect to Aire from a Windows machine off campus?\nKB0018284 - How do I log in to Aire on Linux or Mac OS from off Campus?\n\nFor more general guidance on using SSH and the VPN for remote access, please see the following Knowledge Base articles:\n\nKB0014674 - SSH remote access at the University of Leeds\nKB0014410 - Connecting to the University VPN",
+    "text": "Logging on\nThe training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nNote\n\n\n\nThere are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.\n\n\nAttendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\nGeneral instructions\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\nFor further guidance on logging on to Aire, see our documentation: Aire docs - Logging On",
     "crumbs": [
       "Course Content",
       "Session 2: Logging On and Linux Recap"
@@ -1262,28 +1262,28 @@
     "href": "what-is-hpc-parallel-slides.html#serial-vs-parallel-programs",
     "title": "Serial vs Parallel Programs",
     "section": "Serial vs Parallel Programs",
-    "text": "Serial vs Parallel Programs\nUnderstanding how programs can utilize multiple cores"
+    "text": "Serial vs Parallel Programs\nUnderstanding how programs can utilize multiple cores…\n\nhelps us to understand how to use the HPC effectively."
   },
   {
     "objectID": "what-is-hpc-parallel-slides.html#serial-program",
     "href": "what-is-hpc-parallel-slides.html#serial-program",
     "title": "Serial vs Parallel Programs",
     "section": "Serial Program",
-    "text": "Serial Program\n\nSerial program schematic\n\nSerial problems use a single CPU core, and solve a series of problems one after the other\nEach stage of the calculation (A, B, C…) may depend on the output of the previous stage, or they may be independent (and so could run in any order)"
+    "text": "Serial Program\n\nSerial program schematic\n\nSerial problems use a single CPU core\n\nSolve a series of problems one after the other\n\nEach stage of the calculation (A, B, C…) may depend on the output of the previous stage, or they may be independent (and so could run in any order)"
   },
   {
     "objectID": "what-is-hpc-parallel-slides.html#parallel-program",
     "href": "what-is-hpc-parallel-slides.html#parallel-program",
     "title": "Serial vs Parallel Programs",
     "section": "Parallel Program",
-    "text": "Parallel Program\n\nParallel program schematic\n\nIn contrast, in a parallel program, the problems can be solved simultaneously on multiple cores\nIn this example, all the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins\nThis sort of problem is known as “perfectly parallel” or “embarrassingly parallel” because it is a task that is “embarrassingly easy” to split up into parallel tasks"
+    "text": "Parallel Program\n\nParallel program schematicIn contrast: problems can be solved simultaneously on multiple cores"
   },
   {
     "objectID": "what-is-hpc-parallel-slides.html#imperfectly-parallel",
     "href": "what-is-hpc-parallel-slides.html#imperfectly-parallel",
     "title": "Serial vs Parallel Programs",
     "section": "Imperfectly Parallel",
-    "text": "Imperfectly Parallel\nMost tasks you run or models you run will fall somewhere in-between serial and parallel:\n\n\nCertain sections of the code will be able to be parallelised while other sections will rely on the output of the previous stage and so need to be serialised\nYou can express how much of your work is parallelised with a rough percentage\nThe higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores"
+    "text": "Imperfectly Parallel\nMost tasks you run or models you run on the HPC will fall somewhere in-between serial and parallel:\n\n\nCertain sections of the code will be able to be parallelised while other sections will rely on the output of the previous stage and so need to be serialised\nYou can express how much of your work is parallelised with a rough percentage\nThe higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores"
   },
   {
     "objectID": "what-is-hpc-parallel-slides.html#real-world-examples",
@@ -1304,7 +1304,7 @@
     "href": "what-is-hpc.html",
     "title": "Session 1: What is HPC?",
     "section": "",
-    "text": "This session introduces some concepts, theories and terminology in High Performance Computing, to set you up for going more in-depth into the theory of research computing. It then lays out the general architecture of HPC systems, with some specifics relating to Aire, the latest HPC system available at the University of Leeds.",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
     "crumbs": [
       "Course Content",
       "Session 1: What is HPC?"
@@ -1377,7 +1377,7 @@
     "href": "index.html#learning-objectives",
     "title": "HPC1: Introduction to High Performance Computing",
     "section": "Learning objectives",
-    "text": "Learning objectives\nBy the end of this workshop, you will be able to:\n\nNavigate and work more confidently in a Linux-based HPC environment\nIdentify and access appropriate software tools for your research\nPlan and execute HPC jobs independently\nMake informed decisions about computational resource requirements\nOrganise and store your research data effectively\n\nThis course is perfect for you if you’re completely new to High Performance Computing, or if you have some HPC experience elsewhere but are new to the platforms and resources at Leeds."
+    "text": "Learning objectives\nBy the end of this workshop, you will be able to:\n\nNavigate and work more confidently in a Linux-based HPC environment\nIdentify and access appropriate software tools for your research\nPlan and execute HPC jobs independently\nMake informed decisions about computational resource requirements\nOrganise and store your research data effectively\n\nThis course is perfect for you if you’re completely new to High Performance Computing, or if you have some HPC experience elsewhere but are new to the platforms and resources at Leeds.\nThis session has no coding/practical exercises."
   },
   {
     "objectID": "index.html#topics",
@@ -1391,6 +1391,124 @@
     "href": "index.html#delivery",
     "title": "HPC1: Introduction to High Performance Computing",
     "section": "Delivery",
-    "text": "Delivery\n\nThese materials are designed to work both for independent study and as a delivered course\nWhen delivered, the course is split over two half-day sessions\n\n\nDay 1\n\n\nDay 2"
+    "text": "Delivery\n\nThese materials are designed to work both for independent study and as a delivered course\nWhen delivered, the course is split over two half-day sessions\nIn general, the key information is presented in the slides, with additional/supporting information provided in the notes\n\n\nDay 1\n\nSession 1: What is HPC?\nBy the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\n\n\nSession 2: Logging On and Linux Recap\nBy the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections"
+  },
+  {
+    "objectID": "what-is-hpc.html#session-aims",
+    "href": "what-is-hpc.html#session-aims",
+    "title": "Session 1: What is HPC?",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#session-aims",
+    "href": "logging-on-and-linux-recap.html#session-aims",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\n\n\n\n\nTip\n\n\n\nPlease note that a University of Leeds account is required to view the knowledge base articles linked below.\n\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#exercises",
+    "href": "logging-on-and-linux-recap.html#exercises",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "Exercises",
+    "text": "Exercises\n\nLog on to Aire! Follow the guidance here in our documentation to select the right KB article for your operating system.\nCreate a new folder/directory in your home directory called hpc1-examples\n\nUse cd and pwd to make sure you’re in your home directory\nUse mkdir NEW-DIR-NAME to create your new folder/directory",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#hpc-1",
+    "href": "what-is-hpc-terminology-slides.html#hpc-1",
+    "title": "HPC Terminology",
+    "section": "HPC",
+    "text": "HPC\nHPC systems allow multiple processors to work on the same problem at the same time…\n\nYears to run on a single processor ⇨ might run 10 or 100 times faster using 10 or 100 processors in parallel\nIt’s not magic - there is no fairy dust that can just make code run on hundreds of processors\nBut it could transform your workflow if you put the effort in to shape your code to work on a HPC system"
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#parallel-program-1",
+    "href": "what-is-hpc-parallel-slides.html#parallel-program-1",
+    "title": "Serial vs Parallel Programs",
+    "section": "Parallel Program",
+    "text": "Parallel Program\n\nParallel program schematic\nAll the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins\n“Perfectly parallel” or “embarrassingly parallel” because it is a task that is “embarrassingly easy” to split up into parallel tasks"
+  },
+  {
+    "objectID": "what-is-hpc.html#exercise",
+    "href": "what-is-hpc.html#exercise",
+    "title": "Session 1: What is HPC?",
+    "section": "Exercise",
+    "text": "Exercise\nTest your understanding of the key concepts from this session:\n\n\n\n\n\n\nQ1: What is the main difference between a cluster and a single computer?\n\n\n\n\n\nAnswer: A cluster is made up of many separate computers (nodes) connected by a high-speed network, allowing them to work together on problems.\nA single computer has limited processing power and memory, while a cluster can scale up to handle much larger computational tasks.\n\n\n\n\n\n\n\n\n\nQ2: Why can’t you just add more cores to make any program run faster?\n\n\n\n\n\nAnswer: Not all programs can be parallelised effectively!\nSome parts of a program must run serially or sequentially (one after another), and there’s overhead in coordinating between cores.\nAccording to Amdahl’s Law, the maximum speedup is limited by the portion of the program that cannot be parallelised.\n\n\n\n\n\n\n\n\n\nQ3: What’s the difference between task parallelism and data parallelism?\n\n\n\n\n\nAnswer:\n\nTask parallelism: Different processors work on different types of tasks or calculations\nData parallelism: Multiple processors perform the same operation on different subsets of data\n\n\n\n\n\n\n\n\n\n\nQ4: A program is 80% parallelizable. What’s the maximum theoretical speedup you could achieve?\n\n\n\n\n\nAnswer: According to Amdahl’s Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.\n\n\n\n\n\n\n\n\n\nQ5: When might HPC not be the right solution for your research problem?\n\n\n\n\n\nAnswer: HPC might not be suitable when:\n\nYour program cannot be parallelized effectively\nThe problem is small enough to run quickly on a regular computer\nYour workflow requires frequent interaction or visualization",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#knowledge-check",
+    "href": "what-is-hpc.html#knowledge-check",
+    "title": "Session 1: What is HPC?",
+    "section": "Knowledge Check",
+    "text": "Knowledge Check\nTest your understanding of the key concepts from this session:\n\n\n\n\n\n\nQ1: What is the main difference between a cluster and a single computer?\n\n\n\n\n\nAnswer: A cluster is made up of many separate computers (nodes) connected by a high-speed network, allowing them to work together on problems. A single computer has limited processing power and memory, while a cluster can scale up to handle much larger computational tasks.\n\n\n\n\n\n\n\n\n\nQ2: Why can’t you just add more cores to make any program run faster?\n\n\n\n\n\nAnswer: Not all programs can be parallelized effectively. Some parts of a program must run sequentially (one after another), and there’s overhead in coordinating between cores. According to Amdahl’s Law, the maximum speedup is limited by the portion of the program that cannot be parallelized.\n\n\n\n\n\n\n\n\n\nQ3: What’s the difference between task parallelism and data parallelism?\n\n\n\n\n\nAnswer: - Task parallelism: Different processors work on different types of tasks or calculations - Data parallelism: Multiple processors perform the same operation on different subsets of data\n\n\n\n\n\n\n\n\n\nQ4: A program is 80% parallelizable. What’s the maximum theoretical speedup you could achieve?\n\n\n\n\n\nAnswer: According to Amdahl’s Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.\n\n\n\n\n\n\n\n\n\nQ5: When might HPC not be the right solution for your research problem?\n\n\n\n\n\nAnswer: HPC might not be suitable when: - Your program cannot be parallelized effectively - The problem is small enough to run quickly on a regular computer - The overhead of learning HPC tools outweighs the benefits - Your workflow requires frequent interaction or visualization",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#quick-quiz",
+    "href": "what-is-hpc-amdahl-slides.html#quick-quiz",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Quick Quiz",
+    "text": "Quick Quiz\nTest your understanding!"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#question-1",
+    "href": "what-is-hpc-amdahl-slides.html#question-1",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Question 1",
+    "text": "Question 1\nA program is 90% parallelizable. What’s the maximum theoretical speedup?\n\nAnswer: 1/(1-0.9) = 10 times faster\n\n\nThis is regardless of how many cores you use - the 10% serial portion limits the speedup!"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#question-2",
+    "href": "what-is-hpc-amdahl-slides.html#question-2",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Question 2",
+    "text": "Question 2\nYour image processing job takes 8 hours on 1 core. If you use 4 cores and the job is perfectly parallel, how long will it take?\n\nAnswer: About 2 hours (8 ÷ 4 = 2)\n\n\nIn reality, it might take slightly longer due to communication overhead between cores."
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#question-3",
+    "href": "what-is-hpc-amdahl-slides.html#question-3",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Question 3",
+    "text": "Question 3\nWhen might adding more cores actually make your job slower?\n\nAnswer: When communication overhead exceeds the benefit of parallelization\n\n\nThis happens when: - The problem is too small to benefit from parallelization - Too much time is spent coordinating between cores - Memory bandwidth becomes the bottleneck"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#exercise",
+    "href": "what-is-hpc-amdahl-slides.html#exercise",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Exercise",
+    "text": "Exercise\nReturn to the main notes and try to answer the questions!"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#why-cli-for-hpc-1",
+    "href": "logging-on-linux-slides.html#why-cli-for-hpc-1",
+    "title": "Linux Command Line Essentials",
+    "section": "Why CLI for HPC?",
+    "text": "Why CLI for HPC?\nCLI Benefits:\n\nScriptable and repeatable\nFaster for experienced users\nWorks better over remote connections\nCan be automated"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#essential-commands",
+    "href": "logging-on-linux-slides.html#essential-commands",
+    "title": "Linux Command Line Essentials",
+    "section": "Essential Commands",
+    "text": "Essential Commands\n\nWe don’t expect you to memorise these!\nWe have included them here for quick and easy reference."
   }
 ]

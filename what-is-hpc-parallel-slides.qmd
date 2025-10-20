@@ -3,14 +3,16 @@ title: "Serial vs Parallel Programs"
 format: 
   revealjs:
     theme: [default, slides-custom.scss]
-    transition: slide
     background-transition: fade
 ---
 
 ## Serial vs Parallel Programs {.center}
 
-Understanding how programs can utilize multiple cores
+Understanding how programs can utilize multiple cores...
 
+::: {.fragment}
+helps us to understand how to use the HPC effectively.
+:::
 ---
 
 ## Serial Program
@@ -18,8 +20,9 @@ Understanding how programs can utilize multiple cores
 ![Serial program schematic](assets/img/serial.png){fig-align="center"}
 
 ::: {.fragment}
-- Serial problems use a single CPU core, and solve a series of problems one after the other
-- Each stage of the calculation (A, B, C...) may depend on the output of the previous stage, or they may be independent (and so could run in any order)
+- Serial problems use a single CPU core
+    - Solve a series of problems one after the other
+- Each stage of the calculation (A, B, C...) may depend on the output of the previous stage, **or** they may be independent (and so could run in any order)
 :::
 
 ---
@@ -28,19 +31,28 @@ Understanding how programs can utilize multiple cores
 
 ![Parallel program schematic](assets/img/parallel.png){fig-align="center"}
 
-::: {.fragment}
-- In contrast, in a parallel program, the problems can be solved simultaneously on multiple cores
-- In this example, all the stages (A, B, C...) are independent of each other and do not require one stage to be completed before another stage begins
-- This sort of problem is known as ["perfectly parallel" or "embarrassingly parallel"](https://en.wikipedia.org/wiki/Embarrassingly_parallel) because it is a task that is "embarrassingly easy" to split up into parallel tasks
-:::
+
+In contrast: problems can be solved **simultaneously** on multiple cores
+
+---
+
+## Parallel Program
+
+![Parallel program schematic](assets/img/parallel.png){fig-align="center"}
+
+
+
+- All the stages (A, B, C...) are independent of each other and do not require one stage to be completed before another stage begins
+- ["Perfectly parallel" or "embarrassingly parallel"](https://en.wikipedia.org/wiki/Embarrassingly_parallel) because it is a task that is "embarrassingly easy" to split up into parallel tasks
+
 
 ---
 
 ## Imperfectly Parallel
 
-Most tasks you run or models you run will fall somewhere in-between serial and parallel:
+Most tasks you run or models you run on the HPC will fall somewhere in-between serial and parallel:
 
-::: {.fragment}
+::: {.incremental}
 - Certain sections of the code will be able to be *parallelised* while other sections will rely on the output of the previous stage and so need to be serialised
 - You can express how much of your work is parallelised with a rough percentage
 - The higher the parallel portion, the more speed improvement you'll get running it on a HPC system across multiple cores

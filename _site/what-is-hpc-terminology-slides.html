@@ -135,6 +135,10 @@
 <section id="hpc-terminology" class="slide level2 center">
 <h2>HPC Terminology</h2>
 <p>Understanding the key concepts and jargon</p>
+<ul>
+<li>It’s ok to not remember all of these!</li>
+<li>We just want these terms to be familiar to you.</li>
+</ul>
 </section>
 <section id="hpc" class="slide level2">
 <h2>HPC</h2>
@@ -142,38 +146,46 @@
 <li><strong>HPC</strong> stands for <strong>High Performance Computing</strong></li>
 <li>HPC systems or platforms can also be called <strong>clusters</strong> or <strong>supercomputers</strong></li>
 </ul>
-<p>HPC systems allow multiple processors to work on the same problem at the same time, allowing complex problems to be solved faster than they could be on a single computer.</p>
+<p>HPC systems allow multiple processors to work on the same problem at the same time…</p>
 <div class="fragment">
-<ul>
-<li>Problems which might take years to run on a single processor might run 10 or 100 times faster using 10 or 100 processors in parallel</li>
-<li><strong>It’s not magic</strong> - there is no fairy dust that can just make code run on hundreds of processors</li>
-<li><strong>It could transform your workflow</strong> if you put the effort in to shape your code to work on a HPC system</li>
-</ul>
+<p>allowing complex problems to be solved faster than they could be on a single computer.</p>
 </div>
+</section>
+<section id="hpc-1" class="slide level2">
+<h2>HPC</h2>
+<p>HPC systems allow multiple processors to work on the same problem at the same time…</p>
+<ul>
+<li>Years to run on a single processor ⇨ might run 10 or 100 times faster using 10 or 100 processors in parallel</li>
+<li><strong>It’s not magic</strong> - there is no fairy dust that can just make code run on hundreds of processors</li>
+<li><strong>But it could transform your workflow</strong> if you put the effort in to shape your code to work on a HPC system</li>
+</ul>
 </section>
 <section id="cluster" class="slide level2">
 <h2>Cluster</h2>
 <ul>
-<li>Computer clusters are a system of computers that work together to allow large-scale computing</li>
-<li>Imagine a network of laptops hooked up together on a high speed network - each laptop is a “node” in the cluster and acts as a server</li>
+<li>A system of computers that work together to allow large-scale computing</li>
+<li>Imagine a network of laptops hooked up together on a high speed network
+<ul>
+<li>Each laptop is a “node” in the cluster and acts as a server</li>
+</ul></li>
 </ul>
-<div class="fragment">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/img/serial.png" width="400"></p>
-<figcaption>Network of connected computers forming a cluster</figcaption>
-</figure>
-</div>
-</div>
-</section>
+
+<img data-src="assets/img/networked_comps.png" width="400" class="r-stretch quarto-figure-center"><p class="caption">Network of connected computers and storage forming a cluster</p></section>
 <section id="node" class="slide level2">
 <h2>Node</h2>
 <ul>
-<li>A node is an individual physical machine/server, that when linked to other nodes makes up the cluster</li>
+<li>A node is an individual physical machine/server, that when linked to other nodes makes up the cluster
+<ul>
+<li>Linked together by a high-speed network which allows very rapid communications between the nodes</li>
+</ul></li>
 <li>In current systems, a node would typically include one or more processors, as well as memory and other hardware</li>
 </ul>
 <div class="fragment">
-<p><strong>Think of it like this:</strong> - Your laptop = 1 node - HPC cluster = many nodes connected together</p>
+<p><strong>Think of it like this:</strong></p>
+<ul>
+<li>Your laptop = 1 node</li>
+<li>HPC cluster = many nodes connected together</li>
+</ul>
 </div>
 </section>
 <section id="processor" class="slide level2">
@@ -181,24 +193,16 @@
 <p>The processor or <strong>central processing unit</strong> (CPU) inside the node, which contains one or more cores.</p>
 <ul>
 <li>Your laptop or desktop will have a CPU, for example “Intel Core i7”</li>
+<li>Machines can also have a <strong>graphical processing unit</strong> or GPU (often used in gaming and machine learning)</li>
 </ul>
-<div class="fragment">
-<p>Machines can also have a <strong>graphical processing unit</strong> or GPU (often used in machine learning)</p>
-</div>
 </section>
 <section id="core" class="slide level2">
 <h2>Core</h2>
 <p>This refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.</p>
-<div class="fragment">
 <ul>
 <li>You will have to define how many cores you want to run your code across</li>
 <li>You can use cores across multiple nodes</li>
 </ul>
-</div>
-</section>
-<section id="aire" class="slide level2 center">
-<h2>Aire</h2>
-<h3 id="university-of-leeds-hpc-system">University of Leeds’ HPC System</h3>
 </section>
 <section id="aire-specifications" class="slide level2">
 <h2>Aire Specifications</h2>
@@ -213,15 +217,8 @@
 <li><strong>168 cores</strong> (ARC4 had 40 cores)</li>
 <li><strong>768GB</strong> memory</li>
 </ul>
-</div>
-<div class="fragment">
 <p>You can <a href="https://arc.leeds.ac.uk/platforms/aire/">read more about the Aire system on our website</a></p>
 </div>
-</section>
-<section id="key-takeaway" class="slide level2 center">
-<h2>Key Takeaway</h2>
-<p>HPC cluster systems are formed of a large number of separate computers called <strong>nodes</strong>.</p>
-<p>Each <strong>node</strong> is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.</p>
 
 
 </section>
@@ -386,7 +383,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

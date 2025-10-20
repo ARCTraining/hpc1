@@ -4,7 +4,16 @@ subtitle: "Introduction to High Performance Computing Concepts"
 format: html
 ---
 
-This session introduces some concepts, theories and terminology in High Performance Computing, to set you up for going more in-depth into the theory of research computing. It then lays out the general architecture of HPC systems, with some specifics relating to Aire, the latest HPC system available at the University of Leeds.
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Understand key HPC terminology and concepts
+- Explain the difference between serial and parallel programs
+- Recognize when HPC might benefit your research
+- Describe the basic architecture of HPC cluster systems
+
+Please scroll to the bottom of the page to see the exercises for this session.
 
 ## Some commonly used terms
 
@@ -53,9 +62,54 @@ However, remember:
 
 ---
 
-## Getting Started
+## Exercise
 
-Now that you understand the basics of HPC, let's move on to [Session 2: Logging On and Linux Recap](logging-on-and-linux-recap.qmd) to start using the Aire system.
+Test your understanding of the key concepts from this session:
+
+::: {.callout-tip collapse="true"}
+## Q1: What is the main difference between a cluster and a single computer?
+
+**Answer:** A cluster is made up of many separate computers (nodes) connected by a high-speed network, allowing them to work together on problems.
+
+A single computer has limited processing power and memory, while a cluster can scale up to handle much larger computational tasks.
+:::
+
+::: {.callout-tip collapse="true"}
+## Q2: Why can't you just add more cores to make any program run faster?
+
+**Answer:** Not all programs can be parallelised effectively!
+
+Some parts of a program must run serially or sequentially (one after another), and there's overhead in coordinating between cores.
+
+According to Amdahl's Law, the maximum speedup is limited by the portion of the program that cannot be parallelised.
+:::
+
+::: {.callout-tip collapse="true"}
+## Q3: What's the difference between task parallelism and data parallelism?
+
+**Answer:** 
+
+- **Task parallelism:** Different processors work on different types of tasks or calculations
+- **Data parallelism:** Multiple processors perform the same operation on different subsets of data
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Q4: A program is 80% parallelizable. What's the maximum theoretical speedup you could achieve?
+
+**Answer:** According to Amdahl's Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.
+:::
+
+::: {.callout-tip collapse="true"}
+## Q5: When might HPC not be the right solution for your research problem?
+
+**Answer:** HPC might not be suitable when:
+
+- Your program cannot be parallelized effectively
+- The problem is small enough to run quickly on a regular computer
+- Your workflow requires frequent interaction or visualization
+
+:::
 
 ## Additional Resources
 

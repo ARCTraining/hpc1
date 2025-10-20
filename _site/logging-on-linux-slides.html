@@ -192,18 +192,15 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Linux Command Line Essentials</h1>
+  <p class="subtitle">Getting comfortable with the CLI on HPC systems</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="linux-command-line-essentials" class="slide level2 center">
-<h2>Linux Command Line Essentials</h2>
-<p>Getting comfortable with the CLI on HPC systems</p>
-</section>
 <section id="command-line-interface-cli" class="slide level2">
 <h2>Command Line Interface (CLI)</h2>
-<p>Many large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.</p>
+<p>Aire does not have a GUI (Graphical User Interface) and so you need to interact with it through a CLI.</p>
 <div class="fragment">
 <ul>
 <li>CLIs allow us to interact with a computer through text-based commands typed into the command-line</li>
@@ -213,28 +210,61 @@
 </section>
 <section id="why-cli-for-hpc" class="slide level2">
 <h2>Why CLI for HPC?</h2>
-<div class="fragment">
-<p><strong>Reproducibility Issues with GUIs:</strong> - Sometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used - Updates to GUIs can make it difficult to find the same menu options - A workflow with multiple steps can be tedious to repeat for multiple datasets (having to click through multiple layers of menu options for each dataset)</p>
-</div>
-<div class="fragment">
-<p><strong>CLI Benefits:</strong> - Scriptable and repeatable - Faster for experienced users - Works over remote connections - Can be automated</p>
-</div>
+<p><strong>Reproducibility Issues with GUIs:</strong></p>
+<ul>
+<li>Sometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used</li>
+<li>Updates to GUIs can make it difficult to find the same menu options</li>
+<li>A workflow with multiple steps can be tedious to repeat for multiple datasets (having to click through multiple layers of menu options for each dataset)</li>
+</ul>
+</section>
+<section id="why-cli-for-hpc-1" class="slide level2">
+<h2>Why CLI for HPC?</h2>
+<p><strong>CLI Benefits:</strong></p>
+<ul>
+<li>Scriptable and repeatable</li>
+<li>Faster for experienced users</li>
+<li>Works better over remote connections</li>
+<li>Can be automated</li>
+</ul>
 </section>
 <section id="bash-shell" class="slide level2">
 <h2>Bash Shell</h2>
 <p>Bash is the default shell on Unix systems like Linux or Mac</p>
 <div class="fragment">
-<p><strong>Key Concepts:</strong> - Shell interprets and executes commands - Commands follow pattern: <code>command [options] [arguments]</code> - Case sensitive - Use <code>man command</code> to get help</p>
+<p><strong>Key Concepts:</strong></p>
+<ul>
+<li>Shell interprets and executes commands</li>
+<li>Commands follow pattern: <code>command [options] [arguments]</code></li>
+<li>Case sensitive</li>
+<li>Use <code>man command</code> to get help</li>
+</ul>
 </div>
 </section>
 <section id="file-systems-on-linux" class="slide level2">
 <h2>File Systems on Linux</h2>
 <div class="fragment">
-<p><strong>Navigation Basics:</strong> - Navigate to your home directory with <code>cd</code> - List the files and directories present with <code>ls</code> - Change to a different directory with <code>cd path/to/directory</code></p>
+<p><strong>Navigation Basics:</strong></p>
+<ul>
+<li>Navigate to your home directory with <code>cd</code></li>
+<li>List the files and directories present with <code>ls</code></li>
+<li>Change to a different directory with <code>cd path/to/directory</code></li>
+</ul>
 </div>
 <div class="fragment">
-<p><strong>Path Types:</strong> - Absolute path: <code>/home/username/data</code> - Relative path: <code>../data</code> or <code>./scripts</code> - Home directory: <code>~</code></p>
+<p><strong>Path Types:</strong></p>
+<ul>
+<li>Absolute path: <code>/home/username/data</code></li>
+<li>Relative path: <code>../data</code> or <code>./scripts</code></li>
+<li>Home directory: <code>~</code></li>
+</ul>
 </div>
+</section>
+<section id="essential-commands" class="slide level2">
+<h2>Essential Commands</h2>
+<ul>
+<li>We don’t expect you to memorise these!</li>
+<li>We have included them here for quick and easy reference.</li>
+</ul>
 </section>
 <section id="essential-commands---navigation" class="slide level2">
 <h2>Essential Commands - Navigation</h2>
@@ -246,7 +276,7 @@
 <span id="cb1-6"><a></a><span class="bu">cd</span> ..        <span class="co"># Go up one directory level</span></span>
 <span id="cb1-7"><a></a><span class="bu">cd</span> <span class="at">-</span>         <span class="co"># Go back to previous directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p><strong>Try it:</strong> Navigate around the file system and see where you are</p>
+<p><strong>Try it:</strong> Navigate around the file system and see where you are. You might not have any files or folders if you’ve just created your account!</p>
 </div>
 </section>
 <section id="essential-commands---files" class="slide level2">
@@ -335,14 +365,8 @@
 <li><code>mkdir</code> - <strong>Make directory</strong> (organize your work)</li>
 <li><code>cp</code> - <strong>Copy files</strong> (backup important data)</li>
 <li><code>wget</code> - <strong>Download files from web</strong> (get datasets, software)</li>
-<li><code>rm</code> - <strong>Remove files</strong> (clean up temporary files)</li>
+<li><code>rm</code> - <strong>Remove files</strong> (clean up files)</li>
 </ul>
-</section>
-<section id="hpc-specific-usage" class="slide level2">
-<h2>HPC-Specific Usage</h2>
-<div class="fragment">
-<p><strong>Typical HPC Workflow:</strong> 1. <code>ssh</code> to connect to the cluster 2. <code>cd</code> to navigate to your project directory 3. <code>ls</code> to see your files 4. <code>cp</code> or <code>wget</code> to get your data/code 5. Edit scripts and submit jobs 6. <code>rm</code> to clean up when done</p>
-</div>
 </section>
 <section id="getting-more-help" class="slide level2">
 <h2>Getting More Help</h2>
@@ -523,7 +547,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

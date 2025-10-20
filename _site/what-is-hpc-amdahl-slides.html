@@ -127,65 +127,76 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Parallelisation and Amdahl’s Law</h1>
+  <p class="subtitle">Understanding the limits of parallel speedup</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="amdahls-law" class="slide level2 center">
-<h2>Amdahl’s Law</h2>
-<p>Understanding the limits of parallel speedup</p>
-</section>
-<section id="amdahls-law-1" class="slide level2">
+<section id="amdahls-law" class="slide level2">
 <h2>Amdahl’s Law</h2>
 
-<img data-src="assets/img/amdahl.png" class="r-stretch quarto-figure-center"><p class="caption">Amdahl’s Law graph</p><p><strong>Speedup = (execution time for the task with no enhancements or added cores) / (execution time for the same task with enhancements or added cores)</strong></p>
-<p><em>Image source: Daniels220 at English Wikipedia, CC BY-SA 3.0, via Wikimedia Commons</em></p>
-</section>
-<section id="key-insights" class="slide level2">
+<img data-src="assets/img/amdahl.png" class="r-stretch quarto-figure-center"><p class="caption">Amdahl’s Law graph <em>Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons</em></p></section>
+<section id="key-insights" class="slide level2 smaller">
 <h2>Key Insights</h2>
-<div class="fragment">
-<ul>
-<li>The greater the parallelised portion, the greater the speed-up by adding more cores</li>
-</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/img/amdahl.png"></p>
+<figcaption>Amdahl’s Law graph <em>Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons</em></figcaption>
+</figure>
 </div>
-<div class="fragment">
+</div><div class="column" style="width:50%;">
+<div>
 <ul>
-<li>There comes a point of diminishing returns where adding more cores has a negligible effect:
+<li class="fragment">The greater the parallelised portion, the greater the speed-up by adding more cores</li>
+<li class="fragment">There comes a point of diminishing returns where adding more cores has a negligible effect:
 <ul>
-<li>If 50% of the job is parallelised, the greatest speedup is 2 times</li>
-<li>If 95% of the work is parallelised, the greatest speedup is 20 times</li>
+<li class="fragment">If 50% of the job is parallelised, the greatest speedup is 2 times</li>
+<li class="fragment">If 95% of the work is parallelised, the greatest speedup is 20 times</li>
 </ul></li>
 </ul>
 </div>
+</div></div>
 </section>
 <section id="parallelisation-strategies" class="slide level2">
 <h2>Parallelisation Strategies</h2>
-<p>Different approaches to making your code run in parallel:</p>
-<div class="fragment">
+<p>The way in which you parallelise your work depends on the problem you are solving!</p>
+<div class="columns">
+<div class="column" style="width:55%;">
 <h3 id="task-parallelism">Task Parallelism</h3>
 <ul>
 <li>Divide work into independent tasks</li>
 <li>Each processor works on different tasks</li>
 <li>Good for different types of calculations</li>
 </ul>
-</div>
-<div class="fragment">
+</div><div class="column" style="width:45%;">
 <h3 id="data-parallelism">Data Parallelism</h3>
 <ul>
 <li>Same operation applied to different data</li>
 <li>Each processor works on subset of data</li>
 <li>Good for large datasets</li>
 </ul>
-</div>
+</div></div>
 </section>
 <section id="practical-implications" class="slide level2">
 <h2>Practical Implications</h2>
-<div class="fragment">
-<p><strong>Before scaling up:</strong> - Profile your code to understand bottlenecks - Identify which parts can be parallelized - Consider the communication overhead</p>
-</div>
-<div class="fragment">
-<p><strong>When choosing resources:</strong> - More cores ≠ always faster - Consider memory requirements per core - Balance cores vs.&nbsp;memory vs.&nbsp;time</p>
+<div>
+<ul>
+<li class="fragment"><strong>Before scaling up:</strong>
+<ul>
+<li class="fragment">Profile your code to understand bottlenecks</li>
+<li class="fragment">Identify which parts can be parallelized</li>
+<li class="fragment">Consider the communication overhead</li>
+</ul></li>
+<li class="fragment"><strong>When choosing resources:</strong>
+<ul>
+<li class="fragment">More cores ≠ always faster</li>
+<li class="fragment">Consider memory requirements per core</li>
+<li class="fragment">Balance cores vs.&nbsp;memory vs.&nbsp;time</li>
+</ul></li>
+</ul>
 </div>
 </section>
 <section id="real-performance-example" class="slide level2">
@@ -199,6 +210,10 @@
 <li><strong>1000 cores:</strong> Likely slower due to overhead!</li>
 </ul>
 </div>
+</section>
+<section id="exercise" class="slide level2">
+<h2>Exercise</h2>
+<p>Return to the main notes and try to answer the questions!</p>
 </section>
 <section id="next-steps" class="slide level2 center">
 <h2>Next Steps</h2>
@@ -369,7 +384,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'slide',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
