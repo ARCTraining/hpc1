@@ -108,6 +108,23 @@ free -h      # Memory usage
     - Use `cd` and `pwd` to make sure you're in your home directory
     - Use `mkdir NEW-DIR-NAME` to create your new folder/directory
 
+---
+
+# Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **SSH provides secure access** to Aire HPC systems
+- **Multiple connection methods** are available: direct SSH, VS Code, or web interface
+- **Basic Linux commands** are essential for HPC work
+- **Command line navigation** uses `cd`, `pwd`, and `ls` commands
+- **File operations** include `cp`, `mv`, `rm`, and `mkdir`
+- **Getting help** is available through documentation and man pages
+:::
+
+---
+
 ## Next Steps
 
 Now that you can connect to Aire and understand basic Linux commands, let's move on to [Session 3: Storage](storage.qmd) to learn about managing your data on the HPC system.
@@ -117,3 +134,5 @@ Now that you can connect to Aire and understand basic Linux commands, let's move
 - [Aire Getting Started Guide](https://arcdocs.leeds.ac.uk/aire/getting_started/start.html)
 - [Linux Command Line Tutorial](https://arc.leeds.ac.uk/courses/hpc0-introduction-to-linux-for-hpc/)
 - [SSH Documentation](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html)
+- [Linux Commands Cheat Sheet](https://www.linuxtrainingacademy.com/linux-commands-cheat-sheet/)
+- [VS Code Remote SSH Guide](https://code.visualstudio.com/docs/remote/ssh)

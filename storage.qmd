@@ -283,6 +283,21 @@ ls $HOME/hpc1-practice/results/
 
 ---
 
+# Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **Multiple storage areas** serve different purposes: home (permanent), scratch (temporary)
+- **Understand quotas** and monitor usage with `quota -s` and `du -hs`
+- **Use environment variables** like `$HOME` and `$SCRATCH` for navigation
+- **Follow the workflow**: work in scratch, save important results to home
+- **Data management is critical** - scratch areas are not backed up
+- **Transfer tools** like `rsync` and `scp` help move data efficiently
+:::
+
+---
+
 ## Next Steps
 
 Now you understand how to manage data on Aire! Let's move on to [Session 4: Modules and Software](modules-software.qmd) to learn how to access and use different software packages.
@@ -292,3 +307,5 @@ Now you understand how to manage data on Aire! Let's move on to [Session 4: Modu
 - [Aire Storage Documentation](https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html)
 - [Data Management Best Practices](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html)
 - [File Transfer Guide](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html)
+- [Linux File Permissions Guide](https://www.linux.com/training-tutorials/understanding-linux-file-permissions/)
+- [rsync Tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories)

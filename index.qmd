@@ -97,3 +97,46 @@ By the end of this session, you will be able to:
 - Navigate between storage locations using environment variables
 - Monitor your disk usage and quotas
 - Transfer files between storage areas and your local machine
+
+#### Session 4: Modules and Software
+
+By the end of this session, you will be able to:
+
+- Understand the module system and its benefits for HPC environments
+- Use basic module commands to list, load, and unload software
+- Create scripts that load modules and run software
+- Request new software installations through proper channels
+- Explore alternative software management approaches (Spack, containers)
+- Apply best practices for reproducible software environments
+
+#### Session 5: Job Scheduling and Submission
+
+By the end of this session, you will be able to:
+
+- Understand what a job scheduler is and why it's essential for HPC systems
+- Write and submit batch job scripts using SLURM
+- Monitor, manage, and cancel running jobs effectively
+- Request different types of compute resources (CPU, memory, GPUs, time)
+- Use job arrays to efficiently run multiple similar tasks
+- Apply best practices for job submission and resource allocation
+
+#### Session 6: Best Practices and Troubleshooting
+
+By the end of this session, you will be able to:
+
+- Apply best practices for resource management and job planning
+- Optimize file I/O and data management workflows
+- Troubleshoot common HPC problems and job failures
+- Monitor and analyze job performance effectively
+- Follow proper HPC etiquette and community guidelines
+- Develop efficient and reproducible computational workflows
+
+#### Session 7: Wrap Up
+
+By the end of this session, you will be able to:
+
+- Summarize the key HPC concepts and skills learned throughout the course
+- Identify next steps for developing your HPC expertise
+- Access ongoing support resources and documentation
+- Plan your research computing workflows using HPC best practices
+- Connect with the HPC community for continued learning

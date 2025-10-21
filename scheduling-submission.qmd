@@ -1,22 +1,30 @@
 ---
 title: "Session 5: Job Scheduling and Submission"
-subtitle: "Running Jobs on the SLURM Scheduler"
+subtitle: "Running Jobs on the Slurm Scheduler"
 format: html
 ---
 
-In this session, you will learn:
+# Session content
 
-- What a job scheduler is and why it is used
-- How to write and submit batch job scripts
-- How to monitor, manage, and cancel jobs
-- How to request different types of resources
-- How to use task arrays for multiple similar jobs
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Understand what a job scheduler is and why it's essential for HPC systems
+- Write and submit batch job scripts using Slurm
+- Monitor, manage, and cancel running jobs effectively
+- Request different types of compute resources (CPU, memory, GPUs, time)
+- Use job arrays to efficiently run multiple similar tasks
+- Apply best practices for job submission and resource allocation
+
+[**View Interactive Slides: Job Scheduling and Submission**](scheduling-submission-slides.qmd){.btn .btn-primary target="_blank"}
 
 ## Background: What is a Job Scheduler?
 
 High Performance Computing (HPC) systems are shared by many users, each submitting their own jobs — code they want to run using the cluster's compute power.
 
 A **job scheduler** is the system that:
+
 - Organizes when and where jobs run
 - Allocates the requested resources (CPU cores, memory, GPUs)
 - Ensures fair access to shared resources for all users
@@ -26,6 +34,7 @@ A **job scheduler** is the system that:
 ::: {.columns}
 ::: {.column width="50%"}
 **Without a scheduler:**
+
 - Manual coordination between users
 - Resource conflicts
 - Inefficient resource usage
@@ -34,6 +43,7 @@ A **job scheduler** is the system that:
 
 ::: {.column width="50%"}
 **With a scheduler:**
+
 - Fair resource allocation
 - Automatic job management
 - Efficient resource utilization
@@ -41,19 +51,19 @@ A **job scheduler** is the system that:
 :::
 :::
 
-## SLURM: The Scheduler on Aire
+## Slurm: The Scheduler on Aire
 
-At Leeds, the **SLURM** scheduler (Simple Linux Utility for Resource Management) manages all jobs on the Aire cluster.
+At Leeds, the **Slurm** scheduler (Simple Linux Utility for Resource Management) manages all jobs on the Aire cluster.
 
 ### Job Submission Workflow
 
 1. **Write** a job script describing your requirements
-2. **Submit** the job to SLURM with `sbatch`
-3. **Queue** - SLURM places your job in a queue
-4. **Execute** - When resources are available, SLURM starts your job
+2. **Submit** the job to Slurm with `sbatch`
+3. **Queue** - Slurm places your job in a queue
+4. **Execute** - When resources are available, Slurm starts your job
 5. **Complete** - Job finishes and resources are freed
 
-```mermaid
+```{mermaid}
 flowchart LR
     A[Write Job Script] --> B[Submit with sbatch]
     B --> C[Job in Queue]
@@ -63,7 +73,7 @@ flowchart LR
     E --> F[Job Completes]
 ```
 
-## Basic SLURM Commands
+## Basic Slurm Commands
 
 ### Essential Commands
 
@@ -98,7 +108,7 @@ JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
 
 ## Writing Job Scripts
 
-A job script is a shell script with special SLURM directives that tell the scheduler what resources you need.
+A job script is a shell script with special Slurm directives that tell the scheduler what resources you need.
 
 ### Basic Job Script Template
 
@@ -225,7 +235,7 @@ scancel --name=myjob
 
 ```bash
 # Request high memory node
-#SBATCH --partition=highmem
+#SBATCH --partition=himem
 #SBATCH --mem=500G
 ```
 
@@ -236,7 +246,6 @@ scancel --name=myjob
 ```bash
 #!/bin/bash
 #SBATCH --job-name=serial_job
-#SBATCH --partition=test
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -251,7 +260,6 @@ python serial_script.py
 ```bash
 #!/bin/bash
 #SBATCH --job-name=parallel_job
-#SBATCH --partition=standard
 #SBATCH --time=02:00:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
@@ -268,7 +276,6 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ```bash
 #!/bin/bash
 #SBATCH --job-name=mpi_job
-#SBATCH --partition=standard
 #SBATCH --time=04:00:00
 #SBATCH --ntasks=16
 #SBATCH --cpus-per-task=1
@@ -285,7 +292,6 @@ Use job arrays to submit many similar jobs efficiently:
 ```bash
 #!/bin/bash
 #SBATCH --job-name=array_job
-#SBATCH --partition=test
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -379,7 +385,9 @@ fi
 - Use memory profiling tools
 - Consider algorithm optimizations
 
-## Exercise: Submit Your First Job
+# Exercise
+
+## Submit Your First Job
 
 Create and submit a simple job script:
 
@@ -387,7 +395,6 @@ Create and submit a simple job script:
 ```bash
 #!/bin/bash
 #SBATCH --job-name=first_job
-#SBATCH --partition=test
 #SBATCH --time=00:05:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -416,14 +423,113 @@ squeue -u $USER
 cat first_job_*.out
 ```
 
+## Python Hello World Job
+
+Now let's create a more practical job that loads a module and runs Python code:
+
+1. **Create a Python script** (`hello_world.py`):
+
+```bash
+cat > hello_world.py << 'EOF'
+#!/usr/bin/env python3
+import sys
+import datetime
+
+print("Hello from Python on HPC!")
+print(f"Python version: {sys.version}")
+print(f"Script running at: {datetime.datetime.now()}")
+print(f"Python executable: {sys.executable}")
+
+# Do some simple computation
+numbers = [1, 2, 3, 4, 5]
+squared = [x**2 for x in numbers]
+print(f"Original numbers: {numbers}")
+print(f"Squared numbers: {squared}")
+print(f"Sum of squares: {sum(squared)}")
+
+print("Python job completed successfully!")
+EOF
+```
+
+2. **Create the job script** (`python_job.sh`):
+
+You can check what versions of Python are available:
+
+```bash
+module avail python 
+```
+
+:::{.callout-tip}
+
+Usually, you will want to load the Miniforge module and activate a Conda environment instead of using the base system Python. See our documentation on [dependency management](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)
+
+:::
+
+```bash
+cat > python_job.sh << 'EOF'
+#!/bin/bash
+#SBATCH --job-name=python_hello
+#SBATCH --time=00:02:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=1G
+#SBATCH --output=python_job_%j.out
+#SBATCH --error=python_job_%j.err
+
+# Load the Python module
+echo "Loading Python module..."
+module load python/3.13.0
+
+# Show which Python we're using
+echo "Using Python: $(which python)"
+echo "Python version: $(python --version)"
+
+# Run our Python script
+echo "Running Python script..."
+python hello_world.py
+
+echo "Job completed at $(date)"
+EOF
+```
+
+3. **Submit the job**:
+```bash
+sbatch python_job.sh
+```
+
+4. **Monitor the job**:
+```bash
+squeue -u $USER
+```
+
+5. **Check the output** when it completes:
+```bash
+cat python_job_*.out
+```
+
+You should see output showing:
+- The Python module being loaded
+- Python version information
+- The hello world message and computation results
+- Confirmation that the job completed successfully
+
+::: {.callout-tip}
+## What This Exercise Demonstrates
+
+- **Module loading**: How to load software in job scripts
+- **Python execution**: Running Python code on compute nodes
+- **Job monitoring**: Using output files to verify successful execution
+- **Resource specification**: Appropriate resource requests for simple scripts
+:::
+
 ---
 
-## Summary
+# Summary
 
 ::: {.callout-note}
 ## Key Takeaways
 
-- **SLURM manages all jobs** on Aire through a fair scheduling system
+- **Slurm manages all jobs** on Aire through a fair scheduling system
 - **Job scripts define requirements** using `#SBATCH` directives
 - **Right-size your requests** - don't over-request resources
 - **Monitor your jobs** with `squeue` and `sacct`
@@ -440,5 +546,6 @@ Now you can submit and manage jobs on Aire! Let's move on to [Session 6: Best Pr
 ## Additional Resources
 
 - [Aire Job Submission Guide](https://arcdocs.leeds.ac.uk/aire/usage/jobsubmission/start.html)
-- [SLURM Documentation](https://slurm.schedmd.com/)
+- [Aire job types documentation](https://arcdocs.leeds.ac.uk/aire/usage/job_type.html#job-types)
+- [Slurm Documentation](https://slurm.schedmd.com/)
 - [Resource Planning Guide](https://arcdocs.leeds.ac.uk/aire/usage/jobsubmission/resource_planning.html)

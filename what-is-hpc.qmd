@@ -112,8 +112,31 @@ According to Amdahl's Law, the maximum speedup is limited by the portion of the 
 
 :::
 
+---
+
+# Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **HPC enables research** that would be impossible on regular computers
+- **Parallelization is key** - breaking problems into smaller parts that run simultaneously
+- **Amdahl's Law** sets limits on speedup based on the serial portion of your code
+- **Different types of parallelism** (task vs. data) suit different problems
+- **HPC isn't always the answer** - consider if your problem truly needs it
+- **Aire provides powerful resources** for University of Leeds researchers
+:::
+
+---
+
+## Next Steps
+
+Ready to start using HPC? Let's move on to [Session 2: Logging on and Linux Recap](logging-on-and-linux-recap.qmd) to learn how to access and navigate the Aire system.
+
 ## Additional Resources
 
 - [Aire Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
 - [Research Computing Training](https://arc.leeds.ac.uk/courses/)
 - [Contact Research Computing](mailto:ask-rc@leeds.ac.uk)
+- [Parallel Computing Concepts](https://en.wikipedia.org/wiki/Parallel_computing)
+- [Amdahl's Law Explained](https://en.wikipedia.org/wiki/Amdahl%27s_law)

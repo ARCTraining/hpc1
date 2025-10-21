@@ -1,0 +1,180 @@
+---
+title: "Course Wrap-Up and Next Steps"
+subtitle: "HPC1: Introduction to High Performance Computing"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+## Welcome to Session 7 {.center}
+
+**Course Wrap-Up and Next Steps**
+
+Congratulations on completing HPC1!
+
+---
+
+## What You've Accomplished {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+### Technical Skills ✅
+- **HPC Concepts**: Clusters, nodes, cores, parallelization
+- **Linux Command Line**: File navigation and management
+- **Storage Systems**: Home, scratch, temporary storage
+- **Software Management**: Module system mastery
+- **Job Scheduling**: Slurm job script creation
+- **Best Practices**: Troubleshooting and optimization
+:::
+
+::: {.column width="50%"}
+### Key Concepts ✅
+- **Resource Planning**: Right-sizing requests
+- **Data Management**: Organizing research data
+- **Reproducibility**: Version-controlled workflows
+- **Collaboration**: Sharing environments
+- **Problem Solving**: Debugging HPC issues
+- **Security**: Protecting credentials and data
+:::
+:::
+
+---
+
+## Essential Commands Recap {.smaller}
+
+| Category | Command | Purpose |
+|----------|---------|---------|
+| **Connection** | `ssh user@system` | Connect to HPC system |
+| **Navigation** | `cd $HOME`, `cd $SCRATCH` | Change directories |
+| **Files** | `ls`, `cp`, `mv`, `rm` | List, copy, move, remove |
+| **Storage** | `quota -s`, `du -hs` | Check disk usage |
+| **Modules** | `module load`, `module list` | Manage software |
+| **Jobs** | `sbatch`, `squeue`, `scancel` | Submit, monitor, cancel |
+| **Monitoring** | `sacct -j JOBID` | Check job accounting |
+
+---
+
+## Your HPC Workflow {.scrollable}
+
+```{mermaid}
+flowchart TD
+    A[Connect to Aire] --> B[Navigate to project]
+    B --> C[Load modules]
+    C --> D[Prepare data in scratch]
+    D --> E[Write job script]
+    E --> F[Submit with sbatch]
+    F --> G[Monitor with squeue]
+    G --> H[Job completes]
+    H --> I[Check with sacct]
+    I --> J[Copy results to research storage]
+    J --> K[Clean up scratch]
+```
+
+---
+
+## Immediate Next Steps
+
+::: {.incremental}
+1. **Practice**: Run your own code on Aire
+2. **Explore**: Browse available software modules
+3. **Organize**: Set up project directory structure
+4. **Backup**: Implement data backup strategy
+5. **Connect**: Join HPC user communities
+:::
+
+
+## Project Planning Template {.smaller}
+
+Before starting a new HPC project:
+
+::: {.columns}
+::: {.column width="50%"}
+### Planning Checklist
+- [ ] **Define objectives**
+- [ ] **Estimate requirements**
+- [ ] **Choose tools**
+- [ ] **Plan workflow**
+- [ ] **Consider scalability**
+- [ ] **Think about sharing**
+:::
+
+::: {.column width="50%"}
+### Resource Planning
+```bash
+#!/bin/bash
+#SBATCH --job-name=descriptive_name
+#SBATCH --partition=appropriate
+#SBATCH --time=realistic_estimate
+#SBATCH --nodes=number_needed
+#SBATCH --mem=memory_needed
+#SBATCH --output=logs/%x_%j.out
+
+module load required_modules
+cd $SLURM_SUBMIT_DIR
+# Run analysis
+```
+:::
+:::
+
+---
+
+## Getting Help Effectively
+
+::: {.callout-tip}
+## When You Need Help
+
+1. **Check documentation first** - Aire docs are comprehensive
+2. **Search for similar issues** - Many problems are common
+3. **Ask specific questions** - Include error messages and job IDs
+4. **Be patient** - HPC systems can be complex
+5. **Help others** - Share solutions with the community
+:::
+
+---
+
+## Core Principles to Remember
+
+::: {.incremental}
+1. **Start simple**: Get basic workflows working first
+2. **Test thoroughly**: Always validate results and methods
+3. **Document everything**: Your future self will thank you
+4. **Be a good citizen**: Share resources fairly and clean up
+5. **Keep learning**: HPC technology continues to evolve
+:::
+
+
+## Stay Connected
+
+- **[Training Courses](https://arc.leeds.ac.uk/courses/)**: Upcoming HPC and research computing courses
+- **[Aire Documentation](https://arcdocs.leeds.ac.uk/aire/)**: Comprehensive system documentation
+- **[Research Computing Website](https://arc.leeds.ac.uk/)**: News, updates, and resources
+- **[Help Desk](https://bit.ly/arc-help)**: Submit queries and get support
+- **Research Computing Community**: Connect with other researchers using HPC; we will share the invite to the Teams group
+
+---
+
+## Course Feedback
+
+We value your feedback to improve this course.
+
+We'll share a link to a feedback form in the chat.
+
+**Your input helps us make HPC training better for everyone!**
+
+---
+
+## Thank You! {.center}
+
+::: {.r-fit-text}
+**Happy Computing!** 🚀
+:::
+
+Questions?
+
+**Research Computing Team**  
+University of Leeds  

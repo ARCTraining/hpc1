@@ -4,6 +4,21 @@ subtitle: "Optimizing Your HPC Workflows"
 format: html
 ---
 
+# Session content
+
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Apply best practices for resource management and job planning
+- Optimize file I/O and data management workflows
+- Troubleshoot common HPC problems and job failures
+- Monitor and analyze job performance effectively
+- Follow proper HPC etiquette and community guidelines
+- Develop efficient and reproducible computational workflows
+
+[**View Interactive Slides: Best Practices and Troubleshooting**](best-practices-troubleshooting-slides.qmd){.btn .btn-primary target="_blank"}
+
 In this final session, we'll cover best practices for using HPC systems effectively and how to troubleshoot common problems you might encounter.
 
 ## HPC Best Practices
@@ -75,7 +90,7 @@ echo "Job completed successfully"
 
 #### Environment Variables
 
-Use SLURM environment variables in your scripts:
+Use Slurm environment variables in your scripts:
 
 ```bash
 #!/bin/bash
@@ -141,6 +156,7 @@ sacct -j JOBID --format=JobID,State,ExitCode,MaxRSS,Elapsed
 ```
 
 **Exit Codes:**
+
 - `0` = Success
 - `1` = General error
 - `125` = Out of memory
@@ -162,6 +178,7 @@ grep -i "memory\|oom\|killed" job_output.err
 ```
 
 **Solutions**:
+
 1. Increase memory request: `#SBATCH --mem=32G`
 2. Optimize your code to use less memory
 3. Process data in smaller chunks
@@ -190,6 +207,7 @@ sacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State
 ```
 
 **Common causes**:
+
 - Not using all requested CPUs
 - I/O bottlenecks
 - Inefficient algorithms
@@ -198,6 +216,7 @@ sacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State
 #### I/O Performance
 
 **Use appropriate storage**:
+
 - Small files: Home directory
 - Large temporary files: `$SCRATCH`
 - High I/O during job: `$TMP_SHARED` (flash storage)
@@ -383,11 +402,12 @@ conda activate myproject
 - **Research Computing Team**: [Submit a query](https://bit.ly/arc-help)
 - **Aire Documentation**: [https://arcdocs.leeds.ac.uk/aire/](https://arcdocs.leeds.ac.uk/aire/)
 - **Training Courses**: [https://arc.leeds.ac.uk/courses/](https://arc.leeds.ac.uk/courses/)
-- **Community Forums**: SLURM user groups, Stack Overflow
+- **Community Forums**: Slurm user groups, Stack Overflow
 
 ### When Reporting Issues
 
 Include this information:
+
 - **Job ID** and submission command
 - **Error messages** (exact text)
 - **Expected behavior** vs actual behavior
@@ -416,24 +436,28 @@ Include this information:
 ## HPC Best Practices Checklist
 
 **Before submitting jobs:**
+
 - [ ] Test scripts interactively first
 - [ ] Estimate resource requirements
 - [ ] Check input files exist
 - [ ] Specify exact module versions
 
 **Job script quality:**
+
 - [ ] Include error handling (`set -e`)
 - [ ] Use meaningful job names
 - [ ] Organize output files
 - [ ] Document your workflow
 
 **Resource management:**
+
 - [ ] Right-size resource requests
 - [ ] Use appropriate storage locations
 - [ ] Clean up temporary files
 - [ ] Monitor actual usage with `sacct`
 
 **Troubleshooting:**
+
 - [ ] Check log files first
 - [ ] Use `squeue` and `sacct` for diagnostics
 - [ ] Test with smaller datasets first
@@ -442,7 +466,23 @@ Include this information:
 
 ---
 
-## Course Wrap-up
+# Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **Test and validate** workflows before large-scale submission
+- **Right-size resource requests** to avoid waste and improve scheduling
+- **Use appropriate storage** for different types of data and I/O patterns
+- **Monitor job performance** with `sacct` and system tools
+- **Debug systematically** using log files and Slurm commands
+- **Follow security practices** to protect credentials and data
+- **Document solutions** for reproducibility and future troubleshooting
+:::
+
+---
+
+## Next Steps
 
 Congratulations! You've learned the fundamentals of using HPC systems. Let's move on to [Session 7: Wrap Up](wrap-up.qmd) for final thoughts and next steps.
 
@@ -451,3 +491,5 @@ Congratulations! You've learned the fundamentals of using HPC systems. Let's mov
 - [Aire Best Practices Guide](https://arcdocs.leeds.ac.uk/aire/usage/best_practices.html)
 - [Troubleshooting Documentation](https://arcdocs.leeds.ac.uk/aire/usage/troubleshooting.html)
 - [Performance Optimization Guide](https://arcdocs.leeds.ac.uk/aire/usage/performance.html)
+- [Slurm Job Arrays Tutorial](https://slurm.schedmd.com/job_array.html)
+- [HPC Performance Tips](https://hpc-wiki.info/hpc/Performance_Tuning)

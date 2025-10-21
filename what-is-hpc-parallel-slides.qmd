@@ -3,6 +3,10 @@ title: "Serial vs Parallel Programs"
 format: 
   revealjs:
     theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
     background-transition: fade
 ---
 

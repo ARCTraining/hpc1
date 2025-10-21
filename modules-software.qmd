@@ -1,7 +1,21 @@
 ---
 title: "Session 4: Modules and Software"
 subtitle: "Managing Software Environments on HPC Systems"
+format: html
 ---
+
+# Session content
+
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Understand the module system and its benefits for HPC environments
+- Use basic module commands to list, load, and unload software
+- Create scripts that load modules and run software
+- Request new software installations through proper channels
+- Explore alternative software management approaches (Spack, containers)
+- Apply best practices for reproducible software environments
 
 In this session we will learn about software on Aire, and how to access software via the module system. We will also discuss some alternatives to install software yourself on the system.
 
@@ -64,38 +78,6 @@ module list
 module purge
 ```
 
-::: {.callout-tip}
-## Exercise 1: List Available Modules
-Try running `module avail` to see all available software on Aire. Look for software you might need for your research.
-:::
-
-### Exercise 2: Loading Modules
-
-Load the `gcc` module and verify it's loaded:
-
-```bash
-module load gcc
-module list
-```
-
-**Questions to consider:**
-- Note there are multiple versions of gcc available. What happens if you don't specify a version?
-- How should you load a module when running jobs to ensure reproducibility?
-
-::: {.callout-note collapse="true"}
-## Solution
-
-```bash
-module load gcc          # Loads default version
-module list              # Shows loaded modules
-
-# For reproducibility, always specify versions:
-module load gcc/14.2.0
-```
-
-If you don't specify a version, the system loads the default version, which may change over time as new versions are installed.
-:::
-
 ## Using Modules in Scripts
 
 Let's say we have a Python file called `hello_world.py`:
@@ -130,13 +112,6 @@ ls -F                      # Check it's executable (shows *)
 When running Python jobs, we recommend using the Miniforge module to create a conda environment instead of using the basic Python install. [Read our documentation on dependency management](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html).
 :::
 
-### Exercise 3: Create Your Own Script
-
-Create a simple script that:
-1. Loads a module of your choice
-2. Runs a simple command with that software
-3. Make it executable and test it
-
 ## Requesting New Software
 
 ### Centralized Management
@@ -152,13 +127,6 @@ If software you need isn't available:
 1. **Submit a Research Computing Query** with details about the software
 2. Include: software name, version, and brief justification for use in your research
 3. The team will evaluate and install if appropriate
-
-::: {.callout-tip}
-## Exercise 4: Find the Request Form
-After the course, identify software you need that's not available and draft a request. Can you find the Research Computing Query form via the IT website? 
-
-Navigate: *Home > Research IT > Research IT Query*, or use [this direct link](https://bit.ly/arc-help).
-:::
 
 ## Alternative Software Management
 
@@ -194,11 +162,6 @@ spack load htop
 - Ensures portability and consistency across systems
 - Great for complex software stacks
 
-::: {.callout-tip}
-## Exercise 5: Alternative Installation
-After this course, choose a simple software package and outline steps to install it using Spack.
-:::
-
 ## Best Practices
 
 ### Environment Management
@@ -220,30 +183,6 @@ After this course, choose a simple software package and outline steps to install
 - Share module load commands with collaborators
 - Use version-controlled scripts to manage workflows
 - Consider containers for complex environments
-
-### Exercise 6: Project Setup Script
-
-Create a script that loads all necessary modules for a typical project:
-
-::: {.callout-note collapse="true"}
-## Example Solution
-
-```bash
-#!/bin/bash
-# Project setup script
-
-module purge              # Start clean
-module load gcc/14.2.0    # Compiler
-module load python/3.13.0 # Python
-module load cmake/3.24.2  # Build system
-
-echo "Loaded modules:"
-module list
-
-# Optional: activate conda environment
-# conda activate myproject
-```
-:::
 
 ## Common Module Workflows
 
@@ -276,9 +215,168 @@ conda activate ml-env
 python train_model.py
 ```
 
+# Exercises
+
+Work through these exercises to practice using the module system on Aire.
+
+### Exercise 1: Explore Available Software
+
+Get familiar with the available software on Aire:
+
+```bash
+# List all available modules
+module avail
+
+# Search for specific software
+module avail python
+module avail gcc
+module avail cmake
+
+# Look for software you might need for your research
+module avail R
+module avail matlab
+```
+
+**Questions to consider:**
+- How many versions of Python are available?
+- What's the default version when multiple versions exist?
+- Can you find software relevant to your research area?
+
+### Exercise 2: Practice Loading and Managing Modules
+
+Learn to load, check, and unload modules:
+
+```bash
+# Load a module and check it's loaded
+module load gcc
+module list
+
+# Load multiple modules
+module load python/3.13.0
+module load cmake/3.24.2
+module list
+
+# Try loading without specifying version
+module unload gcc
+module load gcc
+module list
+
+# Clean up - unload all modules
+module purge
+module list
+```
+
+**Key Learning Points:**
+- Always specify versions for reproducibility: `module load gcc/14.2.0`
+- Use `module list` to see what's currently loaded
+- Use `module purge` to start with a clean environment
+
+### Exercise 3: Create and Test a Module Script
+
+Create a script that uses modules to run software:
+
+```bash
+# Create a simple Python script first
+cat > hello_modules.py << 'EOF'
+import sys
+print(f"Hello from Python {sys.version}")
+print(f"Python executable: {sys.executable}")
+EOF
+
+# Create a bash script that loads modules and runs Python
+cat > test_modules.sh << 'EOF'
+#!/bin/bash
+
+echo "Starting with clean environment..."
+module purge
+module list
+
+echo "Loading Python module..."
+module load python/3.13.0
+module list
+
+echo "Running Python script..."
+python hello_modules.py
+
+echo "Script completed!"
+EOF
+
+# Make executable and test
+chmod +x test_modules.sh
+./test_modules.sh
+```
+
+### Exercise 4: Create a Project Setup Script
+
+Create a reusable script for a typical research project:
+
+```bash
+# Create a comprehensive project setup script
+cat > project_setup.sh << 'EOF'
+#!/bin/bash
+# Project Setup Script
+# Description: Loads all necessary modules for data analysis project
+
+echo "Setting up research environment..."
+
+# Start with clean environment
+module purge
+
+# Load essential tools
+module load gcc/14.2.0        # Compiler
+module load python/3.13.0     # Python
+module load cmake/3.24.2      # Build system
+
+# Optional: Load domain-specific software
+# module load r/4.3.1          # For R users
+# module load matlab/2023b     # For MATLAB users
+
+echo "Loaded modules:"
+module list
+
+echo "Environment ready!"
+echo "Python version: $(python --version)"
+echo "GCC version: $(gcc --version | head -n1)"
+
+# Optional: Activate conda environment
+# echo "Activating conda environment..."
+# conda activate myproject
+EOF
+
+chmod +x project_setup.sh
+./project_setup.sh
+```
+
+### Exercise 5: Explore Software Request Process
+
+Practice finding and understanding the software request process:
+
+1. **Find the request form**: Navigate to the [Research Computing Query form](https://bit.ly/arc-help)
+2. **Identify software needs**: Think of software you need that isn't available
+3. **Draft a request**: Write a brief justification for a software package you might need
+
+**Example request template:**
+```
+Software Name: [e.g., TensorFlow 2.14]
+Version: [specific version if needed]
+Research Purpose: [brief description of how it will be used]
+Justification: [why this specific version/software is needed]
+```
+
+::: {.callout-tip}
+## What You've Accomplished
+
+- ✅ Explored available software using `module avail`
+- ✅ Practiced loading and unloading modules
+- ✅ Created scripts that use modules effectively
+- ✅ Built a reusable project setup script
+- ✅ Understanding the software request process
+- ✅ Applied best practices for reproducible environments
+:::
+
 ---
 
-## Summary
+# Summary
 
 ::: {.callout-note}
 ## Key Takeaways
@@ -287,7 +385,7 @@ python train_model.py
 - **Always specify versions** for reproducible research
 - **Use scripts** to automate and document your module usage
 - **Request new software** through Research Computing queries
-- **Consider alternatives** like Spack or containers for special needs
+- **Consider alternatives** like Spack or containers for special requirements
 - **Follow best practices** for collaboration and reproducibility
 :::
 

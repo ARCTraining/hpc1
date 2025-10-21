@@ -4,6 +4,20 @@ subtitle: "Next Steps and Additional Resources"
 format: html
 ---
 
+# Session content
+
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Summarize the key HPC concepts and skills learned throughout the course
+- Identify next steps for developing your HPC expertise
+- Access ongoing support resources and documentation
+- Plan your research computing workflows using HPC best practices
+- Connect with the HPC community for continued learning
+
+[**View Interactive Slides: Course Wrap-Up and Next Steps**](wrap-up-slides.qmd){.btn .btn-primary target="_blank"}
+
 Congratulations on completing HPC1: Introduction to High Performance Computing! You've learned the fundamental skills needed to effectively use HPC systems.
 
 ## What You've Learned
@@ -13,16 +27,18 @@ Throughout this course, you've covered:
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-6}
 ### Technical Skills
+
 - **HPC Concepts**: Understanding clusters, nodes, cores, and parallelization
 - **Linux Command Line**: Essential commands for navigating and managing files
 - **Storage Systems**: Home, scratch, and temporary storage management
 - **Software Management**: Using the module system and managing environments
-- **Job Scheduling**: Writing and submitting SLURM job scripts
+- **Job Scheduling**: Writing and submitting Slurm job scripts
 - **Best Practices**: Troubleshooting and optimizing your workflows
 :::
 
 ::: {.g-col-12 .g-col-md-6}
 ### Key Concepts
+
 - **Resource Planning**: Right-sizing job requests for efficiency
 - **Data Management**: Organizing and protecting your research data  
 - **Reproducibility**: Creating documented, version-controlled workflows
@@ -48,7 +64,7 @@ Throughout this course, you've covered:
 
 ### Typical Workflow
 
-```mermaid
+```{mermaid}
 flowchart TD
     A[Connect to Aire] --> B[Navigate to project directory]
     B --> C[Load required modules]
@@ -58,7 +74,7 @@ flowchart TD
     F --> G[Monitor with squeue]
     G --> H[Job completes]
     H --> I[Check results with sacct]
-    I --> J[Copy results to home]
+    I --> J[Copy results to research storage]
     J --> K[Clean up scratch space]
 ```
 
@@ -75,18 +91,21 @@ flowchart TD
 ### Advanced Topics to Explore
 
 #### Parallel Programming
+
 - **OpenMP**: Shared-memory parallelization for multi-core systems
 - **MPI**: Message-passing for distributed computing across nodes
 - **GPU Computing**: Using CUDA or OpenCL for GPU acceleration
 - **Workflow Management**: Tools like Snakemake or Nextflow
 
 #### Performance Optimization
+
 - **Profiling**: Tools to identify bottlenecks in your code
 - **Benchmarking**: Systematic testing of different resource configurations
 - **Memory Optimization**: Techniques for handling large datasets
 - **I/O Optimization**: Efficient file reading/writing strategies
 
 #### Advanced Job Management
+
 - **Job Dependencies**: Chaining jobs together
 - **Parameter Sweeps**: Exploring parameter spaces efficiently
 - **Checkpointing**: Saving and resuming long-running jobs
@@ -103,10 +122,8 @@ flowchart TD
 
 #### External Learning Resources
 
-- **[HPC Carpentry](https://hpc-carpentry.github.io/)**: Community-developed HPC training materials
-- **[SLURM Documentation](https://slurm.schedmd.com/)**: Official SLURM documentation
+- **[Slurm Documentation](https://slurm.schedmd.com/)**: Official Slurm documentation
 - **[Parallel Programming Tutorials](https://computing.llnl.gov/tutorials/)**: Lawrence Livermore National Laboratory tutorials
-- **[Software Carpentry](https://software-carpentry.org/)**: Programming and data skills for researchers
 
 ### Community and Support
 
@@ -124,10 +141,9 @@ flowchart TD
 
 #### Research Computing Community
 
-- **Research Computing Team**: [ask-rc@leeds.ac.uk](mailto:ask-rc@leeds.ac.uk)
+- **Research Computing Community**: Connect with other researchers using HPC; we will share the invite to the Teams group
 - **Training Sessions**: Regular workshops and drop-in sessions
-- **User Groups**: Connect with other researchers using HPC
-- **Social Media**: Follow [@ARC_Leeds](https://twitter.com/ARC_Leeds) for updates
+- **Research Computing Query**: [https://bit.ly/arc-help](https://bit.ly/arc-help)
 
 ### Expanding Your Skills
 
@@ -141,14 +157,6 @@ flowchart TD
 | **Fortran** | Legacy scientific code, numerical | Physics, engineering simulations |
 | **Julia** | High performance, modern syntax | Scientific computing, data science |
 
-#### Domain-Specific Tools
-
-Explore software relevant to your research field:
-- **Bioinformatics**: BLAST, BWA, GATK, R/Bioconductor
-- **Chemistry**: Gaussian, VASP, GROMACS, OpenMM  
-- **Physics**: LAMMPS, Quantum ESPRESSO, HOOMD-blue
-- **Climate Science**: WRF, CESM, NCO tools
-- **Machine Learning**: TensorFlow, PyTorch, scikit-learn
 
 ## Planning Your Next Project
 
@@ -211,38 +219,47 @@ As you advance in your HPC journey, remember these core principles:
 4. **Be a good citizen**: Share resources fairly and clean up after yourself
 5. **Keep learning**: HPC technology and best practices continue to evolve
 
-### The Impact of HPC
+---
 
-High Performance Computing enables breakthrough research across many fields:
-- **Climate modeling** helps us understand and predict climate change
-- **Drug discovery** accelerates development of new treatments
-- **Astrophysics** simulations reveal the evolution of the universe
-- **Materials science** designs new materials with desired properties
-- **Economics** models complex market behaviors and policies
+# Summary
 
-Your research, powered by HPC, contributes to advancing human knowledge and solving important challenges.
+::: {.callout-note}
+## Key Takeaways from HPC1
 
-### Thank You
-
-Thank you for participating in HPC1: Introduction to High Performance Computing. We hope this course has given you the confidence and skills to leverage HPC systems effectively in your research.
-
-The Research Computing team at the University of Leeds is here to support you as you continue your HPC journey. Don't hesitate to reach out when you need help, have questions, or want to share your successes!
+- **HPC opens new research possibilities** by providing computational power beyond desktop systems
+- **Linux command line skills** are essential for effective HPC use
+- **Storage management** requires understanding different areas and their purposes
+- **Module system** provides clean, reproducible software environments
+- **Job scheduling** with Slurm enables fair resource sharing and efficient computation
+- **Best practices** ensure reliable, reproducible, and efficient workflows
+- **Community support** is available through documentation, training, and help desk
+:::
 
 ---
 
 ## Contact Information
 
-- **Research Computing Team**: [ask-rc@leeds.ac.uk](mailto:ask-rc@leeds.ac.uk)
+- **Research Computing Query**: [https://bit.ly/arc-help](https://bit.ly/arc-help)
 - **Training**: [https://arc.leeds.ac.uk/courses/](https://arc.leeds.ac.uk/courses/)
 - **Documentation**: [https://arcdocs.leeds.ac.uk/aire/](https://arcdocs.leeds.ac.uk/aire/)
-- **Help Desk**: [https://bit.ly/arc-help](https://bit.ly/arc-help)
+
+## Additional Resources
+
+- [Advanced HPC Training Courses](https://arc.leeds.ac.uk/courses/)
+- [Research Software Development in Python](https://arctraining.github.io/research-software-development/)
+    - Planning and organising your code projects
+- [Research Data Management](https://library.leeds.ac.uk/info/14062/research_data_management)
+- [HPC Community Forums](https://stackoverflow.com/questions/tagged/hpc)
 
 ## Course Feedback
 
 We value your feedback to improve this course. Please let us know:
+
 - What worked well for you?
 - What could be improved?
 - What additional topics would be helpful?
 - How will you use what you've learned?
+
+We will share a link to a feedback form in the class Teams chat!
 
 **Happy computing!** 🚀

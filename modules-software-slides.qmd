@@ -3,7 +3,10 @@ title: "Module System on Aire"
 format: 
   revealjs:
     theme: [default, slides-custom.scss]
-    transition: slide
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
     background-transition: fade
 ---
 
