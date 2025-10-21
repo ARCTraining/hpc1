@@ -1,710 +1,1418 @@
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<html lang="en" data-content_root="./" >
+<title>Session 3: Storage on Aire – HPC1: Introduction to High Performance Computing</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Session 3: Storage on Aire &#8212; HPC1: An Introduction to High Performance Computing</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d1b780a5171f128d18a9e56ce209f525.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3258f9b9" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'storage';</script>
-    <link rel="canonical" href="https://arcdocs.leeds.ac.uk/aire/storage.html" />
-    <link rel="icon" href="_static/favicon-32x32.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Session 4: Modules and Software" href="modules-software.html" />
-    <link rel="prev" title="Session 2: Logging-on and Linux recap" href="logging-on-and-linux-recap.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+<body class="nav-sidebar docked">
 
-  
-  
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
-  
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-    
-  
-
-<a class="navbar-brand logo" href="welcome.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/logo.png" class="logo__image only-light" alt="HPC1: An Introduction to High Performance Computing - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="HPC1: An Introduction to High Performance Computing - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="welcome.html">
-                    Welcome
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="what-is-hpc.html">Session 1: What is HPC?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging-on-and-linux-recap.html">Session 2: Logging-on and Linux recap</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Session 3: Storage on Aire</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules-software.html">Session 4: Modules and Software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scheduling-submission.html">Session 5: Introduction to Job Scheduling and Batch Jobs</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="best-practices-troubleshooting.html"><strong>Session 6: HPC Best Practices &amp; Troubleshooting</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">Session 7: Wrap Up</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk/courses/">Contact Us</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://arc.leeds.ac.uk">Research Computing Website</a></li>
-</ul>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what-is-hpc.html">Course Content</a></li><li class="breadcrumb-item"><a href="./storage.html">Session 3: Storage on Aire</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/img/logo/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       </div>
-      
-      <main id="main-content" class="bd-main" role="main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article d-print-none">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</button></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/ARCTraining/hpc1" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/ARCTraining/hpc1/edit/gh-pages/book/storage.md" target="_blank"
-   class="btn btn-sm btn-source-edit-button dropdown-item"
-   title="Suggest edit"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="btn__text-container">Suggest edit</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/ARCTraining/hpc1/issues/new?title=Issue%20on%20page%20%2Fstorage.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/storage.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Session 3: Storage on Aire</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Course Content</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./what-is-hpc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 1: What is HPC?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logging-on-and-linux-recap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 2: Logging On and Linux Recap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./storage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Session 3: Storage on Aire</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modules-software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 4: Modules and Software</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scheduling-submission.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 5: Job Scheduling and Submission</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./best-practices-troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 6: Best Practices and Troubleshooting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wrap-up.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 7: Wrap Up</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
     </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#session-content" id="toc-session-content" class="nav-link active" data-scroll-target="#session-content">Session content</a>
+  <ul class="collapse">
+  <li><a href="#session-aims" id="toc-session-aims" class="nav-link" data-scroll-target="#session-aims">Session aims</a></li>
+  <li><a href="#storage-areas-overview" id="toc-storage-areas-overview" class="nav-link" data-scroll-target="#storage-areas-overview">Storage Areas Overview</a></li>
+  <li><a href="#storage-types-and-quotas" id="toc-storage-types-and-quotas" class="nav-link" data-scroll-target="#storage-types-and-quotas">Storage Types and Quotas</a></li>
+  <li><a href="#checking-disk-usage" id="toc-checking-disk-usage" class="nav-link" data-scroll-target="#checking-disk-usage">Checking Disk Usage</a>
+  <ul class="collapse">
+  <li><a href="#using-the-quota-command" id="toc-using-the-quota-command" class="nav-link" data-scroll-target="#using-the-quota-command">Using the <code>quota</code> command</a></li>
+  <li><a href="#using-the-du-command" id="toc-using-the-du-command" class="nav-link" data-scroll-target="#using-the-du-command">Using the <code>du</code> command</a></li>
+  </ul></li>
+  <li><a href="#navigation-commands" id="toc-navigation-commands" class="nav-link" data-scroll-target="#navigation-commands">Navigation Commands</a></li>
+  <li><a href="#file-transfer-methods" id="toc-file-transfer-methods" class="nav-link" data-scroll-target="#file-transfer-methods">File Transfer Methods</a>
+  <ul class="collapse">
+  <li><a href="#between-storage-areas-on-aire" id="toc-between-storage-areas-on-aire" class="nav-link" data-scroll-target="#between-storage-areas-on-aire">Between Storage Areas on Aire</a></li>
+  <li><a href="#tofrom-your-local-machine" id="toc-tofrom-your-local-machine" class="nav-link" data-scroll-target="#tofrom-your-local-machine">To/From Your Local Machine</a></li>
+  <li><a href="#download-from-internet" id="toc-download-from-internet" class="nav-link" data-scroll-target="#download-from-internet">Download from Internet</a></li>
+  <li><a href="#gui-tools" id="toc-gui-tools" class="nav-link" data-scroll-target="#gui-tools">GUI Tools</a></li>
+  </ul></li>
+  <li><a href="#best-practices-summary" id="toc-best-practices-summary" class="nav-link" data-scroll-target="#best-practices-summary">Best Practices Summary</a>
+  <ul class="collapse">
+  <li><a href="#typical-workflow" id="toc-typical-workflow" class="nav-link" data-scroll-target="#typical-workflow">Typical Workflow</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1-explore-your-storage-environment" id="toc-exercise-1-explore-your-storage-environment" class="nav-link" data-scroll-target="#exercise-1-explore-your-storage-environment">Exercise 1: Explore Your Storage Environment</a></li>
+  <li><a href="#exercise-2-create-organized-directory-structure" id="toc-exercise-2-create-organized-directory-structure" class="nav-link" data-scroll-target="#exercise-2-create-organized-directory-structure">Exercise 2: Create Organized Directory Structure</a></li>
+  <li><a href="#exercise-3-practice-file-operations" id="toc-exercise-3-practice-file-operations" class="nav-link" data-scroll-target="#exercise-3-practice-file-operations">Exercise 3: Practice File Operations</a></li>
+  <li><a href="#exercise-4-monitor-usage-and-clean-up" id="toc-exercise-4-monitor-usage-and-clean-up" class="nav-link" data-scroll-target="#exercise-4-monitor-usage-and-clean-up">Exercise 4: Monitor Usage and Clean Up</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <ul class="collapse">
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what-is-hpc.html">Course Content</a></li><li class="breadcrumb-item"><a href="./storage.html">Session 3: Storage on Aire</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Session 3: Storage on Aire</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Understanding File Systems and Data Management</p>
 </div>
 
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section id="session-3-storage-on-aire">
-<h1>Session 3: Storage on Aire<a class="headerlink" href="#session-3-storage-on-aire" title="Link to this heading">#</a></h1>
-<p>In this session, we will work to understand the main file areas on Aire (home, scratch, etc.), learn the purpose and differences of each storage type, practice navigating between storage areas and checking disk quotas, and learn commands for copying and transferring data to/from Aire.</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-0">
-1. Structure</label><div class="sd-tab-content docutils">
-<ul class="simple">
-<li><p>The Aire HPC file system includes several special directories:</p>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="session-content" class="level1">
+<h1>Session content</h1>
+<section id="session-aims" class="level2">
+<h2 class="anchored" data-anchor-id="session-aims">Session aims</h2>
+<p>By the end of this session, you will be able to:</p>
 <ul>
-<li><p><strong>Home directory</strong> (<code class="docutils literal notranslate"><span class="pre">/users/&lt;username&gt;</span></code>, env var <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>) for personal files.</p></li>
-<li><p><strong>Scratch directory</strong> (<code class="docutils literal notranslate"><span class="pre">/mnt/scratch/&lt;username&gt;</span></code>, env var <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>) for large, temporary data.</p></li>
-<li><p><strong>Flash (NVMe) scratch</strong> (<code class="docutils literal notranslate"><span class="pre">$TMP_SHARED</span></code>, usually <code class="docutils literal notranslate"><span class="pre">/mnt/flash/tmp/job.&lt;JOB-ID&gt;</span></code>) for very fast I/O during jobs.</p></li>
-<li><p><strong>Node-local scratch</strong> (<code class="docutils literal notranslate"><span class="pre">$TMP_LOCAL</span></code> or <code class="docutils literal notranslate"><span class="pre">$TMPDIR</span></code>, typically <code class="docutils literal notranslate"><span class="pre">/tmp/job.&lt;JOB-ID&gt;</span></code>) for fast local storage on each compute node.</p></li>
+<li>Distinguish between different storage areas and their purposes</li>
+<li>Navigate between storage locations using environment variables</li>
+<li>Monitor your disk usage and quotas</li>
+<li>Transfer files between storage areas and your local machine</li>
 </ul>
-</li>
-<li><p>Symlinks exist: <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> → <code class="docutils literal notranslate"><span class="pre">/mnt/scratch</span></code>, and <code class="docutils literal notranslate"><span class="pre">/flash</span></code> → <code class="docutils literal notranslate"><span class="pre">/mnt/flash</span></code>.</p></li>
-<li><p>Home is backed up and not automatically purged; scratch and flash are not backed up and flash is deleted after each job.</p></li>
-<li><p><strong>Always</strong> copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area <strong>before</strong> the job ends.</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-1">
-1.1 Ex.</label><div class="sd-tab-content docutils">
-<div class="important docutils">
-<p><strong>Exercise:</strong> On the Aire login node, display the values of <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> and <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> using <code class="docutils literal notranslate"><span class="pre">echo</span></code>.</p>
-</div>
-<div class="tip docutils">
-<p><strong>Solution:</strong> For example, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo $HOME
-/users/yourusername
-$ echo $SCRATCH
-/mnt/scratch/yourusername
-</pre></div>
-</div>
-</div>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-2">
-2. Storage Types</label><div class="sd-tab-content docutils">
-<ul class="simple">
-<li><p><strong>Home (<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>)</strong>: Quota ≈30 GB and 1,000,000 files. Backup enabled and not deleted automatically. Best for small, persistent files (scripts, documents, configs).</p></li>
-<li><p><strong>Scratch (<code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>)</strong>: Quota ≈1 TB and 500,000 files. <strong>No backups</strong>. Not deleted automatically, but you must clean up manually. Use for large datasets and intermediate job data.</p></li>
-<li><p><strong>Flash (<code class="docutils literal notranslate"><span class="pre">$TMP_SHARED</span></code>)</strong>: Quota ≈1 TB per job, no backup, <strong>auto-deleted</strong> when the job completes. Very fast NVMe storage ideal for I/O-intensive tasks during the job.</p></li>
-<li><p><strong>Local scratch (<code class="docutils literal notranslate"><span class="pre">$TMP_LOCAL</span></code>, <code class="docutils literal notranslate"><span class="pre">$TMPDIR</span></code>)</strong>: Node-specific quota. No backup, <strong>auto-deleted</strong> after job completion. Best for very fast, node-local storage during single-node jobs.</p></li>
-<li><p><strong>Important:</strong> Data in scratch/flash areas is temporary. These are <em>not backed up</em> and may be purged. Always move important data to your home or external storage when done.</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-3">
-3. Quotas</label><div class="sd-tab-content docutils">
-<p>It’s important for you to be able to check how much of your allocated quota you are using in a particular storage area, as exceeding this quota will cause your jobs to fail.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">quota</span></code></p>
+<p><a href="./storage-slides.html" class="btn btn-primary" target="_blank"><strong>View Interactive Slides: Storage Systems on Aire</strong></a></p>
+<p>Scroll to the bottom of this section for practical exercises.</p>
+</section>
+<section id="storage-areas-overview" class="level2">
+<h2 class="anchored" data-anchor-id="storage-areas-overview">Storage Areas Overview</h2>
+<p>The Aire HPC file system includes several special directories:</p>
 <ul>
-<li><p>This command tells you your disk usage and limits. By default, the unit is kbytes or “blocks”. You can add the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag to make the output “human readable”, showing units after the values (<code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code>).</p></li>
-<li><p>If the output is difficult to read, try resizing your terminal windows to accomodate the table.</p></li>
-</ul>
+<li><strong>Home directory</strong> (<code>/users/&lt;username&gt;</code>, env var <code>$HOME</code>) for personal files</li>
+<li><strong>Scratch directory</strong> (<code>/mnt/scratch/&lt;username&gt;</code>, env var <code>$SCRATCH</code>) for large, temporary data<br>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">du</span></code></p>
+<li><strong>Flash (NVMe) scratch</strong> (<code>$TMP_SHARED</code>, usually <code>/mnt/flash/tmp/job.&lt;JOB-ID&gt;</code>) for very fast I/O during jobs</li>
+<li><strong>Node-local scratch</strong> (<code>$TMP_LOCAL</code> or <code>$TMPDIR</code>, typically <code>/tmp/job.&lt;JOB-ID&gt;</code>) for fast local storage on each compute node</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Critical Storage Rules
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>This command reports the amount of disk space used by different files and directories, by default reporting in 512-byte blocks.</p></li>
-<li><p>You can provide the path to a specific directory to focus the results.</p></li>
-<li><p>Add the flag <code class="docutils literal notranslate"><span class="pre">-h</span></code> to make the output human readable.</p></li>
-<li><p>Add the flag <code class="docutils literal notranslate"><span class="pre">-s</span></code> to summarise the results (and not recursively provide results for subdirectories).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">du</span> <span class="pre">-hs</span> <span class="pre">*</span></code> will provide you with the space taken up by the data in each directory. This can be a little slow!</p></li>
-</ul>
-</li>
+<li><strong>Home</strong> is backed up and not automatically purged</li>
+<li><strong>Scratch and flash</strong> are not backed up and flash is deleted after each job</li>
+<li><strong>Always</strong> copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area <strong>before</strong> the job ends</li>
 </ul>
 </div>
-<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
-3.3 Ex.</label><div class="sd-tab-content docutils">
-<div class="important docutils">
-<p><strong>Exercise:</strong> Check your current disk usage and quotas. <em>(Hint: use the <code class="docutils literal notranslate"><span class="pre">quota</span></code> command.)</em></p>
 </div>
-<div class="tip docutils">
-<p><strong>Solution:</strong> Run <code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code>. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ quota -s
-Disk quotas for user yourusername (uid 12345):
+</section>
+<section id="storage-types-and-quotas" class="level2">
+<h2 class="anchored" data-anchor-id="storage-types-and-quotas">Storage Types and Quotas</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Storage Type</th>
+<th>Quota</th>
+<th>Backup</th>
+<th>Auto-Delete</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Home</strong> (<code>$HOME</code>)</td>
+<td>~30 GB, 1M files</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+<td>Scripts, configs, small files</td>
+</tr>
+<tr class="even">
+<td><strong>Scratch</strong> (<code>$SCRATCH</code>)</td>
+<td>~1 TB, 500K files</td>
+<td>❌ No</td>
+<td>❌ No</td>
+<td>Large datasets, job data</td>
+</tr>
+<tr class="odd">
+<td><strong>Flash</strong> (<code>$TMP_SHARED</code>)</td>
+<td>~1 TB per job</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+<td>I/O-intensive tasks</td>
+</tr>
+<tr class="even">
+<td><strong>Local</strong> (<code>$TMP_LOCAL</code>)</td>
+<td>Node-specific</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+<td>Single-node fast storage</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data Loss Risk
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Data in scratch/flash areas is temporary. These are <strong>not backed up</strong> and may be purged. Always move important data to your home or external storage when done.</p>
+</div>
+</div>
+</section>
+<section id="checking-disk-usage" class="level2">
+<h2 class="anchored" data-anchor-id="checking-disk-usage">Checking Disk Usage</h2>
+<section id="using-the-quota-command" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-quota-command">Using the <code>quota</code> command</h3>
+<p>Check your current usage and limits:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quota</span> <span class="at">-s</span>    <span class="co"># Human readable format</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Example output:</p>
+<pre><code>Disk quotas for user yourusername (uid 12345):
      Filesystem   blocks   quota   limit   grace   files   quota   limit
       /users     15000*   30000    33000            200000 1000000 1100000
-   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000
-</pre></div>
+   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000</code></pre>
+</section>
+<section id="using-the-du-command" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-du-command">Using the <code>du</code> command</h3>
+<p>Check disk usage of directories:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="pp">*</span>                    <span class="co"># Size of each directory</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$HOME</span>               <span class="co"># Size of home directory</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$SCRATCH</span>            <span class="co"># Size of scratch directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pro Tip
 </div>
 </div>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-5">
-4. Navigating</label><div class="sd-tab-content docutils">
-<ul class="simple">
-<li><p>Use standard Linux shell commands: <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">pwd</span></code>, etc.</p></li>
-<li><p>To go to your home directory: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$HOME</span></code> or simply <code class="docutils literal notranslate"><span class="pre">cd</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>. To go to scratch: <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">$SCRATCH</span></code>.</p></li>
-<li><p>List contents with <code class="docutils literal notranslate"><span class="pre">ls</span></code>: e.g. <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">$HOME</span></code> or <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">$SCRATCH</span></code>. Use <code class="docutils literal notranslate"><span class="pre">pwd</span></code> to show the current directory path.</p></li>
-<li><p>Use environment variables (<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>, etc.) in commands. For example, <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">$HOME/projects</span></code> lists your project folder in home.</p></li>
-<li><p>Copy files between areas on Aire with <code class="docutils literal notranslate"><span class="pre">cp</span></code>. For example: <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">data.txt</span> <span class="pre">$SCRATCH/</span></code> to copy <strong>to</strong> scratch, or <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">$SCRATCH/output.dat</span> <span class="pre">$HOME/results/</span></code> to copy <strong>back</strong> to home.</p></li>
-<li><p>Remove unneeded files with <code class="docutils literal notranslate"><span class="pre">rm</span></code> to free space. After cleanup, re-check your usage with <code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code> or <code class="docutils literal notranslate"><span class="pre">du</span></code> as needed.</p></li>
-</ul>
-</div>
-<input id="sd-tab-item-6" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-6">
-4.4 Ex.</label><div class="sd-tab-content docutils">
-<div class="important docutils">
-<p><strong>Exercise:</strong> Navigate around the file system using <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">directory_path</span></code>, and <code class="docutils literal notranslate"><span class="pre">cd</span></code> to return home.</p>
-<ul class="simple">
-<li><p>Try to use the environment variables (like <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>)</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">pwd</span></code> to check where you are in the directory structure, and <code class="docutils literal notranslate"><span class="pre">ls</span></code> to see what other files are present</p></li>
-</ul>
+<div class="callout-body-container callout-body">
+<p>Run <code>du -hs *</code> in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!</p>
 </div>
 </div>
-<input id="sd-tab-item-7" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-7">
-5. Transferring Files</label><div class="sd-tab-content docutils">
+</section>
+</section>
+<section id="navigation-commands" class="level2">
+<h2 class="anchored" data-anchor-id="navigation-commands">Navigation Commands</h2>
+<p>Use standard Linux commands with environment variables:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span>        <span class="co"># Go to home directory</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$SCRATCH</span>     <span class="co"># Go to scratch directory  </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span>              <span class="co"># Also goes to home</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~            <span class="co"># Also goes to home</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$HOME</span>        <span class="co"># List home contents</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$SCRATCH</span>     <span class="co"># List scratch contents</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>             <span class="co"># Show current directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="file-transfer-methods" class="level2">
+<h2 class="anchored" data-anchor-id="file-transfer-methods">File Transfer Methods</h2>
+<section id="between-storage-areas-on-aire" class="level3">
+<h3 class="anchored" data-anchor-id="between-storage-areas-on-aire">Between Storage Areas on Aire</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy TO scratch</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> data.txt <span class="va">$SCRATCH</span>/</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy FROM scratch back to home</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$SCRATCH</span>/output.dat <span class="va">$HOME</span>/results/</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy entire directory</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$HOME</span>/myproject <span class="va">$SCRATCH</span>/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="tofrom-your-local-machine" class="level3">
+<h3 class="anchored" data-anchor-id="tofrom-your-local-machine">To/From Your Local Machine</h3>
+<section id="using-scp-secure-copy" class="level4">
+<h4 class="anchored" data-anchor-id="using-scp-secure-copy">Using scp (Secure Copy)</h4>
+<p>From local machine <strong>to</strong> Aire:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> myfile.txt <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:<span class="va">$SCRATCH</span>/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>From Aire <strong>to</strong> local machine:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:/path/results.txt .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-rsync-recommended-for-large-transfers" class="level4">
+<h4 class="anchored" data-anchor-id="using-rsync-recommended-for-large-transfers">Using rsync (Recommended for large transfers)</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avh</span> data/ <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:path/data/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Benefits of rsync: - Only transfers changed files - Resumes interrupted transfers - Progress indicators with <code>--info=progress2</code></p>
+</section>
+<section id="off-campus-transfers-with-jumphost" class="level4">
+<h4 class="anchored" data-anchor-id="off-campus-transfers-with-jumphost">Off-campus transfers (with jumphost)</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using rsync</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-r</span> <span class="at">--info</span><span class="op">=</span>progress2 <span class="at">-e</span> <span class="st">'ssh -J username@jump-host'</span> file.txt username@target-system:path/</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using scp  </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-rq</span> <span class="at">-J</span> username@jump-host username@target-system:path/file.txt local-folder/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="download-from-internet" class="level3">
+<h3 class="anchored" data-anchor-id="download-from-internet">Download from Internet</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://example.com/data.zip</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-O</span> https://example.com/data.zip</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="gui-tools" class="level3">
+<h3 class="anchored" data-anchor-id="gui-tools">GUI Tools</h3>
+<p>For those who prefer graphical interfaces: - <strong>FileZilla</strong> (cross-platform SFTP client) - <strong>WinSCP</strong> (Windows) - <strong>Cyberduck</strong> (Mac/Windows)</p>
+</section>
+</section>
+<section id="best-practices-summary" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices-summary">Best Practices Summary</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Storage Principles
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Multiple storage areas</strong>: Use each storage type appropriately</li>
+<li><strong>Regular cleanup</strong>: Run <code>quota -s</code> regularly and clean up old files<br>
+</li>
+<li><strong>Data transfer workflow</strong>: Transfer input to <code>$SCRATCH</code> before jobs, copy results back after</li>
+<li><strong>Avoid data loss</strong>: Always backup important data from temporary storage</li>
+<li><strong>Organization</strong>: Keep your home directory organized and place large data in scratch only when needed</li>
+</ol>
+</div>
+</div>
+<section id="typical-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="typical-workflow">Typical Workflow</h3>
+<ol type="1">
+<li><strong>Prepare</strong>: Upload input data to <code>$SCRATCH</code></li>
+<li><strong>Process</strong>: Run jobs using scratch storage</li>
+<li><strong>Preserve</strong>: Copy important results to backed up research storage</li>
+<li><strong>Cleanup</strong>: Remove temporary files from <code>$SCRATCH</code></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<p>Work through these hands-on exercises to practice storage management on Aire.</p>
+<section id="exercise-1-explore-your-storage-environment" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1-explore-your-storage-environment">Exercise 1: Explore Your Storage Environment</h3>
+<p>Check your storage locations and current usage:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check your environment variables and location</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Home: </span><span class="va">$HOME</span><span class="st">"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Scratch: </span><span class="va">$SCRATCH</span><span class="st">"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check your disk quotas</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">quota</span> <span class="at">-s</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-2-create-organized-directory-structure" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2-create-organized-directory-structure">Exercise 2: Create Organized Directory Structure</h3>
+<p>Set up a proper directory structure in both storage areas:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create project structure in home (for permanent files)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> hpc1-practice</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> hpc1-practice</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> scripts results</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create working structure in scratch (for large/temporary data)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$SCRATCH</span>  </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> hpc1-data</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> hpc1-data</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> input output</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-3-practice-file-operations" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3-practice-file-operations">Exercise 3: Practice File Operations</h3>
+<p>Create sample files and practice moving data between storage areas:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sample script in home</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span>/hpc1-practice/scripts</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> process_data.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Add this content to the script:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Processing data in: </span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Available space in scratch:"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> <span class="va">$SCRATCH</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Save with <code>Ctrl + O</code>, <code>Enter</code>, <code>Ctrl + X</code>, then continue:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make executable and test</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x process_data.sh</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">./process_data.sh</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data in scratch</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"sample,value1,value2"</span> <span class="op">&gt;</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exp1,10.5,20.3"</span> <span class="op">&gt;&gt;</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exp2,8.9,22.1"</span> <span class="op">&gt;&gt;</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy important results back to home (simulate job completion)</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv <span class="va">$HOME</span>/hpc1-practice/results/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-4-monitor-usage-and-clean-up" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-4-monitor-usage-and-clean-up">Exercise 4: Monitor Usage and Clean Up</h3>
+<p>Practice disk usage monitoring and cleanup:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check sizes of your directories</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$HOME</span>/hpc1-practice</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$SCRATCH</span>/hpc1-data</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check quota again to see any changes</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">quota</span> <span class="at">-s</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice cleanup - remove temporary files from scratch</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$SCRATCH</span>/hpc1-data/input/</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify important data is safe in home</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$HOME</span>/hpc1-practice/results/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What You’ve Accomplished
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p><strong>scp</strong> (secure copy) to/from the login node. For example, from <strong>your local machine</strong> to Aire:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>myfile.txt<span class="w"> </span>&lt;username&gt;@target-system:<span class="nv">$SCRATCH</span>/
-</pre></div>
-</div>
-<p>And to copy a file <strong>from</strong> Aire to local (current directory):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>&lt;username&gt;@target-system:/path/results.txt<span class="w"> </span>.
-</pre></div>
-</div>
+<li>✅ Explored storage locations and quotas</li>
+<li>✅ Created organized directory structures</li>
+<li>✅ Practiced file creation and copying between storage areas<br>
 </li>
-<li><p><strong>rsync</strong> for efficient transfers (especially many files). Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rsync<span class="w"> </span>-avh<span class="w"> </span>data/<span class="w"> </span>&lt;username&gt;@target-system:path/data/
-</pre></div>
-</div>
-</li>
-<li><p><strong>wget/curl</strong> on the login node to download from a URL. For instance:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://example.com/data.zip
-</pre></div>
-</div>
-</li>
-<li><p><strong>GUI/SFTP clients:</strong> Use FileZilla, WinSCP or Cyberduck to connect to Aire via SFTP.</p></li>
-<li><p><strong>Best practice:</strong> Transfer all needed input data to <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> <em>before</em> running jobs, and copy results out of <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> after jobs finish.</p></li>
+<li>✅ Monitored disk usage and performed cleanup</li>
+<li>✅ Followed the recommended workflow: work in scratch, save to home</li>
 </ul>
 </div>
-<input id="sd-tab-item-8" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-8">
-5.1 Transferring Files</label><div class="sd-tab-content docutils">
+</div>
+<hr>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key Takeaways
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>From off campus, you will have to use the usual tunnelling/jumphost commands.</p>
+<li><strong>Multiple storage areas</strong> serve different purposes: home (permanent), scratch (temporary)</li>
+<li><strong>Understand quotas</strong> and monitor usage with <code>quota -s</code> and <code>du -hs</code></li>
+<li><strong>Use environment variables</strong> like <code>$HOME</code> and <code>$SCRATCH</code> for navigation</li>
+<li><strong>Follow the workflow</strong>: work in scratch, save important results to home</li>
+<li><strong>Data management is critical</strong> - scratch areas are not backed up</li>
+<li><strong>Transfer tools</strong> like <code>rsync</code> and <code>scp</code> help move data efficiently</li>
+</ul>
+</div>
+</div>
+<hr>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
+<p>Now you understand how to manage data on Aire! Let’s move on to <a href="./modules-software.html">Session 4: Modules and Software</a> to learn how to access and use different software packages.</p>
+</section>
+<section id="additional-resources" class="level2">
+<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
 <ul>
-<li><p>rsync:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rsync<span class="w"> </span>-r<span class="w"> </span>--info<span class="o">=</span>progress2<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;ssh -J e&lt;username&gt;@jump-host&#39;</span><span class="w"> </span>file_to_copy.txt<span class="w"> </span>&lt;username&gt;@target-system:path/
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--info=progress2</span></code> gives you a progress bar for the upload/download</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-e</span> <span class="pre">ssh</span></code> allows you to set up a remote ssh shell (to use the jumphost)</p></li>
+<li><a href="https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html">Aire Storage Documentation</a></li>
+<li><a href="https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html">Data Management Best Practices</a></li>
+<li><a href="https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html">File Transfer Guide</a></li>
+<li><a href="https://www.linux.com/training-tutorials/understanding-linux-file-permissions/">Linux File Permissions Guide</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories">rsync Tutorial</a></li>
 </ul>
-</li>
-<li><p>scp:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>-rq<span class="w"> </span>-J<span class="w"> </span>&lt;username&gt;@jump-host<span class="w"> </span>&lt;username&gt;@target-system:path/file-to-copy.txt<span class="w"> </span>local-folder-path/
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>-rq<span class="w"> </span>-J<span class="w"> </span>&lt;username&gt;@jump-host<span class="w"> </span>local-folder-path/file-to-copy.txt<span class="w"> </span>&lt;username&gt;@target-system:path/
-</pre></div>
-</div>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<input id="sd-tab-item-9" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-9">
-5.2 Ex.</label><div class="sd-tab-content docutils">
-<div class="important docutils">
-<p><strong>Exercise:</strong> On your <strong>local machine</strong>, write the <code class="docutils literal notranslate"><span class="pre">scp</span></code> command to download <code class="docutils literal notranslate"><span class="pre">results.txt</span></code> from your home directory on Aire into your current local directory.</p>
-</div>
-<div class="tip docutils">
-<p><strong>Solution:</strong> Use the syntax:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>&lt;username&gt;@target-system:/users/yourname/results.txt<span class="w"> </span>.
-</pre></div>
-</div>
-</div>
-</div>
-<input id="sd-tab-item-10" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-10">
-6. Summary</label><div class="sd-tab-content docutils">
-<ul class="simple">
-<li><p><strong>Multiple storage areas:</strong> Aire provides different file systems: home (<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>), scratch (<code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>), NVMe flash, and node-local. Use each appropriately.</p></li>
-<li><p><strong>Navigation:</strong> Use <code class="docutils literal notranslate"><span class="pre">cd</span></code>, <code class="docutils literal notranslate"><span class="pre">ls</span></code>, etc., along with environment variables.</p></li>
-<li><p><strong>Check usage:</strong> Regularly run <code class="docutils literal notranslate"><span class="pre">quota</span> <span class="pre">-s</span></code> to see your space and file usage. Clean up old files from <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code>.</p></li>
-<li><p><strong>Data transfer:</strong> Use <code class="docutils literal notranslate"><span class="pre">scp</span></code> or <code class="docutils literal notranslate"><span class="pre">rsync</span></code> via the login nodes to move data.</p></li>
-<li><p><strong>Avoid data loss:</strong> Remember that scratch and flash are <em>temporary</em>. Always <strong>backup important data</strong> to home or external storage when done.</p></li>
-</ul>
-<p>Read up on <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html">best practises here</a>.</p>
-<div class="note docutils">
-<p><strong>Tip:</strong> Keep your home directory organized. Place large data in scratch only while needed. Archive or delete old files in scratch after use.</p>
-</div>
-</div>
-</div>
-<p>You can read more about the <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html#summary-of-storage-types">different storage options on Aire in our documentation</a>, and find <a class="reference external" href="https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html">detailed guidance on organising your files and research data in our data management section</a>.</p>
+
+
+<!-- -->
+
+</section>
 </section>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ARCTraining\.github\.io\/hpc1\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Session 3: Storage on Aire"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Understanding File Systems and Data Management"</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session content</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session aims</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>By the end of this session, you will be able to:</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distinguish between different storage areas and their purposes</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Navigate between storage locations using environment variables</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Monitor your disk usage and quotas</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Transfer files between storage areas and your local machine</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**View Interactive Slides: Storage Systems on Aire**</span><span class="co">](storage-slides.qmd)</span>{.btn .btn-primary target="_blank"}</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>Scroll to the bottom of this section for practical exercises.</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Storage Areas Overview</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>The Aire HPC file system includes several special directories:</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Home directory** (<span class="in">`/users/&lt;username&gt;`</span>, env var <span class="in">`$HOME`</span>) for personal files</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scratch directory** (<span class="in">`/mnt/scratch/&lt;username&gt;`</span>, env var <span class="in">`$SCRATCH`</span>) for large, temporary data  </span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Flash (NVMe) scratch** (<span class="in">`$TMP_SHARED`</span>, usually <span class="in">`/mnt/flash/tmp/job.&lt;JOB-ID&gt;`</span>) for very fast I/O during jobs</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Node-local scratch** (<span class="in">`$TMP_LOCAL`</span> or <span class="in">`$TMPDIR`</span>, typically <span class="in">`/tmp/job.&lt;JOB-ID&gt;`</span>) for fast local storage on each compute node</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Critical Storage Rules</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Home** is backed up and not automatically purged</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scratch and flash** are not backed up and flash is deleted after each job</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Always** copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area **before** the job ends</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Storage Types and Quotas</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>| Storage Type | Quota | Backup | Auto-Delete | Best For |</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>|--------------|-------|--------|-------------|----------|</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>| **Home** (<span class="in">`$HOME`</span>) | ~30 GB, 1M files | ✅ Yes | ❌ No | Scripts, configs, small files |</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>| **Scratch** (<span class="in">`$SCRATCH`</span>) | ~1 TB, 500K files | ❌ No | ❌ No | Large datasets, job data |</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>| **Flash** (<span class="in">`$TMP_SHARED`</span>) | ~1 TB per job | ❌ No | ✅ Yes | I/O-intensive tasks |</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>| **Local** (<span class="in">`$TMP_LOCAL`</span>) | Node-specific | ❌ No | ✅ Yes | Single-node fast storage |</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Loss Risk</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>Data in scratch/flash areas is temporary. These are **not backed up** and may be purged. Always move important data to your home or external storage when done.</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checking Disk Usage</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using the `quota` command</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>Check your current usage and limits:</span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="ex">quota</span> <span class="at">-s</span>    <span class="co"># Human readable format</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>Example output:</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="in">Disk quotas for user yourusername (uid 12345):</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="in">     Filesystem   blocks   quota   limit   grace   files   quota   limit</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="in">      /users     15000*   30000    33000            200000 1000000 1100000</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="in">   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using the `du` command</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>Check disk usage of directories:</span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="pp">*</span>                    <span class="co"># Size of each directory</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$HOME</span>               <span class="co"># Size of home directory</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$SCRATCH</span>            <span class="co"># Size of scratch directory</span></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pro Tip</span></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>Run <span class="in">`du -hs *`</span> in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!</span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Navigation Commands</span></span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a>Use standard Linux commands with environment variables:</span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span>        <span class="co"># Go to home directory</span></span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$SCRATCH</span>     <span class="co"># Go to scratch directory  </span></span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span>              <span class="co"># Also goes to home</span></span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~            <span class="co"># Also goes to home</span></span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$HOME</span>        <span class="co"># List home contents</span></span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$SCRATCH</span>     <span class="co"># List scratch contents</span></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>             <span class="co"># Show current directory</span></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## File Transfer Methods</span></span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### Between Storage Areas on Aire</span></span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy TO scratch</span></span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> data.txt <span class="va">$SCRATCH</span>/</span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy FROM scratch back to home</span></span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$SCRATCH</span>/output.dat <span class="va">$HOME</span>/results/</span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy entire directory</span></span>
+<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$HOME</span>/myproject <span class="va">$SCRATCH</span>/</span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a><span class="fu">### To/From Your Local Machine</span></span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Using scp (Secure Copy)</span></span>
+<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a>From local machine **to** Aire:</span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> myfile.txt <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:<span class="va">$SCRATCH</span>/</span>
+<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a>From Aire **to** local machine:</span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:/path/results.txt .</span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Using rsync (Recommended for large transfers)</span></span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avh</span> data/ <span class="op">&lt;</span>username<span class="op">&gt;</span>@target-system:path/data/</span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a>Benefits of rsync:</span>
+<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Only transfers changed files</span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Resumes interrupted transfers</span>
+<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Progress indicators with <span class="in">`--info=progress2`</span></span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Off-campus transfers (with jumphost)</span></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Using rsync</span></span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-r</span> <span class="at">--info</span><span class="op">=</span>progress2 <span class="at">-e</span> <span class="st">'ssh -J username@jump-host'</span> file.txt username@target-system:path/</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a><span class="co"># Using scp  </span></span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-rq</span> <span class="at">-J</span> username@jump-host username@target-system:path/file.txt local-folder/</span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Download from Internet</span></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://example.com/data.zip</span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-O</span> https://example.com/data.zip</span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a><span class="fu">### GUI Tools</span></span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a>For those who prefer graphical interfaces:</span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**FileZilla** (cross-platform SFTP client)</span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**WinSCP** (Windows)</span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cyberduck** (Mac/Windows)</span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## Best Practices Summary</span></span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Storage Principles</span></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Multiple storage areas**: Use each storage type appropriately</span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Regular cleanup**: Run <span class="in">`quota -s`</span> regularly and clean up old files  </span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Data transfer workflow**: Transfer input to <span class="in">`$SCRATCH`</span> before jobs, copy results back after</span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Avoid data loss**: Always backup important data from temporary storage</span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Organization**: Keep your home directory organized and place large data in scratch only when needed</span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Typical Workflow</span></span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Prepare**: Upload input data to <span class="in">`$SCRATCH`</span></span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Process**: Run jobs using scratch storage</span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Preserve**: Copy important results to backed up research storage</span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Cleanup**: Remove temporary files from <span class="in">`$SCRATCH`</span></span>
+<span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercises</span></span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a>Work through these hands-on exercises to practice storage management on Aire.</span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1: Explore Your Storage Environment</span></span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a>Check your storage locations and current usage:</span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a><span class="co"># Check your environment variables and location</span></span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Home: </span><span class="va">$HOME</span><span class="st">"</span></span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Scratch: </span><span class="va">$SCRATCH</span><span class="st">"</span></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a><span class="co"># Check your disk quotas</span></span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a><span class="ex">quota</span> <span class="at">-s</span></span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-200"><a href="#cb17-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2: Create Organized Directory Structure</span></span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a>Set up a proper directory structure in both storage areas:</span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a><span class="co"># Create project structure in home (for permanent files)</span></span>
+<span id="cb17-207"><a href="#cb17-207" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span></span>
+<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> hpc1-practice</span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> hpc1-practice</span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> scripts results</span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a><span class="co"># Create working structure in scratch (for large/temporary data)</span></span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$SCRATCH</span>  </span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> hpc1-data</span>
+<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> hpc1-data</span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> input output</span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3: Practice File Operations</span></span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-222"><a href="#cb17-222" aria-hidden="true" tabindex="-1"></a>Create sample files and practice moving data between storage areas:</span>
+<span id="cb17-223"><a href="#cb17-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sample script in home</span></span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span>/hpc1-practice/scripts</span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> process_data.sh</span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a>Add this content to the script:</span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Processing data in: </span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">"</span></span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Available space in scratch:"</span></span>
+<span id="cb17-235"><a href="#cb17-235" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> <span class="va">$SCRATCH</span></span>
+<span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a>Save with <span class="in">`Ctrl + O`</span>, <span class="in">`Enter`</span>, <span class="in">`Ctrl + X`</span>, then continue:</span>
+<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Make executable and test</span></span>
+<span id="cb17-242"><a href="#cb17-242" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x process_data.sh</span>
+<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a><span class="ex">./process_data.sh</span></span>
+<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data in scratch</span></span>
+<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"sample,value1,value2"</span> <span class="op">&gt;</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exp1,10.5,20.3"</span> <span class="op">&gt;&gt;</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exp2,8.9,22.1"</span> <span class="op">&gt;&gt;</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy important results back to home (simulate job completion)</span></span>
+<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv <span class="va">$HOME</span>/hpc1-practice/results/</span>
+<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 4: Monitor Usage and Clean Up</span></span>
+<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-256"><a href="#cb17-256" aria-hidden="true" tabindex="-1"></a>Practice disk usage monitoring and cleanup:</span>
+<span id="cb17-257"><a href="#cb17-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a><span class="co"># Check sizes of your directories</span></span>
+<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$HOME</span>/hpc1-practice</span>
+<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-hs</span> <span class="va">$SCRATCH</span>/hpc1-data</span>
+<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-263"><a href="#cb17-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Check quota again to see any changes</span></span>
+<span id="cb17-264"><a href="#cb17-264" aria-hidden="true" tabindex="-1"></a><span class="ex">quota</span> <span class="at">-s</span></span>
+<span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-266"><a href="#cb17-266" aria-hidden="true" tabindex="-1"></a><span class="co"># Practice cleanup - remove temporary files from scratch</span></span>
+<span id="cb17-267"><a href="#cb17-267" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="va">$SCRATCH</span>/hpc1-data/input/data.csv</span>
+<span id="cb17-268"><a href="#cb17-268" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$SCRATCH</span>/hpc1-data/input/</span>
+<span id="cb17-269"><a href="#cb17-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-270"><a href="#cb17-270" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify important data is safe in home</span></span>
+<span id="cb17-271"><a href="#cb17-271" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">$HOME</span>/hpc1-practice/results/</span>
+<span id="cb17-272"><a href="#cb17-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## What You've Accomplished</span></span>
+<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>✅ Explored storage locations and quotas</span>
+<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>✅ Created organized directory structures</span>
+<span id="cb17-279"><a href="#cb17-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>✅ Practiced file creation and copying between storage areas  </span>
+<span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>✅ Monitored disk usage and performed cleanup</span>
+<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>✅ Followed the recommended workflow: work in scratch, save to home</span>
+<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summary</span></span>
+<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Takeaways</span></span>
+<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Multiple storage areas** serve different purposes: home (permanent), scratch (temporary)</span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Understand quotas** and monitor usage with <span class="in">`quota -s`</span> and <span class="in">`du -hs`</span></span>
+<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Use environment variables** like <span class="in">`$HOME`</span> and <span class="in">`$SCRATCH`</span> for navigation</span>
+<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Follow the workflow**: work in scratch, save important results to home</span>
+<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Data management is critical** - scratch areas are not backed up</span>
+<span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Transfer tools** like <span class="in">`rsync`</span> and <span class="in">`scp`</span> help move data efficiently</span>
+<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a><span class="fu">## Next Steps</span></span>
+<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>Now you understand how to manage data on Aire! Let's move on to <span class="co">[</span><span class="ot">Session 4: Modules and Software</span><span class="co">](modules-software.qmd)</span> to learn how to access and use different software packages.</span>
+<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a><span class="fu">## Additional Resources</span></span>
+<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Aire Storage Documentation</span><span class="co">](https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html)</span></span>
+<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Data Management Best Practices</span><span class="co">](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html)</span></span>
+<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">File Transfer Guide</span><span class="co">](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html)</span></span>
+<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Linux File Permissions Guide</span><span class="co">](https://www.linux.com/training-tutorials/understanding-linux-file-permissions/)</span></span>
+<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">rsync Tutorial</span><span class="co">](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories)</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
 
-                </article>
-              
 
-              
-              
-              
-              
-                <footer class="prev-next-footer d-print-none">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="logging-on-and-linux-recap.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Session 2: Logging-on and Linux recap</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="modules-software.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Session 4: Modules and Software</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By University of Leeds Research Computing Team
-</p>
 
-  </div>
-  
-  <div class="footer-item">
-    
 
-  <p class="copyright">
-    
-      © Copyright 2025.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
-    </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
-</html>
+</body></html>

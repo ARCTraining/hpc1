@@ -1,0 +1,1753 @@
+[
+  {
+    "objectID": "wrap-up.html",
+    "href": "wrap-up.html",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nSummarize the key HPC concepts and skills learned throughout the course\nIdentify next steps for developing your HPC expertise\nAccess ongoing support resources and documentation\nPlan your research computing workflows using HPC best practices\nConnect with the HPC community for continued learning\n\nView Interactive Slides: Course Wrap-Up and Next Steps\nCongratulations on completing HPC1: Introduction to High Performance Computing! You’ve learned the fundamental skills needed to effectively use HPC systems.\n\n\n\nThroughout this course, you’ve covered:\n\n\n\n\nHPC Concepts: Understanding clusters, nodes, cores, and parallelization\nLinux Command Line: Essential commands for navigating and managing files\nStorage Systems: Home, scratch, and temporary storage management\nSoftware Management: Using the module system and managing environments\nJob Scheduling: Writing and submitting Slurm job scripts\nBest Practices: Troubleshooting and optimizing your workflows\n\n\n\n\n\nResource Planning: Right-sizing job requests for efficiency\nData Management: Organizing and protecting your research data\n\nReproducibility: Creating documented, version-controlled workflows\nCollaboration: Sharing code and environments with colleagues\nProblem Solving: Debugging common HPC issues\nSecurity: Protecting credentials and sensitive data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCategory\nCommand\nPurpose\n\n\n\n\nConnection\nssh user@system\nConnect to HPC system\n\n\nNavigation\ncd $HOME, cd $SCRATCH\nChange directories\n\n\nFiles\nls, cp, mv, rm\nList, copy, move, remove files\n\n\nStorage\nquota -s, du -hs\nCheck disk usage\n\n\nModules\nmodule load, module list\nManage software\n\n\nJobs\nsbatch, squeue, scancel\nSubmit, monitor, cancel jobs\n\n\nMonitoring\nsacct -j JOBID\nCheck job accounting\n\n\n\n\n\n\n\n\n\n\n\nflowchart TD\n    A[Connect to Aire] --&gt; B[Navigate to project directory]\n    B --&gt; C[Load required modules]\n    C --&gt; D[Prepare input data in scratch]\n    D --&gt; E[Write job script]\n    E --&gt; F[Submit job with sbatch]\n    F --&gt; G[Monitor with squeue]\n    G --&gt; H[Job completes]\n    H --&gt; I[Check results with sacct]\n    I --&gt; J[Copy results to research storage]\n    J --&gt; K[Clean up scratch space]\n\n\n\n\n\n\n\n\n\n\n\n\n\nPractice: Try running some of your own code on Aire\nExplore: Browse the available software modules\nOrganize: Set up a clear directory structure for your projects\nBackup: Implement a data backup strategy\nConnect: Join HPC user communities\n\n\n\n\n\n\n\nOpenMP: Shared-memory parallelization for multi-core systems\nMPI: Message-passing for distributed computing across nodes\nGPU Computing: Using CUDA or OpenCL for GPU acceleration\nWorkflow Management: Tools like Snakemake or Nextflow\n\n\n\n\n\nProfiling: Tools to identify bottlenecks in your code\nBenchmarking: Systematic testing of different resource configurations\nMemory Optimization: Techniques for handling large datasets\nI/O Optimization: Efficient file reading/writing strategies\n\n\n\n\n\nJob Dependencies: Chaining jobs together\nParameter Sweeps: Exploring parameter spaces efficiently\nCheckpointing: Saving and resuming long-running jobs\nContainer Technologies: Using Apptainer/Singularity\n\n\n\n\n\n\n\n\nTraining Courses: Upcoming HPC and research computing courses\nAire Documentation: Comprehensive system documentation\nResearch Computing Website: News, updates, and resources\nHelp Desk: Submit queries and get support\n\n\n\n\n\nSlurm Documentation: Official Slurm documentation\nParallel Programming Tutorials: Lawrence Livermore National Laboratory tutorials\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhen You Need Help\n\n\n\n\nCheck the documentation first - Aire docs are comprehensive\nSearch for similar issues - Many problems are common\nAsk specific questions - Include error messages and job IDs\nBe patient - HPC systems can be complex\nHelp others - Share your solutions with the community\n\n\n\n\n\n\n\nResearch Computing Community: Connect with other researchers using HPC; we will share the invite to the Teams group\nTraining Sessions: Regular workshops and drop-in sessions\nResearch Computing Query: https://bit.ly/arc-help\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLanguage\nStrengths\nCommon Uses\n\n\n\n\nPython\nEasy to learn, extensive libraries\nData analysis, machine learning\n\n\nR\nStatistical computing, visualization\nStatistics, bioinformatics\n\n\nC/C++\nHigh performance, close to hardware\nComputational science, simulations\n\n\nFortran\nLegacy scientific code, numerical\nPhysics, engineering simulations\n\n\nJulia\nHigh performance, modern syntax\nScientific computing, data science\n\n\n\n\n\n\n\n\n\n\nBefore starting a new HPC project:\n\nDefine objectives: What do you want to accomplish?\nEstimate requirements: How much data, compute time, memory?\nChoose tools: What software and programming languages?\nPlan workflow: What are the main steps?\nConsider scalability: Will you need to run this many times?\nThink about sharing: Will others need to reproduce your work?\n\n\n\n\nUse this template to plan your resource requests:\n#!/bin/bash\n# Project: [Your project name]\n# Objective: [What you're trying to accomplish]\n# Expected runtime: [Your estimate]\n# Input data size: [Size of input files]\n# Output data size: [Expected output size]\n# Memory requirements: [Based on similar work or testing]\n\n#SBATCH --job-name=[descriptive_name]\n#SBATCH --partition=[appropriate_partition]\n#SBATCH --time=[realistic_estimate]\n#SBATCH --nodes=[number_needed]\n#SBATCH --ntasks=[for_MPI] \n#SBATCH --cpus-per-task=[for_OpenMP]\n#SBATCH --mem=[memory_needed]\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\n# Load modules\nmodule load [required_modules]\n\n# Set up environment\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n# Change to working directory  \ncd $SLURM_SUBMIT_DIR\n\n# Run your analysis\n[your_commands_here]\n\n\n\n\n\n\nAs you advance in your HPC journey, remember these core principles:\n\nStart simple: Get basic workflows working before adding complexity\nTest thoroughly: Always validate your results and methods\nDocument everything: Your future self will thank you\nBe a good citizen: Share resources fairly and clean up after yourself\nKeep learning: HPC technology and best practices continue to evolve",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#session-aims",
+    "href": "wrap-up.html#session-aims",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nSummarize the key HPC concepts and skills learned throughout the course\nIdentify next steps for developing your HPC expertise\nAccess ongoing support resources and documentation\nPlan your research computing workflows using HPC best practices\nConnect with the HPC community for continued learning\n\nView Interactive Slides: Course Wrap-Up and Next Steps\nCongratulations on completing HPC1: Introduction to High Performance Computing! You’ve learned the fundamental skills needed to effectively use HPC systems.",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#what-youve-learned",
+    "href": "wrap-up.html#what-youve-learned",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "Throughout this course, you’ve covered:\n\n\n\n\nHPC Concepts: Understanding clusters, nodes, cores, and parallelization\nLinux Command Line: Essential commands for navigating and managing files\nStorage Systems: Home, scratch, and temporary storage management\nSoftware Management: Using the module system and managing environments\nJob Scheduling: Writing and submitting Slurm job scripts\nBest Practices: Troubleshooting and optimizing your workflows\n\n\n\n\n\nResource Planning: Right-sizing job requests for efficiency\nData Management: Organizing and protecting your research data\n\nReproducibility: Creating documented, version-controlled workflows\nCollaboration: Sharing code and environments with colleagues\nProblem Solving: Debugging common HPC issues\nSecurity: Protecting credentials and sensitive data",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#quick-reference",
+    "href": "wrap-up.html#quick-reference",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "Category\nCommand\nPurpose\n\n\n\n\nConnection\nssh user@system\nConnect to HPC system\n\n\nNavigation\ncd $HOME, cd $SCRATCH\nChange directories\n\n\nFiles\nls, cp, mv, rm\nList, copy, move, remove files\n\n\nStorage\nquota -s, du -hs\nCheck disk usage\n\n\nModules\nmodule load, module list\nManage software\n\n\nJobs\nsbatch, squeue, scancel\nSubmit, monitor, cancel jobs\n\n\nMonitoring\nsacct -j JOBID\nCheck job accounting\n\n\n\n\n\n\n\n\n\n\n\nflowchart TD\n    A[Connect to Aire] --&gt; B[Navigate to project directory]\n    B --&gt; C[Load required modules]\n    C --&gt; D[Prepare input data in scratch]\n    D --&gt; E[Write job script]\n    E --&gt; F[Submit job with sbatch]\n    F --&gt; G[Monitor with squeue]\n    G --&gt; H[Job completes]\n    H --&gt; I[Check results with sacct]\n    I --&gt; J[Copy results to research storage]\n    J --&gt; K[Clean up scratch space]",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#next-steps-in-your-hpc-journey",
+    "href": "wrap-up.html#next-steps-in-your-hpc-journey",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "Practice: Try running some of your own code on Aire\nExplore: Browse the available software modules\nOrganize: Set up a clear directory structure for your projects\nBackup: Implement a data backup strategy\nConnect: Join HPC user communities\n\n\n\n\n\n\n\nOpenMP: Shared-memory parallelization for multi-core systems\nMPI: Message-passing for distributed computing across nodes\nGPU Computing: Using CUDA or OpenCL for GPU acceleration\nWorkflow Management: Tools like Snakemake or Nextflow\n\n\n\n\n\nProfiling: Tools to identify bottlenecks in your code\nBenchmarking: Systematic testing of different resource configurations\nMemory Optimization: Techniques for handling large datasets\nI/O Optimization: Efficient file reading/writing strategies\n\n\n\n\n\nJob Dependencies: Chaining jobs together\nParameter Sweeps: Exploring parameter spaces efficiently\nCheckpointing: Saving and resuming long-running jobs\nContainer Technologies: Using Apptainer/Singularity\n\n\n\n\n\n\n\n\nTraining Courses: Upcoming HPC and research computing courses\nAire Documentation: Comprehensive system documentation\nResearch Computing Website: News, updates, and resources\nHelp Desk: Submit queries and get support\n\n\n\n\n\nSlurm Documentation: Official Slurm documentation\nParallel Programming Tutorials: Lawrence Livermore National Laboratory tutorials\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhen You Need Help\n\n\n\n\nCheck the documentation first - Aire docs are comprehensive\nSearch for similar issues - Many problems are common\nAsk specific questions - Include error messages and job IDs\nBe patient - HPC systems can be complex\nHelp others - Share your solutions with the community\n\n\n\n\n\n\n\nResearch Computing Community: Connect with other researchers using HPC; we will share the invite to the Teams group\nTraining Sessions: Regular workshops and drop-in sessions\nResearch Computing Query: https://bit.ly/arc-help\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLanguage\nStrengths\nCommon Uses\n\n\n\n\nPython\nEasy to learn, extensive libraries\nData analysis, machine learning\n\n\nR\nStatistical computing, visualization\nStatistics, bioinformatics\n\n\nC/C++\nHigh performance, close to hardware\nComputational science, simulations\n\n\nFortran\nLegacy scientific code, numerical\nPhysics, engineering simulations\n\n\nJulia\nHigh performance, modern syntax\nScientific computing, data science",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#planning-your-next-project",
+    "href": "wrap-up.html#planning-your-next-project",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "Before starting a new HPC project:\n\nDefine objectives: What do you want to accomplish?\nEstimate requirements: How much data, compute time, memory?\nChoose tools: What software and programming languages?\nPlan workflow: What are the main steps?\nConsider scalability: Will you need to run this many times?\nThink about sharing: Will others need to reproduce your work?\n\n\n\n\nUse this template to plan your resource requests:\n#!/bin/bash\n# Project: [Your project name]\n# Objective: [What you're trying to accomplish]\n# Expected runtime: [Your estimate]\n# Input data size: [Size of input files]\n# Output data size: [Expected output size]\n# Memory requirements: [Based on similar work or testing]\n\n#SBATCH --job-name=[descriptive_name]\n#SBATCH --partition=[appropriate_partition]\n#SBATCH --time=[realistic_estimate]\n#SBATCH --nodes=[number_needed]\n#SBATCH --ntasks=[for_MPI] \n#SBATCH --cpus-per-task=[for_OpenMP]\n#SBATCH --mem=[memory_needed]\n#SBATCH --output=logs/%x_%j.out\n#SBATCH --error=logs/%x_%j.err\n\n# Load modules\nmodule load [required_modules]\n\n# Set up environment\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n# Change to working directory  \ncd $SLURM_SUBMIT_DIR\n\n# Run your analysis\n[your_commands_here]",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#final-thoughts",
+    "href": "wrap-up.html#final-thoughts",
+    "title": "Session 7: Wrap Up",
+    "section": "",
+    "text": "As you advance in your HPC journey, remember these core principles:\n\nStart simple: Get basic workflows working before adding complexity\nTest thoroughly: Always validate your results and methods\nDocument everything: Your future self will thank you\nBe a good citizen: Share resources fairly and clean up after yourself\nKeep learning: HPC technology and best practices continue to evolve",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#contact-information",
+    "href": "wrap-up.html#contact-information",
+    "title": "Session 7: Wrap Up",
+    "section": "Contact Information",
+    "text": "Contact Information\n\nResearch Computing Query: https://bit.ly/arc-help\nTraining: https://arc.leeds.ac.uk/courses/\nDocumentation: https://arcdocs.leeds.ac.uk/aire/",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#additional-resources",
+    "href": "wrap-up.html#additional-resources",
+    "title": "Session 7: Wrap Up",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAdvanced HPC Training Courses\nResearch Software Development in Python\n\nPlanning and organising your code projects\n\nResearch Data Management\nHPC Community Forums",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "wrap-up.html#course-feedback",
+    "href": "wrap-up.html#course-feedback",
+    "title": "Session 7: Wrap Up",
+    "section": "Course Feedback",
+    "text": "Course Feedback\nWe value your feedback to improve this course. Please let us know:\n\nWhat worked well for you?\nWhat could be improved?\nWhat additional topics would be helpful?\nHow will you use what you’ve learned?\n\nWe will share a link to a feedback form in the class Teams chat!\nHappy computing! 🚀",
+    "crumbs": [
+      "Course Content",
+      "Session 7: Wrap Up"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html",
+    "href": "what-is-hpc.html",
+    "title": "Session 1: What is HPC?",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\nPlease scroll to the bottom of the page to see the exercises for this session.\n\n\n\nLet’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.\nView Interactive Slides: HPC Terminology\n\n\n\n\n\n\nKey takeaway\n\n\n\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.\nRead More: Getting started on HPC\n\n\n\n\n\n\n\nSerial programs run on a single CPU core, solving one problem at a time.\nParallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.\nIn order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.\n\nView Interactive Slides: Serial vs Parallel Programs\n\n\n\n\nHPC systems enable researchers to:\n\nScale up computations: Run calculations that would be impossible on a single computer\nSpeed up results: Reduce time from months/years to days/weeks\nHandle big data: Process datasets too large for regular computers\nEnable new discoveries: Solve previously intractable problems\n\nHowever, remember:\n\nIt’s not magic - there’s no fairy dust that can just make code run on hundreds of processors\nEffort required - A lot of work has to be put into using these systems effectively\nPotential transformation - It could transform your workflow if you put the effort in\n\nView Interactive Slides: Parallelisation and Amdahl’s Law",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#session-aims",
+    "href": "what-is-hpc.html#session-aims",
+    "title": "Session 1: What is HPC?",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#some-commonly-used-terms",
+    "href": "what-is-hpc.html#some-commonly-used-terms",
+    "title": "Session 1: What is HPC?",
+    "section": "",
+    "text": "Let’s define some frequently used jargon. Don’t worry, we will delve into each of these in more depth later.\nView Interactive Slides: HPC Terminology\n\n\n\n\n\n\nKey takeaway\n\n\n\nHPC cluster systems are formed of a large number of separate computers called nodes.\nEach node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.\nRead More: Getting started on HPC",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#serial-and-parallel-programs",
+    "href": "what-is-hpc.html#serial-and-parallel-programs",
+    "title": "Session 1: What is HPC?",
+    "section": "",
+    "text": "Serial programs run on a single CPU core, solving one problem at a time.\nParallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.\nIn order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.\n\nView Interactive Slides: Serial vs Parallel Programs",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#why-use-hpc",
+    "href": "what-is-hpc.html#why-use-hpc",
+    "title": "Session 1: What is HPC?",
+    "section": "",
+    "text": "HPC systems enable researchers to:\n\nScale up computations: Run calculations that would be impossible on a single computer\nSpeed up results: Reduce time from months/years to days/weeks\nHandle big data: Process datasets too large for regular computers\nEnable new discoveries: Solve previously intractable problems\n\nHowever, remember:\n\nIt’s not magic - there’s no fairy dust that can just make code run on hundreds of processors\nEffort required - A lot of work has to be put into using these systems effectively\nPotential transformation - It could transform your workflow if you put the effort in\n\nView Interactive Slides: Parallelisation and Amdahl’s Law",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#next-steps",
+    "href": "what-is-hpc.html#next-steps",
+    "title": "Session 1: What is HPC?",
+    "section": "Next Steps",
+    "text": "Next Steps\nReady to start using HPC? Let’s move on to Session 2: Logging on and Linux Recap to learn how to access and navigate the Aire system.",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc.html#additional-resources",
+    "href": "what-is-hpc.html#additional-resources",
+    "title": "Session 1: What is HPC?",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAire Documentation\nResearch Computing Training\nContact Research Computing\nParallel Computing Concepts\nAmdahl’s Law Explained",
+    "crumbs": [
+      "Course Content",
+      "Session 1: What is HPC?"
+    ]
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#serial-vs-parallel-programs",
+    "href": "what-is-hpc-parallel-slides.html#serial-vs-parallel-programs",
+    "title": "Serial vs Parallel Programs",
+    "section": "Serial vs Parallel Programs",
+    "text": "Serial vs Parallel Programs\nUnderstanding how programs can utilize multiple cores…\n\nhelps us to understand how to use the HPC effectively."
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#serial-program",
+    "href": "what-is-hpc-parallel-slides.html#serial-program",
+    "title": "Serial vs Parallel Programs",
+    "section": "Serial Program",
+    "text": "Serial Program\n\nSerial program schematic\n\nSerial problems use a single CPU core\n\nSolve a series of problems one after the other\n\nEach stage of the calculation (A, B, C…) may depend on the output of the previous stage, or they may be independent (and so could run in any order)"
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#parallel-program",
+    "href": "what-is-hpc-parallel-slides.html#parallel-program",
+    "title": "Serial vs Parallel Programs",
+    "section": "Parallel Program",
+    "text": "Parallel Program\n\nParallel program schematicIn contrast: problems can be solved simultaneously on multiple cores"
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#parallel-program-1",
+    "href": "what-is-hpc-parallel-slides.html#parallel-program-1",
+    "title": "Serial vs Parallel Programs",
+    "section": "Parallel Program",
+    "text": "Parallel Program\n\nParallel program schematic\nAll the stages (A, B, C…) are independent of each other and do not require one stage to be completed before another stage begins\n“Perfectly parallel” or “embarrassingly parallel” because it is a task that is “embarrassingly easy” to split up into parallel tasks"
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#imperfectly-parallel",
+    "href": "what-is-hpc-parallel-slides.html#imperfectly-parallel",
+    "title": "Serial vs Parallel Programs",
+    "section": "Imperfectly Parallel",
+    "text": "Imperfectly Parallel\nMost tasks you run or models you run on the HPC will fall somewhere in-between serial and parallel:\n\n\nCertain sections of the code will be able to be parallelised while other sections will rely on the output of the previous stage and so need to be serialised\nYou can express how much of your work is parallelised with a rough percentage\nThe higher the parallel portion, the more speed improvement you’ll get running it on a HPC system across multiple cores"
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#real-world-examples",
+    "href": "what-is-hpc-parallel-slides.html#real-world-examples",
+    "title": "Serial vs Parallel Programs",
+    "section": "Real-World Examples",
+    "text": "Real-World Examples\n\n\nPerfectly Parallel\n\nImage processing on multiple files\nMonte Carlo simulations\nParameter sweeps\nIndependent calculations\n\n\nImperfectly Parallel\n\nWeather modeling\nFluid dynamics simulations\n\nMachine learning training\nMolecular dynamics"
+  },
+  {
+    "objectID": "what-is-hpc-parallel-slides.html#next-steps",
+    "href": "what-is-hpc-parallel-slides.html#next-steps",
+    "title": "Serial vs Parallel Programs",
+    "section": "Next Steps",
+    "text": "Next Steps\nUnderstanding parallelization theory and Amdahl’s Law\nContinue to Amdahl’s Law slides →"
+  },
+  {
+    "objectID": "storage.html",
+    "href": "storage.html",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nDistinguish between different storage areas and their purposes\nNavigate between storage locations using environment variables\nMonitor your disk usage and quotas\nTransfer files between storage areas and your local machine\n\nView Interactive Slides: Storage Systems on Aire\nScroll to the bottom of this section for practical exercises.\n\n\n\nThe Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, env var $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, env var $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED, usually /mnt/flash/tmp/job.&lt;JOB-ID&gt;) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL or $TMPDIR, typically /tmp/job.&lt;JOB-ID&gt;) for fast local storage on each compute node\n\n\n\n\n\n\n\nCritical Storage Rules\n\n\n\n\nHome is backed up and not automatically purged\nScratch and flash are not backed up and flash is deleted after each job\nAlways copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area before the job ends\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStorage Type\nQuota\nBackup\nAuto-Delete\nBest For\n\n\n\n\nHome ($HOME)\n~30 GB, 1M files\n✅ Yes\n❌ No\nScripts, configs, small files\n\n\nScratch ($SCRATCH)\n~1 TB, 500K files\n❌ No\n❌ No\nLarge datasets, job data\n\n\nFlash ($TMP_SHARED)\n~1 TB per job\n❌ No\n✅ Yes\nI/O-intensive tasks\n\n\nLocal ($TMP_LOCAL)\nNode-specific\n❌ No\n✅ Yes\nSingle-node fast storage\n\n\n\n\n\n\n\n\n\nData Loss Risk\n\n\n\nData in scratch/flash areas is temporary. These are not backed up and may be purged. Always move important data to your home or external storage when done.\n\n\n\n\n\n\n\nCheck your current usage and limits:\nquota -s    # Human readable format\nExample output:\nDisk quotas for user yourusername (uid 12345):\n     Filesystem   blocks   quota   limit   grace   files   quota   limit\n      /users     15000*   30000    33000            200000 1000000 1100000\n   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000\n\n\n\nCheck disk usage of directories:\ndu -hs *                    # Size of each directory\ndu -hs $HOME               # Size of home directory\ndu -hs $SCRATCH            # Size of scratch directory\n\n\n\n\n\n\nPro Tip\n\n\n\nRun du -hs * in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!\n\n\n\n\n\n\nUse standard Linux commands with environment variables:\ncd $HOME        # Go to home directory\ncd $SCRATCH     # Go to scratch directory  \ncd              # Also goes to home\ncd ~            # Also goes to home\n\nls $HOME        # List home contents\nls $SCRATCH     # List scratch contents\npwd             # Show current directory\n\n\n\n\n\n# Copy TO scratch\ncp data.txt $SCRATCH/\n\n# Copy FROM scratch back to home\ncp $SCRATCH/output.dat $HOME/results/\n\n# Copy entire directory\ncp -r $HOME/myproject $SCRATCH/\n\n\n\n\n\nFrom local machine to Aire:\nscp myfile.txt &lt;username&gt;@target-system:$SCRATCH/\nFrom Aire to local machine:\nscp &lt;username&gt;@target-system:/path/results.txt .\n\n\n\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\nBenefits of rsync: - Only transfers changed files - Resumes interrupted transfers - Progress indicators with --info=progress2\n\n\n\n# Using rsync\nrsync -r --info=progress2 -e 'ssh -J username@jump-host' file.txt username@target-system:path/\n\n# Using scp  \nscp -rq -J username@jump-host username@target-system:path/file.txt local-folder/\n\n\n\n\nwget https://example.com/data.zip\ncurl -O https://example.com/data.zip\n\n\n\nFor those who prefer graphical interfaces: - FileZilla (cross-platform SFTP client) - WinSCP (Windows) - Cyberduck (Mac/Windows)\n\n\n\n\n\n\n\n\n\n\nKey Storage Principles\n\n\n\n\nMultiple storage areas: Use each storage type appropriately\nRegular cleanup: Run quota -s regularly and clean up old files\n\nData transfer workflow: Transfer input to $SCRATCH before jobs, copy results back after\nAvoid data loss: Always backup important data from temporary storage\nOrganization: Keep your home directory organized and place large data in scratch only when needed\n\n\n\n\n\n\nPrepare: Upload input data to $SCRATCH\nProcess: Run jobs using scratch storage\nPreserve: Copy important results to backed up research storage\nCleanup: Remove temporary files from $SCRATCH",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#session-aims",
+    "href": "storage.html#session-aims",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nDistinguish between different storage areas and their purposes\nNavigate between storage locations using environment variables\nMonitor your disk usage and quotas\nTransfer files between storage areas and your local machine\n\nView Interactive Slides: Storage Systems on Aire\nScroll to the bottom of this section for practical exercises.",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#storage-areas-overview",
+    "href": "storage.html#storage-areas-overview",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "The Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, env var $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, env var $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED, usually /mnt/flash/tmp/job.&lt;JOB-ID&gt;) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL or $TMPDIR, typically /tmp/job.&lt;JOB-ID&gt;) for fast local storage on each compute node\n\n\n\n\n\n\n\nCritical Storage Rules\n\n\n\n\nHome is backed up and not automatically purged\nScratch and flash are not backed up and flash is deleted after each job\nAlways copy important results from temporary storage (flash or node-local) back to your home directory or another permanent area before the job ends",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#storage-types-and-quotas",
+    "href": "storage.html#storage-types-and-quotas",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "Storage Type\nQuota\nBackup\nAuto-Delete\nBest For\n\n\n\n\nHome ($HOME)\n~30 GB, 1M files\n✅ Yes\n❌ No\nScripts, configs, small files\n\n\nScratch ($SCRATCH)\n~1 TB, 500K files\n❌ No\n❌ No\nLarge datasets, job data\n\n\nFlash ($TMP_SHARED)\n~1 TB per job\n❌ No\n✅ Yes\nI/O-intensive tasks\n\n\nLocal ($TMP_LOCAL)\nNode-specific\n❌ No\n✅ Yes\nSingle-node fast storage\n\n\n\n\n\n\n\n\n\nData Loss Risk\n\n\n\nData in scratch/flash areas is temporary. These are not backed up and may be purged. Always move important data to your home or external storage when done.",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#checking-disk-usage",
+    "href": "storage.html#checking-disk-usage",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "Check your current usage and limits:\nquota -s    # Human readable format\nExample output:\nDisk quotas for user yourusername (uid 12345):\n     Filesystem   blocks   quota   limit   grace   files   quota   limit\n      /users     15000*   30000    33000            200000 1000000 1100000\n   /mnt/scratch 100000   1000000 1100000           500000 1500000 1650000\n\n\n\nCheck disk usage of directories:\ndu -hs *                    # Size of each directory\ndu -hs $HOME               # Size of home directory\ndu -hs $SCRATCH            # Size of scratch directory\n\n\n\n\n\n\nPro Tip\n\n\n\nRun du -hs * in your scratch directory to see which subdirectories are taking up the most space. This can be slow for large directories!",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#navigation-commands",
+    "href": "storage.html#navigation-commands",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "Use standard Linux commands with environment variables:\ncd $HOME        # Go to home directory\ncd $SCRATCH     # Go to scratch directory  \ncd              # Also goes to home\ncd ~            # Also goes to home\n\nls $HOME        # List home contents\nls $SCRATCH     # List scratch contents\npwd             # Show current directory",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#file-transfer-methods",
+    "href": "storage.html#file-transfer-methods",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "# Copy TO scratch\ncp data.txt $SCRATCH/\n\n# Copy FROM scratch back to home\ncp $SCRATCH/output.dat $HOME/results/\n\n# Copy entire directory\ncp -r $HOME/myproject $SCRATCH/\n\n\n\n\n\nFrom local machine to Aire:\nscp myfile.txt &lt;username&gt;@target-system:$SCRATCH/\nFrom Aire to local machine:\nscp &lt;username&gt;@target-system:/path/results.txt .\n\n\n\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\nBenefits of rsync: - Only transfers changed files - Resumes interrupted transfers - Progress indicators with --info=progress2\n\n\n\n# Using rsync\nrsync -r --info=progress2 -e 'ssh -J username@jump-host' file.txt username@target-system:path/\n\n# Using scp  \nscp -rq -J username@jump-host username@target-system:path/file.txt local-folder/\n\n\n\n\nwget https://example.com/data.zip\ncurl -O https://example.com/data.zip\n\n\n\nFor those who prefer graphical interfaces: - FileZilla (cross-platform SFTP client) - WinSCP (Windows) - Cyberduck (Mac/Windows)",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#best-practices-summary",
+    "href": "storage.html#best-practices-summary",
+    "title": "Session 3: Storage on Aire",
+    "section": "",
+    "text": "Key Storage Principles\n\n\n\n\nMultiple storage areas: Use each storage type appropriately\nRegular cleanup: Run quota -s regularly and clean up old files\n\nData transfer workflow: Transfer input to $SCRATCH before jobs, copy results back after\nAvoid data loss: Always backup important data from temporary storage\nOrganization: Keep your home directory organized and place large data in scratch only when needed\n\n\n\n\n\n\nPrepare: Upload input data to $SCRATCH\nProcess: Run jobs using scratch storage\nPreserve: Copy important results to backed up research storage\nCleanup: Remove temporary files from $SCRATCH",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#next-steps",
+    "href": "storage.html#next-steps",
+    "title": "Session 3: Storage on Aire",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you understand how to manage data on Aire! Let’s move on to Session 4: Modules and Software to learn how to access and use different software packages.",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "storage.html#additional-resources",
+    "href": "storage.html#additional-resources",
+    "title": "Session 3: Storage on Aire",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAire Storage Documentation\nData Management Best Practices\nFile Transfer Guide\nLinux File Permissions Guide\nrsync Tutorial",
+    "crumbs": [
+      "Course Content",
+      "Session 3: Storage on Aire"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html",
+    "href": "scheduling-submission.html",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand what a job scheduler is and why it’s essential for HPC systems\nWrite and submit batch job scripts using Slurm\nMonitor, manage, and cancel running jobs effectively\nRequest different types of compute resources (CPU, memory, GPUs, time)\nUse job arrays to efficiently run multiple similar tasks\nApply best practices for job submission and resource allocation\n\nView Interactive Slides: Job Scheduling and Submission\n\n\n\nHigh Performance Computing (HPC) systems are shared by many users, each submitting their own jobs — code they want to run using the cluster’s compute power.\nA job scheduler is the system that:\n\nOrganizes when and where jobs run\nAllocates the requested resources (CPU cores, memory, GPUs)\nEnsures fair access to shared resources for all users\n\n\n\n\n\nWithout a scheduler:\n\nManual coordination between users\nResource conflicts\nInefficient resource usage\nChaos with thousands of CPUs\n\n\nWith a scheduler:\n\nFair resource allocation\nAutomatic job management\nEfficient resource utilization\nPriority-based execution\n\n\n\n\n\n\n\nAt Leeds, the Slurm scheduler (Simple Linux Utility for Resource Management) manages all jobs on the Aire cluster.\n\n\n\nWrite a job script describing your requirements\nSubmit the job to Slurm with sbatch\nQueue - Slurm places your job in a queue\nExecute - When resources are available, Slurm starts your job\nComplete - Job finishes and resources are freed\n\n\n\n\n\n\nflowchart LR\n    A[Write Job Script] --&gt; B[Submit with sbatch]\n    B --&gt; C[Job in Queue]\n    C --&gt; D[Resources Available?]\n    D --&gt;|Yes| E[Job Runs]\n    D --&gt;|No| C\n    E --&gt; F[Job Completes]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCommand\nPurpose\nExample\n\n\n\n\nsbatch\nSubmit a job\nsbatch myjob.sh\n\n\nsqueue\nView job queue\nsqueue -u $USER\n\n\nscancel\nCancel a job\nscancel 12345\n\n\nsinfo\nView node information\nsinfo\n\n\nsacct\nView job accounting\nsacct -j 12345\n\n\n\n\n\n\nsqueue                    # Show all jobs\nsqueue -u $USER          # Show only your jobs\nsqueue -u $USER --long   # Detailed view of your jobs\nExample output:\nJOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)\n12345      test myjob.sh  user123  R    0:05:23      1 node001\n12346      test analyze  user123 PD       0:00      2 (Resources)\nJob States: - R = Running - PD = Pending (waiting for resources) - CG = Completing - CD = Completed\n\n\n\n\nA job script is a shell script with special Slurm directives that tell the scheduler what resources you need.\n\n\n#!/bin/bash\n#SBATCH --job-name=myjob          # Job name\n#SBATCH --partition=test          # Partition to use\n#SBATCH --time=01:00:00           # Time limit (1 hour)\n#SBATCH --nodes=1                 # Number of nodes\n#SBATCH --ntasks=1                # Number of tasks\n#SBATCH --cpus-per-task=4         # CPUs per task\n#SBATCH --mem=8G                  # Memory per node\n#SBATCH --output=myjob_%j.out     # Output file (%j = job ID)\n#SBATCH --error=myjob_%j.err      # Error file\n\n# Load required modules\nmodule load python/3.13.0\n\n# Change to working directory\ncd $SLURM_SUBMIT_DIR\n\n# Run your program\necho \"Job started at $(date)\"\necho \"Running on node: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\n\npython my_script.py\n\necho \"Job finished at $(date)\"\n\n\n\n\n\n\nDirective\nPurpose\nExample\n\n\n\n\n--job-name\nName for your job\n--job-name=analysis\n\n\n--partition\nQueue to use\n--partition=standard\n\n\n--time\nMaximum runtime\n--time=02:30:00\n\n\n--nodes\nNumber of nodes\n--nodes=2\n\n\n--ntasks\nNumber of tasks\n--ntasks=8\n\n\n--cpus-per-task\nCPUs per task\n--cpus-per-task=4\n\n\n--mem\nMemory per node\n--mem=16G\n\n\n--output\nOutput file\n--output=job_%j.out\n\n\n\n\n\n\n\n\n\nsbatch myjob.sh\nOutput: Submitted batch job 12345\n\n\n\n# Check if your job is running\nsqueue -u $USER\n\n# Get detailed job information\nscontrol show job 12345\n\n# Check job history\nsacct -j 12345\n\n\n\n# Cancel specific job\nscancel 12345\n\n# Cancel all your jobs\nscancel -u $USER\n\n# Cancel jobs by name\nscancel --name=myjob\n\n\n\n\n\n\n# Single core job\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n\n# Multi-core job (8 cores, shared memory)\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n\n# Multi-task job (MPI)\n#SBATCH --ntasks=16\n#SBATCH --cpus-per-task=1\n#SBATCH --mem-per-cpu=2G\n\n\n\n# Format: DD-HH:MM:SS or HH:MM:SS\n#SBATCH --time=30:00        # 30 minutes\n#SBATCH --time=2:00:00      # 2 hours\n#SBATCH --time=1-12:00:00   # 1 day, 12 hours\n\n\n\n# Request 1 GPU\n#SBATCH --partition=gpu\n#SBATCH --gres=gpu:1\n\n# Request specific GPU type\n#SBATCH --partition=gpu\n#SBATCH --gres=gpu:v100:2\n\n\n\n# Request high memory node\n#SBATCH --partition=himem\n#SBATCH --mem=500G\n\n\n\n\n\n\n#!/bin/bash\n#SBATCH --job-name=serial_job\n#SBATCH --time=01:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n\nmodule load python/3.13.0\npython serial_script.py\n\n\n\n#!/bin/bash\n#SBATCH --job-name=parallel_job\n#SBATCH --time=02:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n\nmodule load gcc/14.2.0\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n./my_openmp_program\n\n\n\n#!/bin/bash\n#SBATCH --job-name=mpi_job\n#SBATCH --time=04:00:00\n#SBATCH --ntasks=16\n#SBATCH --cpus-per-task=1\n#SBATCH --mem-per-cpu=4G\n\nmodule load openmpi/4.1.4\nmpirun ./my_mpi_program\n\n\n\n\nUse job arrays to submit many similar jobs efficiently:\n#!/bin/bash\n#SBATCH --job-name=array_job\n#SBATCH --time=01:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n#SBATCH --array=1-10          # Submit jobs 1 through 10\n#SBATCH --output=job_%A_%a.out # %A = array job ID, %a = task ID\n\n# Process different input files\nINPUT_FILE=\"input_${SLURM_ARRAY_TASK_ID}.txt\"\nOUTPUT_FILE=\"output_${SLURM_ARRAY_TASK_ID}.txt\"\n\nmodule load python/3.13.0\npython process_file.py $INPUT_FILE $OUTPUT_FILE\n\n\n\n\n\n\n\n\n\n\n\nRight-Sizing Your Jobs\n\n\n\n\nStart small: Test with minimal resources first\nMonitor usage: Use sacct to check actual resource usage\nDon’t over-request: Only ask for what you need\nTime limits: Be realistic but add some buffer time\n\n\n\n\n\n\n# Use scratch space for temporary files\n#SBATCH --chdir=$SCRATCH/myproject\n\n# Copy results back to home\ncd $SLURM_SUBMIT_DIR\ncp $SCRATCH/myproject/results.txt ./\n\n\n\n# Add error checking to your scripts\nset -e  # Exit on any error\n\n# Check if files exist before processing\nif [ ! -f \"input.txt\" ]; then\n    echo \"Error: input.txt not found\"\n    exit 1\nfi\n\n\n\n\n\n\nSymptoms: Job stays in PD (pending) state\nCommon causes: - Requesting too many resources - Wrong partition name - Resource limits exceeded - System maintenance\nSolutions: - Check squeue -u $USER for reason codes - Use sinfo to see available resources - Reduce resource requests if appropriate\n\n\n\nSymptoms: Job completes quickly with non-zero exit code\nCommon causes: - Module not loaded - Input files missing - Insufficient memory - Wrong file paths\nSolutions: - Check error files (*.err) - Test script interactively first - Verify all paths and dependencies\n\n\n\nSymptoms: Job killed due to memory usage\nSolutions: - Increase --mem or --mem-per-cpu - Use memory profiling tools - Consider algorithm optimizations",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#session-aims",
+    "href": "scheduling-submission.html#session-aims",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand what a job scheduler is and why it’s essential for HPC systems\nWrite and submit batch job scripts using Slurm\nMonitor, manage, and cancel running jobs effectively\nRequest different types of compute resources (CPU, memory, GPUs, time)\nUse job arrays to efficiently run multiple similar tasks\nApply best practices for job submission and resource allocation\n\nView Interactive Slides: Job Scheduling and Submission",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#background-what-is-a-job-scheduler",
+    "href": "scheduling-submission.html#background-what-is-a-job-scheduler",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "High Performance Computing (HPC) systems are shared by many users, each submitting their own jobs — code they want to run using the cluster’s compute power.\nA job scheduler is the system that:\n\nOrganizes when and where jobs run\nAllocates the requested resources (CPU cores, memory, GPUs)\nEnsures fair access to shared resources for all users\n\n\n\n\n\nWithout a scheduler:\n\nManual coordination between users\nResource conflicts\nInefficient resource usage\nChaos with thousands of CPUs\n\n\nWith a scheduler:\n\nFair resource allocation\nAutomatic job management\nEfficient resource utilization\nPriority-based execution",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#slurm-the-scheduler-on-aire",
+    "href": "scheduling-submission.html#slurm-the-scheduler-on-aire",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "At Leeds, the Slurm scheduler (Simple Linux Utility for Resource Management) manages all jobs on the Aire cluster.\n\n\n\nWrite a job script describing your requirements\nSubmit the job to Slurm with sbatch\nQueue - Slurm places your job in a queue\nExecute - When resources are available, Slurm starts your job\nComplete - Job finishes and resources are freed\n\n\n\n\n\n\nflowchart LR\n    A[Write Job Script] --&gt; B[Submit with sbatch]\n    B --&gt; C[Job in Queue]\n    C --&gt; D[Resources Available?]\n    D --&gt;|Yes| E[Job Runs]\n    D --&gt;|No| C\n    E --&gt; F[Job Completes]",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#basic-slurm-commands",
+    "href": "scheduling-submission.html#basic-slurm-commands",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "Command\nPurpose\nExample\n\n\n\n\nsbatch\nSubmit a job\nsbatch myjob.sh\n\n\nsqueue\nView job queue\nsqueue -u $USER\n\n\nscancel\nCancel a job\nscancel 12345\n\n\nsinfo\nView node information\nsinfo\n\n\nsacct\nView job accounting\nsacct -j 12345\n\n\n\n\n\n\nsqueue                    # Show all jobs\nsqueue -u $USER          # Show only your jobs\nsqueue -u $USER --long   # Detailed view of your jobs\nExample output:\nJOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)\n12345      test myjob.sh  user123  R    0:05:23      1 node001\n12346      test analyze  user123 PD       0:00      2 (Resources)\nJob States: - R = Running - PD = Pending (waiting for resources) - CG = Completing - CD = Completed",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#writing-job-scripts",
+    "href": "scheduling-submission.html#writing-job-scripts",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "A job script is a shell script with special Slurm directives that tell the scheduler what resources you need.\n\n\n#!/bin/bash\n#SBATCH --job-name=myjob          # Job name\n#SBATCH --partition=test          # Partition to use\n#SBATCH --time=01:00:00           # Time limit (1 hour)\n#SBATCH --nodes=1                 # Number of nodes\n#SBATCH --ntasks=1                # Number of tasks\n#SBATCH --cpus-per-task=4         # CPUs per task\n#SBATCH --mem=8G                  # Memory per node\n#SBATCH --output=myjob_%j.out     # Output file (%j = job ID)\n#SBATCH --error=myjob_%j.err      # Error file\n\n# Load required modules\nmodule load python/3.13.0\n\n# Change to working directory\ncd $SLURM_SUBMIT_DIR\n\n# Run your program\necho \"Job started at $(date)\"\necho \"Running on node: $(hostname)\"\necho \"Job ID: $SLURM_JOB_ID\"\n\npython my_script.py\n\necho \"Job finished at $(date)\"\n\n\n\n\n\n\nDirective\nPurpose\nExample\n\n\n\n\n--job-name\nName for your job\n--job-name=analysis\n\n\n--partition\nQueue to use\n--partition=standard\n\n\n--time\nMaximum runtime\n--time=02:30:00\n\n\n--nodes\nNumber of nodes\n--nodes=2\n\n\n--ntasks\nNumber of tasks\n--ntasks=8\n\n\n--cpus-per-task\nCPUs per task\n--cpus-per-task=4\n\n\n--mem\nMemory per node\n--mem=16G\n\n\n--output\nOutput file\n--output=job_%j.out",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#submitting-and-managing-jobs",
+    "href": "scheduling-submission.html#submitting-and-managing-jobs",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "sbatch myjob.sh\nOutput: Submitted batch job 12345\n\n\n\n# Check if your job is running\nsqueue -u $USER\n\n# Get detailed job information\nscontrol show job 12345\n\n# Check job history\nsacct -j 12345\n\n\n\n# Cancel specific job\nscancel 12345\n\n# Cancel all your jobs\nscancel -u $USER\n\n# Cancel jobs by name\nscancel --name=myjob",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#resource-requests",
+    "href": "scheduling-submission.html#resource-requests",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "# Single core job\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n\n# Multi-core job (8 cores, shared memory)\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n\n# Multi-task job (MPI)\n#SBATCH --ntasks=16\n#SBATCH --cpus-per-task=1\n#SBATCH --mem-per-cpu=2G\n\n\n\n# Format: DD-HH:MM:SS or HH:MM:SS\n#SBATCH --time=30:00        # 30 minutes\n#SBATCH --time=2:00:00      # 2 hours\n#SBATCH --time=1-12:00:00   # 1 day, 12 hours\n\n\n\n# Request 1 GPU\n#SBATCH --partition=gpu\n#SBATCH --gres=gpu:1\n\n# Request specific GPU type\n#SBATCH --partition=gpu\n#SBATCH --gres=gpu:v100:2\n\n\n\n# Request high memory node\n#SBATCH --partition=himem\n#SBATCH --mem=500G",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#common-job-patterns",
+    "href": "scheduling-submission.html#common-job-patterns",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "#!/bin/bash\n#SBATCH --job-name=serial_job\n#SBATCH --time=01:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n\nmodule load python/3.13.0\npython serial_script.py\n\n\n\n#!/bin/bash\n#SBATCH --job-name=parallel_job\n#SBATCH --time=02:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n\nmodule load gcc/14.2.0\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n./my_openmp_program\n\n\n\n#!/bin/bash\n#SBATCH --job-name=mpi_job\n#SBATCH --time=04:00:00\n#SBATCH --ntasks=16\n#SBATCH --cpus-per-task=1\n#SBATCH --mem-per-cpu=4G\n\nmodule load openmpi/4.1.4\nmpirun ./my_mpi_program",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#job-arrays",
+    "href": "scheduling-submission.html#job-arrays",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "Use job arrays to submit many similar jobs efficiently:\n#!/bin/bash\n#SBATCH --job-name=array_job\n#SBATCH --time=01:00:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\n#SBATCH --array=1-10          # Submit jobs 1 through 10\n#SBATCH --output=job_%A_%a.out # %A = array job ID, %a = task ID\n\n# Process different input files\nINPUT_FILE=\"input_${SLURM_ARRAY_TASK_ID}.txt\"\nOUTPUT_FILE=\"output_${SLURM_ARRAY_TASK_ID}.txt\"\n\nmodule load python/3.13.0\npython process_file.py $INPUT_FILE $OUTPUT_FILE",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#best-practices",
+    "href": "scheduling-submission.html#best-practices",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "Right-Sizing Your Jobs\n\n\n\n\nStart small: Test with minimal resources first\nMonitor usage: Use sacct to check actual resource usage\nDon’t over-request: Only ask for what you need\nTime limits: Be realistic but add some buffer time\n\n\n\n\n\n\n# Use scratch space for temporary files\n#SBATCH --chdir=$SCRATCH/myproject\n\n# Copy results back to home\ncd $SLURM_SUBMIT_DIR\ncp $SCRATCH/myproject/results.txt ./\n\n\n\n# Add error checking to your scripts\nset -e  # Exit on any error\n\n# Check if files exist before processing\nif [ ! -f \"input.txt\" ]; then\n    echo \"Error: input.txt not found\"\n    exit 1\nfi",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#troubleshooting-common-issues",
+    "href": "scheduling-submission.html#troubleshooting-common-issues",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "",
+    "text": "Symptoms: Job stays in PD (pending) state\nCommon causes: - Requesting too many resources - Wrong partition name - Resource limits exceeded - System maintenance\nSolutions: - Check squeue -u $USER for reason codes - Use sinfo to see available resources - Reduce resource requests if appropriate\n\n\n\nSymptoms: Job completes quickly with non-zero exit code\nCommon causes: - Module not loaded - Input files missing - Insufficient memory - Wrong file paths\nSolutions: - Check error files (*.err) - Test script interactively first - Verify all paths and dependencies\n\n\n\nSymptoms: Job killed due to memory usage\nSolutions: - Increase --mem or --mem-per-cpu - Use memory profiling tools - Consider algorithm optimizations",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#submit-your-first-job",
+    "href": "scheduling-submission.html#submit-your-first-job",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "Submit Your First Job",
+    "text": "Submit Your First Job\nCreate and submit a simple job script:\n\nCreate the job script (first_job.sh):\n\n#!/bin/bash\n#SBATCH --job-name=first_job\n#SBATCH --time=00:05:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --output=first_job_%j.out\n\necho \"Hello from $(hostname)!\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Current time: $(date)\"\nsleep 60\necho \"Job completed!\"\n\nSubmit the job:\n\nsbatch first_job.sh\n\nMonitor the job:\n\nsqueue -u $USER\n\nCheck the output when it completes:\n\ncat first_job_*.out",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#python-hello-world-job",
+    "href": "scheduling-submission.html#python-hello-world-job",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "Python Hello World Job",
+    "text": "Python Hello World Job\nNow let’s create a more practical job that loads a module and runs Python code:\n\nCreate a Python script (hello_world.py):\n\ncat &gt; hello_world.py &lt;&lt; 'EOF'\n#!/usr/bin/env python3\nimport sys\nimport datetime\n\nprint(\"Hello from Python on HPC!\")\nprint(f\"Python version: {sys.version}\")\nprint(f\"Script running at: {datetime.datetime.now()}\")\nprint(f\"Python executable: {sys.executable}\")\n\n# Do some simple computation\nnumbers = [1, 2, 3, 4, 5]\nsquared = [x**2 for x in numbers]\nprint(f\"Original numbers: {numbers}\")\nprint(f\"Squared numbers: {squared}\")\nprint(f\"Sum of squares: {sum(squared)}\")\n\nprint(\"Python job completed successfully!\")\nEOF\n\nCreate the job script (python_job.sh):\n\nYou can check what versions of Python are available:\nmodule avail python \n\n\n\n\n\n\nTip\n\n\n\nUsually, you will want to load the Miniforge module and activate a Conda environment instead of using the base system Python. See our documentation on dependency management\n\n\ncat &gt; python_job.sh &lt;&lt; 'EOF'\n#!/bin/bash\n#SBATCH --job-name=python_hello\n#SBATCH --time=00:02:00\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=1G\n#SBATCH --output=python_job_%j.out\n#SBATCH --error=python_job_%j.err\n\n# Load the Python module\necho \"Loading Python module...\"\nmodule load python/3.13.0\n\n# Show which Python we're using\necho \"Using Python: $(which python)\"\necho \"Python version: $(python --version)\"\n\n# Run our Python script\necho \"Running Python script...\"\npython hello_world.py\n\necho \"Job completed at $(date)\"\nEOF\n\nSubmit the job:\n\nsbatch python_job.sh\n\nMonitor the job:\n\nsqueue -u $USER\n\nCheck the output when it completes:\n\ncat python_job_*.out\nYou should see output showing: - The Python module being loaded - Python version information - The hello world message and computation results - Confirmation that the job completed successfully\n\n\n\n\n\n\nWhat This Exercise Demonstrates\n\n\n\n\nModule loading: How to load software in job scripts\nPython execution: Running Python code on compute nodes\nJob monitoring: Using output files to verify successful execution\nResource specification: Appropriate resource requests for simple scripts",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#next-steps",
+    "href": "scheduling-submission.html#next-steps",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you can submit and manage jobs on Aire! Let’s move on to Session 6: Best Practices and Troubleshooting to learn how to optimize your HPC workflows.",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "scheduling-submission.html#additional-resources",
+    "href": "scheduling-submission.html#additional-resources",
+    "title": "Session 5: Job Scheduling and Submission",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAire Job Submission Guide\nAire job types documentation\nSlurm Documentation\nResource Planning Guide",
+    "crumbs": [
+      "Course Content",
+      "Session 5: Job Scheduling and Submission"
+    ]
+  },
+  {
+    "objectID": "modules-software.html",
+    "href": "modules-software.html",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand the module system and its benefits for HPC environments\nUse basic module commands to list, load, and unload software\nCreate scripts that load modules and run software\nRequest new software installations through proper channels\nExplore alternative software management approaches (Spack, containers)\nApply best practices for reproducible software environments\n\nIn this session we will learn about software on Aire, and how to access software via the module system. We will also discuss some alternatives to install software yourself on the system.\nView Interactive Slides: Module System on Aire\n\n\n\nModules are a way to manage different software environments on HPC systems:\n\nThey allow users to load and unload software packages dynamically\nThis helps in managing different versions of software and their dependencies\nSimplifies the user environment and avoids conflicts between software versions\nProvides a consistent and reproducible environment\n\n\n\n\n\nBenefits: - Clean separation of software environments - Easy to switch between environments - Optimized builds for HPC hardware\n\nWithout Modules: - Software conflicts - Path management nightmares - Inconsistent environments - Difficult reproducibility\n\n\n\n\n\n\n\n\nmodule avail              # List all available modules\nmodule avail python       # List all Python modules\nmodule avail gcc          # List all GCC modules\n\n\n\n# Load a module\nmodule load python/3.13.0\n\n# Load without specifying version (uses default)\nmodule load python\n\n# Unload a module\nmodule unload python/3.13.0\n\n# List currently loaded modules\nmodule list\n\n# Unload all modules\nmodule purge\n\n\n\n\nLet’s say we have a Python file called hello_world.py:\nprint(\"hello world!\")\nHow would we write a bash script that loads the Python module and runs the Python script?\n\n\nCreate a file called python_test.sh:\n#!/bin/bash\n\nmodule load python/3.13.0\npython hello_world.py\nMake it executable and run it:\nchmod +x python_test.sh    # Add executable permissions\nls -F                      # Check it's executable (shows *)\n./python_test.sh          # Run the script\n\n\n\n\n\n\nBest Practice for Python\n\n\n\nWhen running Python jobs, we recommend using the Miniforge module to create a conda environment instead of using the basic Python install. Read our documentation on dependency management.\n\n\n\n\n\n\n\n\n\nPopular software is centrally installed by the Research Computing team\nEnsures optimized performance and avoids conflicts\nRegularly updated with new versions\n\n\n\n\nIf software you need isn’t available:\n\nSubmit a Research Computing Query with details about the software\nInclude: software name, version, and brief justification for use in your research\nThe team will evaluate and install if appropriate\n\n\n\n\n\nYou can also manage your own software on Aire through several routes. Many users won’t need this, but it may be necessary if you want fine-grained control or need older versions of software.\n\n\n\n\n\nSpack: Flexible package manager for HPC systems\nAllows users to install software without admin privileges\n\nSupports complex dependency management\n\nmodule load spack\nspack install htop\nspack load htop\n\n\n\n\nEasyBuild: Framework for building and installing software on HPC\nAutomates the build process using configuration files\nGood for complex scientific software\n\n\n\n\n\n\n\n\nDownload and compile software yourself\nRequires knowledge of build systems and dependencies\nMost control but most work\n\n\n\n\n\nEncapsulate software environments using Apptainer\nEnsures portability and consistency across systems\nGreat for complex software stacks\n\n\n\n\n\n\n\n\n\nUse modules to manage software environments effectively\nUnload modules when no longer needed to avoid conflicts\nFor R or Python, use Miniforge module to create conda environments\n\n\n\n\n\n\n\n\n\n\nKey Principles\n\n\n\n\nAlways specify versions: module load gcc/14.2.0 not module load gcc\nDocument everything: Keep track of modules and versions used\nUse scripts: Automate your module loading in job scripts\nVersion control: Keep your workflow scripts in version control\n\n\n\n\n\n\n\nShare module load commands with collaborators\nUse version-controlled scripts to manage workflows\nConsider containers for complex environments\n\n\n\n\n\n\n\n#!/bin/bash\nmodule load python/3.13.0\nmodule load scipy/1.11.3\nmodule load matplotlib/3.7.2\n\npython analysis.py\n\n\n\n#!/bin/bash\nmodule load gcc/14.2.0\nmodule load cmake/3.24.2\nmodule load openmpi/4.1.4\n\ncmake .\nmake -j8\n\n\n\n#!/bin/bash\nmodule load miniforge/24.3.0\nconda activate ml-env\npython train_model.py",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#session-aims",
+    "href": "modules-software.html#session-aims",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nUnderstand the module system and its benefits for HPC environments\nUse basic module commands to list, load, and unload software\nCreate scripts that load modules and run software\nRequest new software installations through proper channels\nExplore alternative software management approaches (Spack, containers)\nApply best practices for reproducible software environments\n\nIn this session we will learn about software on Aire, and how to access software via the module system. We will also discuss some alternatives to install software yourself on the system.\nView Interactive Slides: Module System on Aire",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#what-are-modules",
+    "href": "modules-software.html#what-are-modules",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "Modules are a way to manage different software environments on HPC systems:\n\nThey allow users to load and unload software packages dynamically\nThis helps in managing different versions of software and their dependencies\nSimplifies the user environment and avoids conflicts between software versions\nProvides a consistent and reproducible environment\n\n\n\n\n\nBenefits: - Clean separation of software environments - Easy to switch between environments - Optimized builds for HPC hardware\n\nWithout Modules: - Software conflicts - Path management nightmares - Inconsistent environments - Difficult reproducibility",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#basic-module-commands",
+    "href": "modules-software.html#basic-module-commands",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "module avail              # List all available modules\nmodule avail python       # List all Python modules\nmodule avail gcc          # List all GCC modules\n\n\n\n# Load a module\nmodule load python/3.13.0\n\n# Load without specifying version (uses default)\nmodule load python\n\n# Unload a module\nmodule unload python/3.13.0\n\n# List currently loaded modules\nmodule list\n\n# Unload all modules\nmodule purge",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#using-modules-in-scripts",
+    "href": "modules-software.html#using-modules-in-scripts",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "Let’s say we have a Python file called hello_world.py:\nprint(\"hello world!\")\nHow would we write a bash script that loads the Python module and runs the Python script?\n\n\nCreate a file called python_test.sh:\n#!/bin/bash\n\nmodule load python/3.13.0\npython hello_world.py\nMake it executable and run it:\nchmod +x python_test.sh    # Add executable permissions\nls -F                      # Check it's executable (shows *)\n./python_test.sh          # Run the script\n\n\n\n\n\n\nBest Practice for Python\n\n\n\nWhen running Python jobs, we recommend using the Miniforge module to create a conda environment instead of using the basic Python install. Read our documentation on dependency management.",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#requesting-new-software",
+    "href": "modules-software.html#requesting-new-software",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "Popular software is centrally installed by the Research Computing team\nEnsures optimized performance and avoids conflicts\nRegularly updated with new versions\n\n\n\n\nIf software you need isn’t available:\n\nSubmit a Research Computing Query with details about the software\nInclude: software name, version, and brief justification for use in your research\nThe team will evaluate and install if appropriate",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#alternative-software-management",
+    "href": "modules-software.html#alternative-software-management",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "You can also manage your own software on Aire through several routes. Many users won’t need this, but it may be necessary if you want fine-grained control or need older versions of software.\n\n\n\n\n\nSpack: Flexible package manager for HPC systems\nAllows users to install software without admin privileges\n\nSupports complex dependency management\n\nmodule load spack\nspack install htop\nspack load htop\n\n\n\n\nEasyBuild: Framework for building and installing software on HPC\nAutomates the build process using configuration files\nGood for complex scientific software\n\n\n\n\n\n\n\n\nDownload and compile software yourself\nRequires knowledge of build systems and dependencies\nMost control but most work\n\n\n\n\n\nEncapsulate software environments using Apptainer\nEnsures portability and consistency across systems\nGreat for complex software stacks",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#best-practices",
+    "href": "modules-software.html#best-practices",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "Use modules to manage software environments effectively\nUnload modules when no longer needed to avoid conflicts\nFor R or Python, use Miniforge module to create conda environments\n\n\n\n\n\n\n\n\n\n\nKey Principles\n\n\n\n\nAlways specify versions: module load gcc/14.2.0 not module load gcc\nDocument everything: Keep track of modules and versions used\nUse scripts: Automate your module loading in job scripts\nVersion control: Keep your workflow scripts in version control\n\n\n\n\n\n\n\nShare module load commands with collaborators\nUse version-controlled scripts to manage workflows\nConsider containers for complex environments",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#common-module-workflows",
+    "href": "modules-software.html#common-module-workflows",
+    "title": "Session 4: Modules and Software",
+    "section": "",
+    "text": "#!/bin/bash\nmodule load python/3.13.0\nmodule load scipy/1.11.3\nmodule load matplotlib/3.7.2\n\npython analysis.py\n\n\n\n#!/bin/bash\nmodule load gcc/14.2.0\nmodule load cmake/3.24.2\nmodule load openmpi/4.1.4\n\ncmake .\nmake -j8\n\n\n\n#!/bin/bash\nmodule load miniforge/24.3.0\nconda activate ml-env\npython train_model.py",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#next-steps",
+    "href": "modules-software.html#next-steps",
+    "title": "Session 4: Modules and Software",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you know how to manage software on Aire! Let’s move on to Session 5: Job Scheduling and Submission to learn how to run your code on the compute nodes.",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "modules-software.html#additional-resources",
+    "href": "modules-software.html#additional-resources",
+    "title": "Session 4: Modules and Software",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAire Software Documentation\nDependency Management Guide\nSoftware Request Form\nMiniforge and Conda Guide",
+    "crumbs": [
+      "Course Content",
+      "Session 4: Modules and Software"
+    ]
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#command-line-interface-cli",
+    "href": "logging-on-linux-slides.html#command-line-interface-cli",
+    "title": "Linux Command Line Essentials",
+    "section": "Command Line Interface (CLI)",
+    "text": "Command Line Interface (CLI)\nAire does not have a GUI (Graphical User Interface) and so you need to interact with it through a CLI.\n\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#why-cli-for-hpc",
+    "href": "logging-on-linux-slides.html#why-cli-for-hpc",
+    "title": "Linux Command Line Essentials",
+    "section": "Why CLI for HPC?",
+    "text": "Why CLI for HPC?\nReproducibility Issues with GUIs:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets (having to click through multiple layers of menu options for each dataset)"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#why-cli-for-hpc-1",
+    "href": "logging-on-linux-slides.html#why-cli-for-hpc-1",
+    "title": "Linux Command Line Essentials",
+    "section": "Why CLI for HPC?",
+    "text": "Why CLI for HPC?\nCLI Benefits:\n\nScriptable and repeatable\nFaster for experienced users\nWorks better over remote connections\nCan be automated"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#bash-shell",
+    "href": "logging-on-linux-slides.html#bash-shell",
+    "title": "Linux Command Line Essentials",
+    "section": "Bash Shell",
+    "text": "Bash Shell\nBash is the default shell on Unix systems like Linux or Mac\n\nKey Concepts:\n\nShell interprets and executes commands\nCommands follow pattern: command [options] [arguments]\nCase sensitive\nUse man command to get help"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#file-systems-on-linux",
+    "href": "logging-on-linux-slides.html#file-systems-on-linux",
+    "title": "Linux Command Line Essentials",
+    "section": "File Systems on Linux",
+    "text": "File Systems on Linux\n\nNavigation Basics:\n\nNavigate to your home directory with cd\nList the files and directories present with ls\nChange to a different directory with cd path/to/directory\n\n\n\nPath Types:\n\nAbsolute path: /home/username/data\nRelative path: ../data or ./scripts\nHome directory: ~"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#essential-commands",
+    "href": "logging-on-linux-slides.html#essential-commands",
+    "title": "Linux Command Line Essentials",
+    "section": "Essential Commands",
+    "text": "Essential Commands\n\nWe don’t expect you to memorise these!\nWe have included them here for quick and easy reference."
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#essential-commands---navigation",
+    "href": "logging-on-linux-slides.html#essential-commands---navigation",
+    "title": "Linux Command Line Essentials",
+    "section": "Essential Commands - Navigation",
+    "text": "Essential Commands - Navigation\npwd          # Print working directory - where am I?\nls           # List files and directories\nls -la       # List with details and hidden files\ncd           # Change to home directory\ncd /path     # Change to specific directory\ncd ..        # Go up one directory level\ncd -         # Go back to previous directory\n\nTry it: Navigate around the file system and see where you are. You might not have any files or folders if you’ve just created your account!"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#essential-commands---files",
+    "href": "logging-on-linux-slides.html#essential-commands---files",
+    "title": "Linux Command Line Essentials",
+    "section": "Essential Commands - Files",
+    "text": "Essential Commands - Files\nmkdir newdir     # Create directory\ncp file1 file2   # Copy file1 to file2\nmv oldname new   # Move/rename file\nrm filename      # Remove file (be careful!)\nrm -r dirname    # Remove directory and contents\n\n\n\n\n\n\n\nBe Careful with rm!\n\n\nThe rm command permanently deletes files - there’s no “recycle bin” on Linux!"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#essential-commands---viewing-files",
+    "href": "logging-on-linux-slides.html#essential-commands---viewing-files",
+    "title": "Linux Command Line Essentials",
+    "section": "Essential Commands - Viewing Files",
+    "text": "Essential Commands - Viewing Files\ncat filename     # Display entire file contents\nless filename    # View file page by page (q to quit)\nhead filename    # Show first 10 lines\ntail filename    # Show last 10 lines\nhead -20 file    # Show first 20 lines\ntail -f logfile  # Follow a log file in real time"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#essential-commands---system-info",
+    "href": "logging-on-linux-slides.html#essential-commands---system-info",
+    "title": "Linux Command Line Essentials",
+    "section": "Essential Commands - System Info",
+    "text": "Essential Commands - System Info\nwhoami           # Current username\ndf -h            # Disk usage (human readable)\nfree -h          # Memory usage\nps               # Running processes\ntop              # Real-time process viewer\nwhich command    # Location of a command"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#exercise-command-practice",
+    "href": "logging-on-linux-slides.html#exercise-command-practice",
+    "title": "Linux Command Line Essentials",
+    "section": "Exercise: Command Practice",
+    "text": "Exercise: Command Practice\nWhat do the following Linux commands do? How might they be used on the HPC service?"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#exercise-questions",
+    "href": "logging-on-linux-slides.html#exercise-questions",
+    "title": "Linux Command Line Essentials",
+    "section": "Exercise Questions",
+    "text": "Exercise Questions\n\n\nls - ?\n\n\n\n\npwd - ?\n\n\n\n\nmkdir - ?\n\n\n\n\ncp - ?\n\n\n\n\nwget - ?\n\n\n\n\nrm - ?"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#exercise-answers",
+    "href": "logging-on-linux-slides.html#exercise-answers",
+    "title": "Linux Command Line Essentials",
+    "section": "Exercise Answers",
+    "text": "Exercise Answers\n\nls - List files and directories (see what’s available)\npwd - Print working directory (know where you are)\nmkdir - Make directory (organize your work)\ncp - Copy files (backup important data)\nwget - Download files from web (get datasets, software)\nrm - Remove files (clean up files)"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#getting-more-help",
+    "href": "logging-on-linux-slides.html#getting-more-help",
+    "title": "Linux Command Line Essentials",
+    "section": "Getting More Help",
+    "text": "Getting More Help\n\n\nman command - Manual pages for any command\ncommand --help - Quick help for most commands\nLinux Cheat Sheet\nIntroduction to Linux for HPC"
+  },
+  {
+    "objectID": "logging-on-linux-slides.html#next-steps",
+    "href": "logging-on-linux-slides.html#next-steps",
+    "title": "Linux Command Line Essentials",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you’re ready to work on the command line!\nLet’s learn about storage systems on HPC"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "HPC1: Introduction to High Performance Computing",
+    "section": "",
+    "text": "Welcome to the course notes for HPC1: Introduction to High Performance Computing!\n\n\n\n\n\n\nAccount Required\n\n\n\nYou need an account on Aire in order to complete this course. Please request an account as soon as possible (at least a week before the course begins) to ensure you can participate fully.\n\n\nVisit our training page to find upcoming dates and book."
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "HPC1: Introduction to High Performance Computing",
+    "section": "",
+    "text": "Welcome to the course notes for HPC1: Introduction to High Performance Computing!\n\n\n\n\n\n\nAccount Required\n\n\n\nYou need an account on Aire in order to complete this course. Please request an account as soon as possible (at least a week before the course begins) to ensure you can participate fully.\n\n\nVisit our training page to find upcoming dates and book."
+  },
+  {
+    "objectID": "index.html#learning-objectives",
+    "href": "index.html#learning-objectives",
+    "title": "HPC1: Introduction to High Performance Computing",
+    "section": "Learning objectives",
+    "text": "Learning objectives\nBy the end of this workshop, you will be able to:\n\nNavigate and work more confidently in a Linux-based HPC environment\nIdentify and access appropriate software tools for your research\nPlan and execute HPC jobs independently\nMake informed decisions about computational resource requirements\nOrganise and store your research data effectively\n\nThis course is perfect for you if you’re completely new to High Performance Computing, or if you have some HPC experience elsewhere but are new to the platforms and resources at Leeds.\nThis session has no coding/practical exercises."
+  },
+  {
+    "objectID": "index.html#topics",
+    "href": "index.html#topics",
+    "title": "HPC1: Introduction to High Performance Computing",
+    "section": "Topics",
+    "text": "Topics\nIn this course, we cover:\n\nTransferring data to and from HPC resources\nManaging storage on HPC resources\n\nJob submission, monitoring and cancellation\nAccessing different software on the HPC system\nDeveloping scripts to run codes and applications\nBenchmarking and analysing how jobs scale\n\nThese notes are based on our HPC user documentation; you can find more details on any of the topics there!"
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "HPC1: Introduction to High Performance Computing",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nIn order to participate in this course, you will need:\n\nAn account on the Aire HPC platform\nTo be able to remotely connect to Aire from your machine\nBasic Linux command line experience\n\nAttend or read through our Linux course materials here HPC0: Introduction to Command Line Linux if you are unfailliar with working from the command line\n\n\n\n\n\n\n\n\nAire Account\n\n\n\nYou need an account on Aire in order to complete this course. Please request an account as soon as possible (at least a week before the course begins) to ensure you can participate fully.\n\n\n\n\n\n\n\n\nConnection Requirements\n\n\n\nYou need to be able to connect to Aire from your machine for this course. If you are attending this course in person and do not plan on using your own laptop, we will show you how to connect from one of the cluster machines.\nIf you are attending online or plan on using your own laptop, please follow the instructions here to ensure you have the required software installed on your machine."
+  },
+  {
+    "objectID": "index.html#delivery",
+    "href": "index.html#delivery",
+    "title": "HPC1: Introduction to High Performance Computing",
+    "section": "Delivery",
+    "text": "Delivery\n\nThese materials are designed to work both for independent study and as a delivered course\nWhen delivered, the course is split over two half-day sessions\nIn general, the key information is presented in the slides, with additional/supporting information provided in the notes\n\n\nDay 1\n\nSession 1: What is HPC?\nBy the end of this session, you will be able to:\n\nUnderstand key HPC terminology and concepts\nExplain the difference between serial and parallel programs\nRecognize when HPC might benefit your research\nDescribe the basic architecture of HPC cluster systems\n\n\n\nSession 2: Logging On and Linux Recap\nBy the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\nSession 3: Storage on Aire\nBy the end of this session, you will be able to:\n\nDistinguish between different storage areas and their purposes\nNavigate between storage locations using environment variables\nMonitor your disk usage and quotas\nTransfer files between storage areas and your local machine\n\n\n\nSession 4: Modules and Software\nBy the end of this session, you will be able to:\n\nUnderstand the module system and its benefits for HPC environments\nUse basic module commands to list, load, and unload software\nCreate scripts that load modules and run software\nRequest new software installations through proper channels\nExplore alternative software management approaches (Spack, containers)\nApply best practices for reproducible software environments\n\n\n\nSession 5: Job Scheduling and Submission\nBy the end of this session, you will be able to:\n\nUnderstand what a job scheduler is and why it’s essential for HPC systems\nWrite and submit batch job scripts using SLURM\nMonitor, manage, and cancel running jobs effectively\nRequest different types of compute resources (CPU, memory, GPUs, time)\nUse job arrays to efficiently run multiple similar tasks\nApply best practices for job submission and resource allocation\n\n\n\nSession 6: Best Practices and Troubleshooting\nBy the end of this session, you will be able to:\n\nApply best practices for resource management and job planning\nOptimize file I/O and data management workflows\nTroubleshoot common HPC problems and job failures\nMonitor and analyze job performance effectively\nFollow proper HPC etiquette and community guidelines\nDevelop efficient and reproducible computational workflows\n\n\n\nSession 7: Wrap Up\nBy the end of this session, you will be able to:\n\nSummarize the key HPC concepts and skills learned throughout the course\nIdentify next steps for developing your HPC expertise\nAccess ongoing support resources and documentation\nPlan your research computing workflows using HPC best practices\nConnect with the HPC community for continued learning"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#why-best-practices-matter",
+    "href": "best-practices-troubleshooting-slides.html#why-best-practices-matter",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Why Best Practices Matter",
+    "text": "Why Best Practices Matter\n\n\nWithout best practices:\n\nWasted compute resources\nUnreproducible results\nDifficult debugging\nPoor collaboration\nSecurity vulnerabilities\n\n\nWith best practices:\n\nEfficient resource usage\nReproducible workflows\nEasier troubleshooting\nBetter collaboration\nSecure computing\n\n\n\n\n\n\n\n\nNote\n\n\nBest practices save time, resources, and frustration for everyone!"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#pre-submission-checklist",
+    "href": "best-practices-troubleshooting-slides.html#pre-submission-checklist",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Pre-Submission Checklist",
+    "text": "Pre-Submission Checklist\n\n\n\n\n\n\nBefore Submitting Jobs\n\n\n✅ Test interactively first - Debug on login nodes or interactive sessions\n✅ Validate input data - Check files exist and are accessible\n✅ Estimate resources - Based on small test runs\n✅ Choose right partition - Standard, GPU, high-memory, etc.\n✅ Set realistic time limits - Add buffer but don’t over-request\n✅ Specify module versions - For reproducibility"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#job-script-quality",
+    "href": "best-practices-troubleshooting-slides.html#job-script-quality",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Job Script Quality",
+    "text": "Job Script Quality\n\n\nError Handling:\n#!/bin/bash\nset -e  # Exit on any error\n\n# Check input files exist\nif [ ! -f \"input.txt\" ]; then\n    echo \"Error: input.txt not found\"\n    exit 1\nfi\n\nGood Organization:\n#SBATCH --job-name=meaningful_name\n#SBATCH --output=logs/job_%j.out\n#SBATCH --error=logs/job_%j.err\n\n# Create logs directory\nmkdir -p logs\n\n# Document what you're doing\necho \"Starting analysis at $(date)\"\n\n\n\n\n\n\n\nTip\n\n\nUse meaningful names and organize your output files!"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#right-sizing-resources",
+    "href": "best-practices-troubleshooting-slides.html#right-sizing-resources",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Right-Sizing Resources",
+    "text": "Right-Sizing Resources\n# Check actual usage after jobs complete\nsacct -j JOBID --format=JobID,MaxRSS,ReqMem,Elapsed,ReqCPUS\n\n# Example output:\n# JobID     MaxRSS   ReqMem   Elapsed  ReqCPUS\n# 12345     2.5G     8G       00:15:23    4\n\n\n\n\n\n\nWarning\n\n\nOver-requesting wastes resources and delays scheduling!\nIn this example: requested 8G memory, only used 2.5G → reduce future requests"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#storage-best-practices",
+    "href": "best-practices-troubleshooting-slides.html#storage-best-practices",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Storage Best Practices",
+    "text": "Storage Best Practices\n\n\n\n\n\n\n\n\nStorage Type\nUse For\nDon’t Use For\n\n\n\n\nHome\nScripts, configs, results\nLarge datasets, temp files, job results\n\n\nScratch\nWorking data, temp files\nLong-term storage\n\n\nFlash\nHigh I/O during jobs\nPermanent storage"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#performance-optimisation-cpu",
+    "href": "best-practices-troubleshooting-slides.html#performance-optimisation-cpu",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Performance Optimisation: CPU",
+    "text": "Performance Optimisation: CPU\n# Check if you're using all requested CPUs\nsacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State\nCommon Issues:\n\nNot using all requested CPUs\nI/O bottlenecks\nInefficient algorithms\nWrong parallelization strategy"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#performance-optimization-io",
+    "href": "best-practices-troubleshooting-slides.html#performance-optimization-io",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Performance Optimization: I/O",
+    "text": "Performance Optimization: I/O\n\n\n❌ Bad: Many small writes\nfor i in {1..1000}; do\n    echo \"data $i\" &gt;&gt; output.txt\ndone\n\n✅ Good: Batch writes\n{\n    for i in {1..1000}; do\n        echo \"data $i\"\n    done\n} &gt; output.txt"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#common-issues-solutions",
+    "href": "best-practices-troubleshooting-slides.html#common-issues-solutions",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Common Issues & Solutions",
+    "text": "Common Issues & Solutions\nModule Problems\n\n\nModule Not Found:\n# Check availability\nmodule avail python\nmodule spider python\n\n# Load specific version\nmodule load python/3.13.0\n\nPython Package Issues:\n# Use conda environments\nmodule load miniforge/24.3.0\nconda create -n myenv python=3.13\nconda activate myenv\nconda install numpy pandas"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#common-issues-solutions-1",
+    "href": "best-practices-troubleshooting-slides.html#common-issues-solutions-1",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Common Issues & Solutions",
+    "text": "Common Issues & Solutions\nJob Failures\n\n\nJob Killed (Out of Memory):\n\nIncrease --mem or --mem-per-cpu\nProfile memory usage\nOptimize data structures\n\n\nJob Timeout:\n\nIncrease --time limit\nOptimize algorithms\nSplit into smaller jobs"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#debugging-techniques",
+    "href": "best-practices-troubleshooting-slides.html#debugging-techniques",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Debugging Techniques",
+    "text": "Debugging Techniques\nCheck Log Files First\n# Look at error output\ncat job_12345.err\n\n# Check standard output\ncat job_12345.out\n\n# Look for common error patterns\ngrep -i \"error\\|failed\\|killed\" job_12345.err\nUse Slurm Diagnostics\n# Why is my job pending?\nsqueue -u $USER --long\n\n# Check job details\nscontrol show job 12345\n\n# View job accounting\nsacct -j 12345 --format=JobID,State,ExitCode,MaxRSS,Elapsed"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#interactive-debugging",
+    "href": "best-practices-troubleshooting-slides.html#interactive-debugging",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Interactive Debugging",
+    "text": "Interactive Debugging\nStart Interactive Session\n# Request interactive resources\nsrun --pty --partition=test --time=1:00:00 --mem=4G bash\n\n# Or use salloc for longer sessions\nsalloc --partition=test --time=2:00:00 --mem=8G\nDebug Step by Step\n\nLoad same modules as your job script\nNavigate to same directory (cd $SLURM_SUBMIT_DIR)\nRun commands manually one by one\nCheck intermediate outputs\nFix issues before resubmitting batch job\n\n\n\n\n\n\n\nTip\n\n\nInteractive debugging saves time versus repeated batch submissions!"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#reproducibility-best-practices",
+    "href": "best-practices-troubleshooting-slides.html#reproducibility-best-practices",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Reproducibility Best Practices",
+    "text": "Reproducibility Best Practices\nVersion Control Everything\n# Track your scripts\ngit init\ngit add job_script.sh analysis.py\ngit commit -m \"Initial analysis setup\"\nDocument Your Environment\n# Record module versions\nmodule list &gt; modules_used.txt\n\n# Save package versions\npip freeze &gt; requirements.txt\n# or\nconda env export &gt; environment.yml\nOrganize Your Workflow\nproject/\n├── scripts/          # Job scripts and analysis code\n├── data/            # Input data (or symlinks)\n├── results/         # Output data and figures  \n├── logs/            # Job output and error files\n└── docs/            # Documentation and notes"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#collaboration-best-practices",
+    "href": "best-practices-troubleshooting-slides.html#collaboration-best-practices",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Collaboration Best Practices",
+    "text": "Collaboration Best Practices\nSharing Code\n# Make scripts readable by group\nchmod 755 my_script.sh\n\n# Share via version control\ngit remote add origin https://github.com/user/project.git\ngit push origin main\nDocumentation\n# Include usage information in scripts\n#!/bin/bash\n# Purpose: Analyze genomic data using BWA and samtools\n# Usage: sbatch alignment_job.sh &lt;input_fastq&gt; &lt;reference_genome&gt;\n# Author: Your Name\n# Date: 2024-10-21\nFile Permissions\n# Private files (default)\nchmod 700 private_directory/\n\n# Group readable\nchmod 750 shared_analysis/\n\n# World readable (public data)\nchmod 755 public_results/"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#security-best-practices",
+    "href": "best-practices-troubleshooting-slides.html#security-best-practices",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Security Best Practices",
+    "text": "Security Best Practices\nProtect Your Credentials\n\n\n\n\n\n\nNever Do This:\n\n\n\nShare your login credentials\nLeave passwords in scripts\nStore/process sensitive data on Aire\nLeave interactive sessions running\n\n\n\n\nUse SSH Keys\n# Generate SSH key pair (on your local machine)\nssh-keygen -t rsa -b 4096 -C \"your_email@example.com\"\n\n# Copy public key to HPC system\nssh-copy-id username@system\nData Security\n# Set appropriate permissions\nchmod 700 sensitive_data/\nchmod 600 private_key.pem\n\n# Check who can access your files\nls -la"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#troubleshooting-workflow",
+    "href": "best-practices-troubleshooting-slides.html#troubleshooting-workflow",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Troubleshooting Workflow",
+    "text": "Troubleshooting Workflow\n\n\n\n\n\nflowchart TD\n    A[Job Fails] --&gt; B[Check Error Files]\n    B --&gt; C[Look for Obvious Errors]\n    C --&gt; D{Error Found?}\n    D --&gt;|Yes| E[Fix and Resubmit]\n    D --&gt;|No| F[Check Slurm Status]\n    F --&gt; G[Use sacct for Details]\n    G --&gt; H[Try Interactive Debug]\n    H --&gt; I[Search Documentation]\n    I --&gt; J[Ask for Help]\n    J --&gt; K[Include: Job ID, Error Messages...]"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#when-seeking-help-include-this-information",
+    "href": "best-practices-troubleshooting-slides.html#when-seeking-help-include-this-information",
+    "title": "Best Practices and Troubleshooting",
+    "section": "When seeking help: Include This Information:",
+    "text": "When seeking help: Include This Information:\n\nJob ID and submission command\nError messages (exact text)\nExpected vs actual behavior\nSteps to reproduce the problem\nSystem information (which cluster, when)"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#where-to-get-help",
+    "href": "best-practices-troubleshooting-slides.html#where-to-get-help",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Where to Get Help:",
+    "text": "Where to Get Help:\n\nAire Documentation: arcdocs.leeds.ac.uk\nResearch Computing Query: bit.ly/arc-help\nTraining Sessions: Regular workshops\nUser Community: Connect with other researchers\n\n\n\n\n\n\n\nTip\n\n\nSearch documentation first - many common issues are already covered!"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#best-practices-checklist",
+    "href": "best-practices-troubleshooting-slides.html#best-practices-checklist",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Best Practices Checklist",
+    "text": "Best Practices Checklist\n\n\n\n\n\n\nQuick Reference Checklist\n\n\nBefore Jobs:\n\nTest interactively first\nEstimate resources accurately\nCheck input files exist\nSpecify exact module versions\n\nJob Quality:\n\nInclude error handling (set -e)\nUse meaningful job names\nOrganize output files\nDocument your workflow\n\nResource Management:\n\nRight-size resource requests\nUse appropriate storage\nClean up temporary files\nMonitor actual usage\n\nTroubleshooting:\n\nCheck log files first\nUse Slurm diagnostics\nTest with smaller datasets\nDocument solutions"
+  },
+  {
+    "objectID": "best-practices-troubleshooting-slides.html#summary",
+    "href": "best-practices-troubleshooting-slides.html#summary",
+    "title": "Best Practices and Troubleshooting",
+    "section": "Summary",
+    "text": "Summary\n\n\n\n\n\n\nKey Takeaways\n\n\n\nTest and validate workflows before large-scale submission\nRight-size resource requests to avoid waste and improve scheduling\nUse appropriate storage for different types of data and I/O patterns\nMonitor job performance with sacct and system tools\nDebug systematically using log files and Slurm commands\nFollow security practices to protect credentials and data\nDocument solutions for reproducibility and future troubleshooting\n\n\n\n\nRemember: Good practices benefit everyone in the HPC community!"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html",
+    "href": "best-practices-troubleshooting.html",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nApply best practices for resource management and job planning\nOptimize file I/O and data management workflows\nTroubleshoot common HPC problems and job failures\nMonitor and analyze job performance effectively\nFollow proper HPC etiquette and community guidelines\nDevelop efficient and reproducible computational workflows\n\nView Interactive Slides: Best Practices and Troubleshooting\nIn this final session, we’ll cover best practices for using HPC systems effectively and how to troubleshoot common problems you might encounter.\n\n\n\n\n\n\n\n\n\n\n\n\n\nResource Planning Strategy\n\n\n\n\nStart small: Test with minimal resources\nProfile first: Run small tests to understand resource needs\nScale gradually: Increase resources based on actual usage\nMonitor usage: Use sacct to check what you actually used\n\n\n\n# Check actual resource usage after job completes\nsacct -j JOBID --format=JobID,Elapsed,MaxRSS,AveCPU,State\n\n\n\n\nUse appropriate storage: Home for code, scratch for data processing\nClean up regularly: Remove temporary files from scratch\nOrganize your work: Use clear directory structures\nBackup important results: Don’t rely on scratch storage\n\n\n\n\n\n\n\n#!/bin/bash\n#SBATCH --job-name=robust_job\n#SBATCH --output=%j.out\n#SBATCH --error=%j.err\n\n# Exit immediately if any command fails\nset -e\n\n# Print commands as they execute (for debugging)\nset -x\n\n# Check if required files exist\nif [ ! -f \"input.txt\" ]; then\n    echo \"ERROR: input.txt not found\"\n    exit 1\nfi\n\n# Load modules with error checking\nmodule load python/3.13.0 || {\n    echo \"ERROR: Failed to load Python module\"\n    exit 1\n}\n\n# Run your program\npython analysis.py\n\n# Check if output was created\nif [ ! -f \"results.txt\" ]; then\n    echo \"ERROR: results.txt was not created\"\n    exit 1\nfi\n\necho \"Job completed successfully\"\n\n\n\nUse Slurm environment variables in your scripts:\n#!/bin/bash\n#SBATCH --job-name=env_demo\n\necho \"Job Information:\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Job Name: $SLURM_JOB_NAME\"\necho \"Node: $SLURMD_NODENAME\"\necho \"CPUs per task: $SLURM_CPUS_PER_TASK\"\necho \"Memory per node: $SLURM_MEM_PER_NODE\"\necho \"Submit directory: $SLURM_SUBMIT_DIR\"\n\n# Use variables for parallel processing\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n\n\n\n\n\n\n\n\nError: sbatch: error: Invalid partition name specified\nSolution: Check available partitions\nsinfo\nsinfo --summarize\nError: sbatch: error: Memory specification can not be satisfied\nSolution: Reduce memory request or check node limits\nsinfo -o \"%P %l %D %c %m %N\"  # Show partition limits\n\n\n\n\n\n\nCheck why your job isn’t starting:\nsqueue -u $USER --long\nsqueue -j JOBID --start  # Estimate start time\nCommon reasons and solutions:\n\n\n\n\n\n\n\n\nReason\nMeaning\nSolution\n\n\n\n\nResources\nNot enough free resources\nWait, or reduce requests\n\n\nPriority\nOther jobs have higher priority\nWait for fair-share to adjust\n\n\nQOSMaxJobsPerUserLimit\nToo many jobs running\nWait for some jobs to finish\n\n\nPartitionNodeLimit\nRequesting too many nodes\nReduce node count\n\n\n\n\n\n\nCheck job exit status and resource usage:\nsacct -j JOBID --format=JobID,State,ExitCode,MaxRSS,Elapsed\nExit Codes:\n\n0 = Success\n1 = General error\n125 = Out of memory\n130 = Job cancelled by user\n\n\n\n\n\n\n\nSymptoms: Job killed with OutOfMemory or exit code 125\nDiagnosis:\n# Check memory usage\nsacct -j JOBID --format=JobID,MaxRSS,ReqMem,State\n\n# Check job log files for OOM messages\ngrep -i \"memory\\|oom\\|killed\" job_output.err\nSolutions:\n\nIncrease memory request: #SBATCH --mem=32G\nOptimize your code to use less memory\nProcess data in smaller chunks\nUse memory profiling tools\n\n\n\n\nMonitor memory usage during development:\n#!/bin/bash\n# Add to your job script\n/usr/bin/time -v python my_script.py\n\n# Or use a memory profiler\nmodule load valgrind\nvalgrind --tool=massif python my_script.py\n\n\n\n\n\n\nCheck CPU utilization:\nsacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State\nCommon causes:\n\nNot using all requested CPUs\nI/O bottlenecks\nInefficient algorithms\nWrong parallelization strategy\n\n\n\n\nUse appropriate storage:\n\nSmall files: Home directory\nLarge temporary files: $SCRATCH\nHigh I/O during job: $TMP_SHARED (flash storage)\n\nOptimize I/O patterns:\n# Bad: Many small writes\nfor i in {1..1000}; do\n    echo \"data $i\" &gt;&gt; output.txt\ndone\n\n# Good: Batch writes\n{\n    for i in {1..1000}; do\n        echo \"data $i\"\n    done\n} &gt; output.txt\n\n\n\n\n\n\n# Check module availability\nmodule avail python\nmodule spider python  # More detailed search\n\n# Load required modules\nmodule load python/3.13.0\n\n\n\nUse conda environments for better package management:\n# In your job script\nmodule load miniforge/24.3.0\nsource activate myenv\npython analysis.py\n\n\n\nAlways specify exact versions:\n# Bad - version may change\nmodule load gcc\nmodule load python\n\n# Good - reproducible\nmodule load gcc/14.2.0\nmodule load python/3.13.0\n\n\n\n\n\n\n\n\n\n#!/bin/bash\n#SBATCH --cpus-per-task=8\n\nmodule load gcc/14.2.0\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n./my_openmp_program\n\n\n\n#!/bin/bash\n#SBATCH --ntasks=16\n#SBATCH --nodes=2\n\nmodule load openmpi/4.1.4\nmpirun ./my_mpi_program\n\n\n\n\nTest how your job scales with resources:\n# Test different core counts\nfor cores in 1 2 4 8 16; do\n    sbatch --cpus-per-task=$cores benchmark.sh\ndone\nCreate scaling plots to find optimal resource usage.\n\n\n\n\n\n\nWhile job is running:\n# Check job status\nsqueue -j JOBID\n\n# SSH to compute node (if allowed)\nssh $(squeue -h -j JOBID -o %N)\ntop -u $USER\n\n\n\nAfter job completion:\n# Detailed accounting\nsacct -j JOBID --format=ALL\n\n# Custom format for specific metrics\nsacct -j JOBID --format=JobID,JobName,Elapsed,State,MaxRSS,AveCPU,ReqCPUS,ReqMem\n\n\n\nOrganize your log files:\n#!/bin/bash\n#SBATCH --output=logs/job_%j_%x.out\n#SBATCH --error=logs/job_%j_%x.err\n\n# Create logs directory if it doesn't exist\nmkdir -p logs\n\n\n\n\n\n\n\n\n# Use git to track your job scripts\ngit add job_script.sh\ngit commit -m \"Add job script for analysis\"\n\n\n\n#!/bin/bash\n# Job script for protein folding analysis\n# Author: Your Name\n# Date: 2025-01-01\n# Input: protein sequences in data/\n# Output: folding predictions in results/\n# Requirements: 32GB RAM, 8 cores, ~4 hours\n\n#SBATCH --job-name=protein_folding\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n#SBATCH --time=04:00:00\n\n\n\n# Create environment file\nconda env export &gt; environment.yml\n\n# In job script\nmodule load miniforge/24.3.0\nconda env create -f environment.yml\nconda activate myproject\n\n\n\n\n\n\n\n\nCheck the logs: Look at .out and .err files\nCheck resource usage: Use sacct to see what happened\nTest interactively: Try running parts of your script interactively\nSearch documentation: Check Aire documentation and forums\nGoogle the error: Many HPC issues are common\n\n\n\n\n\nResearch Computing Team: Submit a query\nAire Documentation: https://arcdocs.leeds.ac.uk/aire/\nTraining Courses: https://arc.leeds.ac.uk/courses/\nCommunity Forums: Slurm user groups, Stack Overflow\n\n\n\n\nInclude this information:\n\nJob ID and submission command\nError messages (exact text)\nExpected behavior vs actual behavior\nSteps to reproduce the problem\nSystem information (which cluster, when it happened)\n\n\n\n\n\n\n\n\nNever share your login credentials\nUse SSH keys instead of passwords when possible\nLog out when finished\nDon’t leave interactive sessions running\n\n\n\n\n\nDon’t store sensitive data on shared systems unnecessarily\nUse appropriate file permissions: chmod 700 private_dir/\nBe aware of who can access your data\nFollow institutional data management policies\n\n\n\n\n\n\n\n\n\n\n\nHPC Best Practices Checklist\n\n\n\nBefore submitting jobs:\n\nTest scripts interactively first\nEstimate resource requirements\nCheck input files exist\nSpecify exact module versions\n\nJob script quality:\n\nInclude error handling (set -e)\nUse meaningful job names\nOrganize output files\nDocument your workflow\n\nResource management:\n\nRight-size resource requests\nUse appropriate storage locations\nClean up temporary files\nMonitor actual usage with sacct\n\nTroubleshooting:\n\nCheck log files first\nUse squeue and sacct for diagnostics\nTest with smaller datasets first\nDocument solutions for future reference",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#session-aims",
+    "href": "best-practices-troubleshooting.html#session-aims",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nApply best practices for resource management and job planning\nOptimize file I/O and data management workflows\nTroubleshoot common HPC problems and job failures\nMonitor and analyze job performance effectively\nFollow proper HPC etiquette and community guidelines\nDevelop efficient and reproducible computational workflows\n\nView Interactive Slides: Best Practices and Troubleshooting\nIn this final session, we’ll cover best practices for using HPC systems effectively and how to troubleshoot common problems you might encounter.",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#hpc-best-practices",
+    "href": "best-practices-troubleshooting.html#hpc-best-practices",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "Resource Planning Strategy\n\n\n\n\nStart small: Test with minimal resources\nProfile first: Run small tests to understand resource needs\nScale gradually: Increase resources based on actual usage\nMonitor usage: Use sacct to check what you actually used\n\n\n\n# Check actual resource usage after job completes\nsacct -j JOBID --format=JobID,Elapsed,MaxRSS,AveCPU,State\n\n\n\n\nUse appropriate storage: Home for code, scratch for data processing\nClean up regularly: Remove temporary files from scratch\nOrganize your work: Use clear directory structures\nBackup important results: Don’t rely on scratch storage\n\n\n\n\n\n\n\n#!/bin/bash\n#SBATCH --job-name=robust_job\n#SBATCH --output=%j.out\n#SBATCH --error=%j.err\n\n# Exit immediately if any command fails\nset -e\n\n# Print commands as they execute (for debugging)\nset -x\n\n# Check if required files exist\nif [ ! -f \"input.txt\" ]; then\n    echo \"ERROR: input.txt not found\"\n    exit 1\nfi\n\n# Load modules with error checking\nmodule load python/3.13.0 || {\n    echo \"ERROR: Failed to load Python module\"\n    exit 1\n}\n\n# Run your program\npython analysis.py\n\n# Check if output was created\nif [ ! -f \"results.txt\" ]; then\n    echo \"ERROR: results.txt was not created\"\n    exit 1\nfi\n\necho \"Job completed successfully\"\n\n\n\nUse Slurm environment variables in your scripts:\n#!/bin/bash\n#SBATCH --job-name=env_demo\n\necho \"Job Information:\"\necho \"Job ID: $SLURM_JOB_ID\"\necho \"Job Name: $SLURM_JOB_NAME\"\necho \"Node: $SLURMD_NODENAME\"\necho \"CPUs per task: $SLURM_CPUS_PER_TASK\"\necho \"Memory per node: $SLURM_MEM_PER_NODE\"\necho \"Submit directory: $SLURM_SUBMIT_DIR\"\n\n# Use variables for parallel processing\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#troubleshooting-common-issues",
+    "href": "best-practices-troubleshooting.html#troubleshooting-common-issues",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "Error: sbatch: error: Invalid partition name specified\nSolution: Check available partitions\nsinfo\nsinfo --summarize\nError: sbatch: error: Memory specification can not be satisfied\nSolution: Reduce memory request or check node limits\nsinfo -o \"%P %l %D %c %m %N\"  # Show partition limits\n\n\n\n\n\n\nCheck why your job isn’t starting:\nsqueue -u $USER --long\nsqueue -j JOBID --start  # Estimate start time\nCommon reasons and solutions:\n\n\n\n\n\n\n\n\nReason\nMeaning\nSolution\n\n\n\n\nResources\nNot enough free resources\nWait, or reduce requests\n\n\nPriority\nOther jobs have higher priority\nWait for fair-share to adjust\n\n\nQOSMaxJobsPerUserLimit\nToo many jobs running\nWait for some jobs to finish\n\n\nPartitionNodeLimit\nRequesting too many nodes\nReduce node count\n\n\n\n\n\n\nCheck job exit status and resource usage:\nsacct -j JOBID --format=JobID,State,ExitCode,MaxRSS,Elapsed\nExit Codes:\n\n0 = Success\n1 = General error\n125 = Out of memory\n130 = Job cancelled by user\n\n\n\n\n\n\n\nSymptoms: Job killed with OutOfMemory or exit code 125\nDiagnosis:\n# Check memory usage\nsacct -j JOBID --format=JobID,MaxRSS,ReqMem,State\n\n# Check job log files for OOM messages\ngrep -i \"memory\\|oom\\|killed\" job_output.err\nSolutions:\n\nIncrease memory request: #SBATCH --mem=32G\nOptimize your code to use less memory\nProcess data in smaller chunks\nUse memory profiling tools\n\n\n\n\nMonitor memory usage during development:\n#!/bin/bash\n# Add to your job script\n/usr/bin/time -v python my_script.py\n\n# Or use a memory profiler\nmodule load valgrind\nvalgrind --tool=massif python my_script.py\n\n\n\n\n\n\nCheck CPU utilization:\nsacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State\nCommon causes:\n\nNot using all requested CPUs\nI/O bottlenecks\nInefficient algorithms\nWrong parallelization strategy\n\n\n\n\nUse appropriate storage:\n\nSmall files: Home directory\nLarge temporary files: $SCRATCH\nHigh I/O during job: $TMP_SHARED (flash storage)\n\nOptimize I/O patterns:\n# Bad: Many small writes\nfor i in {1..1000}; do\n    echo \"data $i\" &gt;&gt; output.txt\ndone\n\n# Good: Batch writes\n{\n    for i in {1..1000}; do\n        echo \"data $i\"\n    done\n} &gt; output.txt\n\n\n\n\n\n\n# Check module availability\nmodule avail python\nmodule spider python  # More detailed search\n\n# Load required modules\nmodule load python/3.13.0\n\n\n\nUse conda environments for better package management:\n# In your job script\nmodule load miniforge/24.3.0\nsource activate myenv\npython analysis.py\n\n\n\nAlways specify exact versions:\n# Bad - version may change\nmodule load gcc\nmodule load python\n\n# Good - reproducible\nmodule load gcc/14.2.0\nmodule load python/3.13.0",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#performance-optimization",
+    "href": "best-practices-troubleshooting.html#performance-optimization",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "#!/bin/bash\n#SBATCH --cpus-per-task=8\n\nmodule load gcc/14.2.0\nexport OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n\n./my_openmp_program\n\n\n\n#!/bin/bash\n#SBATCH --ntasks=16\n#SBATCH --nodes=2\n\nmodule load openmpi/4.1.4\nmpirun ./my_mpi_program\n\n\n\n\nTest how your job scales with resources:\n# Test different core counts\nfor cores in 1 2 4 8 16; do\n    sbatch --cpus-per-task=$cores benchmark.sh\ndone\nCreate scaling plots to find optimal resource usage.",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#monitoring-and-debugging",
+    "href": "best-practices-troubleshooting.html#monitoring-and-debugging",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "While job is running:\n# Check job status\nsqueue -j JOBID\n\n# SSH to compute node (if allowed)\nssh $(squeue -h -j JOBID -o %N)\ntop -u $USER\n\n\n\nAfter job completion:\n# Detailed accounting\nsacct -j JOBID --format=ALL\n\n# Custom format for specific metrics\nsacct -j JOBID --format=JobID,JobName,Elapsed,State,MaxRSS,AveCPU,ReqCPUS,ReqMem\n\n\n\nOrganize your log files:\n#!/bin/bash\n#SBATCH --output=logs/job_%j_%x.out\n#SBATCH --error=logs/job_%j_%x.err\n\n# Create logs directory if it doesn't exist\nmkdir -p logs",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#collaboration-and-reproducibility",
+    "href": "best-practices-troubleshooting.html#collaboration-and-reproducibility",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "# Use git to track your job scripts\ngit add job_script.sh\ngit commit -m \"Add job script for analysis\"\n\n\n\n#!/bin/bash\n# Job script for protein folding analysis\n# Author: Your Name\n# Date: 2025-01-01\n# Input: protein sequences in data/\n# Output: folding predictions in results/\n# Requirements: 32GB RAM, 8 cores, ~4 hours\n\n#SBATCH --job-name=protein_folding\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n#SBATCH --time=04:00:00\n\n\n\n# Create environment file\nconda env export &gt; environment.yml\n\n# In job script\nmodule load miniforge/24.3.0\nconda env create -f environment.yml\nconda activate myproject",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#getting-help",
+    "href": "best-practices-troubleshooting.html#getting-help",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "Check the logs: Look at .out and .err files\nCheck resource usage: Use sacct to see what happened\nTest interactively: Try running parts of your script interactively\nSearch documentation: Check Aire documentation and forums\nGoogle the error: Many HPC issues are common\n\n\n\n\n\nResearch Computing Team: Submit a query\nAire Documentation: https://arcdocs.leeds.ac.uk/aire/\nTraining Courses: https://arc.leeds.ac.uk/courses/\nCommunity Forums: Slurm user groups, Stack Overflow\n\n\n\n\nInclude this information:\n\nJob ID and submission command\nError messages (exact text)\nExpected behavior vs actual behavior\nSteps to reproduce the problem\nSystem information (which cluster, when it happened)",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#security-best-practices",
+    "href": "best-practices-troubleshooting.html#security-best-practices",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "Never share your login credentials\nUse SSH keys instead of passwords when possible\nLog out when finished\nDon’t leave interactive sessions running\n\n\n\n\n\nDon’t store sensitive data on shared systems unnecessarily\nUse appropriate file permissions: chmod 700 private_dir/\nBe aware of who can access your data\nFollow institutional data management policies",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#summary-checklist",
+    "href": "best-practices-troubleshooting.html#summary-checklist",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "",
+    "text": "HPC Best Practices Checklist\n\n\n\nBefore submitting jobs:\n\nTest scripts interactively first\nEstimate resource requirements\nCheck input files exist\nSpecify exact module versions\n\nJob script quality:\n\nInclude error handling (set -e)\nUse meaningful job names\nOrganize output files\nDocument your workflow\n\nResource management:\n\nRight-size resource requests\nUse appropriate storage locations\nClean up temporary files\nMonitor actual usage with sacct\n\nTroubleshooting:\n\nCheck log files first\nUse squeue and sacct for diagnostics\nTest with smaller datasets first\nDocument solutions for future reference",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#next-steps",
+    "href": "best-practices-troubleshooting.html#next-steps",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "Next Steps",
+    "text": "Next Steps\nCongratulations! You’ve learned the fundamentals of using HPC systems. Let’s move on to Session 7: Wrap Up for final thoughts and next steps.",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "best-practices-troubleshooting.html#additional-resources",
+    "href": "best-practices-troubleshooting.html#additional-resources",
+    "title": "Session 6: Best Practices and Troubleshooting",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAire Best Practices Guide\nTroubleshooting Documentation\nPerformance Optimization Guide\nSlurm Job Arrays Tutorial\nHPC Performance Tips",
+    "crumbs": [
+      "Course Content",
+      "Session 6: Best Practices and Troubleshooting"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html",
+    "href": "logging-on-and-linux-recap.html",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\n\n\n\n\nTip\n\n\n\nPlease note that a University of Leeds account is required to view the knowledge base articles linked below.\n\n\nPlease scroll to the bottom of the page to see the exercises for this session.\n\n\n\nThe training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nNote\n\n\n\nThere are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.\n\n\nAttendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\n\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\nFor further guidance on logging on to Aire, see our documentation: Aire docs - Logging On\n\n\n\n\n\nView Interactive Slides: Linux Command Line Essentials\n\n\nMany large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets\n\n\n\n\n\nHere are some essential Linux commands you’ll use frequently:\n# Navigation\npwd          # Print working directory\nls           # List files and directories\ncd           # Change directory\n\n# File operations\ncp           # Copy files\nmv           # Move/rename files\nrm           # Remove files\nmkdir        # Create directory\n\n# Viewing files\ncat          # Display file contents\nless         # View file contents page by page\nhead         # Show first few lines\ntail         # Show last few lines\n\n# System information\nwhoami       # Current username\ndf -h        # Disk usage\nfree -h      # Memory usage",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#session-aims",
+    "href": "logging-on-and-linux-recap.html#session-aims",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "",
+    "text": "By the end of this session, you will be able to:\n\nConnect to the Aire HPC system using SSH\nNavigate the Linux command line interface\nUse essential Linux commands for file management\nUnderstand the difference between on-campus and off-campus connections\n\n\n\n\n\n\n\nTip\n\n\n\nPlease note that a University of Leeds account is required to view the knowledge base articles linked below.\n\n\nPlease scroll to the bottom of the page to see the exercises for this session.",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#logging-on",
+    "href": "logging-on-and-linux-recap.html#logging-on",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "",
+    "text": "The training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.\n\n\n\n\n\n\nNote\n\n\n\nThere are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.\n\n\nAttendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!\n\n\n\n\n\n\nConnection Method Depends on Location\n\n\n\nTo connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University’s SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.\n\n\n\n\nTo access Aire, you simply need access to an SSH (Secure SHell) client. This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.\nFrom a wired connection on campus, use the following command in your SSH client:\nssh &lt;username&gt;@target-system\nFrom off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:\nssh &lt;username&gt;@target-system -J &lt;username&gt;@jump-host\nFor further guidance on logging on to Aire, see our documentation: Aire docs - Logging On",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#linux-recap",
+    "href": "logging-on-and-linux-recap.html#linux-recap",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "",
+    "text": "View Interactive Slides: Linux Command Line Essentials\n\n\nMany large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.\n\nCLIs allow us to interact with a computer through text-based commands typed into the command-line\nWhile GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows:\n\nSometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used\nUpdates to GUIs can make it difficult to find the same menu options\nA workflow with multiple steps can be tedious to repeat for multiple datasets\n\n\n\n\n\nHere are some essential Linux commands you’ll use frequently:\n# Navigation\npwd          # Print working directory\nls           # List files and directories\ncd           # Change directory\n\n# File operations\ncp           # Copy files\nmv           # Move/rename files\nrm           # Remove files\nmkdir        # Create directory\n\n# Viewing files\ncat          # Display file contents\nless         # View file contents page by page\nhead         # Show first few lines\ntail         # Show last few lines\n\n# System information\nwhoami       # Current username\ndf -h        # Disk usage\nfree -h      # Memory usage",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#next-steps",
+    "href": "logging-on-and-linux-recap.html#next-steps",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow that you can connect to Aire and understand basic Linux commands, let’s move on to Session 3: Storage to learn about managing your data on the HPC system.",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "logging-on-and-linux-recap.html#additional-resources",
+    "href": "logging-on-and-linux-recap.html#additional-resources",
+    "title": "Session 2: Logging On and Linux Recap",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nAire Getting Started Guide\nLinux Command Line Tutorial\nSSH Documentation\nLinux Commands Cheat Sheet\nVS Code Remote SSH Guide",
+    "crumbs": [
+      "Course Content",
+      "Session 2: Logging On and Linux Recap"
+    ]
+  },
+  {
+    "objectID": "modules-software-slides.html#module-system-on-aire",
+    "href": "modules-software-slides.html#module-system-on-aire",
+    "title": "Module System on Aire",
+    "section": "Module System on Aire",
+    "text": "Module System on Aire\nManaging software environments on HPC systems"
+  },
+  {
+    "objectID": "modules-software-slides.html#what-are-modules",
+    "href": "modules-software-slides.html#what-are-modules",
+    "title": "Module System on Aire",
+    "section": "What are Modules?",
+    "text": "What are Modules?\nModules are a way to manage different software environments on HPC systems\n\nKey Benefits: - Dynamic loading/unloading of software packages - Manage different versions and dependencies - Clean separation of environments - Avoid software conflicts\n\n\nWithout Modules: - Software conflicts and version issues - Complex PATH management - Inconsistent environments - Difficult reproducibility"
+  },
+  {
+    "objectID": "modules-software-slides.html#why-use-modules",
+    "href": "modules-software-slides.html#why-use-modules",
+    "title": "Module System on Aire",
+    "section": "Why Use Modules?",
+    "text": "Why Use Modules?\n\n\nWith Modules ✅\n\nClean environments\nMultiple software versions\nEasy switching\nOptimized HPC builds\nReproducible research\n\n\nWithout Modules ❌\n\nSoftware conflicts\nPath management chaos\nVersion inconsistencies\n\nHard to reproduce\nPerformance issues"
+  },
+  {
+    "objectID": "modules-software-slides.html#basic-module-commands",
+    "href": "modules-software-slides.html#basic-module-commands",
+    "title": "Module System on Aire",
+    "section": "Basic Module Commands",
+    "text": "Basic Module Commands\nListing Available Software\nmodule avail              # List all available modules\nmodule avail python       # List all Python modules\nmodule avail gcc          # List all GCC modules\n\nTry it: Run module avail to see what software is available on Aire"
+  },
+  {
+    "objectID": "modules-software-slides.html#loading-and-managing-modules",
+    "href": "modules-software-slides.html#loading-and-managing-modules",
+    "title": "Module System on Aire",
+    "section": "Loading and Managing Modules",
+    "text": "Loading and Managing Modules\n# Load a specific version\nmodule load python/3.13.0\n\n# Load default version (not recommended for reproducibility)\nmodule load python\n\n# List currently loaded modules\nmodule list\n\n# Unload a module\nmodule unload python/3.13.0\n\n# Unload all modules\nmodule purge"
+  },
+  {
+    "objectID": "modules-software-slides.html#exercise-your-first-module",
+    "href": "modules-software-slides.html#exercise-your-first-module",
+    "title": "Module System on Aire",
+    "section": "Exercise: Your First Module",
+    "text": "Exercise: Your First Module\nLoad the gcc module and verify it’s loaded:\nmodule load gcc\nmodule list\n\nQuestions: - What happens if you don’t specify a version? - How does this affect reproducibility?\n\n\nAnswer: Without version specification, you get the default version, which may change over time!"
+  },
+  {
+    "objectID": "modules-software-slides.html#best-practice-always-specify-versions",
+    "href": "modules-software-slides.html#best-practice-always-specify-versions",
+    "title": "Module System on Aire",
+    "section": "Best Practice: Always Specify Versions",
+    "text": "Best Practice: Always Specify Versions\n\n# ❌ Bad - may change over time\nmodule load gcc\nmodule load python\n\n# ✅ Good - reproducible\nmodule load gcc/14.2.0  \nmodule load python/3.13.0\n\n\nWhy? Default versions change when new software is installed, breaking reproducibility"
+  },
+  {
+    "objectID": "modules-software-slides.html#using-modules-in-scripts",
+    "href": "modules-software-slides.html#using-modules-in-scripts",
+    "title": "Module System on Aire",
+    "section": "Using Modules in Scripts",
+    "text": "Using Modules in Scripts\nExample Python Script\nCreate hello_world.py:\nprint(\"hello world!\")\nCreate job script python_test.sh:\n#!/bin/bash\nmodule load python/3.13.0\npython hello_world.py"
+  },
+  {
+    "objectID": "modules-software-slides.html#making-scripts-executable",
+    "href": "modules-software-slides.html#making-scripts-executable",
+    "title": "Module System on Aire",
+    "section": "Making Scripts Executable",
+    "text": "Making Scripts Executable\n# Add executable permissions\nchmod +x python_test.sh\n\n# Check it's executable (shows *)\nls -F\n\n# Run the script\n./python_test.sh\n\nRemember: Always test your scripts interactively before submitting jobs!"
+  },
+  {
+    "objectID": "modules-software-slides.html#python-best-practice",
+    "href": "modules-software-slides.html#python-best-practice",
+    "title": "Module System on Aire",
+    "section": "Python Best Practice",
+    "text": "Python Best Practice\n\n\n\n\n\n\nRecommendation\n\n\nInstead of basic Python modules, use Miniforge to create conda environments:\nmodule load miniforge/24.3.0\nconda create -n myproject python=3.13\nconda activate myproject\nconda install numpy pandas matplotlib\nThis provides better dependency management!"
+  },
+  {
+    "objectID": "modules-software-slides.html#requesting-new-software",
+    "href": "modules-software-slides.html#requesting-new-software",
+    "title": "Module System on Aire",
+    "section": "Requesting New Software",
+    "text": "Requesting New Software\nCentralized Management\n\nBenefits: - Popular software centrally installed - Optimized for HPC hardware - Professional maintenance - Avoids conflicts\n\n\nProcess: 1. Check if software exists: module avail software_name 2. If not available, submit a Research Computing Query 3. Include: software name, version, research justification"
+  },
+  {
+    "objectID": "modules-software-slides.html#how-to-request-software",
+    "href": "modules-software-slides.html#how-to-request-software",
+    "title": "Module System on Aire",
+    "section": "How to Request Software",
+    "text": "How to Request Software\nSubmit requests through the Research Computing Help Form\n\nInclude in your request: - Software name and version - Brief justification for your research - Any specific requirements or dependencies - Timeline if urgent\n\n\nNavigation: Home &gt; Research IT &gt; Research IT Query"
+  },
+  {
+    "objectID": "modules-software-slides.html#alternative-software-management",
+    "href": "modules-software-slides.html#alternative-software-management",
+    "title": "Module System on Aire",
+    "section": "Alternative Software Management",
+    "text": "Alternative Software Management\nFor advanced users who need more control:\n\nPackage Managers\n\nSpack: Flexible HPC package manager\nEasyBuild: Automated building framework\n\n\n\nManual Options\n\nSelf-building: Download and compile yourself\nContainers: Apptainer/Singularity for complex environments"
+  },
+  {
+    "objectID": "modules-software-slides.html#spack-example",
+    "href": "modules-software-slides.html#spack-example",
+    "title": "Module System on Aire",
+    "section": "Spack Example",
+    "text": "Spack Example\n# Load Spack\nmodule load spack\n\n# Install software\nspack install htop\n\n# Load installed software\nspack load htop\n\n# Use the software\nhtop\n\nUse case: When you need software versions not available via modules"
+  },
+  {
+    "objectID": "modules-software-slides.html#container-example",
+    "href": "modules-software-slides.html#container-example",
+    "title": "Module System on Aire",
+    "section": "Container Example",
+    "text": "Container Example\n# Pull a container\napptainer pull docker://ubuntu:20.04\n\n# Run software in container\napptainer exec ubuntu_20.04.sif python my_script.py\n\nUse case: Complex software stacks, ensuring exact reproducibility"
+  },
+  {
+    "objectID": "modules-software-slides.html#best-practices-summary",
+    "href": "modules-software-slides.html#best-practices-summary",
+    "title": "Module System on Aire",
+    "section": "Best Practices Summary",
+    "text": "Best Practices Summary\nEnvironment Management\n\n\nUse modules to manage software environments\nUnload modules when no longer needed\nUse Miniforge for Python/R environments\nStart clean with module purge\n\n\nReproducibility\n\n\nAlways specify versions: gcc/14.2.0 not gcc\nDocument everything: Keep track of modules used\nUse scripts: Automate your module loading\nVersion control: Track your workflow scripts"
+  },
+  {
+    "objectID": "modules-software-slides.html#module-script-template",
+    "href": "modules-software-slides.html#module-script-template",
+    "title": "Module System on Aire",
+    "section": "Module Script Template",
+    "text": "Module Script Template\n#!/bin/bash\n# Project setup script\n# Author: Your Name\n# Date: 2025-01-01\n\n# Start with clean environment\nmodule purge\n\n# Load required modules with versions\nmodule load gcc/14.2.0\nmodule load python/3.13.0  \nmodule load cmake/3.24.2\n\n# Verify modules loaded\necho \"Loaded modules:\"\nmodule list\n\n# Optional: activate conda environment\n# conda activate myproject"
+  },
+  {
+    "objectID": "modules-software-slides.html#common-workflows",
+    "href": "modules-software-slides.html#common-workflows",
+    "title": "Module System on Aire",
+    "section": "Common Workflows",
+    "text": "Common Workflows\nData Analysis\nmodule load python/3.13.0\nmodule load scipy/1.11.3\nmodule load matplotlib/3.7.2\npython analysis.py\nCompilation\nmodule load gcc/14.2.0\nmodule load cmake/3.24.2\nmodule load openmpi/4.1.4\ncmake . && make -j8\nMachine Learning\nmodule load miniforge/24.3.0\nconda activate ml-env\npython train_model.py"
+  },
+  {
+    "objectID": "modules-software-slides.html#collaboration-tips",
+    "href": "modules-software-slides.html#collaboration-tips",
+    "title": "Module System on Aire",
+    "section": "Collaboration Tips",
+    "text": "Collaboration Tips\nSharing Environments\n\nShare module commands:\n# Document your setup\necho \"module load gcc/14.2.0\" &gt; setup_modules.sh\necho \"module load python/3.13.0\" &gt;&gt; setup_modules.sh\n\n\nExport conda environments:\nconda env export &gt; environment.yml\n# Share environment.yml file with collaborators"
+  },
+  {
+    "objectID": "modules-software-slides.html#exercise-time",
+    "href": "modules-software-slides.html#exercise-time",
+    "title": "Module System on Aire",
+    "section": "Exercise Time!",
+    "text": "Exercise Time!\nExercise 1: Module Exploration\n\nList all available Python modules: module avail python\nLoad a specific Python version\nCheck what’s loaded: module list\nUnload and try a different version"
+  },
+  {
+    "objectID": "modules-software-slides.html#exercise-2-create-setup-script",
+    "href": "modules-software-slides.html#exercise-2-create-setup-script",
+    "title": "Module System on Aire",
+    "section": "Exercise 2: Create Setup Script",
+    "text": "Exercise 2: Create Setup Script\nCreate a script that loads modules for your research:\n#!/bin/bash\n# My research environment\n\nmodule purge\nmodule load [your_required_modules]\n\necho \"Environment ready for [your project]\"\nmodule list"
+  },
+  {
+    "objectID": "modules-software-slides.html#troubleshooting-modules",
+    "href": "modules-software-slides.html#troubleshooting-modules",
+    "title": "Module System on Aire",
+    "section": "Troubleshooting Modules",
+    "text": "Troubleshooting Modules\nCommon Issues\n\nModule not found:\nmodule avail software_name  # Check spelling/availability\nmodule spider software_name # More detailed search\n\n\nConflicts between modules:\nmodule purge    # Start fresh\nmodule load module1 module2  # Load in correct order\n\n\nVersion conflicts:\nmodule unload old_version\nmodule load new_version"
+  },
+  {
+    "objectID": "modules-software-slides.html#summary",
+    "href": "modules-software-slides.html#summary",
+    "title": "Module System on Aire",
+    "section": "Summary",
+    "text": "Summary\n\nKey Points: - Modules provide clean software environments - Always specify versions for reproducibility\n- Use scripts to automate and document - Request new software through proper channels - Consider alternatives for special needs\n\n\nNext: Learn how to run your software on compute nodes with job scheduling!"
+  },
+  {
+    "objectID": "modules-software-slides.html#next-steps",
+    "href": "modules-software-slides.html#next-steps",
+    "title": "Module System on Aire",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you can manage software environments!\nLet’s learn about job scheduling and submission"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#what-is-a-job-scheduler",
+    "href": "scheduling-submission-slides.html#what-is-a-job-scheduler",
+    "title": "Job Scheduling and Submission",
+    "section": "What is a Job Scheduler?",
+    "text": "What is a Job Scheduler?\n\n\nWithout a scheduler:\n\nManual coordination between users\nResource conflicts\n\nInefficient resource usage\nChaos with thousands of CPUs\n\n\nWith a scheduler:\n\nFair resource allocation\nAutomatic job management\nEfficient resource utilization\nPriority-based execution\n\n\n\n\n\n\n\n\nNote\n\n\nA job scheduler organizes when and where jobs run, allocates resources, and ensures fair access for all users."
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#slurm-workflow",
+    "href": "scheduling-submission-slides.html#slurm-workflow",
+    "title": "Job Scheduling and Submission",
+    "section": "Slurm Workflow",
+    "text": "Slurm Workflow\n\n\n\n\n\nflowchart LR\n    A[Write Job Script] --&gt; B[Submit with sbatch]\n    B --&gt; C[Job in Queue]\n    C --&gt; D[Resources Available?]\n    D --&gt;|Yes| E[Job Runs]\n    D --&gt;|No| C\n    E --&gt; F[Job Completes]\n\n\n\n\n\n\n\nWrite a job script describing your requirements\nSubmit the job to Slurm with sbatch\nQueue - Slurm places your job in a queue\nExecute - When resources are available, Slurm starts your job\nComplete - Job finishes and resources are freed"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#essential-slurm-commands",
+    "href": "scheduling-submission-slides.html#essential-slurm-commands",
+    "title": "Job Scheduling and Submission",
+    "section": "Essential Slurm Commands",
+    "text": "Essential Slurm Commands\n\n\n\nCommand\nPurpose\nExample\n\n\n\n\nsbatch\nSubmit a job\nsbatch myjob.sh\n\n\nsqueue\nView job queue\nsqueue -u $USER\n\n\nscancel\nCancel a job\nscancel 12345\n\n\nsinfo\nView node information\nsinfo\n\n\nsacct\nView job accounting\nsacct -j 12345\n\n\n\n\n\nJob States:\n\nR = Running\nPD = Pending\nCG = Completing\nCD = Completed\n\n\n\n# Check your jobs\nsqueue -u $USER\n\n# Cancel a job\nscancel 12345"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#basic-job-script-structure",
+    "href": "scheduling-submission-slides.html#basic-job-script-structure",
+    "title": "Job Scheduling and Submission",
+    "section": "Basic Job Script Structure",
+    "text": "Basic Job Script Structure\n#!/bin/bash\n#SBATCH --job-name=myjob          # Job name\n#SBATCH --partition=node          # Partition to use\n#SBATCH --time=01:00:00           # Time limit (1 hour)\n#SBATCH --nodes=1                 # Number of nodes\n#SBATCH --ntasks=1                # Number of tasks\n#SBATCH --cpus-per-task=4         # CPUs per task\n#SBATCH --mem=8G                  # Memory per node\n#SBATCH --output=myjob_%j.out     # Output file (%j = job ID)\n#SBATCH --error=myjob_%j.err      # Error file\n\n# Load required modules\nmodule load python/3.13.0\n\n# Run your program\necho \"Job started at $(date)\"\npython my_script.py\necho \"Job finished at $(date)\""
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#key-sbatch-directives",
+    "href": "scheduling-submission-slides.html#key-sbatch-directives",
+    "title": "Job Scheduling and Submission",
+    "section": "Key SBATCH Directives",
+    "text": "Key SBATCH Directives\n\n\n\nDirective\nPurpose\nExample\n\n\n\n\n--job-name\nName for your job\n--job-name=analysis\n\n\n--partition\nQueue to use\n--partition=himem\n\n\n--time\nMaximum runtime\n--time=02:30:00\n\n\n--nodes\nNumber of nodes\n--nodes=2\n\n\n--ntasks\nNumber of tasks\n--ntasks=8\n\n\n--cpus-per-task\nCPUs per task\n--cpus-per-task=4\n\n\n--mem\nMemory per node\n--mem=16G\n\n\n--output\nOutput file\n--output=job_%j.out\n\n\n\n\n\n\n\n\n\nTip\n\n\nAlways specify realistic time limits and memory requirements!"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#resource-request-examples",
+    "href": "scheduling-submission-slides.html#resource-request-examples",
+    "title": "Job Scheduling and Submission",
+    "section": "Resource Request Examples",
+    "text": "Resource Request Examples\n\n\nSingle Core Job:\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=1\n#SBATCH --mem=4G\nMulti-core (Shared Memory):\n#SBATCH --ntasks=1\n#SBATCH --cpus-per-task=8\n#SBATCH --mem=32G\n\nMPI (Distributed):\n#SBATCH --ntasks=16\n#SBATCH --cpus-per-task=1\n#SBATCH --mem-per-cpu=2G\nGPU Job:\n#SBATCH --partition=gpu\n#SBATCH --gres=gpu:1"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#time-formats",
+    "href": "scheduling-submission-slides.html#time-formats",
+    "title": "Job Scheduling and Submission",
+    "section": "Time Formats",
+    "text": "Time Formats\n# Different time limit formats\n#SBATCH --time=30:00        # 30 minutes\n#SBATCH --time=2:00:00      # 2 hours  \n#SBATCH --time=1-12:00:00   # 1 day, 12 hours\n\n\n\n\n\n\nWarning\n\n\nFormat: DD-HH:MM:SS or HH:MM:SS\nBe realistic with time requests - jobs are killed when time limit is reached!\n\n\n\n\nYou can ieratively improve your requests/estimations"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#job-arrays",
+    "href": "scheduling-submission-slides.html#job-arrays",
+    "title": "Job Scheduling and Submission",
+    "section": "Job Arrays",
+    "text": "Job Arrays\nSubmit many similar jobs efficiently:\n#!/bin/bash\n#SBATCH --job-name=array_job\n#SBATCH --partition=test\n#SBATCH --time=01:00:00\n#SBATCH --array=1-10          # Submit jobs 1 through 10\n#SBATCH --output=job_%A_%a.out # %A = array job ID, %a = task ID\n\n# Process different input files\nINPUT_FILE=\"input_${SLURM_ARRAY_TASK_ID}.txt\"\nOUTPUT_FILE=\"output_${SLURM_ARRAY_TASK_ID}.txt\"\n\npython process_file.py $INPUT_FILE $OUTPUT_FILE\n\n\n\n\n\n\nEmbarassingly parallel\n\n\nPerfect for parameter sweeps or processing multiple datasets!"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#monitoring-jobs",
+    "href": "scheduling-submission-slides.html#monitoring-jobs",
+    "title": "Job Scheduling and Submission",
+    "section": "Monitoring Jobs",
+    "text": "Monitoring Jobs\n\n\nCheck Queue Status:\n# View all your jobs\nsqueue -u $USER\n\n# Detailed view\nsqueue -u $USER --long\n\n# Get job details\nscontrol show job 12345\n\nJob History:\n# Check completed jobs\nsacct -j 12345\n\n# Detailed accounting\nsacct -j 12345 --format=JobID,JobName,State,ExitCode,MaxRSS,Elapsed\n\n\n\n\n\n\n\nNote\n\n\nUse sacct to see actual resource usage and optimize future jobs!"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#best-practices",
+    "href": "scheduling-submission-slides.html#best-practices",
+    "title": "Job Scheduling and Submission",
+    "section": "Best Practices",
+    "text": "Best Practices\n\n\n\n\n\n\nRight-Sizing Your Jobs\n\n\n\nStart small: Test with minimal resources first\nMonitor usage: Use sacct to check actual resource usage\n\nDon’t over-request: Only ask for what you need\nTime limits: Be realistic but add some buffer time"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#best-practices-1",
+    "href": "scheduling-submission-slides.html#best-practices-1",
+    "title": "Job Scheduling and Submission",
+    "section": "Best Practices",
+    "text": "Best Practices\n\n\nGood Practices:\n\nTest interactively first\n\nToy problems\n\nUse meaningful job names\nOrganize output files\nInclude error handling\n\n\nResource Management:\n\nUse appropriate storage\nClean up temporary files\nMonitor actual usage\nRight-size requests"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#common-issues-solutions",
+    "href": "scheduling-submission-slides.html#common-issues-solutions",
+    "title": "Job Scheduling and Submission",
+    "section": "Common Issues & Solutions",
+    "text": "Common Issues & Solutions\n\n\nJob Won’t Start (PD state):\n\nToo many resources requested\nWrong partition name\nSystem maintenance\nCheck with sinfo\n\n\nJob Fails Immediately:\n\nModule not loaded\nInput files missing\nWrong file paths\nCheck *.err files\n\n\n\n\nOut of Memory:\n\nIncrease --mem\nUse memory profiling\nOptimize algorithms\n\n\n\n\n\n\n\n\n\nTip\n\n\nAlways check error files and test scripts interactively first!"
+  },
+  {
+    "objectID": "scheduling-submission-slides.html#summary",
+    "href": "scheduling-submission-slides.html#summary",
+    "title": "Job Scheduling and Submission",
+    "section": "Summary",
+    "text": "Summary\n\n\n\n\n\n\nKey Points\n\n\n\nSlurm manages fair resource allocation on shared HPC systems\nJob scripts use #SBATCH directives to specify requirements\nRight-size your resource requests for efficient scheduling\nMonitor jobs with squeue and sacct for optimization\nTest interactively first before submitting large jobs\nUse job arrays for multiple similar tasks\n\n\n\n\nRemember: Start small, test thoroughly, monitor usage, and optimize!"
+  },
+  {
+    "objectID": "storage-slides.html#storage-overview",
+    "href": "storage-slides.html#storage-overview",
+    "title": "Storage Systems on Aire",
+    "section": "Storage Overview",
+    "text": "Storage Overview\nThe Aire HPC file system includes several special directories:\n\nHome directory (/users/&lt;username&gt;, $HOME) for personal files\nScratch directory (/mnt/scratch/&lt;username&gt;, $SCRATCH) for large, temporary data\n\nFlash (NVMe) scratch ($TMP_SHARED) for very fast I/O during jobs\nNode-local scratch ($TMP_LOCAL, $TMPDIR) for fast local storage\n\nSymlinks exist: /scratch → /mnt/scratch, /flash → /mnt/flash"
+  },
+  {
+    "objectID": "storage-slides.html#critical-storage-rules",
+    "href": "storage-slides.html#critical-storage-rules",
+    "title": "Storage Systems on Aire",
+    "section": "Critical Storage Rules",
+    "text": "Critical Storage Rules\n\n✅ Home is backed up and not automatically purged\n\n\n❌ Scratch and flash are not backed up\n\n\n🗑️ Flash is deleted after each job\n\n\n⚠️ Always copy important results from temporary storage back to your home directory before the job ends"
+  },
+  {
+    "objectID": "storage-slides.html#storage-comparison-table",
+    "href": "storage-slides.html#storage-comparison-table",
+    "title": "Storage Systems on Aire",
+    "section": "Storage Comparison Table",
+    "text": "Storage Comparison Table\n\n\n\nStorage\nQuota\nBackup\nAuto-Delete\nBest For\n\n\n\n\nHome\n~30 GB\n✅ Yes\n❌ No\nScripts, configs\n\n\nScratch\n~1 TB\n❌ No\n❌ No\nLarge datasets\n\n\nFlash\n~1 TB\n❌ No\n✅ Yes\nI/O-intensive\n\n\nLocal\nVariable\n❌ No\n✅ Yes\nSingle-node"
+  },
+  {
+    "objectID": "storage-slides.html#home-directory-home",
+    "href": "storage-slides.html#home-directory-home",
+    "title": "Storage Systems on Aire",
+    "section": "Home Directory ($HOME)",
+    "text": "Home Directory ($HOME)\n\nCharacteristics:\n\nQuota: ~30 GB and 1,000,000 files\nBackup enabled and not deleted automatically\nBest for small, persistent files\n\n\n\nUse for:\n\nScripts and code\nConfiguration files\nDocumentation"
+  },
+  {
+    "objectID": "storage-slides.html#scratch-directory-scratch",
+    "href": "storage-slides.html#scratch-directory-scratch",
+    "title": "Storage Systems on Aire",
+    "section": "Scratch Directory ($SCRATCH)",
+    "text": "Scratch Directory ($SCRATCH)\n\nCharacteristics:\n\nQuota: ~1 TB and 500,000 files\nNo backups - you must move your results to persistent storage\nNot deleted automatically - you must clean up manually"
+  },
+  {
+    "objectID": "storage-slides.html#scratch-directory-scratch-1",
+    "href": "storage-slides.html#scratch-directory-scratch-1",
+    "title": "Storage Systems on Aire",
+    "section": "Scratch Directory ($SCRATCH)",
+    "text": "Scratch Directory ($SCRATCH)\n\nUse for:\n\nLarge datasets during processing\nIntermediate job results\nTemporary files\nInput data for jobs\nBack up your results elsewhere!!"
+  },
+  {
+    "objectID": "storage-slides.html#flash-storage-tmp_shared",
+    "href": "storage-slides.html#flash-storage-tmp_shared",
+    "title": "Storage Systems on Aire",
+    "section": "Flash Storage ($TMP_SHARED)",
+    "text": "Flash Storage ($TMP_SHARED)\n\nCharacteristics:\n\nQuota: ~1 TB per job\nAuto-deleted when job completes\nVery fast NVMe storage\n\n\n\nUse for:\n\nI/O-intensive tasks during jobs\nTemporary files that need fast access\nCheckpoint files during long jobs"
+  },
+  {
+    "objectID": "storage-slides.html#local-scratch-tmp_local",
+    "href": "storage-slides.html#local-scratch-tmp_local",
+    "title": "Storage Systems on Aire",
+    "section": "Local Scratch ($TMP_LOCAL)",
+    "text": "Local Scratch ($TMP_LOCAL)\n\nCharacteristics:\n\nNode-specific quota\nAuto-deleted after job completion\nFastest storage (on the compute node)\n\n\n\nUse for:\n\nSingle-node jobs requiring fast I/O\nTemporary files that don’t need to be shared\nVery fast local processing"
+  },
+  {
+    "objectID": "storage-slides.html#checking-disk-usage",
+    "href": "storage-slides.html#checking-disk-usage",
+    "title": "Storage Systems on Aire",
+    "section": "Checking Disk Usage",
+    "text": "Checking Disk Usage\nThe quota command\nquota -s    # Human readable format\n\nExample output:\nDisk quotas for user yourusername (uid 12345):\n     Filesystem   blocks   quota   limit   \n      /users     15000*   30000    33000   \n   /mnt/scratch 100000   1000000 1100000"
+  },
+  {
+    "objectID": "storage-slides.html#the-du-command",
+    "href": "storage-slides.html#the-du-command",
+    "title": "Storage Systems on Aire",
+    "section": "The du Command",
+    "text": "The du Command\ndu -hs *           # Size of each directory\ndu -hs $HOME       # Size of home directory  \ndu -hs $SCRATCH    # Size of scratch directory\ndu -h --max-depth=1 .  # Directory sizes, one level deep\n\nPro tip: du -hs * in scratch shows which subdirectories use the most space (can be slow!)"
+  },
+  {
+    "objectID": "storage-slides.html#navigation-with-environment-variables",
+    "href": "storage-slides.html#navigation-with-environment-variables",
+    "title": "Storage Systems on Aire",
+    "section": "Navigation with Environment Variables",
+    "text": "Navigation with Environment Variables\ncd $HOME        # Go to home directory\ncd $SCRATCH     # Go to scratch directory  \ncd              # Also goes to home\ncd ~            # Also goes to home\n\nls $HOME        # List home contents\nls $SCRATCH     # List scratch contents\npwd             # Show current directory\n\nEnvironment variables make it easy to navigate between storage areas!"
+  },
+  {
+    "objectID": "storage-slides.html#file-operations",
+    "href": "storage-slides.html#file-operations",
+    "title": "Storage Systems on Aire",
+    "section": "File Operations",
+    "text": "File Operations\nBetween storage areas on Aire:\n# Copy TO scratch\ncp data.txt $SCRATCH/\n\n# Copy FROM scratch back to home  \ncp $SCRATCH/output.dat $HOME/results/\n\n# Copy entire directory\ncp -r $HOME/myproject $SCRATCH/"
+  },
+  {
+    "objectID": "storage-slides.html#file-transfer-scp",
+    "href": "storage-slides.html#file-transfer-scp",
+    "title": "Storage Systems on Aire",
+    "section": "File Transfer: scp",
+    "text": "File Transfer: scp\nFrom local machine TO Aire:\nscp myfile.txt &lt;username&gt;@target-system:$SCRATCH/\nFrom Aire TO local machine:\nscp &lt;username&gt;@target-system:/path/results.txt .\n\nRemember: Use jumphost if connecting from off-campus!"
+  },
+  {
+    "objectID": "storage-slides.html#file-transfer-rsync",
+    "href": "storage-slides.html#file-transfer-rsync",
+    "title": "Storage Systems on Aire",
+    "section": "File Transfer: rsync",
+    "text": "File Transfer: rsync\nBetter for large files and directories:\nrsync -avh data/ &lt;username&gt;@target-system:path/data/\n\nBenefits:\n\nOnly transfers changed files\nResumes interrupted transfers\n\nProgress indicators with --info=progress2\nMore efficient than scp for large transfers"
+  },
+  {
+    "objectID": "storage-slides.html#off-campus-transfers",
+    "href": "storage-slides.html#off-campus-transfers",
+    "title": "Storage Systems on Aire",
+    "section": "Off-Campus Transfers",
+    "text": "Off-Campus Transfers\nWith jumphost:\n# Using rsync\nrsync -r --info=progress2 -e 'ssh -J user@jump-host' \\\n      file.txt user@target-system:path/\n\n# Using scp  \nscp -rq -J user@jump-host \\\n    user@target-system:path/file.txt local-folder/"
+  },
+  {
+    "objectID": "storage-slides.html#download-from-internet",
+    "href": "storage-slides.html#download-from-internet",
+    "title": "Storage Systems on Aire",
+    "section": "Download from Internet",
+    "text": "Download from Internet\nwget https://example.com/data.zip\ncurl -O https://example.com/data.zip\n\nUse case: Download datasets, software, or reference files directly to Aire"
+  },
+  {
+    "objectID": "storage-slides.html#gui-tools",
+    "href": "storage-slides.html#gui-tools",
+    "title": "Storage Systems on Aire",
+    "section": "GUI Tools",
+    "text": "GUI Tools\nFor those who prefer graphical interfaces:\n\n\nFileZilla (cross-platform SFTP client)\nWinSCP (Windows)\n\nCyberduck (Mac/Windows)\nVS Code Remote (integrated file browser)\n\n\n\nAll connect via SFTP to Aire login nodes"
+  },
+  {
+    "objectID": "storage-slides.html#best-practices-workflow",
+    "href": "storage-slides.html#best-practices-workflow",
+    "title": "Storage Systems on Aire",
+    "section": "Best Practices Workflow",
+    "text": "Best Practices Workflow\n\n\nPrepare: Upload input data to $SCRATCH\n\n\n\n\nProcess: Run jobs using scratch storage\n\n\n\n\nPreserve: Copy important results to dedicated research storage\n\n\n\n\nCleanup: Remove temporary files from $SCRATCH"
+  },
+  {
+    "objectID": "storage-slides.html#data-loss-prevention",
+    "href": "storage-slides.html#data-loss-prevention",
+    "title": "Storage Systems on Aire",
+    "section": "Data Loss Prevention",
+    "text": "Data Loss Prevention\n\n\n\n\n\n\nCritical Reminders\n\n\n\nScratch and flash are temporary storage\nNo backups on scratch/flash\nFlash is automatically deleted after jobs\nAlways copy important results to dedicated research storage\nRegular cleanup prevents quota issues"
+  },
+  {
+    "objectID": "storage-slides.html#exercise-time",
+    "href": "storage-slides.html#exercise-time",
+    "title": "Storage Systems on Aire",
+    "section": "Exercise Time!",
+    "text": "Exercise Time!\nLet’s practice these concepts"
+  },
+  {
+    "objectID": "storage-slides.html#exercise-1-environment-variables",
+    "href": "storage-slides.html#exercise-1-environment-variables",
+    "title": "Storage Systems on Aire",
+    "section": "Exercise 1: Environment Variables",
+    "text": "Exercise 1: Environment Variables\nDisplay the values of $HOME and $SCRATCH:\necho $HOME\necho $SCRATCH"
+  },
+  {
+    "objectID": "storage-slides.html#exercise-2-check-usage",
+    "href": "storage-slides.html#exercise-2-check-usage",
+    "title": "Storage Systems on Aire",
+    "section": "Exercise 2: Check Usage",
+    "text": "Exercise 2: Check Usage\nCheck your current disk usage and quotas:\nquota -s\nWhat do you see? Are you close to any limits?"
+  },
+  {
+    "objectID": "storage-slides.html#exercise-3-navigation",
+    "href": "storage-slides.html#exercise-3-navigation",
+    "title": "Storage Systems on Aire",
+    "section": "Exercise 3: Navigation",
+    "text": "Exercise 3: Navigation\nPractice navigating between storage areas:\n\nUse cd with environment variables like $SCRATCH\nUse pwd to check where you are\n\nUse ls to see what files are present"
+  },
+  {
+    "objectID": "storage-slides.html#exercise-4-file-transfer-command",
+    "href": "storage-slides.html#exercise-4-file-transfer-command",
+    "title": "Storage Systems on Aire",
+    "section": "Exercise 4: File Transfer Command",
+    "text": "Exercise 4: File Transfer Command\nOn your local machine, write the scp command to download results.txt from your home directory on Aire into your current local directory.\n\nAnswer:\nscp &lt;username&gt;@target-system:/users/yourname/results.txt ."
+  },
+  {
+    "objectID": "storage-slides.html#summary",
+    "href": "storage-slides.html#summary",
+    "title": "Storage Systems on Aire",
+    "section": "Summary",
+    "text": "Summary\n\n\nMultiple storage types for different use cases\nEnvironment variables make navigation easier\nRegular monitoring with quota and du\nProper workflow prevents data loss\nBackup important data from temporary storage"
+  },
+  {
+    "objectID": "storage-slides.html#next-steps",
+    "href": "storage-slides.html#next-steps",
+    "title": "Storage Systems on Aire",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you understand Aire storage!\nLet’s learn about software and modules"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#amdahls-law",
+    "href": "what-is-hpc-amdahl-slides.html#amdahls-law",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Amdahl’s Law",
+    "text": "Amdahl’s Law\n\nAmdahl’s Law graph Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#key-insights",
+    "href": "what-is-hpc-amdahl-slides.html#key-insights",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Key Insights",
+    "text": "Key Insights\n\n\n\n\n\nAmdahl’s Law graph Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons\n\n\n\n\n\nThe greater the parallelised portion, the greater the speed-up by adding more cores\nThere comes a point of diminishing returns where adding more cores has a negligible effect:\n\nIf 50% of the job is parallelised, the greatest speedup is 2 times\nIf 95% of the work is parallelised, the greatest speedup is 20 times"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#parallelisation-strategies",
+    "href": "what-is-hpc-amdahl-slides.html#parallelisation-strategies",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Parallelisation Strategies",
+    "text": "Parallelisation Strategies\nThe way in which you parallelise your work depends on the problem you are solving!\n\n\nTask Parallelism\n\nDivide work into independent tasks\nEach processor works on different tasks\nGood for different types of calculations\n\n\nData Parallelism\n\nSame operation applied to different data\nEach processor works on subset of data\nGood for large datasets"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#practical-implications",
+    "href": "what-is-hpc-amdahl-slides.html#practical-implications",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Practical Implications",
+    "text": "Practical Implications\n\n\nBefore scaling up:\n\nProfile your code to understand bottlenecks\nIdentify which parts can be parallelized\nConsider the communication overhead\n\nWhen choosing resources:\n\nMore cores ≠ always faster\nConsider memory requirements per core\nBalance cores vs. memory vs. time"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#real-performance-example",
+    "href": "what-is-hpc-amdahl-slides.html#real-performance-example",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Real Performance Example",
+    "text": "Real Performance Example\n\nScenario: Image processing job with 1000 files\n\nSerial: 10 hours on 1 core\n10 cores: ~1.2 hours (not exactly 1 hour due to overhead)\n100 cores: ~8 minutes (if perfectly parallel)\n1000 cores: Likely slower due to overhead!"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#exercise",
+    "href": "what-is-hpc-amdahl-slides.html#exercise",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Exercise",
+    "text": "Exercise\nReturn to the main notes and try to answer the questions!"
+  },
+  {
+    "objectID": "what-is-hpc-amdahl-slides.html#next-steps",
+    "href": "what-is-hpc-amdahl-slides.html#next-steps",
+    "title": "Parallelisation and Amdahl’s Law",
+    "section": "Next Steps",
+    "text": "Next Steps\nNow you understand HPC basics!\nLet’s learn how to actually connect and use the system.\nContinue to Session 2: Logging On →"
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#hpc-terminology",
+    "href": "what-is-hpc-terminology-slides.html#hpc-terminology",
+    "title": "HPC Terminology",
+    "section": "HPC Terminology",
+    "text": "HPC Terminology\nUnderstanding the key concepts and jargon\n\nIt’s ok to not remember all of these!\nWe just want these terms to be familiar to you."
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#hpc",
+    "href": "what-is-hpc-terminology-slides.html#hpc",
+    "title": "HPC Terminology",
+    "section": "HPC",
+    "text": "HPC\n\nHPC stands for High Performance Computing\nHPC systems or platforms can also be called clusters or supercomputers\n\nHPC systems allow multiple processors to work on the same problem at the same time…\n\nallowing complex problems to be solved faster than they could be on a single computer."
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#hpc-1",
+    "href": "what-is-hpc-terminology-slides.html#hpc-1",
+    "title": "HPC Terminology",
+    "section": "HPC",
+    "text": "HPC\nHPC systems allow multiple processors to work on the same problem at the same time…\n\nYears to run on a single processor ⇨ might run 10 or 100 times faster using 10 or 100 processors in parallel\nIt’s not magic - there is no fairy dust that can just make code run on hundreds of processors\nBut it could transform your workflow if you put the effort in to shape your code to work on a HPC system"
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#cluster",
+    "href": "what-is-hpc-terminology-slides.html#cluster",
+    "title": "HPC Terminology",
+    "section": "Cluster",
+    "text": "Cluster\n\nA system of computers that work together to allow large-scale computing\nImagine a network of laptops hooked up together on a high speed network\n\nEach laptop is a “node” in the cluster and acts as a server\n\n\n\nNetwork of connected computers and storage forming a cluster"
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#node",
+    "href": "what-is-hpc-terminology-slides.html#node",
+    "title": "HPC Terminology",
+    "section": "Node",
+    "text": "Node\n\nA node is an individual physical machine/server, that when linked to other nodes makes up the cluster\n\nLinked together by a high-speed network which allows very rapid communications between the nodes\n\nIn current systems, a node would typically include one or more processors, as well as memory and other hardware\n\n\nThink of it like this:\n\nYour laptop = 1 node\nHPC cluster = many nodes connected together"
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#processor",
+    "href": "what-is-hpc-terminology-slides.html#processor",
+    "title": "HPC Terminology",
+    "section": "Processor",
+    "text": "Processor\nThe processor or central processing unit (CPU) inside the node, which contains one or more cores.\n\nYour laptop or desktop will have a CPU, for example “Intel Core i7”\nMachines can also have a graphical processing unit or GPU (often used in gaming and machine learning)"
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#core",
+    "href": "what-is-hpc-terminology-slides.html#core",
+    "title": "HPC Terminology",
+    "section": "Core",
+    "text": "Core\nThis refers to the basic computation unit of the CPU. This is the unit that carries out the actual computations.\n\nYou will have to define how many cores you want to run your code across\nYou can use cores across multiple nodes"
+  },
+  {
+    "objectID": "what-is-hpc-terminology-slides.html#aire-specifications",
+    "href": "what-is-hpc-terminology-slides.html#aire-specifications",
+    "title": "HPC Terminology",
+    "section": "Aire Specifications",
+    "text": "Aire Specifications\n\nAire is the University of Leeds’ latest HPC system\nIt uses a Linux operating system\nThe system has 52 CPU nodes (and 28 GPU nodes)\n\n\nEach CPU node has:\n\n168 cores (ARC4 had 40 cores)\n768GB memory\n\nYou can read more about the Aire system on our website"
+  },
+  {
+    "objectID": "wrap-up-slides.html#welcome-to-session-7",
+    "href": "wrap-up-slides.html#welcome-to-session-7",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Welcome to Session 7",
+    "text": "Welcome to Session 7\nCourse Wrap-Up and Next Steps\nCongratulations on completing HPC1!"
+  },
+  {
+    "objectID": "wrap-up-slides.html#what-youve-accomplished",
+    "href": "wrap-up-slides.html#what-youve-accomplished",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "What You’ve Accomplished",
+    "text": "What You’ve Accomplished\n\n\nTechnical Skills ✅\n\nHPC Concepts: Clusters, nodes, cores, parallelization\nLinux Command Line: File navigation and management\nStorage Systems: Home, scratch, temporary storage\nSoftware Management: Module system mastery\nJob Scheduling: Slurm job script creation\nBest Practices: Troubleshooting and optimization\n\n\nKey Concepts ✅\n\nResource Planning: Right-sizing requests\nData Management: Organizing research data\nReproducibility: Version-controlled workflows\nCollaboration: Sharing environments\nProblem Solving: Debugging HPC issues\nSecurity: Protecting credentials and data"
+  },
+  {
+    "objectID": "wrap-up-slides.html#essential-commands-recap",
+    "href": "wrap-up-slides.html#essential-commands-recap",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Essential Commands Recap",
+    "text": "Essential Commands Recap\n\n\n\nCategory\nCommand\nPurpose\n\n\n\n\nConnection\nssh user@system\nConnect to HPC system\n\n\nNavigation\ncd $HOME, cd $SCRATCH\nChange directories\n\n\nFiles\nls, cp, mv, rm\nList, copy, move, remove\n\n\nStorage\nquota -s, du -hs\nCheck disk usage\n\n\nModules\nmodule load, module list\nManage software\n\n\nJobs\nsbatch, squeue, scancel\nSubmit, monitor, cancel\n\n\nMonitoring\nsacct -j JOBID\nCheck job accounting"
+  },
+  {
+    "objectID": "wrap-up-slides.html#your-hpc-workflow",
+    "href": "wrap-up-slides.html#your-hpc-workflow",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Your HPC Workflow",
+    "text": "Your HPC Workflow\n\n\n\n\n\nflowchart TD\n    A[Connect to Aire] --&gt; B[Navigate to project]\n    B --&gt; C[Load modules]\n    C --&gt; D[Prepare data in scratch]\n    D --&gt; E[Write job script]\n    E --&gt; F[Submit with sbatch]\n    F --&gt; G[Monitor with squeue]\n    G --&gt; H[Job completes]\n    H --&gt; I[Check with sacct]\n    I --&gt; J[Copy results to research storage]\n    J --&gt; K[Clean up scratch]"
+  },
+  {
+    "objectID": "wrap-up-slides.html#immediate-next-steps",
+    "href": "wrap-up-slides.html#immediate-next-steps",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Immediate Next Steps",
+    "text": "Immediate Next Steps\n\n\nPractice: Run your own code on Aire\nExplore: Browse available software modules\nOrganize: Set up project directory structure\nBackup: Implement data backup strategy\nConnect: Join HPC user communities"
+  },
+  {
+    "objectID": "wrap-up-slides.html#project-planning-template",
+    "href": "wrap-up-slides.html#project-planning-template",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Project Planning Template",
+    "text": "Project Planning Template\nBefore starting a new HPC project:\n\n\nPlanning Checklist\n\nDefine objectives\nEstimate requirements\nChoose tools\nPlan workflow\nConsider scalability\nThink about sharing\n\n\nResource Planning\n#!/bin/bash\n#SBATCH --job-name=descriptive_name\n#SBATCH --partition=appropriate\n#SBATCH --time=realistic_estimate\n#SBATCH --nodes=number_needed\n#SBATCH --mem=memory_needed\n#SBATCH --output=logs/%x_%j.out\n\nmodule load required_modules\ncd $SLURM_SUBMIT_DIR\n# Run analysis"
+  },
+  {
+    "objectID": "wrap-up-slides.html#getting-help-effectively",
+    "href": "wrap-up-slides.html#getting-help-effectively",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Getting Help Effectively",
+    "text": "Getting Help Effectively\n\n\n\n\n\n\nWhen You Need Help\n\n\n\nCheck documentation first - Aire docs are comprehensive\nSearch for similar issues - Many problems are common\nAsk specific questions - Include error messages and job IDs\nBe patient - HPC systems can be complex\nHelp others - Share solutions with the community"
+  },
+  {
+    "objectID": "wrap-up-slides.html#core-principles-to-remember",
+    "href": "wrap-up-slides.html#core-principles-to-remember",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Core Principles to Remember",
+    "text": "Core Principles to Remember\n\n\nStart simple: Get basic workflows working first\nTest thoroughly: Always validate results and methods\nDocument everything: Your future self will thank you\nBe a good citizen: Share resources fairly and clean up\nKeep learning: HPC technology continues to evolve"
+  },
+  {
+    "objectID": "wrap-up-slides.html#stay-connected",
+    "href": "wrap-up-slides.html#stay-connected",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Stay Connected",
+    "text": "Stay Connected\n\nTraining Courses: Upcoming HPC and research computing courses\nAire Documentation: Comprehensive system documentation\nResearch Computing Website: News, updates, and resources\nHelp Desk: Submit queries and get support\nResearch Computing Community: Connect with other researchers using HPC; we will share the invite to the Teams group"
+  },
+  {
+    "objectID": "wrap-up-slides.html#course-feedback",
+    "href": "wrap-up-slides.html#course-feedback",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Course Feedback",
+    "text": "Course Feedback\nWe value your feedback to improve this course.\nWe’ll share a link to a feedback form in the chat.\nYour input helps us make HPC training better for everyone!"
+  },
+  {
+    "objectID": "wrap-up-slides.html#thank-you",
+    "href": "wrap-up-slides.html#thank-you",
+    "title": "Course Wrap-Up and Next Steps",
+    "section": "Thank You!",
+    "text": "Thank You!\n\nHappy Computing! 🚀\n\nQuestions?\nResearch Computing Team\nUniversity of Leeds"
+  }
+]
