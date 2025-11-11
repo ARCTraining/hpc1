@@ -1,0 +1,142 @@
+---
+title: "HPC1: Introduction to High Performance Computing"
+subtitle: "University of Leeds Research Computing Team"
+---
+
+## Overview
+
+Welcome to the course notes for *HPC1: Introduction to High Performance Computing*!
+
+::: {.callout-warning}
+## Account Required
+You need an account on [Aire](https://arcdocs.leeds.ac.uk/aire/welcome.html) in order to complete this course. Please [request an account](https://arcdocs.leeds.ac.uk/aire/getting_started/request_account.html) as soon as possible (at least a week before the course begins) to ensure you can participate fully.
+:::
+
+Visit our [training page](https://arc.leeds.ac.uk/courses/) to find upcoming dates and book.
+
+## Learning objectives
+
+By the end of this workshop, you will be able to:
+
+- Navigate and work more confidently in a Linux-based HPC environment
+- Identify and access appropriate software tools for your research
+- Plan and execute HPC jobs independently
+- Make informed decisions about computational resource requirements
+- Organise and store your research data effectively
+
+This course is perfect for you if you're completely new to High Performance Computing, or if you have some HPC experience elsewhere but are new to the platforms and resources at Leeds.
+
+**This session has no coding/practical exercises.**
+
+
+## Topics
+
+In this course, we cover:
+
+- Transferring data to and from HPC resources
+- Managing storage on HPC resources  
+- Job submission, monitoring and cancellation
+- Accessing different software on the HPC system
+- Developing scripts to run codes and applications
+- Benchmarking and analysing how jobs scale
+
+These notes are based on our [HPC user documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html); you can find more details on any of the topics there!
+
+## Prerequisites
+
+In order to participate in this course, you will need:
+
+- An account on the Aire HPC platform
+- To be able to remotely connect to Aire from your machine
+- Basic Linux command line experience
+    - Attend or read through our Linux course materials here [HPC0: Introduction to Command Line Linux](https://arc.leeds.ac.uk/courses/hpc0-introduction-to-linux-for-hpc/) if you are unfailliar with working from the command line
+
+::: {.callout-warning}
+## Aire Account
+You need an account on [Aire](https://arcdocs.leeds.ac.uk/aire/welcome.html) in order to complete this course. Please [request an account](https://arcdocs.leeds.ac.uk/aire/getting_started/request_account.html) as soon as possible (at least a week before the course begins) to ensure you can participate fully.
+:::
+
+::: {.callout-warning}
+## Connection Requirements
+You need to be able to connect to Aire from your machine for this course. If you are attending this course in person and do not plan on using your own laptop, we will show you how to connect from one of the cluster machines.
+
+If you are attending online or plan on using your own laptop, please follow the [instructions here](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html#logging-on) to ensure you have the required software installed on your machine.
+:::
+
+## Delivery
+
+- These materials are designed to work both for independent study and as a delivered course
+- When delivered, the course is split over two half-day sessions
+- In general, the key information is presented in the slides, with additional/supporting information provided in the notes
+
+### Day 1
+
+#### Session 1: What is HPC?
+
+By the end of this session, you will be able to:
+
+- Understand key HPC terminology and concepts
+- Explain the difference between serial and parallel programs
+- Recognize when HPC might benefit your research
+- Describe the basic architecture of HPC cluster systems
+
+#### Session 2: Logging On and Linux Recap
+
+By the end of this session, you will be able to:
+
+- Connect to the Aire HPC system using SSH
+- Navigate the Linux command line interface
+- Use essential Linux commands for file management
+- Understand the difference between on-campus and off-campus connections
+
+#### Session 3: Storage on Aire
+
+By the end of this session, you will be able to:
+
+- Distinguish between different storage areas and their purposes
+- Navigate between storage locations using environment variables
+- Monitor your disk usage and quotas
+- Transfer files between storage areas and your local machine
+
+#### Session 4: Modules and Software
+
+By the end of this session, you will be able to:
+
+- Understand the module system and its benefits for HPC environments
+- Use basic module commands to list, load, and unload software
+- Create scripts that load modules and run software
+- Request new software installations through proper channels
+- Explore alternative software management approaches (Spack, containers)
+- Apply best practices for reproducible software environments
+
+#### Session 5: Job Scheduling and Submission
+
+By the end of this session, you will be able to:
+
+- Understand what a job scheduler is and why it's essential for HPC systems
+- Write and submit batch job scripts using SLURM
+- Monitor, manage, and cancel running jobs effectively
+- Request different types of compute resources (CPU, memory, GPUs, time)
+- Use job arrays to efficiently run multiple similar tasks
+- Apply best practices for job submission and resource allocation
+
+#### Session 6: Best Practices and Troubleshooting
+
+By the end of this session, you will be able to:
+
+- Apply best practices for resource management and job planning
+- Optimize file I/O and data management workflows
+- Troubleshoot common HPC problems and job failures
+- Monitor and analyze job performance effectively
+- Follow proper HPC etiquette and community guidelines
+- Develop efficient and reproducible computational workflows
+
+#### Session 7: Wrap Up
+
+By the end of this session, you will be able to:
+
+- Summarize the key HPC concepts and skills learned throughout the course
+- Identify next steps for developing your HPC expertise
+- Access ongoing support resources and documentation
+- Plan your research computing workflows using HPC best practices
+- Connect with the HPC community for continued learning

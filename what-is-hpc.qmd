@@ -1,0 +1,142 @@
+---
+title: "Session 1: What is HPC?"
+subtitle: "Introduction to High Performance Computing Concepts"
+format: html
+---
+# Session Content
+
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Understand key HPC terminology and concepts
+- Explain the difference between serial and parallel programs
+- Recognize when HPC might benefit your research
+- Describe the basic architecture of HPC cluster systems
+
+Please scroll to the bottom of the page to see the exercises for this session.
+
+## Some commonly used terms
+
+Let's define some frequently used jargon. Don't worry, we will delve into each of these in more depth later.
+
+[**View Interactive Slides: HPC Terminology**](what-is-hpc-terminology-slides.qmd){.btn .btn-primary target="_blank"}
+
+::: {.callout-note}
+## Key takeaway
+
+HPC cluster systems are formed of a large number of separate computers called nodes.
+
+Each node is about equivalent to a high-end workstation or server. They are linked together by a high-speed network which allows very rapid communications between the nodes.
+
+**Read More**: [Getting started on HPC](https://arcdocs.leeds.ac.uk/aire/getting_started/start.html)
+:::
+
+---
+
+## Serial and parallel programs
+
+- Serial programs run on a single CPU core, solving one problem at a time.
+- Parallel programs run across multiple CPU cores, splitting the workload between them and solving the problem faster.
+- In order to use parallelism on an HPC system, you must organise your code/program to use multiple cores.
+
+[**View Interactive Slides: Serial vs Parallel Programs**](what-is-hpc-parallel-slides.qmd){.btn .btn-primary target="_blank"}
+
+---
+
+## Why use HPC?
+
+HPC systems enable researchers to:
+
+- **Scale up computations**: Run calculations that would be impossible on a single computer
+- **Speed up results**: Reduce time from months/years to days/weeks
+- **Handle big data**: Process datasets too large for regular computers
+- **Enable new discoveries**: Solve previously intractable problems
+
+However, remember:
+
+- **It's not magic** - there's no fairy dust that can just make code run on hundreds of processors
+- **Effort required** - A lot of work has to be put into using these systems effectively
+- **Potential transformation** - It could transform your workflow if you put the effort in
+
+[**View Interactive Slides: Parallelisation and Amdahl's Law**](what-is-hpc-amdahl-slides.qmd){.btn .btn-primary target="_blank"}
+
+---
+
+# Exercises
+
+Test your understanding of the key concepts from this session:
+
+::: {.callout-tip collapse="true"}
+## Q1: What is the main difference between a cluster and a single computer?
+
+**Answer:** A cluster is made up of many separate computers (nodes) connected by a high-speed network, allowing them to work together on problems.
+
+A single computer has limited processing power and memory, while a cluster can scale up to handle much larger computational tasks.
+:::
+
+::: {.callout-tip collapse="true"}
+## Q2: Why can't you just add more cores to make any program run faster?
+
+**Answer:** Not all programs can be parallelised effectively!
+
+Some parts of a program must run serially or sequentially (one after another), and there's overhead in coordinating between cores.
+
+According to Amdahl's Law, the maximum speedup is limited by the portion of the program that cannot be parallelised.
+:::
+
+::: {.callout-tip collapse="true"}
+## Q3: What's the difference between task parallelism and data parallelism?
+
+**Answer:** 
+
+- **Task parallelism:** Different processors work on different types of tasks or calculations
+- **Data parallelism:** Multiple processors perform the same operation on different subsets of data
+
+:::
+
+::: {.callout-tip collapse="true"}
+## Q4: A program is 80% parallelizable. What's the maximum theoretical speedup you could achieve?
+
+**Answer:** According to Amdahl's Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.
+:::
+
+::: {.callout-tip collapse="true"}
+## Q5: When might HPC not be the right solution for your research problem?
+
+**Answer:** HPC might not be suitable when:
+
+- Your program cannot be parallelized effectively
+- The problem is small enough to run quickly on a regular computer
+- Your workflow requires frequent interaction or visualization
+
+:::
+
+---
+
+# Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **HPC enables research** that would be impossible on regular computers
+- **Parallelization is key** - breaking problems into smaller parts that run simultaneously
+- **Amdahl's Law** sets limits on speedup based on the serial portion of your code
+- **Different types of parallelism** (task vs. data) suit different problems
+- **HPC isn't always the answer** - consider if your problem truly needs it
+- **Aire provides powerful resources** for University of Leeds researchers
+:::
+
+---
+
+## Next Steps
+
+Ready to start using HPC? Let's move on to [Session 2: Logging on and Linux Recap](logging-on-and-linux-recap.qmd) to learn how to access and navigate the Aire system.
+
+## Additional Resources
+
+- [Aire Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
+- [Research Computing Training](https://arc.leeds.ac.uk/courses/)
+- [Contact Research Computing](mailto:ask-rc@leeds.ac.uk)
+- [Parallel Computing Concepts](https://en.wikipedia.org/wiki/Parallel_computing)
+- [Amdahl's Law Explained](https://en.wikipedia.org/wiki/Amdahl%27s_law)

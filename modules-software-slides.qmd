@@ -1,0 +1,469 @@
+---
+title: "Module System on Aire"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+## Module System on Aire {.center}
+
+Managing software environments on HPC systems
+
+---
+
+## What are Modules?
+
+Modules are a way to manage different software environments on HPC systems
+
+::: {.fragment}
+**Key Benefits:**
+- Dynamic loading/unloading of software packages
+- Manage different versions and dependencies
+- Clean separation of environments
+- Avoid software conflicts
+:::
+
+::: {.fragment}
+**Without Modules:**
+- Software conflicts and version issues
+- Complex PATH management
+- Inconsistent environments
+- Difficult reproducibility
+:::
+
+---
+
+## Why Use Modules?
+
+::: {.columns}
+::: {.column width="50%"}
+### With Modules ✅
+- Clean environments
+- Multiple software versions
+- Easy switching
+- Optimized HPC builds
+- Reproducible research
+:::
+
+::: {.column width="50%"}
+### Without Modules ❌
+- Software conflicts
+- Path management chaos
+- Version inconsistencies  
+- Hard to reproduce
+- Performance issues
+:::
+:::
+
+---
+
+## Basic Module Commands
+
+### Listing Available Software
+
+```bash
+module avail              # List all available modules
+module avail python       # List all Python modules
+module avail gcc          # List all GCC modules
+```
+
+::: {.fragment}
+**Try it:** Run `module avail` to see what software is available on Aire
+:::
+
+---
+
+## Loading and Managing Modules
+
+```bash
+# Load a specific version
+module load python/3.13.0
+
+# Load default version (not recommended for reproducibility)
+module load python
+
+# List currently loaded modules
+module list
+
+# Unload a module
+module unload python/3.13.0
+
+# Unload all modules
+module purge
+```
+
+---
+
+## Exercise: Your First Module
+
+Load the `gcc` module and verify it's loaded:
+
+```bash
+module load gcc
+module list
+```
+
+::: {.fragment}
+**Questions:**
+- What happens if you don't specify a version?
+- How does this affect reproducibility?
+:::
+
+::: {.fragment}
+**Answer:** Without version specification, you get the default version, which may change over time!
+:::
+
+---
+
+## Best Practice: Always Specify Versions
+
+::: {.fragment}
+```bash
+# ❌ Bad - may change over time
+module load gcc
+module load python
+
+# ✅ Good - reproducible
+module load gcc/14.2.0  
+module load python/3.13.0
+```
+:::
+
+::: {.fragment}
+**Why?** Default versions change when new software is installed, breaking reproducibility
+:::
+
+---
+
+## Using Modules in Scripts
+
+### Example Python Script
+
+Create `hello_world.py`:
+```python
+print("hello world!")
+```
+
+Create job script `python_test.sh`:
+```bash
+#!/bin/bash
+module load python/3.13.0
+python hello_world.py
+```
+
+---
+
+## Making Scripts Executable
+
+```bash
+# Add executable permissions
+chmod +x python_test.sh
+
+# Check it's executable (shows *)
+ls -F
+
+# Run the script
+./python_test.sh
+```
+
+::: {.fragment}
+**Remember:** Always test your scripts interactively before submitting jobs!
+:::
+
+---
+
+## Python Best Practice
+
+::: {.callout-important}
+## Recommendation
+
+Instead of basic Python modules, use **Miniforge** to create conda environments:
+
+```bash
+module load miniforge/24.3.0
+conda create -n myproject python=3.13
+conda activate myproject
+conda install numpy pandas matplotlib
+```
+
+This provides better dependency management!
+:::
+
+---
+
+## Requesting New Software
+
+### Centralized Management
+
+::: {.fragment}
+**Benefits:**
+- Popular software centrally installed
+- Optimized for HPC hardware
+- Professional maintenance
+- Avoids conflicts
+:::
+
+::: {.fragment}
+**Process:**
+1. Check if software exists: `module avail software_name`
+2. If not available, submit a Research Computing Query
+3. Include: software name, version, research justification
+:::
+
+---
+
+## How to Request Software
+
+Submit requests through the [Research Computing Help Form](https://bit.ly/arc-help)
+
+::: {.fragment}
+**Include in your request:**
+- Software name and version
+- Brief justification for your research
+- Any specific requirements or dependencies
+- Timeline if urgent
+:::
+
+::: {.fragment}
+**Navigation:** *Home > Research IT > Research IT Query*
+:::
+
+---
+
+## Alternative Software Management
+
+For advanced users who need more control:
+
+::: {.fragment}
+### Package Managers
+- **Spack**: Flexible HPC package manager
+- **EasyBuild**: Automated building framework
+:::
+
+::: {.fragment}
+### Manual Options
+- **Self-building**: Download and compile yourself
+- **Containers**: Apptainer/Singularity for complex environments
+:::
+
+---
+
+## Spack Example
+
+```bash
+# Load Spack
+module load spack
+
+# Install software
+spack install htop
+
+# Load installed software
+spack load htop
+
+# Use the software
+htop
+```
+
+::: {.fragment}
+**Use case:** When you need software versions not available via modules
+:::
+
+---
+
+## Container Example
+
+```bash
+# Pull a container
+apptainer pull docker://ubuntu:20.04
+
+# Run software in container
+apptainer exec ubuntu_20.04.sif python my_script.py
+```
+
+::: {.fragment}
+**Use case:** Complex software stacks, ensuring exact reproducibility
+:::
+
+---
+
+## Best Practices Summary
+
+### Environment Management
+::: {.fragment}
+- Use modules to manage software environments
+- **Unload** modules when no longer needed
+- Use **Miniforge** for Python/R environments
+- **Start clean** with `module purge`
+:::
+
+### Reproducibility  
+::: {.fragment}
+- **Always specify versions**: `gcc/14.2.0` not `gcc`
+- **Document everything**: Keep track of modules used
+- **Use scripts**: Automate your module loading
+- **Version control**: Track your workflow scripts
+:::
+
+---
+
+## Module Script Template
+
+```bash
+#!/bin/bash
+# Project setup script
+# Author: Your Name
+# Date: 2025-01-01
+
+# Start with clean environment
+module purge
+
+# Load required modules with versions
+module load gcc/14.2.0
+module load python/3.13.0  
+module load cmake/3.24.2
+
+# Verify modules loaded
+echo "Loaded modules:"
+module list
+
+# Optional: activate conda environment
+# conda activate myproject
+```
+
+---
+
+## Common Workflows
+
+### Data Analysis
+```bash
+module load python/3.13.0
+module load scipy/1.11.3
+module load matplotlib/3.7.2
+python analysis.py
+```
+
+### Compilation
+```bash
+module load gcc/14.2.0
+module load cmake/3.24.2
+module load openmpi/4.1.4
+cmake . && make -j8
+```
+
+### Machine Learning
+```bash
+module load miniforge/24.3.0
+conda activate ml-env
+python train_model.py
+```
+
+---
+
+## Collaboration Tips
+
+### Sharing Environments
+
+::: {.fragment}
+**Share module commands:**
+```bash
+# Document your setup
+echo "module load gcc/14.2.0" > setup_modules.sh
+echo "module load python/3.13.0" >> setup_modules.sh
+```
+:::
+
+::: {.fragment}
+**Export conda environments:**
+```bash
+conda env export > environment.yml
+# Share environment.yml file with collaborators
+```
+:::
+
+---
+
+## Exercise Time!
+
+### Exercise 1: Module Exploration
+
+1. List all available Python modules: `module avail python`
+2. Load a specific Python version
+3. Check what's loaded: `module list`
+4. Unload and try a different version
+
+---
+
+## Exercise 2: Create Setup Script
+
+Create a script that loads modules for your research:
+
+```bash
+#!/bin/bash
+# My research environment
+
+module purge
+module load [your_required_modules]
+
+echo "Environment ready for [your project]"
+module list
+```
+
+---
+
+## Troubleshooting Modules
+
+### Common Issues
+
+::: {.fragment}
+**Module not found:**
+```bash
+module avail software_name  # Check spelling/availability
+module spider software_name # More detailed search
+```
+:::
+
+::: {.fragment}  
+**Conflicts between modules:**
+```bash
+module purge    # Start fresh
+module load module1 module2  # Load in correct order
+```
+:::
+
+::: {.fragment}
+**Version conflicts:**
+```bash
+module unload old_version
+module load new_version
+```
+:::
+
+---
+
+## Summary
+
+::: {.fragment}
+**Key Points:**
+- Modules provide clean software environments
+- Always specify versions for reproducibility  
+- Use scripts to automate and document
+- Request new software through proper channels
+- Consider alternatives for special needs
+:::
+
+::: {.fragment}
+**Next:** Learn how to run your software on compute nodes with job scheduling!
+:::
+
+---
+
+## Next Steps {.center}
+
+Now you can manage software environments!
+
+Let's learn about [job scheduling and submission](scheduling-submission.html)

@@ -1,0 +1,33 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+    - "!book/"
+
+website:
+  title: "HPC1: Introduction to High Performance Computing"
+  sidebar:
+    style: "docked"
+    search: true
+    logo: "assets/img/logo/logo.png"
+    contents:
+      - section: "Course Content"
+        contents:
+          - what-is-hpc.qmd
+          - logging-on-and-linux-recap.qmd
+          - storage.qmd
+          - modules-software.qmd
+          - scheduling-submission.qmd
+          - best-practices-troubleshooting.qmd
+          - wrap-up.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: false
+    code-tools: true
+
+
+

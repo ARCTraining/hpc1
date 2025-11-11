@@ -1,0 +1,265 @@
+---
+title: "Session 7: Wrap Up"
+subtitle: "Next Steps and Additional Resources"
+format: html
+---
+
+# Session content
+
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Summarize the key HPC concepts and skills learned throughout the course
+- Identify next steps for developing your HPC expertise
+- Access ongoing support resources and documentation
+- Plan your research computing workflows using HPC best practices
+- Connect with the HPC community for continued learning
+
+[**View Interactive Slides: Course Wrap-Up and Next Steps**](wrap-up-slides.qmd){.btn .btn-primary target="_blank"}
+
+Congratulations on completing HPC1: Introduction to High Performance Computing! You've learned the fundamental skills needed to effectively use HPC systems.
+
+## What You've Learned
+
+Throughout this course, you've covered:
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-6}
+### Technical Skills
+
+- **HPC Concepts**: Understanding clusters, nodes, cores, and parallelization
+- **Linux Command Line**: Essential commands for navigating and managing files
+- **Storage Systems**: Home, scratch, and temporary storage management
+- **Software Management**: Using the module system and managing environments
+- **Job Scheduling**: Writing and submitting Slurm job scripts
+- **Best Practices**: Troubleshooting and optimizing your workflows
+:::
+
+::: {.g-col-12 .g-col-md-6}
+### Key Concepts
+
+- **Resource Planning**: Right-sizing job requests for efficiency
+- **Data Management**: Organizing and protecting your research data  
+- **Reproducibility**: Creating documented, version-controlled workflows
+- **Collaboration**: Sharing code and environments with colleagues
+- **Problem Solving**: Debugging common HPC issues
+- **Security**: Protecting credentials and sensitive data
+:::
+:::
+
+## Quick Reference
+
+### Essential Commands Summary
+
+| Category | Command | Purpose |
+|----------|---------|---------|
+| **Connection** | `ssh user@system` | Connect to HPC system |
+| **Navigation** | `cd $HOME`, `cd $SCRATCH` | Change directories |
+| **Files** | `ls`, `cp`, `mv`, `rm` | List, copy, move, remove files |
+| **Storage** | `quota -s`, `du -hs` | Check disk usage |
+| **Modules** | `module load`, `module list` | Manage software |
+| **Jobs** | `sbatch`, `squeue`, `scancel` | Submit, monitor, cancel jobs |
+| **Monitoring** | `sacct -j JOBID` | Check job accounting |
+
+### Typical Workflow
+
+```{mermaid}
+flowchart TD
+    A[Connect to Aire] --> B[Navigate to project directory]
+    B --> C[Load required modules]
+    C --> D[Prepare input data in scratch]
+    D --> E[Write job script]
+    E --> F[Submit job with sbatch]
+    F --> G[Monitor with squeue]
+    G --> H[Job completes]
+    H --> I[Check results with sacct]
+    I --> J[Copy results to research storage]
+    J --> K[Clean up scratch space]
+```
+
+## Next Steps in Your HPC Journey
+
+### Immediate Actions
+
+1. **Practice**: Try running some of your own code on Aire
+2. **Explore**: Browse the available software modules
+3. **Organize**: Set up a clear directory structure for your projects
+4. **Backup**: Implement a data backup strategy
+5. **Connect**: Join HPC user communities
+
+### Advanced Topics to Explore
+
+#### Parallel Programming
+
+- **OpenMP**: Shared-memory parallelization for multi-core systems
+- **MPI**: Message-passing for distributed computing across nodes
+- **GPU Computing**: Using CUDA or OpenCL for GPU acceleration
+- **Workflow Management**: Tools like Snakemake or Nextflow
+
+#### Performance Optimization
+
+- **Profiling**: Tools to identify bottlenecks in your code
+- **Benchmarking**: Systematic testing of different resource configurations
+- **Memory Optimization**: Techniques for handling large datasets
+- **I/O Optimization**: Efficient file reading/writing strategies
+
+#### Advanced Job Management
+
+- **Job Dependencies**: Chaining jobs together
+- **Parameter Sweeps**: Exploring parameter spaces efficiently
+- **Checkpointing**: Saving and resuming long-running jobs
+- **Container Technologies**: Using Apptainer/Singularity
+
+### Learning Resources
+
+#### University of Leeds Resources
+
+- **[Training Courses](https://arc.leeds.ac.uk/courses/)**: Upcoming HPC and research computing courses
+- **[Aire Documentation](https://arcdocs.leeds.ac.uk/aire/)**: Comprehensive system documentation
+- **[Research Computing Website](https://arc.leeds.ac.uk/)**: News, updates, and resources
+- **[Help Desk](https://bit.ly/arc-help)**: Submit queries and get support
+
+#### External Learning Resources
+
+- **[Slurm Documentation](https://slurm.schedmd.com/)**: Official Slurm documentation
+- **[Parallel Programming Tutorials](https://computing.llnl.gov/tutorials/)**: Lawrence Livermore National Laboratory tutorials
+
+### Community and Support
+
+#### Getting Help
+
+::: {.callout-tip}
+## When You Need Help
+
+1. **Check the documentation first** - Aire docs are comprehensive
+2. **Search for similar issues** - Many problems are common
+3. **Ask specific questions** - Include error messages and job IDs
+4. **Be patient** - HPC systems can be complex
+5. **Help others** - Share your solutions with the community
+:::
+
+#### Research Computing Community
+
+- **Research Computing Community**: Connect with other researchers using HPC; we will share the invite to the Teams group
+- **Training Sessions**: Regular workshops and drop-in sessions
+- **Research Computing Query**: [https://bit.ly/arc-help](https://bit.ly/arc-help)
+
+### Expanding Your Skills
+
+#### Programming Languages for HPC
+
+| Language | Strengths | Common Uses |
+|----------|-----------|-------------|
+| **Python** | Easy to learn, extensive libraries | Data analysis, machine learning |
+| **R** | Statistical computing, visualization | Statistics, bioinformatics |
+| **C/C++** | High performance, close to hardware | Computational science, simulations |
+| **Fortran** | Legacy scientific code, numerical | Physics, engineering simulations |
+| **Julia** | High performance, modern syntax | Scientific computing, data science |
+
+
+## Planning Your Next Project
+
+### Project Checklist
+
+Before starting a new HPC project:
+
+- [ ] **Define objectives**: What do you want to accomplish?
+- [ ] **Estimate requirements**: How much data, compute time, memory?
+- [ ] **Choose tools**: What software and programming languages?
+- [ ] **Plan workflow**: What are the main steps?
+- [ ] **Consider scalability**: Will you need to run this many times?
+- [ ] **Think about sharing**: Will others need to reproduce your work?
+
+### Resource Planning Template
+
+Use this template to plan your resource requests:
+
+```bash
+#!/bin/bash
+# Project: [Your project name]
+# Objective: [What you're trying to accomplish]
+# Expected runtime: [Your estimate]
+# Input data size: [Size of input files]
+# Output data size: [Expected output size]
+# Memory requirements: [Based on similar work or testing]
+
+#SBATCH --job-name=[descriptive_name]
+#SBATCH --partition=[appropriate_partition]
+#SBATCH --time=[realistic_estimate]
+#SBATCH --nodes=[number_needed]
+#SBATCH --ntasks=[for_MPI] 
+#SBATCH --cpus-per-task=[for_OpenMP]
+#SBATCH --mem=[memory_needed]
+#SBATCH --output=logs/%x_%j.out
+#SBATCH --error=logs/%x_%j.err
+
+# Load modules
+module load [required_modules]
+
+# Set up environment
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+# Change to working directory  
+cd $SLURM_SUBMIT_DIR
+
+# Run your analysis
+[your_commands_here]
+```
+
+## Final Thoughts
+
+### Remember the Fundamentals
+
+As you advance in your HPC journey, remember these core principles:
+
+1. **Start simple**: Get basic workflows working before adding complexity
+2. **Test thoroughly**: Always validate your results and methods
+3. **Document everything**: Your future self will thank you
+4. **Be a good citizen**: Share resources fairly and clean up after yourself
+5. **Keep learning**: HPC technology and best practices continue to evolve
+
+---
+
+# Summary
+
+::: {.callout-note}
+## Key Takeaways from HPC1
+
+- **HPC opens new research possibilities** by providing computational power beyond desktop systems
+- **Linux command line skills** are essential for effective HPC use
+- **Storage management** requires understanding different areas and their purposes
+- **Module system** provides clean, reproducible software environments
+- **Job scheduling** with Slurm enables fair resource sharing and efficient computation
+- **Best practices** ensure reliable, reproducible, and efficient workflows
+- **Community support** is available through documentation, training, and help desk
+:::
+
+---
+
+## Contact Information
+
+- **Research Computing Query**: [https://bit.ly/arc-help](https://bit.ly/arc-help)
+- **Training**: [https://arc.leeds.ac.uk/courses/](https://arc.leeds.ac.uk/courses/)
+- **Documentation**: [https://arcdocs.leeds.ac.uk/aire/](https://arcdocs.leeds.ac.uk/aire/)
+
+## Additional Resources
+
+- [Advanced HPC Training Courses](https://arc.leeds.ac.uk/courses/)
+- [Research Software Development in Python](https://arctraining.github.io/research-software-development/)
+    - Planning and organising your code projects
+- [Research Data Management](https://library.leeds.ac.uk/info/14062/research_data_management)
+- [HPC Community Forums](https://stackoverflow.com/questions/tagged/hpc)
+
+## Course Feedback
+
+We value your feedback to improve this course. Please let us know:
+
+- What worked well for you?
+- What could be improved?
+- What additional topics would be helpful?
+- How will you use what you've learned?
+
+We will share a link to a feedback form in the class Teams chat!
+
+**Happy computing!** 🚀

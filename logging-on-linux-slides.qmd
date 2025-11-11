@@ -1,0 +1,210 @@
+---
+title: "Linux Command Line Essentials"
+subtitle: "Getting comfortable with the CLI on HPC systems"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+## Command Line Interface (CLI)
+
+Aire does not have a GUI (Graphical User Interface) and so you need to interact with it through a CLI.
+
+::: {.fragment}
+- CLIs allow us to interact with a computer through text-based commands typed into the command-line
+- While GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows
+:::
+
+---
+
+## Why CLI for HPC?
+
+
+**Reproducibility Issues with GUIs:**
+
+- Sometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used
+- Updates to GUIs can make it difficult to find the same menu options
+- A workflow with multiple steps can be tedious to repeat for multiple datasets (having to click through multiple layers of menu options for each dataset)
+
+
+## Why CLI for HPC?
+
+**CLI Benefits:**
+
+- Scriptable and repeatable
+- Faster for experienced users
+- Works better over remote connections
+- Can be automated
+
+
+---
+
+## Bash Shell
+
+Bash is the default shell on Unix systems like Linux or Mac
+
+::: {.fragment}
+**Key Concepts:**
+
+- Shell interprets and executes commands
+- Commands follow pattern: `command [options] [arguments]`
+- Case sensitive
+- Use `man command` to get help
+:::
+
+---
+
+## File Systems on Linux
+
+::: {.fragment}
+**Navigation Basics:**
+
+- Navigate to your home directory with `cd`
+- List the files and directories present with `ls`
+- Change to a different directory with `cd path/to/directory`
+:::
+
+::: {.fragment}
+**Path Types:**
+
+- Absolute path: `/home/username/data`
+- Relative path: `../data` or `./scripts`
+- Home directory: `~`
+:::
+
+---
+
+## Essential Commands
+
+- We don't expect you to memorise these!
+- We have included them here for quick and easy reference.
+
+## Essential Commands - Navigation
+
+```bash
+pwd          # Print working directory - where am I?
+ls           # List files and directories
+ls -la       # List with details and hidden files
+cd           # Change to home directory
+cd /path     # Change to specific directory
+cd ..        # Go up one directory level
+cd -         # Go back to previous directory
+```
+
+::: {.fragment}
+**Try it:** Navigate around the file system and see where you are. You might not have any files or folders if you've just created your account!
+:::
+
+---
+
+## Essential Commands - Files
+
+```bash
+mkdir newdir     # Create directory
+cp file1 file2   # Copy file1 to file2
+mv oldname new   # Move/rename file
+rm filename      # Remove file (be careful!)
+rm -r dirname    # Remove directory and contents
+```
+
+::: {.fragment}
+::: {.callout-warning}
+## Be Careful with rm!
+The `rm` command permanently deletes files - there's no "recycle bin" on Linux!
+:::
+:::
+
+---
+
+## Essential Commands - Viewing Files
+
+```bash
+cat filename     # Display entire file contents
+less filename    # View file page by page (q to quit)
+head filename    # Show first 10 lines
+tail filename    # Show last 10 lines
+head -20 file    # Show first 20 lines
+tail -f logfile  # Follow a log file in real time
+```
+
+---
+
+## Essential Commands - System Info
+
+```bash
+whoami           # Current username
+df -h            # Disk usage (human readable)
+free -h          # Memory usage
+ps               # Running processes
+top              # Real-time process viewer
+which command    # Location of a command
+```
+
+---
+
+## Exercise: Command Practice {.center}
+
+What do the following Linux commands do? How might they be used on the HPC service?
+
+---
+
+## Exercise Questions
+
+::: {.fragment}
+- `ls` - ?
+:::
+
+::: {.fragment}
+- `pwd` - ?
+:::
+
+::: {.fragment}
+- `mkdir` - ?
+:::
+
+::: {.fragment}
+- `cp` - ?
+:::
+
+::: {.fragment}
+- `wget` - ?
+:::
+
+::: {.fragment}
+- `rm` - ?
+:::
+
+---
+
+## Exercise Answers
+
+- `ls` - **List files and directories** (see what's available)
+- `pwd` - **Print working directory** (know where you are)
+- `mkdir` - **Make directory** (organize your work)
+- `cp` - **Copy files** (backup important data)
+- `wget` - **Download files from web** (get datasets, software)
+- `rm` - **Remove files** (clean up files)
+
+---
+
+## Getting More Help
+
+::: {.fragment}
+- `man command` - Manual pages for any command
+- `command --help` - Quick help for most commands
+- [Linux Cheat Sheet](https://arctraining.github.io/rc-slides/linux101#/cheat-sheet)
+- [Introduction to Linux for HPC](https://arctraining.github.io/rc-slides/linux101#/section)
+:::
+
+---
+
+## Next Steps {.center}
+
+Now you're ready to work on the command line!
+
+Let's learn about [storage systems on HPC](storage.html)

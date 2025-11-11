@@ -1,0 +1,451 @@
+---
+title: "Best Practices and Troubleshooting"
+subtitle: "Optimizing Your HPC Workflows"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+## Why Best Practices Matter {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+**Without best practices:**
+
+- Wasted compute resources
+- Unreproducible results
+- Difficult debugging
+- Poor collaboration
+- Security vulnerabilities
+:::
+
+::: {.column width="50%"}
+**With best practices:**
+
+- Efficient resource usage
+- Reproducible workflows
+- Easier troubleshooting
+- Better collaboration
+- Secure computing
+:::
+::::
+
+::: {.callout-note}
+Best practices save time, resources, and frustration for everyone!
+:::
+
+## Pre-Submission Checklist {.smaller}
+
+::: {.callout-important}
+## Before Submitting Jobs
+
+✅ **Test interactively first** - Debug on login nodes or interactive sessions
+
+✅ **Validate input data** - Check files exist and are accessible
+
+✅ **Estimate resources** - Based on small test runs
+
+✅ **Choose right partition** - Standard, GPU, high-memory, etc.
+
+✅ **Set realistic time limits** - Add buffer but don't over-request
+
+✅ **Specify module versions** - For reproducibility
+:::
+
+## Job Script Quality {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+**Error Handling:**
+```bash
+#!/bin/bash
+set -e  # Exit on any error
+
+# Check input files exist
+if [ ! -f "input.txt" ]; then
+    echo "Error: input.txt not found"
+    exit 1
+fi
+```
+:::
+
+::: {.column width="50%"}
+**Good Organization:**
+```bash
+#SBATCH --job-name=meaningful_name
+#SBATCH --output=logs/job_%j.out
+#SBATCH --error=logs/job_%j.err
+
+# Create logs directory
+mkdir -p logs
+
+# Document what you're doing
+echo "Starting analysis at $(date)"
+```
+:::
+::::
+
+::: {.callout-tip}
+Use meaningful names and organize your output files!
+:::
+
+##  Right-Sizing Resources
+
+```bash
+# Check actual usage after jobs complete
+sacct -j JOBID --format=JobID,MaxRSS,ReqMem,Elapsed,ReqCPUS
+
+# Example output:
+# JobID     MaxRSS   ReqMem   Elapsed  ReqCPUS
+# 12345     2.5G     8G       00:15:23    4
+```
+
+::: {.callout-warning}
+**Over-requesting wastes resources and delays scheduling!**
+
+In this example: requested 8G memory, only used 2.5G → reduce future requests
+:::
+
+## Storage Best Practices
+
+| Storage Type | Use For | Don't Use For |
+|--------------|---------|---------------|
+| **Home** | Scripts, configs, results | Large datasets, temp files, job results |
+| **Scratch** | Working data, temp files | Long-term storage |
+| **Flash** | High I/O during jobs | Permanent storage |
+
+## Performance Optimisation: CPU
+
+```bash
+# Check if you're using all requested CPUs
+sacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State
+```
+
+**Common Issues:**
+
+- Not using all requested CPUs
+- I/O bottlenecks
+- Inefficient algorithms
+- Wrong parallelization strategy
+
+## Performance Optimization: I/O
+
+
+:::: {.columns}
+::: {.column width="50%"}
+**❌ Bad: Many small writes**
+```bash
+for i in {1..1000}; do
+    echo "data $i" >> output.txt
+done
+```
+:::
+
+::: {.column width="50%"}
+**✅ Good: Batch writes**
+```bash
+{
+    for i in {1..1000}; do
+        echo "data $i"
+    done
+} > output.txt
+```
+:::
+::::
+
+## Common Issues & Solutions
+
+### Module Problems
+
+:::: {.columns}
+::: {.column width="50%"}
+**Module Not Found:**
+```bash
+# Check availability
+module avail python
+module spider python
+
+# Load specific version
+module load python/3.13.0
+```
+:::
+
+::: {.column width="50%"}
+**Python Package Issues:**
+```bash
+# Use conda environments
+module load miniforge/24.3.0
+conda create -n myenv python=3.13
+conda activate myenv
+conda install numpy pandas
+```
+:::
+::::
+
+## Common Issues & Solutions
+### Job Failures
+
+:::: {.columns}
+::: {.column width="50%"}
+
+**Job Killed (Out of Memory):**
+
+- Increase `--mem` or `--mem-per-cpu`
+- Profile memory usage
+- Optimize data structures
+:::
+
+::: {.column width="50%"}
+**Job Timeout:**
+
+- Increase `--time` limit
+- Optimize algorithms
+- Split into smaller jobs
+:::
+::::
+
+## Debugging Techniques {.smaller}
+
+### Check Log Files First
+
+```bash
+# Look at error output
+cat job_12345.err
+
+# Check standard output
+cat job_12345.out
+
+# Look for common error patterns
+grep -i "error\|failed\|killed" job_12345.err
+```
+
+### Use Slurm Diagnostics
+
+```bash
+# Why is my job pending?
+squeue -u $USER --long
+
+# Check job details
+scontrol show job 12345
+
+# View job accounting
+sacct -j 12345 --format=JobID,State,ExitCode,MaxRSS,Elapsed
+```
+
+## Interactive Debugging {.scrollable}
+
+### Start Interactive Session
+
+```bash
+# Request interactive resources
+srun --pty --partition=test --time=1:00:00 --mem=4G bash
+
+# Or use salloc for longer sessions
+salloc --partition=test --time=2:00:00 --mem=8G
+```
+
+### Debug Step by Step
+
+1. **Load same modules** as your job script
+2. **Navigate to same directory** (`cd $SLURM_SUBMIT_DIR`)
+3. **Run commands manually** one by one
+4. **Check intermediate outputs** 
+5. **Fix issues** before resubmitting batch job
+
+::: {.callout-tip}
+Interactive debugging saves time versus repeated batch submissions!
+:::
+
+## Reproducibility Best Practices {.smaller}
+
+### Version Control Everything
+
+```bash
+# Track your scripts
+git init
+git add job_script.sh analysis.py
+git commit -m "Initial analysis setup"
+```
+
+### Document Your Environment
+
+```bash
+# Record module versions
+module list > modules_used.txt
+
+# Save package versions
+pip freeze > requirements.txt
+# or
+conda env export > environment.yml
+```
+
+### Organize Your Workflow
+
+```
+project/
+├── scripts/          # Job scripts and analysis code
+├── data/            # Input data (or symlinks)
+├── results/         # Output data and figures  
+├── logs/            # Job output and error files
+└── docs/            # Documentation and notes
+```
+
+## Collaboration Best Practices {.scrollable}
+
+### Sharing Code
+
+```bash
+# Make scripts readable by group
+chmod 755 my_script.sh
+
+# Share via version control
+git remote add origin https://github.com/user/project.git
+git push origin main
+```
+
+### Documentation
+
+```bash
+# Include usage information in scripts
+#!/bin/bash
+# Purpose: Analyze genomic data using BWA and samtools
+# Usage: sbatch alignment_job.sh <input_fastq> <reference_genome>
+# Author: Your Name
+# Date: 2024-10-21
+```
+
+### File Permissions
+
+```bash
+# Private files (default)
+chmod 700 private_directory/
+
+# Group readable
+chmod 750 shared_analysis/
+
+# World readable (public data)
+chmod 755 public_results/
+```
+
+## Security Best Practices {.scrollable}
+
+### Protect Your Credentials
+
+::: {.callout-warning}
+## Never Do This:
+- Share your login credentials
+- Leave passwords in scripts
+- Store/process sensitive data on Aire
+- Leave interactive sessions running
+:::
+
+### Use SSH Keys
+
+```bash
+# Generate SSH key pair (on your local machine)
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+# Copy public key to HPC system
+ssh-copy-id username@system
+```
+
+### Data Security
+
+```bash
+# Set appropriate permissions
+chmod 700 sensitive_data/
+chmod 600 private_key.pem
+
+# Check who can access your files
+ls -la
+```
+
+## Troubleshooting Workflow {.scrollable}
+
+```{mermaid}
+flowchart TD
+    A[Job Fails] --> B[Check Error Files]
+    B --> C[Look for Obvious Errors]
+    C --> D{Error Found?}
+    D -->|Yes| E[Fix and Resubmit]
+    D -->|No| F[Check Slurm Status]
+    F --> G[Use sacct for Details]
+    G --> H[Try Interactive Debug]
+    H --> I[Search Documentation]
+    I --> J[Ask for Help]
+    J --> K[Include: Job ID, Error Messages...]
+```
+
+## When seeking help: Include This Information:
+
+- **Job ID** and submission command
+- **Error messages** (exact text)
+- **Expected vs actual behavior** 
+- **Steps to reproduce** the problem
+- **System information** (which cluster, when)
+
+## Where to Get Help:
+
+- **Aire Documentation**: [arcdocs.leeds.ac.uk](https://arcdocs.leeds.ac.uk/aire/)
+- **Research Computing Query**: [bit.ly/arc-help](https://bit.ly/arc-help)
+- **Training Sessions**: Regular workshops
+- **User Community**: Connect with other researchers
+
+::: {.callout-tip}
+Search documentation first - many common issues are already covered!
+:::
+
+## Best Practices Checklist {.scrollable}
+
+::: {.callout-note}
+## Quick Reference Checklist
+
+**Before Jobs:**
+
+- [ ] Test interactively first
+- [ ] Estimate resources accurately
+- [ ] Check input files exist
+- [ ] Specify exact module versions
+
+**Job Quality:**
+
+- [ ] Include error handling (`set -e`)
+- [ ] Use meaningful job names
+- [ ] Organize output files
+- [ ] Document your workflow
+
+**Resource Management:**
+
+- [ ] Right-size resource requests
+- [ ] Use appropriate storage
+- [ ] Clean up temporary files
+- [ ] Monitor actual usage
+
+**Troubleshooting:**
+
+- [ ] Check log files first
+- [ ] Use Slurm diagnostics
+- [ ] Test with smaller datasets
+- [ ] Document solutions
+:::
+
+## Summary {.smaller}
+
+::: {.callout-note}
+## Key Takeaways
+
+- **Test and validate** workflows before large-scale submission
+- **Right-size resource requests** to avoid waste and improve scheduling
+- **Use appropriate storage** for different types of data and I/O patterns
+- **Monitor job performance** with `sacct` and system tools
+- **Debug systematically** using log files and Slurm commands
+- **Follow security practices** to protect credentials and data
+- **Document solutions** for reproducibility and future troubleshooting
+:::
+
+**Remember:** Good practices benefit everyone in the HPC community!

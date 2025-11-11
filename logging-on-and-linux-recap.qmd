@@ -1,0 +1,138 @@
+---
+title: "Session 2: Logging On and Linux Recap"
+subtitle: "Connecting to Aire and Command Line Essentials"
+format: html
+---
+
+# Session content
+
+## Session aims
+
+By the end of this session, you will be able to:
+
+- Connect to the Aire HPC system using SSH
+- Navigate the Linux command line interface
+- Use essential Linux commands for file management
+- Understand the difference between on-campus and off-campus connections
+
+:::{.callout-tip}
+Please note that a University of Leeds account is required to view the knowledge base articles linked below.
+:::
+
+Please scroll to the bottom of the page to see the exercises for this session.
+
+## Logging on
+
+The training facilitator will share their screen and take your through the steps required to log in, swapping from these notes to the KB articles linked below for the relevant session.
+
+:::{.callout-note}
+There are no slides for this section as the contents of the KB articles cannot be shared publicly. Please log in with your University of Leeds account to view them.
+:::
+
+Attendees can then independently attempt to log on to Aire, followed by a short break, before moving on to some basic Linux recap!
+
+::: {.callout-note}
+## Connection Method Depends on Location
+
+To connect to the Aire platform, the steps vary depending on whether you are on the wired campus network or offsite/using Eduroam. If you are offsite, you must connect through the University's SSH gateway or use the University VPN. However, if you are on the campus network, no additional steps are required.
+:::
+
+### General instructions
+
+To access Aire, you simply need access to an [SSH (Secure SHell) client](https://en.wikipedia.org/wiki/Secure_Shell). This could be your terminal or Bash if you are using Linux or a Mac, or PowerShell or MobaXTerm if you are using Windows.
+
+From a wired connection on campus, use the following command in your SSH client:
+
+```bash
+ssh <username>@target-system
+```
+
+From off-campus (or using a machine on Eduroam as opposed to the wired network), just add in the provided SSH gateway/jumphost:
+
+```bash
+ssh <username>@target-system -J <username>@jump-host
+```
+
+For further guidance on logging on to Aire, see our documentation: [Aire docs - Logging On](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html){target="_blank"}
+
+---
+
+## Linux recap
+
+[**View Interactive Slides: Linux Command Line Essentials**](logging-on-linux-slides.qmd){.btn .btn-primary target="_blank"}
+
+### Why Command Line Interface (CLI)?
+
+Many large research machines (such as the HPC machines ARC4 and Aire here at Leeds) do not have a GUI (Graphical User Interface) and so you need to interact with them through a CLI.
+
+- CLIs allow us to interact with a computer through text-based commands typed into the command-line
+- While GUIs can be simple and intuitive to use, they can make it difficult to reproduce workflows:
+  - Sometimes you have to record by hand (or with a screen recording) what sub-options from different menus you used
+  - Updates to GUIs can make it difficult to find the same menu options
+  - A workflow with multiple steps can be tedious to repeat for multiple datasets
+
+### Essential Commands
+
+Here are some essential Linux commands you'll use frequently:
+
+```bash
+# Navigation
+pwd          # Print working directory
+ls           # List files and directories
+cd           # Change directory
+
+# File operations
+cp           # Copy files
+mv           # Move/rename files
+rm           # Remove files
+mkdir        # Create directory
+
+# Viewing files
+cat          # Display file contents
+less         # View file contents page by page
+head         # Show first few lines
+tail         # Show last few lines
+
+# System information
+whoami       # Current username
+df -h        # Disk usage
+free -h      # Memory usage
+```
+
+---
+
+# Exercises
+
+1. Log on to Aire! Follow the [guidance here in our documentation](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html) to select the right KB article for your operating system.
+2. Create a new folder/directory in your home directory called `hpc1-examples`
+    - Use `cd` and `pwd` to make sure you're in your home directory
+    - Use `mkdir NEW-DIR-NAME` to create your new folder/directory
+
+---
+
+# Summary
+
+::: {.callout-note}
+## Key Takeaways
+
+- **SSH provides secure access** to Aire HPC systems
+- **Multiple connection methods** are available: direct SSH, VS Code, or web interface
+- **Basic Linux commands** are essential for HPC work
+- **Command line navigation** uses `cd`, `pwd`, and `ls` commands
+- **File operations** include `cp`, `mv`, `rm`, and `mkdir`
+- **Getting help** is available through documentation and man pages
+:::
+
+---
+
+## Next Steps
+
+Now that you can connect to Aire and understand basic Linux commands, let's move on to [Session 3: Storage](storage.qmd) to learn about managing your data on the HPC system.
+
+## Additional Resources
+
+- [Aire Getting Started Guide](https://arcdocs.leeds.ac.uk/aire/getting_started/start.html)
+- [Linux Command Line Tutorial](https://arc.leeds.ac.uk/courses/hpc0-introduction-to-linux-for-hpc/)
+- [SSH Documentation](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html)
+- [Linux Commands Cheat Sheet](https://www.linuxtrainingacademy.com/linux-commands-cheat-sheet/)
+- [VS Code Remote SSH Guide](https://code.visualstudio.com/docs/remote/ssh)

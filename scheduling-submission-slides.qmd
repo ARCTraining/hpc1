@@ -1,0 +1,333 @@
+---
+title: "Job Scheduling and Submission"
+subtitle: "Running Jobs on the Slurm Scheduler"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+## What is a Job Scheduler? {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+**Without a scheduler:**
+
+- Manual coordination between users
+- Resource conflicts  
+- Inefficient resource usage
+- Chaos with thousands of CPUs
+:::
+
+::: {.column width="50%"}
+**With a scheduler:**
+
+- Fair resource allocation
+- Automatic job management
+- Efficient resource utilization
+- Priority-based execution
+:::
+::::
+
+::: {.callout-note}
+A **job scheduler** organizes when and where jobs run, allocates resources, and ensures fair access for all users.
+:::
+
+## Slurm Workflow
+
+```{mermaid}
+flowchart LR
+    A[Write Job Script] --> B[Submit with sbatch]
+    B --> C[Job in Queue]
+    C --> D[Resources Available?]
+    D -->|Yes| E[Job Runs]
+    D -->|No| C
+    E --> F[Job Completes]
+```
+
+
+1. **Write** a job script describing your requirements
+2. **Submit** the job to Slurm with `sbatch`
+3. **Queue** - Slurm places your job in a queue
+4. **Execute** - When resources are available, Slurm starts your job
+5. **Complete** - Job finishes and resources are freed
+
+## Essential Slurm Commands {.smaller}
+
+| Command | Purpose | Example |
+|---------|---------|---------|
+| `sbatch` | Submit a job | `sbatch myjob.sh` |
+| `squeue` | View job queue | `squeue -u $USER` |
+| `scancel` | Cancel a job | `scancel 12345` |
+| `sinfo` | View node information | `sinfo` |
+| `sacct` | View job accounting | `sacct -j 12345` |
+
+:::: {.columns}
+::: {.column width="50%"}
+**Job States:**
+
+- `R` = Running
+- `PD` = Pending
+- `CG` = Completing
+- `CD` = Completed
+:::
+
+::: {.column width="50%"}
+<br>
+
+```bash
+# Check your jobs
+squeue -u $USER
+
+# Cancel a job
+scancel 12345
+```
+:::
+::::
+
+## Basic Job Script Structure {.smaller}
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=myjob          # Job name
+#SBATCH --partition=node          # Partition to use
+#SBATCH --time=01:00:00           # Time limit (1 hour)
+#SBATCH --nodes=1                 # Number of nodes
+#SBATCH --ntasks=1                # Number of tasks
+#SBATCH --cpus-per-task=4         # CPUs per task
+#SBATCH --mem=8G                  # Memory per node
+#SBATCH --output=myjob_%j.out     # Output file (%j = job ID)
+#SBATCH --error=myjob_%j.err      # Error file
+
+# Load required modules
+module load python/3.13.0
+
+# Run your program
+echo "Job started at $(date)"
+python my_script.py
+echo "Job finished at $(date)"
+```
+
+## Key SBATCH Directives {.smaller}
+
+| Directive | Purpose | Example |
+|-----------|---------|---------|
+| `--job-name` | Name for your job | `--job-name=analysis` |
+| `--partition` | Queue to use | `--partition=himem` |
+| `--time` | Maximum runtime | `--time=02:30:00` |
+| `--nodes` | Number of nodes | `--nodes=2` |
+| `--ntasks` | Number of tasks | `--ntasks=8` |
+| `--cpus-per-task` | CPUs per task | `--cpus-per-task=4` |
+| `--mem` | Memory per node | `--mem=16G` |
+| `--output` | Output file | `--output=job_%j.out` |
+
+::: {.callout-tip}
+Always specify realistic time limits and memory requirements!
+:::
+
+## Resource Request Examples
+
+:::: {.columns}
+::: {.column width="50%"}
+**Single Core Job:**
+```bash
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4G
+```
+
+**Multi-core (Shared Memory):**
+```bash
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32G
+```
+:::
+
+::: {.column width="50%"}
+**MPI (Distributed):**
+```bash
+#SBATCH --ntasks=16
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=2G
+```
+
+**GPU Job:**
+```bash
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:1
+```
+:::
+::::
+
+## Time Formats
+
+```bash
+# Different time limit formats
+#SBATCH --time=30:00        # 30 minutes
+#SBATCH --time=2:00:00      # 2 hours  
+#SBATCH --time=1-12:00:00   # 1 day, 12 hours
+```
+
+::: {.callout-warning}
+**Format:** `DD-HH:MM:SS` or `HH:MM:SS`
+
+Be realistic with time requests - jobs are killed when time limit is reached!
+:::
+
+- You can ieratively improve your requests/estimations
+
+## Job Arrays
+
+Submit many similar jobs efficiently:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=array_job
+#SBATCH --partition=test
+#SBATCH --time=01:00:00
+#SBATCH --array=1-10          # Submit jobs 1 through 10
+#SBATCH --output=job_%A_%a.out # %A = array job ID, %a = task ID
+
+# Process different input files
+INPUT_FILE="input_${SLURM_ARRAY_TASK_ID}.txt"
+OUTPUT_FILE="output_${SLURM_ARRAY_TASK_ID}.txt"
+
+python process_file.py $INPUT_FILE $OUTPUT_FILE
+```
+
+::: {.callout-tip}
+## Embarassingly parallel
+
+Perfect for parameter sweeps or processing multiple datasets!
+
+:::
+
+## Monitoring Jobs
+
+:::: {.columns}
+::: {.column width="50%"}
+**Check Queue Status:**
+```bash
+# View all your jobs
+squeue -u $USER
+
+# Detailed view
+squeue -u $USER --long
+
+# Get job details
+scontrol show job 12345
+```
+:::
+
+::: {.column width="50%"}
+**Job History:**
+```bash
+# Check completed jobs
+sacct -j 12345
+
+# Detailed accounting
+sacct -j 12345 --format=JobID,JobName,State,ExitCode,MaxRSS,Elapsed
+```
+:::
+::::
+
+::: {.callout-note}
+Use `sacct` to see actual resource usage and optimize future jobs!
+:::
+
+## Best Practices
+
+::: {.callout-important}
+## Right-Sizing Your Jobs
+
+- **Start small**: Test with minimal resources first
+- **Monitor usage**: Use `sacct` to check actual resource usage  
+- **Don't over-request**: Only ask for what you need
+- **Time limits**: Be realistic but add some buffer time
+:::
+
+## Best Practices
+
+:::: {.columns}
+::: {.column width="50%"}
+**Good Practices:**
+
+- Test interactively first
+    - Toy problems
+- Use meaningful job names
+- Organize output files
+- Include error handling
+:::
+
+::: {.column width="50%"}
+**Resource Management:**
+
+- Use appropriate storage
+- Clean up temporary files
+- Monitor actual usage
+- Right-size requests
+:::
+::::
+
+## Common Issues & Solutions {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+**Job Won't Start (PD state):**
+
+- Too many resources requested
+- Wrong partition name
+- System maintenance
+- Check with `sinfo`
+:::
+
+::: {.column width="50%"}
+**Job Fails Immediately:**
+
+- Module not loaded
+- Input files missing
+- Wrong file paths
+- Check `*.err` files
+:::
+::::
+
+:::: {.columns}
+::: {.column width="50%"}
+**Out of Memory:**
+
+- Increase `--mem` 
+- Use memory profiling
+- Optimize algorithms
+:::
+
+::: {.column width="50%"}
+<br>
+
+::::: {.callout-tip}
+Always check error files and test scripts interactively first!
+:::::
+:::
+::::
+
+
+
+
+## Summary
+
+::: {.callout-note}
+## Key Points
+
+- **Slurm manages fair resource allocation** on shared HPC systems
+- **Job scripts use `#SBATCH` directives** to specify requirements
+- **Right-size your resource requests** for efficient scheduling
+- **Monitor jobs with `squeue` and `sacct`** for optimization
+- **Test interactively first** before submitting large jobs
+- **Use job arrays** for multiple similar tasks
+:::
+
+**Remember:** Start small, test thoroughly, monitor usage, and optimize!

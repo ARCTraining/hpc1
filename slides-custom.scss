@@ -1,0 +1,65 @@
+/*-- scss:defaults --*/
+
+// Colors
+$primary: #0073e6;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+$font-family-sans-serif: "Source Sans Pro", sans-serif;
+
+/*-- scss:rules --*/
+
+.reveal {
+  font-family: $font-family-sans-serif;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: $primary;
+  font-weight: 600;
+}
+
+.reveal .slide-number {
+  color: $primary;
+}
+
+.reveal .progress {
+  color: $primary;
+}
+
+.reveal pre code {
+  font-size: 0.8em;
+  line-height: 1.2;
+}
+
+.reveal .callout {
+  margin: 1em 0;
+}
+
+.reveal .callout-title {
+  font-weight: 600;
+}
+
+// Custom classes for tabs content
+.tab-content {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.tab-title {
+  color: $primary;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

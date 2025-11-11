@@ -1,0 +1,111 @@
+---
+title: "Parallelisation and Amdahl's Law"
+subtitle: "Understanding the limits of parallel speedup"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+
+## Amdahl's Law
+
+![Amdahl's Law graph *Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons* ](assets/img/amdahl.png){fig-align="center"}
+
+---
+
+## Key Insights {.smaller}
+
+:::: {.columns}
+
+:::{.column width=50%}
+![Amdahl's Law graph *Image source: Daniels220 Wikipedia, CC BY-SA 3.0, via Wikimedia Commons* ](assets/img/amdahl.png){fig-align="center"}
+:::
+
+:::{.column width=50%}
+
+:::::{.incremental}
+- The greater the parallelised portion, the greater the speed-up by adding more cores
+- There comes a point of diminishing returns where adding more cores has a negligible effect:
+  - If 50% of the job is parallelised, the greatest speedup is 2 times
+  - If 95% of the work is parallelised, the greatest speedup is 20 times
+:::::
+
+:::
+
+::::
+
+---
+
+## Parallelisation Strategies
+
+The way in which you parallelise your work depends on the problem you are solving!
+
+:::: {.columns}
+
+:::{.column width=55%}
+
+### Task Parallelism
+
+- Divide work into independent tasks
+- Each processor works on different tasks
+- Good for different types of calculations
+
+:::
+
+:::{.column width=45%}
+
+### Data Parallelism  
+
+- Same operation applied to different data
+- Each processor works on subset of data
+- Good for large datasets
+
+:::
+:::: 
+---
+
+## Practical Implications
+
+::: {.incremental}
+- **Before scaling up:**
+    - Profile your code to understand bottlenecks
+    - Identify which parts can be parallelized
+    - Consider the communication overhead
+- **When choosing resources:**
+    - More cores ≠ always faster
+    - Consider memory requirements per core
+    - Balance cores vs. memory vs. time
+:::
+
+---
+
+## Real Performance Example
+
+::: {.fragment}
+**Scenario:** Image processing job with 1000 files
+
+- **Serial:** 10 hours on 1 core
+- **10 cores:** ~1.2 hours (not exactly 1 hour due to overhead)
+- **100 cores:** ~8 minutes (if perfectly parallel)
+- **1000 cores:** Likely slower due to overhead!
+:::
+
+---
+
+## Exercise
+
+Return to the main notes and try to answer the questions!
+---
+
+## Next Steps {.center}
+
+Now you understand HPC basics!
+
+Let's learn how to actually connect and use the system.
+
+[Continue to Session 2: Logging On →](logging-on-and-linux-recap.qmd)

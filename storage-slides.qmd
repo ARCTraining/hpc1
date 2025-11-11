@@ -1,0 +1,400 @@
+---
+title: "Storage Systems on Aire"
+subtitle: "Understanding file systems and data management"
+format: 
+  revealjs:
+    theme: [default, slides-custom.scss]
+    logo: assets/img/logo/logo.png
+    footer: "HPC1: Introduction to High Performance Computing | University of Leeds"
+    slide-number: true
+    show-slide-number: all
+    background-transition: fade
+---
+
+## Storage Overview {.smaller}
+
+The Aire HPC file system includes several special directories:
+
+- **Home directory** (`/users/<username>`, `$HOME`) for personal files
+- **Scratch directory** (`/mnt/scratch/<username>`, `$SCRATCH`) for large, temporary data  
+- **Flash (NVMe) scratch** (`$TMP_SHARED`) for very fast I/O during jobs
+- **Node-local scratch** (`$TMP_LOCAL`, `$TMPDIR`) for fast local storage
+
+**Symlinks exist:** `/scratch` → `/mnt/scratch`, `/flash` → `/mnt/flash`
+
+---
+
+## Critical Storage Rules {.center}
+
+::: {.fragment}
+✅ **Home** is backed up and not automatically purged
+:::
+
+::: {.fragment}  
+❌ **Scratch and flash** are not backed up
+:::
+
+::: {.fragment}
+🗑️ **Flash** is deleted after each job
+:::
+
+::: {.fragment}
+⚠️ **Always** copy important results from temporary storage back to your home directory **before** the job ends
+:::
+
+---
+
+## Storage Comparison Table
+
+| Storage | Quota | Backup | Auto-Delete | Best For |
+|---------|-------|--------|-------------|----------|
+| **Home** | ~30 GB | ✅ Yes | ❌ No | Scripts, configs |
+| **Scratch** | ~1 TB | ❌ No | ❌ No | Large datasets |
+| **Flash** | ~1 TB | ❌ No | ✅ Yes | I/O-intensive |
+| **Local** | Variable | ❌ No | ✅ Yes | Single-node |
+
+---
+
+## Home Directory (`$HOME`)
+
+::: {.incremental}
+**Characteristics:**
+
+- Quota: ~30 GB and 1,000,000 files
+- Backup enabled and not deleted automatically
+- Best for small, persistent files
+:::
+
+::: {.incremental}
+
+**Use for:**
+
+- Scripts and code
+- Configuration files
+- Documentation
+:::
+
+---
+
+## Scratch Directory (`$SCRATCH`)
+
+::: {.incremental}
+**Characteristics:**
+
+- Quota: ~1 TB and 500,000 files
+- **No backups** - you must move your results to persistent storage
+- Not deleted automatically - you must clean up manually
+:::
+
+
+## Scratch Directory (`$SCRATCH`)
+
+::: {.incremental}
+**Use for:**
+
+- Large datasets during processing
+- Intermediate job results
+- Temporary files
+- Input data for jobs
+- Back up your results elsewhere!!
+:::
+
+---
+
+## Flash Storage (`$TMP_SHARED`)
+
+::: {.incremental}
+**Characteristics:**
+
+- Quota: ~1 TB per job
+- **Auto-deleted** when job completes
+- Very fast NVMe storage
+:::
+
+::: {.incremental}
+**Use for:**
+
+- I/O-intensive tasks during jobs
+- Temporary files that need fast access
+- Checkpoint files during long jobs
+:::
+
+---
+
+## Local Scratch (`$TMP_LOCAL`)
+
+::: {.incremental}
+**Characteristics:**
+
+- Node-specific quota
+- **Auto-deleted** after job completion
+- Fastest storage (on the compute node)
+:::
+
+::: {.incremental}
+**Use for:**
+
+- Single-node jobs requiring fast I/O
+- Temporary files that don't need to be shared
+- Very fast local processing
+:::
+
+---
+
+## Checking Disk Usage
+
+### The `quota` command
+
+```bash
+quota -s    # Human readable format
+```
+
+::: {.fragment}
+Example output:
+```
+Disk quotas for user yourusername (uid 12345):
+     Filesystem   blocks   quota   limit   
+      /users     15000*   30000    33000   
+   /mnt/scratch 100000   1000000 1100000  
+```
+:::
+
+---
+
+## The `du` Command
+
+```bash
+du -hs *           # Size of each directory
+du -hs $HOME       # Size of home directory  
+du -hs $SCRATCH    # Size of scratch directory
+du -h --max-depth=1 .  # Directory sizes, one level deep
+```
+
+::: {.fragment}
+**Pro tip:** `du -hs *` in scratch shows which subdirectories use the most space (can be slow!)
+:::
+
+---
+
+## Navigation with Environment Variables
+
+```bash
+cd $HOME        # Go to home directory
+cd $SCRATCH     # Go to scratch directory  
+cd              # Also goes to home
+cd ~            # Also goes to home
+
+ls $HOME        # List home contents
+ls $SCRATCH     # List scratch contents
+pwd             # Show current directory
+```
+
+::: {.fragment}
+**Environment variables make it easy to navigate between storage areas!**
+:::
+
+---
+
+## File Operations
+
+### Between storage areas on Aire:
+
+```bash
+# Copy TO scratch
+cp data.txt $SCRATCH/
+
+# Copy FROM scratch back to home  
+cp $SCRATCH/output.dat $HOME/results/
+
+# Copy entire directory
+cp -r $HOME/myproject $SCRATCH/
+```
+
+---
+
+## File Transfer: scp
+
+### From local machine TO Aire:
+```bash
+scp myfile.txt <username>@target-system:$SCRATCH/
+```
+
+### From Aire TO local machine:
+```bash
+scp <username>@target-system:/path/results.txt .
+```
+
+::: {.fragment}
+**Remember:** Use jumphost if connecting from off-campus!
+:::
+
+---
+
+## File Transfer: rsync
+
+Better for large files and directories:
+
+```bash
+rsync -avh data/ <username>@target-system:path/data/
+```
+
+::: {.fragment}
+**Benefits:**
+
+- Only transfers changed files
+- Resumes interrupted transfers  
+- Progress indicators with `--info=progress2`
+- More efficient than scp for large transfers
+:::
+
+---
+
+## Off-Campus Transfers
+
+### With jumphost:
+
+```bash
+# Using rsync
+rsync -r --info=progress2 -e 'ssh -J user@jump-host' \
+      file.txt user@target-system:path/
+
+# Using scp  
+scp -rq -J user@jump-host \
+    user@target-system:path/file.txt local-folder/
+```
+
+---
+
+## Download from Internet
+
+```bash
+wget https://example.com/data.zip
+curl -O https://example.com/data.zip
+```
+
+::: {.fragment}
+**Use case:** Download datasets, software, or reference files directly to Aire
+:::
+
+---
+
+## GUI Tools
+
+For those who prefer graphical interfaces:
+
+::: {.fragment}
+- **FileZilla** (cross-platform SFTP client)
+- **WinSCP** (Windows)  
+- **Cyberduck** (Mac/Windows)
+- **VS Code Remote** (integrated file browser)
+:::
+
+::: {.fragment}
+All connect via SFTP to Aire login nodes
+:::
+
+---
+
+## Best Practices Workflow
+
+::: {.fragment}
+1. **Prepare**: Upload input data to `$SCRATCH`
+:::
+
+::: {.fragment}
+2. **Process**: Run jobs using scratch storage
+:::
+
+::: {.fragment}  
+3. **Preserve**: Copy important results to dedicated research storage
+:::
+
+::: {.fragment}
+4. **Cleanup**: Remove temporary files from `$SCRATCH`
+:::
+
+---
+
+## Data Loss Prevention
+
+::: {.callout-warning}
+## Critical Reminders
+
+- Scratch and flash are **temporary** storage
+- No backups on scratch/flash
+- Flash is **automatically deleted** after jobs
+- Always copy important results to dedicated research storage
+- Regular cleanup prevents quota issues
+:::
+
+---
+
+## Exercise Time! {.center}
+
+Let's practice these concepts
+
+---
+
+## Exercise 1: Environment Variables
+
+Display the values of `$HOME` and `$SCRATCH`:
+
+```bash
+echo $HOME
+echo $SCRATCH  
+```
+
+---
+
+## Exercise 2: Check Usage
+
+Check your current disk usage and quotas:
+
+```bash
+quota -s
+```
+
+What do you see? Are you close to any limits?
+
+---
+
+## Exercise 3: Navigation
+
+Practice navigating between storage areas:
+
+1. Use `cd` with environment variables like `$SCRATCH`
+2. Use `pwd` to check where you are  
+3. Use `ls` to see what files are present
+
+---
+
+## Exercise 4: File Transfer Command
+
+On your **local machine**, write the `scp` command to download `results.txt` from your home directory on Aire into your current local directory.
+
+::: {.fragment}
+**Answer:**
+```bash
+scp <username>@target-system:/users/yourname/results.txt .
+```
+:::
+
+---
+
+## Summary
+
+::: {.fragment}
+- **Multiple storage types** for different use cases
+- **Environment variables** make navigation easier
+- **Regular monitoring** with `quota` and `du`
+- **Proper workflow** prevents data loss
+- **Backup important data** from temporary storage
+:::
+
+---
+
+## Next Steps {.center}
+
+Now you understand Aire storage!
+
+Let's learn about [software and modules](modules-software.html)
