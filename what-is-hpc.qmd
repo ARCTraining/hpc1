@@ -136,6 +136,7 @@ Ready to start using HPC? Let's move on to [Session 2: Logging on and Linux Reca
 ## Additional Resources
 
 - [Aire Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
+- [Calder Documentation](https://arcdocs.leeds.ac.uk/calder/welcome.html)
 - [Research Computing Training](https://arc.leeds.ac.uk/courses/)
 - [Contact Research Computing](mailto:ask-rc@leeds.ac.uk)
 - [Parallel Computing Concepts](https://en.wikipedia.org/wiki/Parallel_computing)
