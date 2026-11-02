@@ -40,7 +40,7 @@ In this course, we cover:
 - Developing scripts to run codes and applications
 - Benchmarking and analysing how jobs scale
 
-These notes are based on our [HPC user documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html); you can find more details on any of the topics there!
+These notes are based on our [HPC user documentation](https://arcdocs.leeds.ac.uk/calder/welcome.html); you can find more details on any of the topics there!
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ In order to participate in this course, you will need:
 - An account on the Aire HPC platform
 - To be able to remotely connect to Aire from your machine
 - Basic Linux command line experience
-    - Attend or read through our Linux course materials here [HPC0: Introduction to Command Line Linux](https://arc.leeds.ac.uk/courses/hpc0-introduction-to-linux-for-hpc/) if you are unfailliar with working from the command line
+    - Attend or read through our Linux course materials here [HPC0: Introduction to Command Line Linux](https://arc.leeds.ac.uk/knowledge-centre/courses/hpc0/) if you are unfailliar with working from the command line
 
 ::: {.callout-warning}
 ## Aire Account
@@ -60,7 +60,7 @@ You need an account on [Aire](https://arcdocs.leeds.ac.uk/aire/welcome.html) in 
 ## Connection Requirements
 You need to be able to connect to Aire from your machine for this course. If you are attending this course in person and do not plan on using your own laptop, we will show you how to connect from one of the cluster machines.
 
-If you are attending online or plan on using your own laptop, please follow the [instructions here](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html#logging-on) to ensure you have the required software installed on your machine.
+If you are attending online or plan on using your own laptop, please follow the [instructions here](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html to ensure you have the required software installed on your machine.
 :::
 
 ## Delivery

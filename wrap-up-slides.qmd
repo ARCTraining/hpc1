@@ -24,12 +24,12 @@ Congratulations on completing HPC1!
 ::: {.columns}
 ::: {.column width="50%"}
 ### Technical Skills ✅
-- **HPC Concepts**: Clusters, nodes, cores, parallelization
+- **HPC Concepts**: Clusters, nodes, cores, parallelisation
 - **Linux Command Line**: File navigation and management
 - **Storage Systems**: Home, scratch, temporary storage
 - **Software Management**: Module system mastery
 - **Job Scheduling**: Slurm job script creation
-- **Best Practices**: Troubleshooting and optimization
+- **Best Practices**: Troubleshooting and optimisation
 :::
 
 ::: {.column width="50%"}

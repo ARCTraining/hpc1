@@ -46,7 +46,7 @@ A **job scheduler** is the system that:
 
 - Fair resource allocation
 - Automatic job management
-- Efficient resource utilization
+- Efficient resource utilisation
 - Priority-based execution
 :::
 :::
@@ -383,7 +383,7 @@ fi
 **Solutions**:
 - Increase `--mem` or `--mem-per-cpu`
 - Use memory profiling tools
-- Consider algorithm optimizations
+- Consider algorithm optimisations
 
 # Exercise
 
@@ -545,7 +545,5 @@ Now you can submit and manage jobs on Aire! Let's move on to [Session 6: Best Pr
 
 ## Additional Resources
 
-- [Aire Job Submission Guide](https://arcdocs.leeds.ac.uk/aire/usage/jobsubmission/start.html)
-- [Aire job types documentation](https://arcdocs.leeds.ac.uk/aire/usage/job_type.html#job-types)
+- [Aire Job Submission Guide](https://arcdocs.leeds.ac.uk/aire/usage/job_example.html)
 - [Slurm Documentation](https://slurm.schedmd.com/)
-- [Resource Planning Guide](https://arcdocs.leeds.ac.uk/aire/usage/jobsubmission/resource_planning.html)

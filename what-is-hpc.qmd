@@ -98,7 +98,7 @@ According to Amdahl's Law, the maximum speedup is limited by the portion of the 
 ::: {.callout-tip collapse="true"}
 ## Q4: A program is 80% parallelizable. What's the maximum theoretical speedup you could achieve?
 
-**Answer:** According to Amdahl's Law, if 80% of a program can be parallelized, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.
+**Answer:** According to Amdahl's Law, if 80% of a program can be parallelised, the maximum speedup is 1/(1-0.8) = 5 times faster, regardless of how many cores you use.
 :::
 
 ::: {.callout-tip collapse="true"}
@@ -106,9 +106,9 @@ According to Amdahl's Law, the maximum speedup is limited by the portion of the 
 
 **Answer:** HPC might not be suitable when:
 
-- Your program cannot be parallelized effectively
+- Your program cannot be parallelised effectively
 - The problem is small enough to run quickly on a regular computer
-- Your workflow requires frequent interaction or visualization
+- Your workflow requires frequent interaction or visualisation
 
 :::
 
@@ -120,7 +120,7 @@ According to Amdahl's Law, the maximum speedup is limited by the portion of the 
 ## Key Takeaways
 
 - **HPC enables research** that would be impossible on regular computers
-- **Parallelization is key** - breaking problems into smaller parts that run simultaneously
+- **Parallelisation is key** - breaking problems into smaller parts that run simultaneously
 - **Amdahl's Law** sets limits on speedup based on the serial portion of your code
 - **Different types of parallelism** (task vs. data) suit different problems
 - **HPC isn't always the answer** - consider if your problem truly needs it
@@ -135,9 +135,10 @@ Ready to start using HPC? Let's move on to [Session 2: Logging on and Linux Reca
 
 ## Additional Resources
 
-- [Aire Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
-- [Calder Documentation](https://arcdocs.leeds.ac.uk/calder/welcome.html)
+- [Aire User Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
+- [Leeds HPC Documentation](https://arcdocs.leeds.ac.uk/calder/welcome.html)
 - [Research Computing Training](https://arc.leeds.ac.uk/courses/)
-- [Contact Research Computing](mailto:ask-rc@leeds.ac.uk)
+- [Submit a Research IT query](https://bit.ly/arc-help)
+- [Email Research Computing](mailto:RCTeam@leeds.ac.uk)
 - [Parallel Computing Concepts](https://en.wikipedia.org/wiki/Parallel_computing)
 - [Amdahl's Law Explained](https://en.wikipedia.org/wiki/Amdahl%27s_law)

@@ -46,7 +46,7 @@ Modules are a way to manage different software environments on HPC systems
 - Clean environments
 - Multiple software versions
 - Easy switching
-- Optimized HPC builds
+- Optimised HPC builds
 - Reproducible research
 :::
 
@@ -198,12 +198,12 @@ This provides better dependency management!
 
 ## Requesting New Software
 
-### Centralized Management
+### Centralised Management
 
 ::: {.fragment}
 **Benefits:**
 - Popular software centrally installed
-- Optimized for HPC hardware
+- Optimised for HPC hardware
 - Professional maintenance
 - Avoids conflicts
 :::

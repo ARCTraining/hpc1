@@ -75,7 +75,7 @@ fi
 :::
 
 ::: {.column width="50%"}
-**Good Organization:**
+**Good Organisation:**
 ```bash
 #SBATCH --job-name=meaningful_name
 #SBATCH --output=logs/job_%j.out
@@ -131,9 +131,9 @@ sacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State
 - Not using all requested CPUs
 - I/O bottlenecks
 - Inefficient algorithms
-- Wrong parallelization strategy
+- Wrong parallelisation strategy
 
-## Performance Optimization: I/O
+## Performance Optimisation: I/O
 
 
 :::: {.columns}

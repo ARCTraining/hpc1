@@ -39,9 +39,9 @@ The Aire HPC file system includes several special directories:
 
 | Storage Type | Quota | Backup | Auto-Delete | Best For |
 |--------------|-------|--------|-------------|----------|
-| **Home** (`$HOME`) | ~30 GB, 1M files | ✅ Yes | ❌ No | Scripts, configs, small files |
-| **Scratch** (`$SCRATCH`) | ~1 TB, 500K files | ❌ No | ❌ No | Large datasets, job data |
-| **Flash** (`$TMP_SHARED`) | ~1 TB per job | ❌ No | ✅ Yes | I/O-intensive tasks |
+| **Home** (`$HOME`) | 65 GB, 1.5 million files | ✅ Yes | ❌ No | Scripts, configs, small files |
+| **Scratch** (`$SCRATCH`) | 1 TB, 1.5 million files | ❌ No | ❌ No | Large datasets, job data |
+| **Flash** (`$TMP_SHARED`) | 1 TB per job | ❌ No | ✅ Yes | I/O-intensive tasks |
 | **Local** (`$TMP_LOCAL`) | Node-specific | ❌ No | ✅ Yes | Single-node fast storage |
 
 ::: {.callout-warning}
@@ -170,7 +170,7 @@ For those who prefer graphical interfaces:
 2. **Regular cleanup**: Run `quota -s` regularly and clean up old files  
 3. **Data transfer workflow**: Transfer input to `$SCRATCH` before jobs, copy results back after
 4. **Avoid data loss**: Always backup important data from temporary storage
-5. **Organization**: Keep your home directory organized and place large data in scratch only when needed
+5. **Organisation**: Keep your home directory organised and place large data in scratch only when needed
 :::
 
 ### Typical Workflow
@@ -198,7 +198,7 @@ pwd
 quota -s
 ```
 
-### Exercise 2: Create Organized Directory Structure
+### Exercise 2: Create Organised Directory Structure
 
 Set up a proper directory structure in both storage areas:
 
@@ -275,7 +275,7 @@ ls $HOME/hpc1-practice/results/
 ## What You've Accomplished
 
 - ✅ Explored storage locations and quotas
-- ✅ Created organized directory structures
+- ✅ Created organised directory structures
 - ✅ Practiced file creation and copying between storage areas  
 - ✅ Monitored disk usage and performed cleanup
 - ✅ Followed the recommended workflow: work in scratch, save to home
@@ -306,6 +306,6 @@ Now you understand how to manage data on Aire! Let's move on to [Session 4: Modu
 
 - [Aire Storage Documentation](https://arcdocs.leeds.ac.uk/aire/system/storage_filesystem.html)
 - [Data Management Best Practices](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/best_practices.html)
-- [File Transfer Guide](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/start.html)
+- [File Transfer Guide](https://arcdocs.leeds.ac.uk/aire/usage/file_data_management/data_transfer.html)
 - [Linux File Permissions Guide](https://www.linux.com/training-tutorials/understanding-linux-file-permissions/)
 - [rsync Tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories)

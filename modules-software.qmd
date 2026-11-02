@@ -37,7 +37,7 @@ Modules are a way to manage different software environments on HPC systems:
 **Benefits:**
 - Clean separation of software environments
 - Easy to switch between environments
-- Optimized builds for HPC hardware
+- Optimised builds for HPC hardware
 :::
 
 ::: {.column width="50%"}
@@ -114,10 +114,10 @@ When running Python jobs, we recommend using the Miniforge module to create a co
 
 ## Requesting New Software
 
-### Centralized Management
+### Centralised Management
 
 - Popular software is centrally installed by the Research Computing team
-- Ensures optimized performance and avoids conflicts
+- Ensures optimised performance and avoids conflicts
 - Regularly updated with new versions
 
 ### How to Request New Software
@@ -398,6 +398,7 @@ Now you know how to manage software on Aire! Let's move on to [Session 5: Job Sc
 ## Additional Resources
 
 - [Aire Software Documentation](https://arcdocs.leeds.ac.uk/aire/software/start.html)
-- [Dependency Management Guide](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)
-- [Software Request Form](https://bit.ly/arc-help)
-- [Miniforge and Conda Guide](https://arcdocs.leeds.ac.uk/aire/usage/dependency_management.html)
+- [Calder Software Documentation](https://arcdocs.leeds.ac.uk/calder/software/start.html)
+- [Software Environment Management Guide](https://arcdocs.leeds.ac.uk/aire/usage/software_env_management.html)
+- [HPC Software Request Form](https://it.leeds.ac.uk/it?id=sc_cat_item&sys_id=48d5a6d70f275f00a82247ece1050ea0)
+- [HPC2 Training Material](https://arctraining.github.io/hpc2-software/welcome.html)

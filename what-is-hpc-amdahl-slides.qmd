@@ -74,7 +74,7 @@ The way in which you parallelise your work depends on the problem you are solvin
 ::: {.incremental}
 - **Before scaling up:**
     - Profile your code to understand bottlenecks
-    - Identify which parts can be parallelized
+    - Identify which parts can be parallelised
     - Consider the communication overhead
 - **When choosing resources:**
     - More cores ≠ always faster
