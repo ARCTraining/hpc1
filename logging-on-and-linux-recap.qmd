@@ -53,7 +53,7 @@ From off-campus (or using a machine on Eduroam as opposed to the wired network),
 ssh <username>@target-system -J <username>@jump-host
 ```
 
-For further guidance on logging on to Aire, see our documentation: [Aire docs - Logging On](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html){target="_blank"}
+For further guidance on logging on to Aire, see our documentation: [Aire docs - Logging On](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html)
 
 ---
 
@@ -131,8 +131,8 @@ Now that you can connect to Aire and understand basic Linux commands, let's move
 
 ## Additional Resources
 
-- [Aire Getting Started Guide](https://arcdocs.leeds.ac.uk/aire/getting_started/start.html)
-- [Linux Command Line Tutorial](https://arc.leeds.ac.uk/courses/hpc0-introduction-to-linux-for-hpc/)
-- [SSH Documentation](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html)
+- [Aire User Documentation](https://arcdocs.leeds.ac.uk/aire/welcome.html)
+- [Leeds HPC Documentation](https://arcdocs.leeds.ac.uk/calder/welcome.html)
+- [HPC0 Training](https://arc.leeds.ac.uk/knowledge-centre/courses/hpc0/)
 - [Linux Commands Cheat Sheet](https://www.linuxtrainingacademy.com/linux-commands-cheat-sheet/)
 - [VS Code Remote SSH Guide](https://code.visualstudio.com/docs/remote/ssh)

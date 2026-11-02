@@ -28,7 +28,7 @@ Throughout this course, you've covered:
 ::: {.g-col-12 .g-col-md-6}
 ### Technical Skills
 
-- **HPC Concepts**: Understanding clusters, nodes, cores, and parallelization
+- **HPC Concepts**: Understanding clusters, nodes, cores, and parallelisation
 - **Linux Command Line**: Essential commands for navigating and managing files
 - **Storage Systems**: Home, scratch, and temporary storage management
 - **Software Management**: Using the module system and managing environments
@@ -92,17 +92,17 @@ flowchart TD
 
 #### Parallel Programming
 
-- **OpenMP**: Shared-memory parallelization for multi-core systems
+- **OpenMP**: Shared-memory parallelisation for multi-core systems
 - **MPI**: Message-passing for distributed computing across nodes
 - **GPU Computing**: Using CUDA or OpenCL for GPU acceleration
 - **Workflow Management**: Tools like Snakemake or Nextflow
 
-#### Performance Optimization
+#### Performance Optimisation
 
 - **Profiling**: Tools to identify bottlenecks in your code
 - **Benchmarking**: Systematic testing of different resource configurations
-- **Memory Optimization**: Techniques for handling large datasets
-- **I/O Optimization**: Efficient file reading/writing strategies
+- **Memory Optimisation**: Techniques for handling large datasets
+- **I/O Optimisation**: Efficient file reading/writing strategies
 
 #### Advanced Job Management
 
@@ -152,7 +152,7 @@ flowchart TD
 | Language | Strengths | Common Uses |
 |----------|-----------|-------------|
 | **Python** | Easy to learn, extensive libraries | Data analysis, machine learning |
-| **R** | Statistical computing, visualization | Statistics, bioinformatics |
+| **R** | Statistical computing, visualisation | Statistics, bioinformatics |
 | **C/C++** | High performance, close to hardware | Computational science, simulations |
 | **Fortran** | Legacy scientific code, numerical | Physics, engineering simulations |
 | **Julia** | High performance, modern syntax | Scientific computing, data science |
@@ -247,7 +247,6 @@ As you advance in your HPC journey, remember these core principles:
 
 - [Advanced HPC Training Courses](https://arc.leeds.ac.uk/courses/)
 - [Research Software Development in Python](https://arctraining.github.io/research-software-development/)
-    - Planning and organising your code projects
 - [Research Data Management](https://library.leeds.ac.uk/info/14062/research_data_management)
 - [HPC Community Forums](https://stackoverflow.com/questions/tagged/hpc)
 

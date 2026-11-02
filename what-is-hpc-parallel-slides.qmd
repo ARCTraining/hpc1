@@ -88,6 +88,6 @@ Most tasks you run or models you run on the HPC will fall somewhere in-between s
 
 ## Next Steps {.center}
 
-Understanding parallelization theory and Amdahl's Law
+Understanding parallelisation theory and Amdahl's Law
 
 [Continue to Amdahl's Law slides →](what-is-hpc-amdahl-slides.qmd)

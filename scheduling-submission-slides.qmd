@@ -28,7 +28,7 @@ format:
 
 - Fair resource allocation
 - Automatic job management
-- Efficient resource utilization
+- Efficient resource utilisation
 - Priority-based execution
 :::
 ::::
@@ -325,7 +325,7 @@ Always check error files and test scripts interactively first!
 - **Slurm manages fair resource allocation** on shared HPC systems
 - **Job scripts use `#SBATCH` directives** to specify requirements
 - **Right-size your resource requests** for efficient scheduling
-- **Monitor jobs with `squeue` and `sacct`** for optimization
+- **Monitor jobs with `squeue` and `sacct`** for optimisation
 - **Test interactively first** before submitting large jobs
 - **Use job arrays** for multiple similar tasks
 :::
