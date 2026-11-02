@@ -60,7 +60,7 @@ You need an account on [Aire](https://arcdocs.leeds.ac.uk/aire/welcome.html) in 
 ## Connection Requirements
 You need to be able to connect to Aire from your machine for this course. If you are attending this course in person and do not plan on using your own laptop, we will show you how to connect from one of the cluster machines.
 
-If you are attending online or plan on using your own laptop, please follow the [instructions here](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html to ensure you have the required software installed on your machine.
+If you are attending online or plan on using your own laptop, please follow the [instructions here](https://arcdocs.leeds.ac.uk/aire/getting_started/logging_on.html) to ensure you have the required software installed on your machine.
 :::
 
 ## Delivery
