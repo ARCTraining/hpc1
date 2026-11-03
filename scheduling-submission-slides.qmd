@@ -34,7 +34,7 @@ format:
 ::::
 
 ::: {.callout-note}
-A **job scheduler** organizes when and where jobs run, allocates resources, and ensures fair access for all users.
+A **job scheduler** organises when and where jobs run, allocates resources, and ensures fair access for all users.
 :::
 
 ## Slurm Workflow

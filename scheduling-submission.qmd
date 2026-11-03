@@ -25,7 +25,7 @@ High Performance Computing (HPC) systems are shared by many users, each submitti
 
 A **job scheduler** is the system that:
 
-- Organizes when and where jobs run
+- Organises when and where jobs run
 - Allocates the requested resources (CPU cores, memory, GPUs)
 - Ensures fair access to shared resources for all users
 
