@@ -11,7 +11,7 @@ By the end of this session, you will be able to:
 
 - Understand key HPC terminology and concepts
 - Explain the difference between serial and parallel programs
-- Recognize when HPC might benefit your research
+- Recognise when HPC might benefit your research
 - Describe the basic architecture of HPC cluster systems
 
 Please scroll to the bottom of the page to see the exercises for this session.

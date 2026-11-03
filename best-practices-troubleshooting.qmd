@@ -11,9 +11,9 @@ format: html
 By the end of this session, you will be able to:
 
 - Apply best practices for resource management and job planning
-- Optimize file I/O and data management workflows
+- Optimise file I/O and data management workflows
 - Troubleshoot common HPC problems and job failures
-- Monitor and analyze job performance effectively
+- Monitor and analyse job performance effectively
 - Follow proper HPC etiquette and community guidelines
 - Develop efficient and reproducible computational workflows
 
@@ -45,7 +45,7 @@ sacct -j JOBID --format=JobID,Elapsed,MaxRSS,AveCPU,State
 
 - **Use appropriate storage**: Home for code, scratch for data processing
 - **Clean up regularly**: Remove temporary files from scratch
-- **Organize your work**: Use clear directory structures
+- **Organise your work**: Use clear directory structures
 - **Backup important results**: Don't rely on scratch storage
 
 ### Writing Robust Job Scripts
@@ -180,7 +180,7 @@ grep -i "memory\|oom\|killed" job_output.err
 **Solutions**:
 
 1. Increase memory request: `#SBATCH --mem=32G`
-2. Optimize your code to use less memory
+2. Optimise your code to use less memory
 3. Process data in smaller chunks
 4. Use memory profiling tools
 
@@ -221,7 +221,7 @@ sacct -j JOBID --format=JobID,AveCPU,ReqCPUS,Elapsed,State
 - Large temporary files: `$SCRATCH`
 - High I/O during job: `$TMP_SHARED` (flash storage)
 
-**Optimize I/O patterns**:
+**Optimise I/O patterns**:
 ```bash
 # Bad: Many small writes
 for i in {1..1000}; do
@@ -339,7 +339,7 @@ sacct -j JOBID --format=JobID,JobName,Elapsed,State,MaxRSS,AveCPU,ReqCPUS,ReqMem
 
 ### Log File Analysis
 
-Organize your log files:
+Organise your log files:
 ```bash
 #!/bin/bash
 #SBATCH --output=logs/job_%j_%x.out
@@ -446,7 +446,7 @@ Include this information:
 
 - [ ] Include error handling (`set -e`)
 - [ ] Use meaningful job names
-- [ ] Organize output files
+- [ ] Organise output files
 - [ ] Document your workflow
 
 **Resource management:**

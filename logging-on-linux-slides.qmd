@@ -185,7 +185,7 @@ What do the following Linux commands do? How might they be used on the HPC servi
 
 - `ls` - **List files and directories** (see what's available)
 - `pwd` - **Print working directory** (know where you are)
-- `mkdir` - **Make directory** (organize your work)
+- `mkdir` - **Make directory** (organise your work)
 - `cp` - **Copy files** (backup important data)
 - `wget` - **Download files from web** (get datasets, software)
 - `rm` - **Remove files** (clean up files)

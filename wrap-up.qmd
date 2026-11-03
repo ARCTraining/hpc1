@@ -10,7 +10,7 @@ format: html
 
 By the end of this session, you will be able to:
 
-- Summarize the key HPC concepts and skills learned throughout the course
+- Summarise the key HPC concepts and skills learned throughout the course
 - Identify next steps for developing your HPC expertise
 - Access ongoing support resources and documentation
 - Plan your research computing workflows using HPC best practices
@@ -84,7 +84,7 @@ flowchart TD
 
 1. **Practice**: Try running some of your own code on Aire
 2. **Explore**: Browse the available software modules
-3. **Organize**: Set up a clear directory structure for your projects
+3. **Organise**: Set up a clear directory structure for your projects
 4. **Backup**: Implement a data backup strategy
 5. **Connect**: Join HPC user communities
 
@@ -123,7 +123,7 @@ flowchart TD
 #### External Learning Resources
 
 - **[Slurm Documentation](https://slurm.schedmd.com/)**: Official Slurm documentation
-- **[Parallel Programming Tutorials](https://computing.llnl.gov/tutorials/)**: Lawrence Livermore National Laboratory tutorials
+- **[Parallel Programming Tutorials](https://hpc.llnl.gov/documentation/tutorials/introduction-parallel-computing-tutorial)**: Lawrence Livermore National Laboratory tutorials
 
 ### Community and Support
 
@@ -247,7 +247,7 @@ As you advance in your HPC journey, remember these core principles:
 
 - [Advanced HPC Training Courses](https://arc.leeds.ac.uk/courses/)
 - [Research Software Development in Python](https://arctraining.github.io/research-software-development/)
-- [Research Data Management](https://library.leeds.ac.uk/info/14062/research_data_management)
+- [Research Data Management](https://library.leeds.ac.uk/info/14062/research-data-management/61/research-data-management-explained)
 - [HPC Community Forums](https://stackoverflow.com/questions/tagged/hpc)
 
 ## Course Feedback

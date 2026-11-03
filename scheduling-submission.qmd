@@ -25,7 +25,7 @@ High Performance Computing (HPC) systems are shared by many users, each submitti
 
 A **job scheduler** is the system that:
 
-- Organizes when and where jobs run
+- Organises when and where jobs run
 - Allocates the requested resources (CPU cores, memory, GPUs)
 - Ensures fair access to shared resources for all users
 
@@ -97,7 +97,7 @@ Example output:
 ```
 JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
 12345      test myjob.sh  user123  R    0:05:23      1 node001
-12346      test analyze  user123 PD       0:00      2 (Resources)
+12346      test analyse  user123 PD       0:00      2 (Resources)
 ```
 
 **Job States:**
@@ -541,7 +541,7 @@ You should see output showing:
 
 ## Next Steps
 
-Now you can submit and manage jobs on Aire! Let's move on to [Session 6: Best Practices and Troubleshooting](best-practices-troubleshooting.qmd) to learn how to optimize your HPC workflows.
+Now you can submit and manage jobs on Aire! Let's move on to [Session 6: Best Practices and Troubleshooting](best-practices-troubleshooting.qmd) to learn how to optimise your HPC workflows.
 
 ## Additional Resources
 
