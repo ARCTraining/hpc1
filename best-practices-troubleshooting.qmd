@@ -119,7 +119,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 **Solution**: Check available partitions
 ```bash
 sinfo
-sinfo --summarise
+sinfo --summarize
 ```
 
 **Error**: `sbatch: error: Memory specification can not be satisfied`
