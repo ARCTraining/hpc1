@@ -10,7 +10,7 @@ format: html
 
 By the end of this session, you will be able to:
 
-- Summarize the key HPC concepts and skills learned throughout the course
+- Summarise the key HPC concepts and skills learned throughout the course
 - Identify next steps for developing your HPC expertise
 - Access ongoing support resources and documentation
 - Plan your research computing workflows using HPC best practices
@@ -84,7 +84,7 @@ flowchart TD
 
 1. **Practice**: Try running some of your own code on Aire
 2. **Explore**: Browse the available software modules
-3. **Organize**: Set up a clear directory structure for your projects
+3. **Organise**: Set up a clear directory structure for your projects
 4. **Backup**: Implement a data backup strategy
 5. **Connect**: Join HPC user communities
 

@@ -237,7 +237,7 @@ sacct -j 12345 --format=JobID,JobName,State,ExitCode,MaxRSS,Elapsed
 ::::
 
 ::: {.callout-note}
-Use `sacct` to see actual resource usage and optimize future jobs!
+Use `sacct` to see actual resource usage and optimise future jobs!
 :::
 
 ## Best Practices
@@ -260,7 +260,7 @@ Use `sacct` to see actual resource usage and optimize future jobs!
 - Test interactively first
     - Toy problems
 - Use meaningful job names
-- Organize output files
+- Organise output files
 - Include error handling
 :::
 
@@ -302,7 +302,7 @@ Use `sacct` to see actual resource usage and optimize future jobs!
 
 - Increase `--mem` 
 - Use memory profiling
-- Optimize algorithms
+- Optimise algorithms
 :::
 
 ::: {.column width="50%"}
@@ -330,4 +330,4 @@ Always check error files and test scripts interactively first!
 - **Use job arrays** for multiple similar tasks
 :::
 
-**Remember:** Start small, test thoroughly, monitor usage, and optimize!
+**Remember:** Start small, test thoroughly, monitor usage, and optimise!

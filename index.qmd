@@ -77,7 +77,7 @@ By the end of this session, you will be able to:
 
 - Understand key HPC terminology and concepts
 - Explain the difference between serial and parallel programs
-- Recognize when HPC might benefit your research
+- Recognise when HPC might benefit your research
 - Describe the basic architecture of HPC cluster systems
 
 #### Session 2: Logging On and Linux Recap
@@ -125,9 +125,9 @@ By the end of this session, you will be able to:
 By the end of this session, you will be able to:
 
 - Apply best practices for resource management and job planning
-- Optimize file I/O and data management workflows
+- Optimise file I/O and data management workflows
 - Troubleshoot common HPC problems and job failures
-- Monitor and analyze job performance effectively
+- Monitor and analyse job performance effectively
 - Follow proper HPC etiquette and community guidelines
 - Develop efficient and reproducible computational workflows
 
@@ -135,7 +135,7 @@ By the end of this session, you will be able to:
 
 By the end of this session, you will be able to:
 
-- Summarize the key HPC concepts and skills learned throughout the course
+- Summarise the key HPC concepts and skills learned throughout the course
 - Identify next steps for developing your HPC expertise
 - Access ongoing support resources and documentation
 - Plan your research computing workflows using HPC best practices

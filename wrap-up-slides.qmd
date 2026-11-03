@@ -82,7 +82,7 @@ flowchart TD
 ::: {.incremental}
 1. **Practice**: Run your own code on Aire
 2. **Explore**: Browse available software modules
-3. **Organize**: Set up project directory structure
+3. **Organise**: Set up project directory structure
 4. **Backup**: Implement data backup strategy
 5. **Connect**: Join HPC user communities
 :::

@@ -91,7 +91,7 @@ echo "Starting analysis at $(date)"
 ::::
 
 ::: {.callout-tip}
-Use meaningful names and organize your output files!
+Use meaningful names and organise your output files!
 :::
 
 ##  Right-Sizing Resources
@@ -197,14 +197,14 @@ conda install numpy pandas
 
 - Increase `--mem` or `--mem-per-cpu`
 - Profile memory usage
-- Optimize data structures
+- Optimise data structures
 :::
 
 ::: {.column width="50%"}
 **Job Timeout:**
 
 - Increase `--time` limit
-- Optimize algorithms
+- Optimise algorithms
 - Split into smaller jobs
 :::
 ::::
@@ -284,7 +284,7 @@ pip freeze > requirements.txt
 conda env export > environment.yml
 ```
 
-### Organize Your Workflow
+### Organise Your Workflow
 
 ```
 project/
@@ -313,7 +313,7 @@ git push origin main
 ```bash
 # Include usage information in scripts
 #!/bin/bash
-# Purpose: Analyze genomic data using BWA and samtools
+# Purpose: Analyse genomic data using BWA and samtools
 # Usage: sbatch alignment_job.sh <input_fastq> <reference_genome>
 # Author: Your Name
 # Date: 2024-10-21
@@ -416,7 +416,7 @@ Search documentation first - many common issues are already covered!
 
 - [ ] Include error handling (`set -e`)
 - [ ] Use meaningful job names
-- [ ] Organize output files
+- [ ] Organise output files
 - [ ] Document your workflow
 
 **Resource Management:**

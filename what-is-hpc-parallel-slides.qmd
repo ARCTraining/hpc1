@@ -12,7 +12,7 @@ format:
 
 ## Serial vs Parallel Programs {.center}
 
-Understanding how programs can utilize multiple cores...
+Understanding how programs can utilise multiple cores...
 
 ::: {.fragment}
 helps us to understand how to use the HPC effectively.
